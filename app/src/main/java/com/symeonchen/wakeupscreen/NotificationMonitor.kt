@@ -24,11 +24,4 @@ class NotificationMonitor : NotificationListenerService() {
 
     }
 
-    override fun onNotificationRemoved(sbn: StatusBarNotification?) {
-        super.onNotificationRemoved(sbn)
-    }
-
-    override fun getActiveNotifications(): Array<StatusBarNotification> {
-        return super.getActiveNotifications()
-    }
 }

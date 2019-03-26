@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+            android:id="@+id/iv_status"
+            android:background="#A52844"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+    <com.symeonchen.wakeupscreen.view.StatusItem
+            android:id="@+id/main_item_permission_notification"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"/>
+
+</LinearLayout>
