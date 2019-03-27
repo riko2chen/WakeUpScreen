@@ -3,11 +3,11 @@ package com.symeonchen.wakeupscreen.main
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -21,7 +21,7 @@ class MainFragment : Fragment() {
 
     var status: MutableLiveData<Boolean> = MutableLiveData()
 
-    var permisson: Boolean = false
+    var permission: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
@@ -29,23 +29,28 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        permisson = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
+        permission = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
         main_item_permission_notification.bindData(
             "权限：读取通知",
-            permisson
+            permission
         )
         main_item_permission_notification.listener = object : OnItemClickListener {
-            override fun onClick() {
-                if (!permisson) {
+            override fun onBtnClick() {
+                if (!permission) {
+                    openNotificationService(context!!)
                     PermissionHelper.openReadNotificationSetting(context!!)
                 }
+            }
+
+            override fun onItemClick() {
+
             }
         }
 
         status.observe(this, Observer {
             iv_status.setBackgroundColor(
-                if (it == true) Color.parseColor("#45CE73")
-                else Color.parseColor("#A52844")
+                if (it == true) ContextCompat.getColor(context!!, R.color.success)
+                else ContextCompat.getColor(context!!, R.color.fail)
             )
         })
 
@@ -60,8 +65,15 @@ class MainFragment : Fragment() {
                 status.postValue(true)
             }
         }
+        tryToOpenNotificationService(context!!)
+    }
 
-
+    private fun tryToOpenNotificationService(context: Context) {
+        if (!permission) {
+            return
+        }
+        openNotificationService(context)
+        status.postValue(true)
     }
 
     private fun closeNotificationService(context: Context) {

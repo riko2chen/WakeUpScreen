@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-       xmlns:app="http://schemas.android.com/apk/res-auto"
-       tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
             android:paddingStart="20dp"
@@ -24,7 +26,25 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/main_iv_item_status"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/main_mb_item_nav"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="wrap_content"
+            android:backgroundTint="@color/loading"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_height="40dp"
+            android:textSize="12dp"
+            android:paddingStart="15dp"
+            android:gravity="center"
+            android:paddingEnd="15dp"
+            app:cornerRadius="20dp"
+            android:text="去设置"
+            android:textColor="#fff"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="20dp"
     />
 
 </merge>

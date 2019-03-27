@@ -7,14 +7,15 @@
 
     <ImageView
             android:id="@+id/iv_status"
-            android:background="#A52844"
+            android:background="@color/loading"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
 
     <com.symeonchen.wakeupscreen.view.StatusItem
             android:id="@+id/main_item_permission_notification"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="80dp"/>
+
 
 </LinearLayout>
