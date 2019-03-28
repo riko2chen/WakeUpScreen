@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.symeonchen.wakeupscreen.Injection
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper
-import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.Companion.closeNotificationService
-import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.Companion.openNotificationService
+import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.closeNotificationService
+import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionHelper
 import com.symeonchen.wakeupscreen.view.OnItemClickListener
 import com.symeonchen.wakeupscreen.viewmodels.MainViewModel
@@ -51,8 +51,8 @@ class MainFragment : Fragment() {
     private fun setListener() {
         main_item_permission_notification.listener = object : OnItemClickListener {
             override fun onBtnClick() {
-                NotificationStateHelper.openNotificationService(context!!)
-                PermissionHelper.openReadNotificationSetting(context!!)
+                NotificationStateHelper.openNotificationService(context)
+                PermissionHelper.openReadNotificationSetting(context)
             }
 
             override fun onItemClick() {
@@ -75,10 +75,10 @@ class MainFragment : Fragment() {
         iv_status.isClickable = true
         iv_status.setOnClickListener {
             if (viewModel.status.value == true) {
-                closeNotificationService(context!!)
+                closeNotificationService(context)
                 viewModel.status.postValue(false)
             } else {
-                openNotificationService(context!!)
+                openNotificationService(context)
                 viewModel.status.postValue(true)
             }
         }
@@ -86,10 +86,10 @@ class MainFragment : Fragment() {
 
     private fun getData() {
         viewModel.permissionOfReadNotification.postValue(
-            PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
+            PermissionHelper.hasNotificationListenerServiceEnabled(context)
         )
         viewModel.status.postValue(
-            NotificationStateHelper.isNotificationServiceOpen(context!!)
+            NotificationStateHelper.isNotificationServiceOpen(context)
         )
     }
 
@@ -100,13 +100,13 @@ class MainFragment : Fragment() {
     }
 
     private fun checkPermission() {
-        val isPermissionOpen = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
+        val isPermissionOpen = PermissionHelper.hasNotificationListenerServiceEnabled(context)
         viewModel.permissionOfReadNotification.postValue(isPermissionOpen)
         Log.d(TAG, "isPermissionOpen is $isPermissionOpen")
     }
 
     private fun checkStatus() {
-        val isServiceOpen = NotificationStateHelper.isNotificationServiceOpen(context!!)
+        val isServiceOpen = NotificationStateHelper.isNotificationServiceOpen(context)
         viewModel.status.postValue(isServiceOpen)
         Log.d(TAG, "isServiceOpen is $isServiceOpen")
     }
