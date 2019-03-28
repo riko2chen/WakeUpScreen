@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.wakeupscreen.Injection
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.data.MainViewModel
@@ -26,11 +26,13 @@ class MainFragment : Fragment() {
     }
 
     private var isFirstInit = true
-
+    private var mStatus: TextView? = null
     lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_layout_main, container, false)
+        val v = inflater.inflate(R.layout.fragment_layout_main, container, false)
+        mStatus = v.findViewById(R.id.tv_status)
+        return v
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,10 +52,10 @@ class MainFragment : Fragment() {
             "去设置"
         )
 
-        iv_status.bindData(
-            "当前状态：未开启",
-            viewModel.status.value ?: false,
-            "开启"
+        main_item_service.bindData(
+            "服务：亮屏通知",
+            viewModel.statusOfService.value ?: false,
+            "点击开启"
         )
 
     }
@@ -73,12 +75,9 @@ class MainFragment : Fragment() {
             }
         }
 
-        viewModel.status.observe(this, Observer {
-            iv_status.bindData(
-                if (it == true) "当前状态：已开启" else "当前状态：未开启",
-                it == true,
-                if (it == true) "关闭" else "开启"
-            )
+        viewModel.statusOfService.observe(this, Observer {
+            main_item_service.setState(it == true)
+            main_item_service.setBtnText(if (it == true) "点击关闭" else "点击开启")
         })
 
         viewModel.permissionOfReadNotification.observe(this, Observer {
@@ -86,24 +85,19 @@ class MainFragment : Fragment() {
         })
 
 
-        iv_status.listener = object : OnItemClickListener {
+        main_item_service.listener = object : OnItemClickListener {
             override fun onItemClick() {
             }
 
             override fun onBtnClick() {
-                if (viewModel.status.value == true) {
+                if (viewModel.statusOfService.value == true) {
                     closeNotificationService(context)
+                    viewModel.statusOfService.postValue(false)
                 } else {
-                    if (checkPermission()) {
-                        openNotificationService(context)
-                        viewModel.status.postValue(true)
-                        return
-                    } else {
-                        ToastUtils.showShort("请先开启通知权限")
-                    }
+                    openNotificationService(context)
+                    viewModel.statusOfService.postValue(true)
                 }
-                viewModel.status.postValue(false)
-                return
+                refresh()
             }
         }
     }
@@ -112,15 +106,16 @@ class MainFragment : Fragment() {
         viewModel.permissionOfReadNotification.postValue(
             PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
         )
-        viewModel.status.postValue(
+        viewModel.statusOfService.postValue(
             NotificationStateHelper.isNotificationServiceOpen(context)
         )
     }
 
     override fun onResume() {
         super.onResume()
-        checkPermission()
-        checkStatus()
+        var permissionStatus = checkPermission()
+        var serviceStatus = checkStatus()
+        refreshState(permissionStatus, serviceStatus)
     }
 
     private fun checkPermission(): Boolean {
@@ -132,9 +127,22 @@ class MainFragment : Fragment() {
 
     private fun checkStatus(): Boolean {
         val isServiceOpen = NotificationStateHelper.isNotificationServiceOpen(context)
-        viewModel.status.postValue(isServiceOpen)
+        viewModel.statusOfService.postValue(isServiceOpen)
         LogUtils.d(TAG, "isServiceOpen is $isServiceOpen")
         return isServiceOpen
     }
 
+    private fun refreshState(permissionStatus: Boolean, serviceStatus: Boolean) {
+        var text = "当前状态："
+        if (permissionStatus && serviceStatus) {
+            text += "已开启"
+        } else {
+            text += "未开启"
+        }
+        tv_status?.text = text
+    }
+
+    private fun refresh() {
+        refreshState(checkPermission(), checkStatus())
+    }
 }

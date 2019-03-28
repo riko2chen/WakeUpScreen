@@ -36,6 +36,7 @@ dependencies {
 
     implementation 'com.blankj:utilcodex:1.23.7'
     implementation 'com.tencent:mmkv:1.0.18'
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
