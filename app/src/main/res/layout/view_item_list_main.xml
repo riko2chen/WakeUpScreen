@@ -41,7 +41,7 @@
             android:gravity="center"
             android:paddingEnd="15dp"
             app:cornerRadius="20dp"
-            android:text="去设置"
+            tools:text="去设置"
             android:textColor="#fff"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginEnd="20dp"

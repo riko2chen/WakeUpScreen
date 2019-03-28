@@ -11,7 +11,7 @@ object PermissionHelper {
         if (context == null) {
             return false
         }
-        val appContext = context.applicationContext
+        val appContext = context
         val packageNames = NotificationManagerCompat.getEnabledListenerPackages(appContext)
         if (packageNames.contains(appContext.packageName)) {
             return true
@@ -19,11 +19,12 @@ object PermissionHelper {
         return false
     }
 
+
     fun openReadNotificationSetting(context: Context?) {
         if (context == null) {
             return
         }
-        val appContext = context.applicationContext
+        val appContext = context
         try {
             val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK)

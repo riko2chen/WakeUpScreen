@@ -1,14 +1,20 @@
-package com.symeonchen.wakeupscreen
+package com.symeonchen.wakeupscreen.services
 
 import android.os.PowerManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.util.Log
+import com.blankj.utilcode.util.LogUtils
 
-class NotificationMonitor : NotificationListenerService() {
+@Suppress("DEPRECATION")
+class SCNotifivationListenerService : NotificationListenerService() {
+
+    companion object {
+        private const val TAG_WAKE = "symeonchen:wakeupscreen"
+    }
+
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
-        Log.d("notification", sbn?.packageName)
+        LogUtils.d("Received notification from: " + sbn?.packageName)
         if (sbn?.packageName == "com.android.systemui") {
             return
         }
@@ -17,7 +23,8 @@ class NotificationMonitor : NotificationListenerService() {
             return
         }
         var wl = pm.newWakeLock(
-            PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "symeonchen:wakeupscreen"
+            PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
+            TAG_WAKE
         )
         wl.acquire(2000)
         wl.release()

@@ -1,22 +1,22 @@
 package com.symeonchen.wakeupscreen.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.wakeupscreen.Injection
 import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.data.MainViewModel
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionHelper
 import com.symeonchen.wakeupscreen.view.OnItemClickListener
-import com.symeonchen.wakeupscreen.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
 class MainFragment : Fragment() {
@@ -24,6 +24,8 @@ class MainFragment : Fragment() {
     companion object {
         var TAG: String = this::class.java.simpleName
     }
+
+    private var isFirstInit = true
 
     lateinit var viewModel: MainViewModel
 
@@ -44,14 +46,25 @@ class MainFragment : Fragment() {
     private fun initView() {
         main_item_permission_notification.bindData(
             "权限：读取通知",
-            viewModel.permissionOfReadNotification.value ?: false
+            viewModel.permissionOfReadNotification.value ?: false,
+            "去设置"
         )
+
+        iv_status.bindData(
+            "当前状态：未开启",
+            viewModel.status.value ?: false,
+            "开启"
+        )
+
     }
 
     private fun setListener() {
         main_item_permission_notification.listener = object : OnItemClickListener {
             override fun onBtnClick() {
-                NotificationStateHelper.openNotificationService(context)
+                if (isFirstInit) {
+                    isFirstInit = false
+                    NotificationStateHelper.openNotificationService(context)
+                }
                 PermissionHelper.openReadNotificationSetting(context)
             }
 
@@ -61,9 +74,10 @@ class MainFragment : Fragment() {
         }
 
         viewModel.status.observe(this, Observer {
-            iv_status.setBackgroundColor(
-                if (it == true) ContextCompat.getColor(context!!, R.color.success)
-                else ContextCompat.getColor(context!!, R.color.fail)
+            iv_status.bindData(
+                if (it == true) "当前状态：已开启" else "当前状态：未开启",
+                it == true,
+                if (it == true) "关闭" else "开启"
             )
         })
 
@@ -72,21 +86,31 @@ class MainFragment : Fragment() {
         })
 
 
-        iv_status.isClickable = true
-        iv_status.setOnClickListener {
-            if (viewModel.status.value == true) {
-                closeNotificationService(context)
+        iv_status.listener = object : OnItemClickListener {
+            override fun onItemClick() {
+            }
+
+            override fun onBtnClick() {
+                if (viewModel.status.value == true) {
+                    closeNotificationService(context)
+                } else {
+                    if (checkPermission()) {
+                        openNotificationService(context)
+                        viewModel.status.postValue(true)
+                        return
+                    } else {
+                        ToastUtils.showShort("请先开启通知权限")
+                    }
+                }
                 viewModel.status.postValue(false)
-            } else {
-                openNotificationService(context)
-                viewModel.status.postValue(true)
+                return
             }
         }
     }
 
     private fun getData() {
         viewModel.permissionOfReadNotification.postValue(
-            PermissionHelper.hasNotificationListenerServiceEnabled(context)
+            PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
         )
         viewModel.status.postValue(
             NotificationStateHelper.isNotificationServiceOpen(context)
@@ -99,16 +123,18 @@ class MainFragment : Fragment() {
         checkStatus()
     }
 
-    private fun checkPermission() {
-        val isPermissionOpen = PermissionHelper.hasNotificationListenerServiceEnabled(context)
+    private fun checkPermission(): Boolean {
+        val isPermissionOpen = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
         viewModel.permissionOfReadNotification.postValue(isPermissionOpen)
-        Log.d(TAG, "isPermissionOpen is $isPermissionOpen")
+        LogUtils.d(TAG, "isPermissionOpen is $isPermissionOpen")
+        return isPermissionOpen
     }
 
-    private fun checkStatus() {
+    private fun checkStatus(): Boolean {
         val isServiceOpen = NotificationStateHelper.isNotificationServiceOpen(context)
         viewModel.status.postValue(isServiceOpen)
-        Log.d(TAG, "isServiceOpen is $isServiceOpen")
+        LogUtils.d(TAG, "isServiceOpen is $isServiceOpen")
+        return isServiceOpen
     }
 
 }

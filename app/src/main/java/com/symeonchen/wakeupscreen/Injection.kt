@@ -1,7 +1,7 @@
 package com.symeonchen.wakeupscreen
 
 import android.content.Context
-import com.symeonchen.wakeupscreen.viewmodels.MainViewModelFactory
+import com.symeonchen.wakeupscreen.data.MainViewModelFactory
 
 object Injection {
 

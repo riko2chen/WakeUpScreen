@@ -24,6 +24,7 @@ class StatusItem @JvmOverloads constructor(
 
     private var name: String = ""
     private var status: Boolean = false
+    private var btnStr: String = ""
 
     var listener: OnItemClickListener? = null
 
@@ -53,12 +54,13 @@ class StatusItem @JvmOverloads constructor(
     private fun refresh() {
         tvName?.text = name
         ivStatus?.setImageResource(if (status) R.drawable.ic_check_green_24dp else R.drawable.ic_close_red_24dp)
-        mbNav?.visibility = if (status) View.INVISIBLE else View.VISIBLE
+        mbNav?.text = btnStr
     }
 
-    fun bindData(name: String?, status: Boolean = false) {
+    fun bindData(name: String?, status: Boolean = false, btnStr: String?) {
         this.name = name ?: ""
         this.status = status
+        this.btnStr = btnStr ?: ""
         refresh()
     }
 
@@ -66,6 +68,12 @@ class StatusItem @JvmOverloads constructor(
         this.status = status
         refresh()
     }
+
+    fun setBtnText(str: String?) {
+        this.btnStr = str ?: ""
+        refresh()
+    }
+
 }
 
 interface OnItemClickListener {

@@ -5,9 +5,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
+    <com.symeonchen.wakeupscreen.view.StatusItem
             android:id="@+id/iv_status"
-            android:background="@color/loading"
+            android:background="@color/design_default_color_primary"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
 

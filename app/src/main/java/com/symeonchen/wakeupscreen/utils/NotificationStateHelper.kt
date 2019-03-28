@@ -3,7 +3,7 @@ package com.symeonchen.wakeupscreen.utils
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
-import com.symeonchen.wakeupscreen.NotificationMonitor
+import com.symeonchen.wakeupscreen.services.SCNotifivationListenerService
 
 object NotificationStateHelper {
     fun isNotificationServiceOpen(context: Context?): Boolean {
@@ -14,7 +14,7 @@ object NotificationStateHelper {
         val pm = appContext.packageManager
         val state = pm.getComponentEnabledSetting(
             ComponentName(
-                appContext, NotificationMonitor::class.java
+                appContext, SCNotifivationListenerService::class.java
             )
         )
         if (state == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
@@ -27,11 +27,11 @@ object NotificationStateHelper {
         if (context == null) {
             return
         }
-        val appContext = context.applicationContext
+        val appContext = context
         val pm = appContext.packageManager
         pm.setComponentEnabledSetting(
             ComponentName(
-                appContext.applicationContext, NotificationMonitor::class.java
+                appContext, SCNotifivationListenerService::class.java
             ),
             PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
         )
@@ -41,11 +41,11 @@ object NotificationStateHelper {
         if (context == null) {
             return
         }
-        val appContext = context.applicationContext
+        val appContext = context
         val pm = appContext.packageManager
         pm.setComponentEnabledSetting(
             ComponentName(
-                appContext, NotificationMonitor::class.java
+                appContext, SCNotifivationListenerService::class.java
             ),
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
         )
