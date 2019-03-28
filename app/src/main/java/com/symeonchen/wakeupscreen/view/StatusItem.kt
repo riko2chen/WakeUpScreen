@@ -61,6 +61,11 @@ class StatusItem @JvmOverloads constructor(
         this.status = status
         refresh()
     }
+
+    fun setState(status: Boolean) {
+        this.status = status
+        refresh()
+    }
 }
 
 interface OnItemClickListener {

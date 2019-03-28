@@ -1,27 +1,31 @@
 package com.symeonchen.wakeupscreen.main
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.symeonchen.wakeupscreen.NotificationMonitor
+import androidx.lifecycle.ViewModelProviders
+import com.symeonchen.wakeupscreen.Injection
 import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.utils.NotificationStateHelper
+import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.Companion.closeNotificationService
+import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.Companion.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionHelper
 import com.symeonchen.wakeupscreen.view.OnItemClickListener
+import com.symeonchen.wakeupscreen.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
 class MainFragment : Fragment() {
 
-    var status: MutableLiveData<Boolean> = MutableLiveData()
+    companion object {
+        var TAG: String = this::class.java.simpleName
+    }
 
-    var permission: Boolean = false
+    lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
@@ -29,17 +33,26 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        permission = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
+        val factory = Injection.provideMainViewModelFactory(context!!)
+        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+
+        initView()
+        setListener()
+        getData()
+    }
+
+    private fun initView() {
         main_item_permission_notification.bindData(
             "权限：读取通知",
-            permission
+            viewModel.permissionOfReadNotification.value ?: false
         )
+    }
+
+    private fun setListener() {
         main_item_permission_notification.listener = object : OnItemClickListener {
             override fun onBtnClick() {
-                if (!permission) {
-                    openNotificationService(context!!)
-                    PermissionHelper.openReadNotificationSetting(context!!)
-                }
+                NotificationStateHelper.openNotificationService(context!!)
+                PermissionHelper.openReadNotificationSetting(context!!)
             }
 
             override fun onItemClick() {
@@ -47,55 +60,55 @@ class MainFragment : Fragment() {
             }
         }
 
-        status.observe(this, Observer {
+        viewModel.status.observe(this, Observer {
             iv_status.setBackgroundColor(
                 if (it == true) ContextCompat.getColor(context!!, R.color.success)
                 else ContextCompat.getColor(context!!, R.color.fail)
             )
         })
 
+        viewModel.permissionOfReadNotification.observe(this, Observer {
+            main_item_permission_notification.setState(it)
+        })
+
 
         iv_status.isClickable = true
         iv_status.setOnClickListener {
-            if (status.value == true) {
+            if (viewModel.status.value == true) {
                 closeNotificationService(context!!)
-                status.postValue(false)
+                viewModel.status.postValue(false)
             } else {
                 openNotificationService(context!!)
-                status.postValue(true)
+                viewModel.status.postValue(true)
             }
         }
-        tryToOpenNotificationService(context!!)
     }
 
-    private fun tryToOpenNotificationService(context: Context) {
-        if (!permission) {
-            return
-        }
-        openNotificationService(context)
-        status.postValue(true)
-    }
-
-    private fun closeNotificationService(context: Context) {
-        val pm = context.packageManager
-        pm.setComponentEnabledSetting(
-            ComponentName(
-                context, NotificationMonitor::class.java
-            ),
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+    private fun getData() {
+        viewModel.permissionOfReadNotification.postValue(
+            PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
+        )
+        viewModel.status.postValue(
+            NotificationStateHelper.isNotificationServiceOpen(context!!)
         )
     }
 
-    private fun openNotificationService(context: Context) {
-        val pm = context.packageManager
-        closeNotificationService(context)
+    override fun onResume() {
+        super.onResume()
+        checkPermission()
+        checkStatus()
+    }
 
-        pm.setComponentEnabledSetting(
-            ComponentName(
-                context, NotificationMonitor::class.java
-            ),
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
-        )
+    private fun checkPermission() {
+        val isPermissionOpen = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
+        viewModel.permissionOfReadNotification.postValue(isPermissionOpen)
+        Log.d(TAG, "isPermissionOpen is $isPermissionOpen")
+    }
+
+    private fun checkStatus() {
+        val isServiceOpen = NotificationStateHelper.isNotificationServiceOpen(context!!)
+        viewModel.status.postValue(isServiceOpen)
+        Log.d(TAG, "isServiceOpen is $isServiceOpen")
     }
 
 }
