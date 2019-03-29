@@ -1,20 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
-            android:id="@+id/iv_status"
-            android:background="#A52844"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/loading"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="200dp">
+        <TextView
+                android:id="@+id/tv_tips"
+                android:text="开启或关闭通知亮屏需要约10秒生效\n请耐心等待"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/tv_status"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/tv_status"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_tips"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="当前状态："
+                android:textColor="#fff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.symeonchen.wakeupscreen.view.StatusItem
+            android:id="@+id/main_item_service"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"/>
 
     <com.symeonchen.wakeupscreen.view.StatusItem
             android:id="@+id/main_item_permission_notification"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="80dp"/>
+
 
 </LinearLayout>
