@@ -55,6 +55,7 @@ class StatusItem @JvmOverloads constructor(
         tvName?.text = name
         ivStatus?.setImageResource(if (status) R.drawable.ic_check_green_24dp else R.drawable.ic_close_red_24dp)
         mbNav?.text = btnStr
+        mbNav?.visibility = if (status) View.INVISIBLE else View.VISIBLE
     }
 
     fun bindData(name: String?, status: Boolean = false, btnStr: String?) {

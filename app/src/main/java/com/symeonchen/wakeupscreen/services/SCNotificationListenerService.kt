@@ -4,9 +4,11 @@ import android.os.PowerManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.blankj.utilcode.util.LogUtils
+import com.symeonchen.wakeupscreen.data.SCConstant
+import com.tencent.mmkv.MMKV
 
 @Suppress("DEPRECATION")
-class SCNotifivationListenerService : NotificationListenerService() {
+class SCNotificationListenerService : NotificationListenerService() {
 
     companion object {
         private const val TAG_WAKE = "symeonchen:wakeupscreen"
@@ -15,6 +17,10 @@ class SCNotifivationListenerService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
         LogUtils.d("Received notification from: " + sbn?.packageName)
+        val status = MMKV.defaultMMKV().getBoolean(SCConstant.CUSTOM_STATUS, false)
+        if (!status) {
+            return
+        }
         if (sbn?.packageName == "com.android.systemui") {
             return
         }

@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.loading))
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary))
     }
 
 }
