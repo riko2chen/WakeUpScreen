@@ -86,7 +86,7 @@ class SCMainFragment : SCBaseFragment() {
             }
 
             override fun onItemClick() {
-
+                NotificationStateHelper.openNotificationService(context)
             }
         }
 

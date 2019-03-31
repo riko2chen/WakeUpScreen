@@ -37,7 +37,14 @@ class StatusItem @JvmOverloads constructor(
         tvName = v?.findViewById(R.id.main_tv_item_name)
         ivStatus = v?.findViewById(R.id.main_iv_item_status)
         mbNav = v?.findViewById(R.id.main_mb_item_nav)
+        initBackground()
         setListener()
+    }
+
+    private fun initBackground() {
+        this.setBackgroundResource(R.drawable.list_selected)
+        this.isClickable = true
+        this.isFocusable = true
     }
 
     private fun setListener() {
