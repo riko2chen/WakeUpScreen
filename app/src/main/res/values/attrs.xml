@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SCSettingItem">
+        <attr name="sc_setting_item_title_main" format="string"/>
+        <attr name="sc_setting_item_title_second" format="string"/>
+    </declare-styleable>
+</resources>

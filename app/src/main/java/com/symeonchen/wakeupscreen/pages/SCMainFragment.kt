@@ -1,38 +1,33 @@
-package com.symeonchen.wakeupscreen.main
+package com.symeonchen.wakeupscreen.pages
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.Injection
 import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.SCBaseFragment
 import com.symeonchen.wakeupscreen.data.MainViewModel
+import com.symeonchen.wakeupscreen.data.SCConstant
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionHelper
-import com.symeonchen.wakeupscreen.view.OnItemClickListener
+import com.symeonchen.wakeupscreen.views.StatusItem
+import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
-class MainFragment : Fragment() {
+class SCMainFragment : SCBaseFragment() {
 
-    companion object {
-        var TAG: String = this::class.java.simpleName
-    }
 
-    private var isFirstInit = true
-    private var mStatus: TextView? = null
     lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.fragment_layout_main, container, false)
-        mStatus = v.findViewById(R.id.tv_status)
-        return v
+        return inflater.inflate(R.layout.fragment_layout_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,31 +56,41 @@ class MainFragment : Fragment() {
     }
 
     private fun setListener() {
-        main_item_permission_notification.listener = object : OnItemClickListener {
-            override fun onBtnClick() {
-                if (isFirstInit) {
-                    isFirstInit = false
-                    NotificationStateHelper.openNotificationService(context)
-                }
-                PermissionHelper.openReadNotificationSetting(context)
-            }
-
-            override fun onItemClick() {
-
-            }
-        }
-
         viewModel.statusOfService.observe(this, Observer {
-            main_item_service.setState(it == true)
-            main_item_service.setBtnText(if (it == true) "点击关闭" else "点击开启")
+            main_item_service.setState(it)
+            main_item_service.setBtnText(if (it) "点击关闭" else "点击开启")
+            refresh()
         })
 
         viewModel.permissionOfReadNotification.observe(this, Observer {
             main_item_permission_notification.setState(it)
+            refresh()
         })
 
+        viewModel.customStatus.observe(this, Observer {
+            MMKV.defaultMMKV().putBoolean(SCConstant.CUSTOM_STATUS, it)
+            btn_control.text = if (it) "我要关闭" else "我要开启"
+            refresh()
+        })
 
-        main_item_service.listener = object : OnItemClickListener {
+        btn_control.setOnClickListener {
+            val status = viewModel.customStatus.value ?: false
+            viewModel.customStatus.postValue(!status)
+        }
+
+
+        main_item_permission_notification.listener = object : StatusItem.OnItemClickListener {
+            override fun onBtnClick() {
+                NotificationStateHelper.openNotificationService(context)
+                PermissionHelper.openReadNotificationSetting(context)
+            }
+
+            override fun onItemClick() {
+                NotificationStateHelper.openNotificationService(context)
+            }
+        }
+
+        main_item_service.listener = object : StatusItem.OnItemClickListener {
             override fun onItemClick() {
             }
 
@@ -100,9 +105,19 @@ class MainFragment : Fragment() {
                 refresh()
             }
         }
+
+        btn_bottom.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_SCSettingFragment)
+        }
+
+
     }
 
     private fun getData() {
+        viewModel.customStatus.postValue(
+            MMKV.defaultMMKV().getBoolean(SCConstant.CUSTOM_STATUS, false)
+        )
+
         viewModel.permissionOfReadNotification.postValue(
             PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
         )
@@ -113,36 +128,47 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        var permissionStatus = checkPermission()
-        var serviceStatus = checkStatus()
-        refreshState(permissionStatus, serviceStatus)
+        checkPermission()
+        checkStatus()
     }
 
     private fun checkPermission(): Boolean {
         val isPermissionOpen = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
         viewModel.permissionOfReadNotification.postValue(isPermissionOpen)
-        LogUtils.d(TAG, "isPermissionOpen is $isPermissionOpen")
+        LogUtils.d("isPermissionOpen is $isPermissionOpen")
         return isPermissionOpen
     }
 
     private fun checkStatus(): Boolean {
         val isServiceOpen = NotificationStateHelper.isNotificationServiceOpen(context)
         viewModel.statusOfService.postValue(isServiceOpen)
-        LogUtils.d(TAG, "isServiceOpen is $isServiceOpen")
+        LogUtils.d("isServiceOpen is $isServiceOpen")
         return isServiceOpen
     }
 
-    private fun refreshState(permissionStatus: Boolean, serviceStatus: Boolean) {
-        var text = "当前状态："
-        if (permissionStatus && serviceStatus) {
-            text += "已开启"
-        } else {
-            text += "未开启"
+    private fun refreshState(permissionStatus: Boolean?, serviceStatus: Boolean?, customStatus: Boolean?) {
+        btn_control.visibility = View.INVISIBLE
+        if (permissionStatus != true) {
+            tv_status?.text = "读取通知权限未开启"
+            return
         }
-        tv_status?.text = text
+        if (serviceStatus != true) {
+            tv_status?.text = "后台服务未开启"
+            return
+        }
+        btn_control.visibility = View.VISIBLE
+        if (customStatus != true) {
+            tv_status?.text = "准备工作已完成，目前关闭中"
+            return
+        }
+        tv_status?.text = "已开启"
     }
 
     private fun refresh() {
-        refreshState(checkPermission(), checkStatus())
+        refreshState(
+            viewModel.permissionOfReadNotification.value,
+            viewModel.statusOfService.value,
+            viewModel.customStatus.value
+        )
     }
 }

@@ -3,6 +3,11 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/nav_main"
             app:startDestination="@id/mainFragment">
-    <fragment android:id="@+id/mainFragment" android:name="com.symeonchen.wakeupscreen.main.MainFragment"
-              android:label="MainFragment"/>
+    <fragment android:id="@+id/mainFragment" android:name="com.symeonchen.wakeupscreen.pages.SCMainFragment"
+              android:label="MainFragment">
+        <action android:id="@+id/action_mainFragment_to_SCSettingFragment" app:destination="@id/SCSettingFragment"
+                app:enterAnim="@anim/slide_from_bottom_to_top" app:popExitAnim="@anim/slide_from_top_to_bottom"/>
+    </fragment>
+    <fragment android:id="@+id/SCSettingFragment" android:name="com.symeonchen.wakeupscreen.pages.SCSettingFragment"
+              android:label="SCSettingFragment"/>
 </navigation>

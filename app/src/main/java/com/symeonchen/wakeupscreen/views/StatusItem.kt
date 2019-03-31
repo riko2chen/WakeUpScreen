@@ -1,4 +1,4 @@
-package com.symeonchen.wakeupscreen.view
+package com.symeonchen.wakeupscreen.views
 
 import android.content.Context
 import android.util.AttributeSet
@@ -37,7 +37,14 @@ class StatusItem @JvmOverloads constructor(
         tvName = v?.findViewById(R.id.main_tv_item_name)
         ivStatus = v?.findViewById(R.id.main_iv_item_status)
         mbNav = v?.findViewById(R.id.main_mb_item_nav)
+        initBackground()
         setListener()
+    }
+
+    private fun initBackground() {
+        this.setBackgroundResource(R.drawable.list_selected)
+        this.isClickable = true
+        this.isFocusable = true
     }
 
     private fun setListener() {
@@ -55,6 +62,7 @@ class StatusItem @JvmOverloads constructor(
         tvName?.text = name
         ivStatus?.setImageResource(if (status) R.drawable.ic_check_green_24dp else R.drawable.ic_close_red_24dp)
         mbNav?.text = btnStr
+        mbNav?.visibility = if (status) View.INVISIBLE else View.VISIBLE
     }
 
     fun bindData(name: String?, status: Boolean = false, btnStr: String?) {
@@ -74,10 +82,11 @@ class StatusItem @JvmOverloads constructor(
         refresh()
     }
 
+    interface OnItemClickListener {
+        fun onItemClick()
+        fun onBtnClick()
+    }
 }
 
-interface OnItemClickListener {
-    fun onItemClick()
-    fun onBtnClick()
-}
+
 
