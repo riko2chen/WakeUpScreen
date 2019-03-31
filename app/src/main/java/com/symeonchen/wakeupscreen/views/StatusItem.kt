@@ -1,4 +1,4 @@
-package com.symeonchen.wakeupscreen.view
+package com.symeonchen.wakeupscreen.views
 
 import android.content.Context
 import android.util.AttributeSet
@@ -75,10 +75,11 @@ class StatusItem @JvmOverloads constructor(
         refresh()
     }
 
+    interface OnItemClickListener {
+        fun onItemClick()
+        fun onBtnClick()
+    }
 }
 
-interface OnItemClickListener {
-    fun onItemClick()
-    fun onBtnClick()
-}
+
 

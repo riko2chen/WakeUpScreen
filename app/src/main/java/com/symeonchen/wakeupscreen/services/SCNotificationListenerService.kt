@@ -32,7 +32,8 @@ class SCNotificationListenerService : NotificationListenerService() {
             PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
             TAG_WAKE
         )
-        wl.acquire(2000)
+        val sec = MMKV.defaultMMKV().getInt(SCConstant.WAKE_SCREEN_SECOND, 2)
+        wl.acquire((sec * 1000).toLong())
         wl.release()
 
     }

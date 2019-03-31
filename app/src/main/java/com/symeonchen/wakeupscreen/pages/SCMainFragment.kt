@@ -1,36 +1,33 @@
-package com.symeonchen.wakeupscreen.main
+package com.symeonchen.wakeupscreen.pages
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.Injection
 import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.SCBaseFragment
 import com.symeonchen.wakeupscreen.data.MainViewModel
 import com.symeonchen.wakeupscreen.data.SCConstant
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionHelper
-import com.symeonchen.wakeupscreen.view.OnItemClickListener
+import com.symeonchen.wakeupscreen.views.StatusItem
 import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
-class MainFragment : Fragment() {
+class SCMainFragment : SCBaseFragment() {
 
-    companion object {
-        var TAG: String = this::class.java.simpleName
-    }
 
     lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.fragment_layout_main, container, false)
-        return v
+        return inflater.inflate(R.layout.fragment_layout_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,7 +79,7 @@ class MainFragment : Fragment() {
         }
 
 
-        main_item_permission_notification.listener = object : OnItemClickListener {
+        main_item_permission_notification.listener = object : StatusItem.OnItemClickListener {
             override fun onBtnClick() {
                 NotificationStateHelper.openNotificationService(context)
                 PermissionHelper.openReadNotificationSetting(context)
@@ -93,7 +90,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        main_item_service.listener = object : OnItemClickListener {
+        main_item_service.listener = object : StatusItem.OnItemClickListener {
             override fun onItemClick() {
             }
 
@@ -108,6 +105,12 @@ class MainFragment : Fragment() {
                 refresh()
             }
         }
+
+        btn_bottom.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_SCSettingFragment)
+        }
+
+
     }
 
     private fun getData() {
@@ -132,14 +135,14 @@ class MainFragment : Fragment() {
     private fun checkPermission(): Boolean {
         val isPermissionOpen = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
         viewModel.permissionOfReadNotification.postValue(isPermissionOpen)
-        LogUtils.d(TAG, "isPermissionOpen is $isPermissionOpen")
+        LogUtils.d("isPermissionOpen is $isPermissionOpen")
         return isPermissionOpen
     }
 
     private fun checkStatus(): Boolean {
         val isServiceOpen = NotificationStateHelper.isNotificationServiceOpen(context)
         viewModel.statusOfService.postValue(isServiceOpen)
-        LogUtils.d(TAG, "isServiceOpen is $isServiceOpen")
+        LogUtils.d("isServiceOpen is $isServiceOpen")
         return isServiceOpen
     }
 
