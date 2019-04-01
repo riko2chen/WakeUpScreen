@@ -5,6 +5,8 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.data.SCConstant
+import com.symeonchen.wakeupscreen.data.SCConstant.PROXIMITY_STATUS
+import com.symeonchen.wakeupscreen.data.SCConstant.PROXIMITY_SWITCH
 import com.tencent.mmkv.MMKV
 
 @Suppress("DEPRECATION")
@@ -28,7 +30,15 @@ class SCNotificationListenerService : NotificationListenerService() {
         if (pm.isInteractive) {
             return
         }
-        var wl = pm.newWakeLock(
+
+        val proximityStatus = MMKV.defaultMMKV().getInt(PROXIMITY_STATUS, 1)
+        val proximitySwitch = MMKV.defaultMMKV().getBoolean(PROXIMITY_SWITCH, true)
+
+        if (proximitySwitch && proximityStatus == 0) {
+            return
+        }
+
+        val wl = pm.newWakeLock(
             PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
             TAG_WAKE
         )
