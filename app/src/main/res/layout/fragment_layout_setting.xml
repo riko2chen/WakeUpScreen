@@ -36,8 +36,9 @@
                 android:layout_height="70dp"/>
 
         <com.symeonchen.wakeupscreen.views.SCSettingItem
+                android:id="@+id/item_setting_proximity_detect"
                 app:sc_setting_item_title_main="口袋防误触"
-                app:sc_setting_item_title_second="开发中"
+                app:sc_setting_item_title_second="已开启"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
         <com.symeonchen.wakeupscreen.views.SCSettingItem

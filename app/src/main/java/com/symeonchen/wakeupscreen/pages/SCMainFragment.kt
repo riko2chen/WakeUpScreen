@@ -1,5 +1,8 @@
 package com.symeonchen.wakeupscreen.pages
 
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +16,7 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.SCBaseFragment
 import com.symeonchen.wakeupscreen.data.MainViewModel
 import com.symeonchen.wakeupscreen.data.SCConstant
+import com.symeonchen.wakeupscreen.services.SCProximitySensor
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.openNotificationService
@@ -25,6 +29,9 @@ class SCMainFragment : SCBaseFragment() {
 
 
     lateinit var viewModel: MainViewModel
+    private var sensorManager: SensorManager? = null
+    private var proximitySensor: Sensor? = null
+    private var proximityListener = SCProximitySensor()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
@@ -41,6 +48,8 @@ class SCMainFragment : SCBaseFragment() {
     }
 
     private fun initView() {
+        sensorManager = context!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
         main_item_permission_notification.bindData(
             "权限：读取通知",
             viewModel.permissionOfReadNotification.value ?: false,
@@ -130,6 +139,7 @@ class SCMainFragment : SCBaseFragment() {
         super.onResume()
         checkPermission()
         checkStatus()
+        registerProximitySensor()
     }
 
     private fun checkPermission(): Boolean {
@@ -144,6 +154,14 @@ class SCMainFragment : SCBaseFragment() {
         viewModel.statusOfService.postValue(isServiceOpen)
         LogUtils.d("isServiceOpen is $isServiceOpen")
         return isServiceOpen
+    }
+
+    private fun registerProximitySensor() {
+        if (proximitySensor != null) {
+            sensorManager?.unregisterListener(proximityListener)
+        }
+        proximitySensor = sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+        sensorManager?.registerListener(proximityListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
     private fun refreshState(permissionStatus: Boolean?, serviceStatus: Boolean?, customStatus: Boolean?) {
@@ -170,5 +188,10 @@ class SCMainFragment : SCBaseFragment() {
             viewModel.statusOfService.value,
             viewModel.customStatus.value
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        sensorManager?.unregisterListener(proximityListener)
     }
 }

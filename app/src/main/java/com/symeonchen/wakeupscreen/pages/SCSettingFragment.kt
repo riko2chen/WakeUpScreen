@@ -32,13 +32,27 @@ class SCSettingFragment : SCBaseFragment() {
                 initWakeScreenTimeDialog()
             }
         }
+
+        item_setting_proximity_detect.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                initProximitySwitchDialog()
+            }
+        }
+
     }
 
     private fun refresh() {
-        var sec = MMKV.defaultMMKV().getInt(SCConstant.WAKE_SCREEN_SECOND, 2)
+        val sec = MMKV.defaultMMKV().getInt(SCConstant.WAKE_SCREEN_SECOND, 2)
         item_setting_wake_screen_time.bindData(
             null,
             "${sec}s"
+        )
+
+        val switch = MMKV.defaultMMKV().getBoolean(SCConstant.PROXIMITY_SWITCH, true)
+        item_setting_proximity_detect.bindData(
+            null,
+            if (switch) "已开启" else "已关闭"
+
         )
     }
 
@@ -57,5 +71,22 @@ class SCSettingFragment : SCBaseFragment() {
             }
             .create().apply { show() }
     }
+
+    private fun initProximitySwitchDialog() {
+        alertDialog?.dismiss()
+        val builder = AlertDialog.Builder(context!!)
+        val secList = arrayOf("开启", "关闭")
+        var switch = MMKV.defaultMMKV().getBoolean(SCConstant.PROXIMITY_SWITCH, true)
+        val checkedItem: Int = if (switch) 0 else 1
+        alertDialog = builder.setSingleChoiceItems(
+            secList, checkedItem
+        ) { _, which -> switch = which == 0 }
+            .setPositiveButton("确定") { _, _ ->
+                MMKV.defaultMMKV().putBoolean(SCConstant.PROXIMITY_SWITCH, switch)
+                refresh()
+            }
+            .create().apply { show() }
+    }
+
 
 }
