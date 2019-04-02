@@ -8,7 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.symeonchen.uicomponent.R
 import kotlinx.android.synthetic.main.view_item_setting_double_line.view.*
 
-open class SCSettingItem @JvmOverloads constructor(
+class SCSettingItem @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
