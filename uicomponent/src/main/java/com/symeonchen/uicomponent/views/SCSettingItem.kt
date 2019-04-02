@@ -1,11 +1,11 @@
-package com.symeonchen.wakeupscreen.views
+package com.symeonchen.uicomponent.views
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.symeonchen.wakeupscreen.R
+import com.symeonchen.uicomponent.R
 import kotlinx.android.synthetic.main.view_item_setting_double_line.view.*
 
 open class SCSettingItem @JvmOverloads constructor(

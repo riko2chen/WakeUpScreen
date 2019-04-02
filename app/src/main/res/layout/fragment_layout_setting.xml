@@ -28,25 +28,25 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
-        <com.symeonchen.wakeupscreen.views.SCSettingItem
+        <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_wake_screen_time"
                 app:sc_setting_item_title_main="亮屏时间"
                 app:sc_setting_item_title_second="2s"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
 
-        <com.symeonchen.wakeupscreen.views.SCSettingItem
+        <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_proximity_detect"
                 app:sc_setting_item_title_main="口袋防误触"
                 app:sc_setting_item_title_second="已开启"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
-        <com.symeonchen.wakeupscreen.views.SCSettingItem
+        <com.symeonchen.uicomponent.views.SCSettingItem
                 app:sc_setting_item_title_main="分应用过滤"
                 app:sc_setting_item_title_second="开发中"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
-        <com.symeonchen.wakeupscreen.views.SCSettingItem
+        <com.symeonchen.uicomponent.views.SCSettingItem
                 app:sc_setting_item_title_main="快捷开关"
                 app:sc_setting_item_title_second="开发中"
                 android:layout_width="match_parent"

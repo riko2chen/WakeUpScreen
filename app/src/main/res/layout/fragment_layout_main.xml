@@ -72,12 +72,12 @@
             android:layout_height="0dp">
 
 
-        <com.symeonchen.wakeupscreen.views.StatusItem
+        <com.symeonchen.uicomponent.views.StatusItem
                 android:id="@+id/main_item_service"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"/>
 
-        <com.symeonchen.wakeupscreen.views.StatusItem
+        <com.symeonchen.uicomponent.views.StatusItem
                 android:id="@+id/main_item_permission_notification"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="match_parent"

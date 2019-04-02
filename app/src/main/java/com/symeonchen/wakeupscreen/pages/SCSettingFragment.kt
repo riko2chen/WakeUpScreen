@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.SCBaseFragment
 import com.symeonchen.wakeupscreen.data.SCConstant
-import com.symeonchen.wakeupscreen.views.SCSettingItem
 import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 

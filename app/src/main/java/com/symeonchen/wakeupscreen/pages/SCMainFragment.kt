@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.LogUtils
+import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.Injection
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.SCBaseFragment
@@ -21,7 +22,6 @@ import com.symeonchen.wakeupscreen.utils.NotificationStateHelper
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionHelper
-import com.symeonchen.wakeupscreen.views.StatusItem
 import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
