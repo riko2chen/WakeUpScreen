@@ -4,10 +4,7 @@ import android.os.PowerManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.blankj.utilcode.util.LogUtils
-import com.symeonchen.wakeupscreen.data.SCConstant
-import com.symeonchen.wakeupscreen.data.SCConstant.PROXIMITY_STATUS
-import com.symeonchen.wakeupscreen.data.SCConstant.PROXIMITY_SWITCH
-import com.tencent.mmkv.MMKV
+import com.symeonchen.wakeupscreen.utils.DataInjection
 
 @Suppress("DEPRECATION")
 class SCNotificationListenerService : NotificationListenerService() {
@@ -19,7 +16,7 @@ class SCNotificationListenerService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
         LogUtils.d("Received notification from: " + sbn?.packageName)
-        val status = MMKV.defaultMMKV().getBoolean(SCConstant.CUSTOM_STATUS, false)
+        val status = DataInjection.getSwitchOfCustom()
         if (!status) {
             return
         }
@@ -31,8 +28,8 @@ class SCNotificationListenerService : NotificationListenerService() {
             return
         }
 
-        val proximityStatus = MMKV.defaultMMKV().getInt(PROXIMITY_STATUS, 1)
-        val proximitySwitch = MMKV.defaultMMKV().getBoolean(PROXIMITY_SWITCH, true)
+        val proximityStatus = DataInjection.getStatueOfProximity()
+        val proximitySwitch = DataInjection.getSwitchOfProximity()
 
         if (proximitySwitch && proximityStatus == 0) {
             return
@@ -42,7 +39,7 @@ class SCNotificationListenerService : NotificationListenerService() {
             PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
             TAG_WAKE
         )
-        val sec = MMKV.defaultMMKV().getInt(SCConstant.WAKE_SCREEN_SECOND, 2)
+        val sec = DataInjection.getSecondOfWakeUpScreen()
         wl.acquire((sec * 1000).toLong())
         wl.release()
 
