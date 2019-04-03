@@ -29,7 +29,10 @@ object DataInjection {
         return MMKV.defaultMMKV().getInt(SCConstant.PROXIMITY_STATUS, 1)
     }
 
-    fun setStateOfProximitySwitch(state: Int) {
+    fun setStateOfProximitySwitch(state: Int?) {
+        if (state == null) {
+            return
+        }
         MMKV.defaultMMKV().putInt(SCConstant.PROXIMITY_STATUS, state)
     }
 
@@ -37,8 +40,8 @@ object DataInjection {
         return MMKV.defaultMMKV().getBoolean(SCConstant.PROXIMITY_SWITCH, true)
     }
 
-    fun setSwitchOfProximity(switch: Boolean) {
-        MMKV.defaultMMKV().putBoolean(SCConstant.PROXIMITY_SWITCH, switch)
+    fun setSwitchOfProximity(switch: Boolean?) {
+        MMKV.defaultMMKV().putBoolean(SCConstant.PROXIMITY_SWITCH, switch == true)
     }
 
 }
