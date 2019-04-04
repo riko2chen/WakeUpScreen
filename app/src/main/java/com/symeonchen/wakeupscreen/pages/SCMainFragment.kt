@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.uicomponent.views.StatusItem
-import com.symeonchen.wakeupscreen.Injection
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.SCBaseFragment
 import com.symeonchen.wakeupscreen.data.MainViewModel
@@ -18,6 +17,7 @@ import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionSingleton
+import com.symeonchen.wakeupscreen.utils.ViewModelInjection
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
 class SCMainFragment : SCBaseFragment() {
@@ -31,7 +31,7 @@ class SCMainFragment : SCBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val factory = Injection.provideMainViewModelFactory(context!!)
+        val factory = ViewModelInjection.provideMainViewModelFactory(context!!)
         viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
 
         initView()
