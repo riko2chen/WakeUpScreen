@@ -6,12 +6,12 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.provider.Settings
 import androidx.core.app.NotificationManagerCompat
 
-object PermissionHelper {
+object PermissionSingleton {
     fun hasNotificationListenerServiceEnabled(context: Context?): Boolean {
         if (context == null) {
             return false
         }
-        val appContext = context
+        val appContext = context.applicationContext
         val packageNames = NotificationManagerCompat.getEnabledListenerPackages(appContext)
         if (packageNames.contains(appContext.packageName)) {
             return true
@@ -24,7 +24,7 @@ object PermissionHelper {
         if (context == null) {
             return
         }
-        val appContext = context
+        val appContext = context.applicationContext
         try {
             val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK)

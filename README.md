@@ -1,6 +1,6 @@
 # 通知亮屏（WakeUpScreen）
 
-这是一个可以使手机在*接收*到*通知*时*点亮屏幕*的 Android APP。
+这是一个可以使手机在接收到**通知**时**点亮屏幕**的 Android APP。
 
 
 ## TODO

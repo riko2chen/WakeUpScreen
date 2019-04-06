@@ -1,37 +1,28 @@
 package com.symeonchen.wakeupscreen.pages
 
-import android.content.Context
-import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import com.blankj.utilcode.util.LogUtils
-import com.symeonchen.wakeupscreen.Injection
+import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.SCBaseFragment
-import com.symeonchen.wakeupscreen.data.MainViewModel
-import com.symeonchen.wakeupscreen.data.SCConstant
-import com.symeonchen.wakeupscreen.services.SCProximitySensor
-import com.symeonchen.wakeupscreen.utils.NotificationStateHelper
-import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.closeNotificationService
-import com.symeonchen.wakeupscreen.utils.NotificationStateHelper.openNotificationService
-import com.symeonchen.wakeupscreen.utils.PermissionHelper
-import com.symeonchen.wakeupscreen.views.StatusItem
-import com.tencent.mmkv.MMKV
+import com.symeonchen.wakeupscreen.data.StatusViewModel
+import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton
+import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.closeNotificationService
+import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.openNotificationService
+import com.symeonchen.wakeupscreen.utils.PermissionSingleton
+import com.symeonchen.wakeupscreen.utils.ViewModelInjection
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
 class SCMainFragment : SCBaseFragment() {
 
 
-    lateinit var viewModel: MainViewModel
-    private var sensorManager: SensorManager? = null
-    private var proximitySensor: Sensor? = null
-    private var proximityListener = SCProximitySensor()
+    lateinit var viewModel: StatusViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
@@ -39,8 +30,8 @@ class SCMainFragment : SCBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val factory = Injection.provideMainViewModelFactory(context!!)
-        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+        val factory = ViewModelInjection.provideMainViewModelFactory(context!!)
+        viewModel = ViewModelProviders.of(this, factory).get(StatusViewModel::class.java)
 
         initView()
         setListener()
@@ -48,7 +39,6 @@ class SCMainFragment : SCBaseFragment() {
     }
 
     private fun initView() {
-        sensorManager = context!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         main_item_permission_notification.bindData(
             "权限：读取通知",
@@ -77,7 +67,7 @@ class SCMainFragment : SCBaseFragment() {
         })
 
         viewModel.customStatus.observe(this, Observer {
-            MMKV.defaultMMKV().putBoolean(SCConstant.CUSTOM_STATUS, it)
+            DataInjection.setSwitchOfCustom(it)
             btn_control.text = if (it) "我要关闭" else "我要开启"
             refresh()
         })
@@ -90,12 +80,12 @@ class SCMainFragment : SCBaseFragment() {
 
         main_item_permission_notification.listener = object : StatusItem.OnItemClickListener {
             override fun onBtnClick() {
-                NotificationStateHelper.openNotificationService(context)
-                PermissionHelper.openReadNotificationSetting(context)
+                NotificationStateSingleton.openNotificationService(context)
+                PermissionSingleton.openReadNotificationSetting(context)
             }
 
             override fun onItemClick() {
-                NotificationStateHelper.openNotificationService(context)
+                NotificationStateSingleton.openNotificationService(context)
             }
         }
 
@@ -115,23 +105,20 @@ class SCMainFragment : SCBaseFragment() {
             }
         }
 
-        btn_bottom.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_SCSettingFragment)
-        }
 
 
     }
 
     private fun getData() {
         viewModel.customStatus.postValue(
-            MMKV.defaultMMKV().getBoolean(SCConstant.CUSTOM_STATUS, false)
+            DataInjection.getSwitchOfCustom()
         )
 
         viewModel.permissionOfReadNotification.postValue(
-            PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
+            PermissionSingleton.hasNotificationListenerServiceEnabled(context!!)
         )
         viewModel.statusOfService.postValue(
-            NotificationStateHelper.isNotificationServiceOpen(context)
+            NotificationStateSingleton.isNotificationServiceOpen(context)
         )
     }
 
@@ -143,25 +130,21 @@ class SCMainFragment : SCBaseFragment() {
     }
 
     private fun checkPermission(): Boolean {
-        val isPermissionOpen = PermissionHelper.hasNotificationListenerServiceEnabled(context!!)
+        val isPermissionOpen = PermissionSingleton.hasNotificationListenerServiceEnabled(context!!)
         viewModel.permissionOfReadNotification.postValue(isPermissionOpen)
         LogUtils.d("isPermissionOpen is $isPermissionOpen")
         return isPermissionOpen
     }
 
     private fun checkStatus(): Boolean {
-        val isServiceOpen = NotificationStateHelper.isNotificationServiceOpen(context)
+        val isServiceOpen = NotificationStateSingleton.isNotificationServiceOpen(context)
         viewModel.statusOfService.postValue(isServiceOpen)
         LogUtils.d("isServiceOpen is $isServiceOpen")
         return isServiceOpen
     }
 
     private fun registerProximitySensor() {
-        if (proximitySensor != null) {
-            sensorManager?.unregisterListener(proximityListener)
-        }
-        proximitySensor = sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-        sensorManager?.registerListener(proximityListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
+
     }
 
     private fun refreshState(permissionStatus: Boolean?, serviceStatus: Boolean?, customStatus: Boolean?) {
@@ -192,6 +175,5 @@ class SCMainFragment : SCBaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        sensorManager?.unregisterListener(proximityListener)
     }
 }

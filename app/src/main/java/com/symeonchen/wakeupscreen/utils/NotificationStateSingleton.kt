@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import com.symeonchen.wakeupscreen.services.SCNotificationListenerService
 
-object NotificationStateHelper {
+object NotificationStateSingleton {
     fun isNotificationServiceOpen(context: Context?): Boolean {
         if (context == null) {
             return false

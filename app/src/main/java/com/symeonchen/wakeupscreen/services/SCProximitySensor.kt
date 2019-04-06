@@ -4,8 +4,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import com.blankj.utilcode.util.LogUtils
-import com.symeonchen.wakeupscreen.data.SCConstant
-import com.tencent.mmkv.MMKV
+import com.symeonchen.wakeupscreen.utils.DataInjection
 
 class SCProximitySensor : SensorEventListener {
 
@@ -21,11 +20,11 @@ class SCProximitySensor : SensorEventListener {
             LogUtils.d(accuracy)
             if (accuracy == 0f && isProximityNear != accuracy) {
                 isProximityNear = accuracy
-                MMKV.defaultMMKV().putInt(SCConstant.PROXIMITY_STATUS, isProximityNear.toInt())
+                DataInjection.setStateOfProximitySwitch(isProximityNear.toInt())
             }
             if (accuracy > 0f && isProximityNear == 0f) {
                 isProximityNear = accuracy
-                MMKV.defaultMMKV().putInt(SCConstant.PROXIMITY_STATUS, isProximityNear.toInt())
+                DataInjection.setStateOfProximitySwitch(isProximityNear.toInt())
             }
         }
     }

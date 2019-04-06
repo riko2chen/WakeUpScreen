@@ -3,7 +3,7 @@ package com.symeonchen.wakeupscreen.data
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
+class StatusViewModel : ViewModel() {
 
     var customStatus: MutableLiveData<Boolean> = MutableLiveData()
 
