@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.symeonchen.uicomponent.views.SCSettingItem
+import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.SCBaseFragment
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
@@ -16,7 +17,7 @@ class SCSettingFragment : SCBaseFragment() {
     private var alertDialog: AlertDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(com.symeonchen.wakeupscreen.R.layout.fragment_layout_setting, container, false)
+        return inflater.inflate(R.layout.fragment_layout_setting, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

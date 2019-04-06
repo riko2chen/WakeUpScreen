@@ -64,7 +64,7 @@
     <LinearLayout
             android:id="@+id/ll_middle"
             app:layout_constraintTop_toBottomOf="@id/cl_header"
-            app:layout_constraintBottom_toTopOf="@id/btn_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,20 +84,5 @@
                 android:layout_height="80dp"/>
 
     </LinearLayout>
-
-
-    <Button
-            android:transitionName="bottombottombottom"
-            android:id="@+id/btn_bottom"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_gravity="bottom"
-            android:text="设置"
-            android:textColor="#fff"
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent" android:layout_height="50dp">
-    </Button>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

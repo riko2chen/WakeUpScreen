@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:title="首页"
+            android:id="@+id/main_recents"
+            android:icon="@drawable/ic_home_white_24dp"
+            android:orderInCategory="0"/>
+    <item
+            android:title="设置"
+            android:id="@+id/main_favorites"
+            android:icon="@drawable/ic_settings_white_24dp"
+            android:orderInCategory="1"/>
 
 </menu>

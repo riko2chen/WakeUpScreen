@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.SCBaseFragment
-import com.symeonchen.wakeupscreen.data.MainViewModel
+import com.symeonchen.wakeupscreen.data.StatusViewModel
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.closeNotificationService
@@ -23,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_layout_main.*
 class SCMainFragment : SCBaseFragment() {
 
 
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: StatusViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
@@ -32,7 +31,7 @@ class SCMainFragment : SCBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val factory = ViewModelInjection.provideMainViewModelFactory(context!!)
-        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, factory).get(StatusViewModel::class.java)
 
         initView()
         setListener()
@@ -106,9 +105,6 @@ class SCMainFragment : SCBaseFragment() {
             }
         }
 
-        btn_bottom.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_SCSettingFragment)
-        }
 
 
     }
