@@ -30,7 +30,7 @@ class SCMainFragment : SCBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val factory = ViewModelInjection.provideMainViewModelFactory(context!!)
+        val factory = ViewModelInjection.provideStatusViewModelFactory(context!!)
         viewModel = ViewModelProviders.of(this, factory).get(StatusViewModel::class.java)
 
         initView()
