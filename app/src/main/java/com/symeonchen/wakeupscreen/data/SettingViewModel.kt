@@ -2,6 +2,7 @@ package com.symeonchen.wakeupscreen.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.symeonchen.wakeupscreen.utils.DataInjection
 
 class SettingViewModel : ViewModel() {
 
@@ -12,9 +13,9 @@ class SettingViewModel : ViewModel() {
     var timeOfWakeUpScreen: MutableLiveData<Long> = MutableLiveData()
 
     init {
-        switchOfApp.postValue(false)
-        switchOfProximity.postValue(false)
-        timeOfWakeUpScreen.postValue(2000)
+        switchOfApp.postValue(DataInjection.getSwitchOfApp())
+        switchOfProximity.postValue(DataInjection.getSwitchOfProximity())
+        timeOfWakeUpScreen.postValue(DataInjection.getMilliSecondOfWakeUpScreen())
     }
 
 

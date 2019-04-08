@@ -67,7 +67,7 @@ class SCMainFragment : SCBaseFragment() {
         })
 
         viewModel.customStatus.observe(this, Observer {
-            DataInjection.setSwitchOfCustom(it)
+            DataInjection.setSwitchOfCApp(it)
             btn_control.text = if (it) "我要关闭" else "我要开启"
             refresh()
         })
@@ -111,7 +111,7 @@ class SCMainFragment : SCBaseFragment() {
 
     private fun getData() {
         viewModel.customStatus.postValue(
-            DataInjection.getSwitchOfCustom()
+            DataInjection.getSwitchOfApp()
         )
 
         viewModel.permissionOfReadNotification.postValue(

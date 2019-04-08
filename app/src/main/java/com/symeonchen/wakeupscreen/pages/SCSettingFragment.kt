@@ -42,7 +42,7 @@ class SCSettingFragment : SCBaseFragment() {
     }
 
     private fun refresh() {
-        val sec = DataInjection.getSecondOfWakeUpScreen()
+        val sec = DataInjection.getMilliSecondOfWakeUpScreen()
         item_setting_wake_screen_time.bindData(
             null,
             "${sec}s"
@@ -60,13 +60,13 @@ class SCSettingFragment : SCBaseFragment() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
         val secList = arrayOf("1s", "2s", "3s", "4s", "5s")
-        val checkedItem: Int = DataInjection.getSecondOfWakeUpScreen() - 1
+        val checkedItem: Int = (DataInjection.getMilliSecondOfWakeUpScreen() / 1000).toInt() - 1
         var index = checkedItem
         alertDialog = builder.setSingleChoiceItems(
             secList, checkedItem
         ) { _, which -> index = which }
             .setPositiveButton("确定") { _, _ ->
-                DataInjection.setSecondOfWakeUpScreen(index + 1)
+                DataInjection.setSecondOfWakeUpScreen((index + 1) * 1000L)
                 refresh()
             }
             .create().apply { show() }

@@ -25,7 +25,7 @@ object ProximitySensorSingleton {
         sensorManager?.registerListener(proximityListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
-    fun unRegiisterListener() {
+    fun unRegisterListener() {
         sensorManager?.unregisterListener(proximityListener)
         proximitySensor = null
     }

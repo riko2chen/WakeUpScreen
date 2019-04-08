@@ -27,7 +27,7 @@ object NotificationStateSingleton {
         if (context == null) {
             return
         }
-        val appContext = context
+        val appContext = context.applicationContext
         val pm = appContext.packageManager
         pm.setComponentEnabledSetting(
             ComponentName(
@@ -41,7 +41,7 @@ object NotificationStateSingleton {
         if (context == null) {
             return
         }
-        val appContext = context
+        val appContext = context.applicationContext
         val pm = appContext.packageManager
         pm.setComponentEnabledSetting(
             ComponentName(
