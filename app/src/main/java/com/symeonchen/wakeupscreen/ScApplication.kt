@@ -3,7 +3,9 @@ package com.symeonchen.wakeupscreen
 import android.app.Application
 import com.tencent.mmkv.MMKV
 
-class SCApplication : Application() {
+
+@Suppress("unused")
+class ScApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

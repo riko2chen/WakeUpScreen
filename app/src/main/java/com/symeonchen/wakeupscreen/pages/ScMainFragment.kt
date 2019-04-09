@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.R
-import com.symeonchen.wakeupscreen.SCBaseFragment
+import com.symeonchen.wakeupscreen.ScBaseFragment
+import com.symeonchen.wakeupscreen.data.SettingViewModel
 import com.symeonchen.wakeupscreen.data.StatusViewModel
-import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.openNotificationService
@@ -19,10 +19,10 @@ import com.symeonchen.wakeupscreen.utils.PermissionSingleton
 import com.symeonchen.wakeupscreen.utils.ViewModelInjection
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
-class SCMainFragment : SCBaseFragment() {
+class ScMainFragment : ScBaseFragment() {
 
-
-    lateinit var viewModel: StatusViewModel
+    private lateinit var statusModel: StatusViewModel
+    private lateinit var settingModel: SettingViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
@@ -30,8 +30,10 @@ class SCMainFragment : SCBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val factory = ViewModelInjection.provideMainViewModelFactory(context!!)
-        viewModel = ViewModelProviders.of(this, factory).get(StatusViewModel::class.java)
+        val statusFactory = ViewModelInjection.provideStatusViewModelFactory(context!!)
+        val settingFactory = ViewModelInjection.provideSettingViewModelFactory(context!!)
+        statusModel = ViewModelProviders.of(this, statusFactory).get(StatusViewModel::class.java)
+        settingModel = ViewModelProviders.of(this, settingFactory).get(SettingViewModel::class.java)
 
         initView()
         setListener()
@@ -42,39 +44,38 @@ class SCMainFragment : SCBaseFragment() {
 
         main_item_permission_notification.bindData(
             "权限：读取通知",
-            viewModel.permissionOfReadNotification.value ?: false,
+            statusModel.permissionOfReadNotification.value ?: false,
             "去设置"
         )
 
         main_item_service.bindData(
             "服务：亮屏通知",
-            viewModel.statusOfService.value ?: false,
+            statusModel.statusOfService.value ?: false,
             "点击开启"
         )
 
     }
 
     private fun setListener() {
-        viewModel.statusOfService.observe(this, Observer {
+        statusModel.statusOfService.observe(this, Observer {
             main_item_service.setState(it)
             main_item_service.setBtnText(if (it) "点击关闭" else "点击开启")
             refresh()
         })
 
-        viewModel.permissionOfReadNotification.observe(this, Observer {
+        statusModel.permissionOfReadNotification.observe(this, Observer {
             main_item_permission_notification.setState(it)
             refresh()
         })
 
-        viewModel.customStatus.observe(this, Observer {
-            DataInjection.setSwitchOfCustom(it)
+        settingModel.switchOfApp.observe(this, Observer {
             btn_control.text = if (it) "我要关闭" else "我要开启"
             refresh()
         })
 
         btn_control.setOnClickListener {
-            val status = viewModel.customStatus.value ?: false
-            viewModel.customStatus.postValue(!status)
+            val status = settingModel.switchOfApp.value ?: false
+            settingModel.switchOfApp.postValue(!status)
         }
 
 
@@ -94,30 +95,26 @@ class SCMainFragment : SCBaseFragment() {
             }
 
             override fun onBtnClick() {
-                if (viewModel.statusOfService.value == true) {
+                if (statusModel.statusOfService.value == true) {
                     closeNotificationService(context)
-                    viewModel.statusOfService.postValue(false)
+                    statusModel.statusOfService.postValue(false)
                 } else {
                     openNotificationService(context)
-                    viewModel.statusOfService.postValue(true)
+                    statusModel.statusOfService.postValue(true)
                 }
                 refresh()
             }
         }
 
 
-
     }
 
     private fun getData() {
-        viewModel.customStatus.postValue(
-            DataInjection.getSwitchOfCustom()
-        )
 
-        viewModel.permissionOfReadNotification.postValue(
+        statusModel.permissionOfReadNotification.postValue(
             PermissionSingleton.hasNotificationListenerServiceEnabled(context!!)
         )
-        viewModel.statusOfService.postValue(
+        statusModel.statusOfService.postValue(
             NotificationStateSingleton.isNotificationServiceOpen(context)
         )
     }
@@ -131,14 +128,14 @@ class SCMainFragment : SCBaseFragment() {
 
     private fun checkPermission(): Boolean {
         val isPermissionOpen = PermissionSingleton.hasNotificationListenerServiceEnabled(context!!)
-        viewModel.permissionOfReadNotification.postValue(isPermissionOpen)
+        statusModel.permissionOfReadNotification.postValue(isPermissionOpen)
         LogUtils.d("isPermissionOpen is $isPermissionOpen")
         return isPermissionOpen
     }
 
     private fun checkStatus(): Boolean {
         val isServiceOpen = NotificationStateSingleton.isNotificationServiceOpen(context)
-        viewModel.statusOfService.postValue(isServiceOpen)
+        statusModel.statusOfService.postValue(isServiceOpen)
         LogUtils.d("isServiceOpen is $isServiceOpen")
         return isServiceOpen
     }
@@ -167,13 +164,10 @@ class SCMainFragment : SCBaseFragment() {
 
     private fun refresh() {
         refreshState(
-            viewModel.permissionOfReadNotification.value,
-            viewModel.statusOfService.value,
-            viewModel.customStatus.value
+            statusModel.permissionOfReadNotification.value,
+            statusModel.statusOfService.value,
+            settingModel.switchOfApp.value
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }

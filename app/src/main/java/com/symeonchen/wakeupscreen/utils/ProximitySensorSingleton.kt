@@ -3,11 +3,11 @@ package com.symeonchen.wakeupscreen.utils
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
-import com.symeonchen.wakeupscreen.services.SCProximitySensor
+import com.symeonchen.wakeupscreen.services.ScProximitySensor
 
 object ProximitySensorSingleton {
 
-    private var proximityListener = SCProximitySensor()
+    private var proximityListener = ScProximitySensor()
     private var proximitySensor: Sensor? = null
     private var sensorManager: SensorManager? = null
 
@@ -25,7 +25,7 @@ object ProximitySensorSingleton {
         sensorManager?.registerListener(proximityListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
-    fun unRegiisterListener() {
+    fun unRegisterListener() {
         sensorManager?.unregisterListener(proximityListener)
         proximitySensor = null
     }

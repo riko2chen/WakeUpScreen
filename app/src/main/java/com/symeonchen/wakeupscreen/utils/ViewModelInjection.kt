@@ -6,7 +6,7 @@ import com.symeonchen.wakeupscreen.data.StatusViewModelFactory
 
 object ViewModelInjection {
 
-    fun provideMainViewModelFactory(context: Context): StatusViewModelFactory {
+    fun provideStatusViewModelFactory(context: Context): StatusViewModelFactory {
         return StatusViewModelFactory()
     }
 
