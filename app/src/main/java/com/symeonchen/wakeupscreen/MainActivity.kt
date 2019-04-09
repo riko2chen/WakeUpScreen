@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.jaeger.library.StatusBarUtil
-import com.symeonchen.wakeupscreen.pages.SCMainFragment
-import com.symeonchen.wakeupscreen.pages.SCSettingFragment
+import com.symeonchen.wakeupscreen.pages.ScMainFragment
+import com.symeonchen.wakeupscreen.pages.ScSettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        fragmentList.add(SCMainFragment())
-        fragmentList.add(SCSettingFragment())
+        fragmentList.add(ScMainFragment())
+        fragmentList.add(ScSettingFragment())
     }
 
     private fun setListener() {

@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 @Suppress("DEPRECATION")
-class SCNotificationListenerService : NotificationListenerService() {
+class ScNotificationListenerService : NotificationListenerService() {
 
     companion object {
         private const val TAG_WAKE = "symeonchen:wakeupscreen"
@@ -40,7 +40,7 @@ class SCNotificationListenerService : NotificationListenerService() {
             TAG_WAKE
         )
         val sec = DataInjection.getMilliSecondOfWakeUpScreen()
-        wl.acquire((sec * 1000).toLong())
+        wl.acquire((sec * 1000))
         wl.release()
 
     }

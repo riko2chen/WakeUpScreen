@@ -16,7 +16,7 @@ object DataInjection {
         return MMKV.defaultMMKV().getBoolean(CUSTOM_STATUS, DEFAULT_SWITCH_OF_APP)
     }
 
-    fun setSwitchOfCApp(it: Boolean?) {
+    fun setSwitchOfApp(it: Boolean?) {
         MMKV.defaultMMKV().putBoolean(CUSTOM_STATUS, it == true)
     }
 

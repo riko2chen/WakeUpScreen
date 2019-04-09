@@ -6,7 +6,7 @@ import android.hardware.SensorEventListener
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
-class SCProximitySensor : SensorEventListener {
+class ScProximitySensor : SensorEventListener {
 
     private var isProximityNear = 1.0f
 

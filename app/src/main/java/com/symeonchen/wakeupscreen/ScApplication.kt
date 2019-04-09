@@ -5,7 +5,7 @@ import com.tencent.mmkv.MMKV
 
 
 @Suppress("unused")
-class SCApplication : Application() {
+class ScApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
