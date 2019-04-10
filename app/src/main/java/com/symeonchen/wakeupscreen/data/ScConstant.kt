@@ -1,6 +1,6 @@
 package com.symeonchen.wakeupscreen.data
 
-object SCConstant {
+object ScConstant {
     const val CUSTOM_STATUS = "custom_status"
     const val WAKE_SCREEN_SECOND = "wake_screen_second"
     const val PROXIMITY_STATUS = "proximity_status"

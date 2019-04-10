@@ -1,4 +1,4 @@
-package com.symeonchen.wakeupscreen.utils
+package com.symeonchen.wakeupscreen.data
 
 import android.content.Context
 import com.symeonchen.wakeupscreen.data.SettingViewModelFactory
