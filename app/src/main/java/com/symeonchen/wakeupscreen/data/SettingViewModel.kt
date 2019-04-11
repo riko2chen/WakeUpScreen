@@ -2,19 +2,21 @@ package com.symeonchen.wakeupscreen.data
 
 import androidx.lifecycle.ViewModel
 import com.symeonchen.wakeupscreen.utils.DataInjection
-import com.symeonchen.wakeupscreen.utils.ScLiveData
 
 class SettingViewModel : ViewModel() {
 
-    var switchOfApp: ScLiveData<Boolean> = ScLiveData<Boolean>().apply {
+    var switchOfApp: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
         setValue(DataInjection.getSwitchOfApp())
     }
 
-    var switchOfProximity: ScLiveData<Boolean> = ScLiveData<Boolean>().apply {
+    var switchOfProximity: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
         setValue(DataInjection.getSwitchOfProximity())
     }
 
-    var timeOfWakeUpScreen: ScLiveData<Long> = ScLiveData<Long>().apply {
+    var timeOfWakeUpScreen: ScLiveData<Long> = ScLiveData<Long>()
+        .apply {
         setValue(DataInjection.getMilliSecondOfWakeUpScreen())
     }
 

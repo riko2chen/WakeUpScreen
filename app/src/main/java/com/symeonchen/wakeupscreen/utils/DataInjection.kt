@@ -1,13 +1,13 @@
 package com.symeonchen.wakeupscreen.utils
 
-import com.symeonchen.wakeupscreen.data.SCConstant.CUSTOM_STATUS
-import com.symeonchen.wakeupscreen.data.SCConstant.DEFAULT_SWITCH_OF_APP
-import com.symeonchen.wakeupscreen.data.SCConstant.DEFAULT_SWITCH_OF_PROXIMITY
-import com.symeonchen.wakeupscreen.data.SCConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
-import com.symeonchen.wakeupscreen.data.SCConstant.DEFAULT_VALUE_OF_PROXIMITY
-import com.symeonchen.wakeupscreen.data.SCConstant.PROXIMITY_STATUS
-import com.symeonchen.wakeupscreen.data.SCConstant.PROXIMITY_SWITCH
-import com.symeonchen.wakeupscreen.data.SCConstant.WAKE_SCREEN_SECOND
+import com.symeonchen.wakeupscreen.data.ScConstant.CUSTOM_STATUS
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_APP
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_VALUE_OF_PROXIMITY
+import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
+import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.WAKE_SCREEN_SECOND
 import com.tencent.mmkv.MMKV
 
 object DataInjection {

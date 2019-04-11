@@ -11,7 +11,8 @@ import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.SettingViewModel
-import com.symeonchen.wakeupscreen.utils.ViewModelInjection
+import com.symeonchen.wakeupscreen.data.ViewModelInjection
+import com.symeonchen.wakeupscreen.utils.ProximitySensorSingleton
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 
 
@@ -55,8 +56,15 @@ class ScSettingFragment : ScBaseFragment() {
             item_setting_proximity_detect.bindData(
                 null,
                 if (it) "已开启" else "已关闭"
-
             )
+            if (it) {
+                if (!ProximitySensorSingleton.isRegistered()) {
+                    ProximitySensorSingleton.registerListener(context)
+                }
+            } else {
+                if (ProximitySensorSingleton.isRegistered())
+                    ProximitySensorSingleton.unRegisterListener(context)
+            }
         })
     }
 

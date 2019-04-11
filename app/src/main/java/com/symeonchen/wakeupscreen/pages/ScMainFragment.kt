@@ -12,11 +12,12 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.SettingViewModel
 import com.symeonchen.wakeupscreen.data.StatusViewModel
+import com.symeonchen.wakeupscreen.data.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionSingleton
-import com.symeonchen.wakeupscreen.utils.ViewModelInjection
+import com.symeonchen.wakeupscreen.utils.ProximitySensorSingleton
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
 class ScMainFragment : ScBaseFragment() {
@@ -141,7 +142,9 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun registerProximitySensor() {
-
+        if (settingModel.switchOfProximity.value == true && !ProximitySensorSingleton.isRegistered()) {
+            ProximitySensorSingleton.registerListener(context)
+        }
     }
 
     private fun refreshState(permissionStatus: Boolean?, serviceStatus: Boolean?, customStatus: Boolean?) {

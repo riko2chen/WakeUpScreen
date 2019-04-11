@@ -12,7 +12,7 @@ import com.symeonchen.wakeupscreen.pages.ScMainFragment
 import com.symeonchen.wakeupscreen.pages.ScSettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
     private var fragmentList = ArrayList<Fragment>()
 
@@ -31,25 +31,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListener() {
         vp_main.adapter = MainViewPagerAdapter(supportFragmentManager, fragmentList)
-        vp_main.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                bnv_main.menu.getItem(position).isChecked = true
-            }
-        })
+        vp_main.addOnPageChangeListener(this)
         bnv_main.setOnNavigationItemSelectedListener {
             vp_main.currentItem = it.order
             return@setOnNavigationItemSelectedListener true
         }
     }
 
+    override fun onPageScrollStateChanged(state: Int) {
+    }
 
-    class MainViewPagerAdapter(fm: FragmentManager, fragmentList: ArrayList<Fragment>) : FragmentPagerAdapter(fm) {
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+    }
+
+    override fun onPageSelected(position: Int) {
+        bnv_main.menu.getItem(position).isChecked = true
+    }
+
+    inner class MainViewPagerAdapter(fm: FragmentManager, fragmentList: ArrayList<Fragment>) :
+        FragmentPagerAdapter(fm) {
 
         private var fragmentList = ArrayList<Fragment>()
 
@@ -65,5 +65,4 @@ class MainActivity : AppCompatActivity() {
             return fragmentList.size
         }
     }
-
 }
