@@ -20,11 +20,11 @@ class ScProximitySensor : SensorEventListener {
             LogUtils.d(accuracy)
             if (accuracy == 0f && isProximityNear != accuracy) {
                 isProximityNear = accuracy
-                DataInjection.setStateOfProximitySwitch(isProximityNear.toInt())
+                DataInjection.statueOfProximity = isProximityNear.toInt()
             }
             if (accuracy > 0f && isProximityNear == 0f) {
                 isProximityNear = accuracy
-                DataInjection.setStateOfProximitySwitch(isProximityNear.toInt())
+                DataInjection.statueOfProximity = isProximityNear.toInt()
             }
         }
     }

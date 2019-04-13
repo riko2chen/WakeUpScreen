@@ -31,8 +31,8 @@ class ScMainFragment : ScBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val statusFactory = ViewModelInjection.provideStatusViewModelFactory(context!!)
-        val settingFactory = ViewModelInjection.provideSettingViewModelFactory(context!!)
+        val statusFactory = ViewModelInjection.provideStatusViewModelFactory()
+        val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         statusModel = ViewModelProviders.of(this, statusFactory).get(StatusViewModel::class.java)
         settingModel = ViewModelProviders.of(this, settingFactory).get(SettingViewModel::class.java)
 
@@ -82,12 +82,12 @@ class ScMainFragment : ScBaseFragment() {
 
         main_item_permission_notification.listener = object : StatusItem.OnItemClickListener {
             override fun onBtnClick() {
-                NotificationStateSingleton.openNotificationService(context)
+                openNotificationService(context)
                 PermissionSingleton.openReadNotificationSetting(context)
             }
 
             override fun onItemClick() {
-                NotificationStateSingleton.openNotificationService(context)
+                openNotificationService(context)
             }
         }
 

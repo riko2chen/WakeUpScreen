@@ -27,7 +27,7 @@ class ScSettingFragment : ScBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val settingFactory = ViewModelInjection.provideSettingViewModelFactory(context!!)
+        val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProviders.of(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
     }

@@ -7,36 +7,36 @@ class SettingViewModel : ViewModel() {
 
     var switchOfApp: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
-        setValue(DataInjection.getSwitchOfApp())
-    }
+            setValue(DataInjection.switchOfApp)
+        }
 
     var switchOfProximity: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
-        setValue(DataInjection.getSwitchOfProximity())
-    }
+            setValue(DataInjection.switchOfProximity)
+        }
 
     var timeOfWakeUpScreen: ScLiveData<Long> = ScLiveData<Long>()
         .apply {
-        setValue(DataInjection.getMilliSecondOfWakeUpScreen())
-    }
+            setValue(DataInjection.milliSecondOfWakeUpScreen)
+        }
 
     init {
 
         switchOfApp.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
-                DataInjection.setSwitchOfApp(value)
+                DataInjection.switchOfApp = value
             }
         }
 
         switchOfProximity.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
-                DataInjection.setSwitchOfProximity(value)
+                DataInjection.switchOfProximity = value
             }
         }
 
         timeOfWakeUpScreen.listener = object : ScLiveData.OnLiveDataValueInput<Long> {
             override fun onValueInput(value: Long) {
-                DataInjection.setSecondOfWakeUpScreen(value)
+                DataInjection.milliSecondOfWakeUpScreen = value
             }
         }
 
