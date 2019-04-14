@@ -1,15 +1,19 @@
 package com.symeonchen.wakeupscreen.pages
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
+import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.data.SettingViewModel
 import com.symeonchen.wakeupscreen.data.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.ProximitySensorSingleton
@@ -33,6 +37,12 @@ class ScSettingFragment : ScBaseFragment() {
     }
 
     private fun setListener() {
+        item_setting_language.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                Toast.makeText(context, "切换语言功能正在开发中", Toast.LENGTH_LONG).show()
+            }
+        }
+
         item_setting_wake_screen_time.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 initWakeScreenTimeDialog()
@@ -42,6 +52,25 @@ class ScSettingFragment : ScBaseFragment() {
         item_setting_proximity_detect.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 initProximitySwitchDialog()
+            }
+        }
+
+        item_setting_address.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse("https://github.com/SymeonChen/WakeUpScreen")
+                startActivity(i)
+            }
+        }
+
+        item_setting_question.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "plain/text"
+                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(ScConstant.AUTHOR_MAIL))
+                intent.putExtra(Intent.EXTRA_SUBJECT, ScConstant.DEFAULT_MAIL_HEAD)
+                intent.putExtra(Intent.EXTRA_TEXT, ScConstant.DEFAULT_MAIL_BODY)
+                startActivity(Intent.createChooser(intent, ""))
             }
         }
 
