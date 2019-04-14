@@ -55,7 +55,7 @@ class ScSettingFragment : ScBaseFragment() {
         settingModel.switchOfProximity.observe(this, Observer {
             item_setting_proximity_detect.bindData(
                 null,
-                if (it) "已开启" else "已关闭"
+                resources.getString(if (it) R.string.already_open else R.string.already_close)
             )
             if (it) {
                 if (!ProximitySensorSingleton.isRegistered()) {
@@ -77,7 +77,7 @@ class ScSettingFragment : ScBaseFragment() {
         alertDialog = builder.setSingleChoiceItems(
             secList, checkedItem
         ) { _, which -> index = which }
-            .setPositiveButton("确定") { _, _ ->
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 settingModel.timeOfWakeUpScreen.postValue((index + 1) * 1000L)
             }
             .create().apply { show() }
@@ -86,13 +86,13 @@ class ScSettingFragment : ScBaseFragment() {
     private fun initProximitySwitchDialog() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf("开启", "关闭")
+        val secList = arrayOf(resources.getString(R.string.open), resources.getString(R.string.close))
         var switch = settingModel.switchOfProximity.value!!
         val checkedItem: Int = if (switch) 0 else 1
         alertDialog = builder.setSingleChoiceItems(
             secList, checkedItem
         ) { _, which -> switch = which == 0 }
-            .setPositiveButton("确定") { _, _ ->
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 settingModel.switchOfProximity.postValue(switch)
             }
             .create().apply { show() }

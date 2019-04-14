@@ -25,7 +25,6 @@ object DataInjection {
             return MMKV.defaultMMKV().getLong(WAKE_SCREEN_SECOND, DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS)
         }
         set(millisSec) {
-            millisSec
             if (millisSec < 0) {
                 return
             }
@@ -38,7 +37,6 @@ object DataInjection {
 
         }
         set(state) {
-            state
             MMKV.defaultMMKV().putInt(PROXIMITY_STATUS, state)
         }
 

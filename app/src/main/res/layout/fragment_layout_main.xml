@@ -16,7 +16,7 @@
             android:layout_height="200dp">
         <TextView
                 android:id="@+id/tv_tips"
-                android:text="开启或关闭通知亮屏需要1~10秒生效\n请耐心等待"
+                android:text="@string/tip_desc_time_cost"
                 android:gravity="center"
                 android:textColor="#fff"
                 android:textStyle="bold"
@@ -32,7 +32,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_tips"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="当前状态"
+                android:text="@string/already_close"
                 android:textColor="#fff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -51,11 +51,13 @@
                 android:textSize="12dp"
                 android:paddingStart="15dp"
                 android:paddingTop="5dp"
+                android:stateListAnimator="@animator/button_press_scale"
                 android:paddingBottom="5dp"
                 android:gravity="center"
                 android:paddingEnd="15dp"
                 app:cornerRadius="20dp"
-                android:text="我要关闭"
+                android:text="@string/wanna_close"
+                app:layout_constraintVertical_bias="0.8"
                 android:textColor="#FFF"/>
 
 
