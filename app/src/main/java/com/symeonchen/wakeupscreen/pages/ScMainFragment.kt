@@ -12,11 +12,12 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.SettingViewModel
 import com.symeonchen.wakeupscreen.data.StatusViewModel
+import com.symeonchen.wakeupscreen.data.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.openNotificationService
 import com.symeonchen.wakeupscreen.utils.PermissionSingleton
-import com.symeonchen.wakeupscreen.utils.ViewModelInjection
+import com.symeonchen.wakeupscreen.utils.ProximitySensorSingleton
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
 class ScMainFragment : ScBaseFragment() {
@@ -30,8 +31,8 @@ class ScMainFragment : ScBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val statusFactory = ViewModelInjection.provideStatusViewModelFactory(context!!)
-        val settingFactory = ViewModelInjection.provideSettingViewModelFactory(context!!)
+        val statusFactory = ViewModelInjection.provideStatusViewModelFactory()
+        val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         statusModel = ViewModelProviders.of(this, statusFactory).get(StatusViewModel::class.java)
         settingModel = ViewModelProviders.of(this, settingFactory).get(SettingViewModel::class.java)
 
@@ -43,15 +44,15 @@ class ScMainFragment : ScBaseFragment() {
     private fun initView() {
 
         main_item_permission_notification.bindData(
-            "权限：读取通知",
+            resources.getString(R.string.permission_of_read_notification),
             statusModel.permissionOfReadNotification.value ?: false,
-            "去设置"
+            resources.getString(R.string.to_setting)
         )
 
         main_item_service.bindData(
-            "服务：亮屏通知",
+            resources.getString(R.string.service_of_background),
             statusModel.statusOfService.value ?: false,
-            "点击开启"
+            resources.getString(R.string.click_to_open)
         )
 
     }
@@ -59,7 +60,7 @@ class ScMainFragment : ScBaseFragment() {
     private fun setListener() {
         statusModel.statusOfService.observe(this, Observer {
             main_item_service.setState(it)
-            main_item_service.setBtnText(if (it) "点击关闭" else "点击开启")
+            main_item_service.setBtnText(resources.getString(if (it) R.string.click_to_close else R.string.click_to_open))
             refresh()
         })
 
@@ -69,7 +70,7 @@ class ScMainFragment : ScBaseFragment() {
         })
 
         settingModel.switchOfApp.observe(this, Observer {
-            btn_control.text = if (it) "我要关闭" else "我要开启"
+            btn_control.text = resources.getString(if (it) R.string.wanna_close else R.string.wanna_open)
             refresh()
         })
 
@@ -81,12 +82,12 @@ class ScMainFragment : ScBaseFragment() {
 
         main_item_permission_notification.listener = object : StatusItem.OnItemClickListener {
             override fun onBtnClick() {
-                NotificationStateSingleton.openNotificationService(context)
+                openNotificationService(context)
                 PermissionSingleton.openReadNotificationSetting(context)
             }
 
             override fun onItemClick() {
-                NotificationStateSingleton.openNotificationService(context)
+                openNotificationService(context)
             }
         }
 
@@ -141,25 +142,31 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun registerProximitySensor() {
-
+        if (settingModel.switchOfProximity.value == true && !ProximitySensorSingleton.isRegistered()) {
+            ProximitySensorSingleton.registerListener(context)
+        }
     }
 
     private fun refreshState(permissionStatus: Boolean?, serviceStatus: Boolean?, customStatus: Boolean?) {
         btn_control.visibility = View.INVISIBLE
         if (permissionStatus != true) {
-            tv_status?.text = "读取通知权限未开启"
+            val text =
+                resources.getString(R.string.permission_of_read_notification) + resources.getString(R.string.not_open)
+            tv_status?.text = text
             return
         }
         if (serviceStatus != true) {
-            tv_status?.text = "后台服务未开启"
+            val text =
+                resources.getString(R.string.service_of_background) + resources.getString(R.string.not_open)
+            tv_status?.text = text
             return
         }
         btn_control.visibility = View.VISIBLE
         if (customStatus != true) {
-            tv_status?.text = "准备工作已完成，目前关闭中"
+            tv_status?.text = resources.getString(R.string.already_close)
             return
         }
-        tv_status?.text = "已开启"
+        tv_status?.text = resources.getString(R.string.already_open)
     }
 
     private fun refresh() {

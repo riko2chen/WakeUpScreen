@@ -12,11 +12,13 @@ object ProximitySensorSingleton {
     private var sensorManager: SensorManager? = null
 
 
-    fun initData(context: Context) {
-        sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-    }
-
-    fun registerListener() {
+    fun registerListener(context: Context?) {
+        if (context == null) {
+            return
+        }
+        if (sensorManager == null) {
+            sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        }
 
         if (isRegistered()) {
             sensorManager?.unregisterListener(proximityListener)
@@ -25,7 +27,13 @@ object ProximitySensorSingleton {
         sensorManager?.registerListener(proximityListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
-    fun unRegisterListener() {
+    fun unRegisterListener(context: Context?) {
+        if (context == null) {
+            return
+        }
+        if (sensorManager == null) {
+            sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        }
         sensorManager?.unregisterListener(proximityListener)
         proximitySensor = null
     }

@@ -2,55 +2,67 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <Button
-            android:transitionName="bottombottombottom"
+    <TextView
             android:id="@+id/btn_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_gravity="bottom"
-            android:text="设置"
+            android:gravity="center"
+            android:text="@string/setting"
             android:textColor="#fff"
             android:background="@color/colorPrimary"
-            android:layout_width="match_parent" android:layout_height="50dp">
-    </Button>
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+    </TextView>
 
     <LinearLayout
             app:layout_constraintTop_toBottomOf="@id/btn_top"
             app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="vertical"
             android:divider="@drawable/shape_divider"
-            android:showDividers="end"
+            android:background="@color/background"
+            android:showDividers="middle"
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
         <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_language"
+                app:sc_setting_item_title_main="@string/language"
+                app:sc_setting_item_title_second="@string/language_zh_cn"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
+
+        <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_wake_screen_time"
-                app:sc_setting_item_title_main="亮屏时间"
+                app:sc_setting_item_title_main="@string/time_of_wake_up_screen"
                 app:sc_setting_item_title_second="2s"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
 
         <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_proximity_detect"
-                app:sc_setting_item_title_main="口袋防误触"
-                app:sc_setting_item_title_second="已开启"
+                app:sc_setting_item_title_main="@string/pocket_mode"
+                app:sc_setting_item_title_second="@string/already_open"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
+
         <com.symeonchen.uicomponent.views.SCSettingItem
-                app:sc_setting_item_title_main="分应用过滤"
-                app:sc_setting_item_title_second="开发中"
+                android:id="@+id/item_setting_address"
+                app:sc_setting_item_title_main="@string/project_address"
+                app:sc_setting_item_title_second="https://github.com/SymeonChen/WakeUpScreen"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
+
         <com.symeonchen.uicomponent.views.SCSettingItem
-                app:sc_setting_item_title_main="快捷开关"
-                app:sc_setting_item_title_second="开发中"
+                android:id="@+id/item_setting_question"
+                app:sc_setting_item_title_main="@string/feedback"
+                app:sc_setting_item_title_second="symeonchen@gmail.com"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
+
     </LinearLayout>
 
 

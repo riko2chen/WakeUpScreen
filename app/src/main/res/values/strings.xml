@@ -1,3 +1,34 @@
 <resources>
-    <string name="app_name">WakeUpScreen</string>
+    <!--common-->
+    <string name="app_name">通知亮屏</string>
+    <string name="home">首页</string>
+    <string name="setting">设置</string>
+    <string name="open">开启</string>
+    <string name="close">关闭</string>
+    <string name="ok">确定</string>
+    <string name="language">语言</string>
+    <string name="language_zh_cn">简体中文</string>
+    <string name="language_en">英语</string>
+
+    <!--action-->
+    <string name="click_to_close">点击关闭</string>
+    <string name="click_to_open">点击开启</string>
+    <string name="to_setting">去设置</string>
+    <string name="already_open">已开启</string>
+    <string name="already_close">已关闭</string>
+    <string name="not_open">未开启</string>
+    <string name="not_close">未关闭</string>
+    <string name="wanna_close">我要关闭</string>
+    <string name="wanna_open">我要开启</string>
+
+    <!--other-->
+    <string name="tip_desc_time_cost">开启或关闭通知亮屏需要1~10秒生效\n请耐心等待</string>
+    <string name="permission_of_read_notification">读取通知权限</string>
+    <string name="service_of_background">后台服务</string>
+    <string name="time_of_wake_up_screen">亮屏时间</string>
+    <string name="pocket_mode">口袋防误触</string>
+    <string name="project_address">开源地址</string>
+    <string name="feedback">反馈问题</string>
+
+
 </resources>

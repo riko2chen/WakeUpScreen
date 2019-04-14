@@ -16,7 +16,7 @@ class ScNotificationListenerService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
         LogUtils.d("Received notification from: " + sbn?.packageName)
-        val status = DataInjection.getSwitchOfApp()
+        val status = DataInjection.switchOfApp
         if (!status) {
             return
         }
@@ -28,8 +28,8 @@ class ScNotificationListenerService : NotificationListenerService() {
             return
         }
 
-        val proximityStatus = DataInjection.getStatueOfProximity()
-        val proximitySwitch = DataInjection.getSwitchOfProximity()
+        val proximityStatus = DataInjection.statueOfProximity
+        val proximitySwitch = DataInjection.switchOfProximity
 
         if (proximitySwitch && proximityStatus == 0) {
             return
@@ -39,7 +39,7 @@ class ScNotificationListenerService : NotificationListenerService() {
             PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
             TAG_WAKE
         )
-        val sec = DataInjection.getMilliSecondOfWakeUpScreen()
+        val sec = DataInjection.milliSecondOfWakeUpScreen
         wl.acquire((sec * 1000))
         wl.release()
 
