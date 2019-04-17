@@ -20,6 +20,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.milliSecondOfWakeUpScreen)
         }
 
+    var fakeSwitchOfBatterySaver: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.fakeSwitchOfBatterySaver)
+        }
+
     init {
 
         switchOfApp.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
@@ -39,6 +44,13 @@ class SettingViewModel : ViewModel() {
                 DataInjection.milliSecondOfWakeUpScreen = value
             }
         }
+
+        fakeSwitchOfBatterySaver.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.fakeSwitchOfBatterySaver = value
+            }
+        }
+
 
     }
 
