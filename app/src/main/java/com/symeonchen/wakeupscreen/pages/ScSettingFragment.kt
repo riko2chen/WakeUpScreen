@@ -39,7 +39,7 @@ class ScSettingFragment : ScBaseFragment() {
     private fun setListener() {
         item_setting_language.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-                ToastUtils.showShort("切换语言功能正在开发中")
+                ToastUtils.showShort(resources.getString(R.string.tip_change_language_developing))
             }
         }
 
