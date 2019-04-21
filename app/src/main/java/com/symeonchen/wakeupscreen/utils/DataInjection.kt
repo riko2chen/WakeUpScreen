@@ -1,6 +1,8 @@
 package com.symeonchen.wakeupscreen.utils
 
+import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_SAVER_FAKE_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.CUSTOM_STATUS
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_APP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
@@ -49,4 +51,11 @@ object DataInjection {
             MMKV.defaultMMKV().putBoolean(PROXIMITY_SWITCH, switch)
         }
 
+    var fakeSwitchOfBatterySaver: Boolean
+        get() {
+            return MMKV.defaultMMKV().getBoolean(BATTERY_SAVER_FAKE_SWITCH, DEFAULT_BATTERY_SAVER)
+        }
+        set(value) {
+            MMKV.defaultMMKV().putBoolean(BATTERY_SAVER_FAKE_SWITCH, value)
+        }
 }

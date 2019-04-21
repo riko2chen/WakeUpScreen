@@ -14,18 +14,25 @@
     <string name="click_to_close">点击关闭</string>
     <string name="click_to_open">点击开启</string>
     <string name="to_setting">去设置</string>
+    <string name="how_to_set">如何设置</string>
     <string name="already_open">已开启</string>
     <string name="already_close">已关闭</string>
+    <string name="i_already_close">我已关闭</string>
     <string name="not_open">未开启</string>
     <string name="not_close">未关闭</string>
     <string name="wanna_close">我要关闭</string>
     <string name="wanna_open">我要开启</string>
 
     <!--other-->
+    <string name="battery_saver_tips">关闭本应用的电量优化，可以保证通知亮屏在手机重启前使用有效。\n以三星手机为例，关闭方法如下：\n1. 打开设置\n2. 搜索\"优化电池使用量\"\n3.
+        点击进入\"优化电池使用量\"\n4. 搜索\"通知亮屏\"\n5. 将按钮设置为\"未选中状态\"\n\n注：三星手机请关闭【熄屏提醒】或将其设置为\"点击来显示\"
+    </string>
     <string name="tip_desc_time_cost">开启或关闭通知亮屏需要1~10秒生效\n请耐心等待</string>
+    <string name="tip_change_language_developing">切换语言功能正在开发中</string>
     <string name="permission_of_read_notification">读取通知权限</string>
     <string name="service_of_background">后台服务</string>
     <string name="time_of_wake_up_screen">亮屏时间</string>
+    <string name="optimize_of_battery_saver">关闭电量优化</string>
     <string name="pocket_mode">口袋防误触</string>
     <string name="project_address">开源地址</string>
     <string name="feedback">反馈问题</string>

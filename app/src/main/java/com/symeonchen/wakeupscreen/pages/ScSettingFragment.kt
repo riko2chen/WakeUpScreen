@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
@@ -39,7 +39,7 @@ class ScSettingFragment : ScBaseFragment() {
     private fun setListener() {
         item_setting_language.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-                Toast.makeText(context, "切换语言功能正在开发中", Toast.LENGTH_LONG).show()
+                ToastUtils.showShort(resources.getString(R.string.tip_change_language_developing))
             }
         }
 

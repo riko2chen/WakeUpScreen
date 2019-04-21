@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.pages
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,8 @@ class ScMainFragment : ScBaseFragment() {
 
     private lateinit var statusModel: StatusViewModel
     private lateinit var settingModel: SettingViewModel
+    private var alertDialog: AlertDialog? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
@@ -55,6 +58,12 @@ class ScMainFragment : ScBaseFragment() {
             resources.getString(R.string.click_to_open)
         )
 
+        main_item_battery_saver.bindData(
+            resources.getString(R.string.optimize_of_battery_saver),
+            settingModel.fakeSwitchOfBatterySaver.value ?: false,
+            resources.getString(R.string.how_to_set)
+        )
+
     }
 
     private fun setListener() {
@@ -72,6 +81,10 @@ class ScMainFragment : ScBaseFragment() {
         settingModel.switchOfApp.observe(this, Observer {
             btn_control.text = resources.getString(if (it) R.string.wanna_close else R.string.wanna_open)
             refresh()
+        })
+
+        settingModel.fakeSwitchOfBatterySaver.observe(this, Observer {
+            main_item_battery_saver.setState(it)
         })
 
         btn_control.setOnClickListener {
@@ -107,8 +120,27 @@ class ScMainFragment : ScBaseFragment() {
             }
         }
 
+        main_item_battery_saver.listener = object : StatusItem.OnItemClickListener {
+            override fun onItemClick() {
+                onBatterySaverClick()
+            }
 
+            override fun onBtnClick() {
+                onBatterySaverClick()
+            }
+        }
     }
+
+    private fun onBatterySaverClick() {
+        alertDialog?.dismiss()
+        val builder = AlertDialog.Builder(context!!)
+        alertDialog = builder.setMessage(
+            resources.getString(R.string.battery_saver_tips)
+        ).setPositiveButton(resources.getString(R.string.i_already_close)) { _, _ ->
+            settingModel.fakeSwitchOfBatterySaver.postValue(true)
+        }.create().apply { show() }
+    }
+
 
     private fun getData() {
 

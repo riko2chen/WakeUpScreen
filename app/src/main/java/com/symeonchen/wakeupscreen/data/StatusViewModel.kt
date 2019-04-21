@@ -9,5 +9,4 @@ class StatusViewModel : ViewModel() {
 
     var permissionOfReadNotification: MutableLiveData<Boolean> = MutableLiveData()
 
-
 }

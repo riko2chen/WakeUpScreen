@@ -1,7 +1,6 @@
 package com.symeonchen.wakeupscreen
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -12,7 +11,7 @@ import com.symeonchen.wakeupscreen.pages.ScMainFragment
 import com.symeonchen.wakeupscreen.pages.ScSettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
+class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
 
     private var fragmentList = ArrayList<Fragment>()
 
