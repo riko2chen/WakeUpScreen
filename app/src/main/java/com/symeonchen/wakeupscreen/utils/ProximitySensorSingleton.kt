@@ -5,42 +5,40 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.symeonchen.wakeupscreen.services.ScProximitySensor
 
-object ProximitySensorSingleton {
+class ProximitySensorSingleton {
+    companion object {
+        private var proximityListener = ScProximitySensor()
+        private var proximitySensor: Sensor? = null
+        private var sensorManager: SensorManager? = null
+        fun registerListener(context: Context?) {
+            if (context == null) {
+                return
+            }
+            if (sensorManager == null) {
+                sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+            }
 
-    private var proximityListener = ScProximitySensor()
-    private var proximitySensor: Sensor? = null
-    private var sensorManager: SensorManager? = null
-
-
-    fun registerListener(context: Context?) {
-        if (context == null) {
-            return
+            if (isRegistered()) {
+                sensorManager?.unregisterListener(proximityListener)
+            }
+            proximitySensor = sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+            sensorManager?.registerListener(proximityListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
         }
-        if (sensorManager == null) {
-            sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        }
 
-        if (isRegistered()) {
+        fun unRegisterListener(context: Context?) {
+            if (context == null) {
+                return
+            }
+            if (sensorManager == null) {
+                sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+            }
             sensorManager?.unregisterListener(proximityListener)
+            proximitySensor = null
         }
-        proximitySensor = sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-        sensorManager?.registerListener(proximityListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
-    }
 
-    fun unRegisterListener(context: Context?) {
-        if (context == null) {
-            return
+        fun isRegistered(): Boolean {
+            return proximitySensor != null
         }
-        if (sensorManager == null) {
-            sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        }
-        sensorManager?.unregisterListener(proximityListener)
-        proximitySensor = null
     }
-
-    fun isRegistered(): Boolean {
-        return proximitySensor != null
-    }
-
 
 }
