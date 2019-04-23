@@ -21,6 +21,8 @@
             android:background="@android:color/white"
             app:itemBackground="@android:color/white"
             app:menu="@menu/menu_main_nav"
+            app:itemTextAppearanceActive="@style/BottomNavigationViewTextAppearance.Active"
+            app:itemTextAppearanceInactive="@style/BottomNavigationViewTextAppearance"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
