@@ -14,10 +14,10 @@ import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.SettingViewModel
 import com.symeonchen.wakeupscreen.data.StatusViewModel
 import com.symeonchen.wakeupscreen.data.ViewModelInjection
-import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton
-import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.closeNotificationService
-import com.symeonchen.wakeupscreen.utils.NotificationStateSingleton.openNotificationService
-import com.symeonchen.wakeupscreen.utils.PermissionSingleton
+import com.symeonchen.wakeupscreen.utils.NotificationState
+import com.symeonchen.wakeupscreen.utils.NotificationState.Companion.closeNotificationService
+import com.symeonchen.wakeupscreen.utils.NotificationState.Companion.openNotificationService
+import com.symeonchen.wakeupscreen.utils.PermissionState
 import com.symeonchen.wakeupscreen.utils.ProximitySensorSingleton
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
@@ -96,7 +96,7 @@ class ScMainFragment : ScBaseFragment() {
         main_item_permission_notification.listener = object : StatusItem.OnItemClickListener {
             override fun onBtnClick() {
                 openNotificationService(context)
-                PermissionSingleton.openReadNotificationSetting(context)
+                PermissionState.openReadNotificationSetting(context)
             }
 
             override fun onItemClick() {
@@ -145,10 +145,10 @@ class ScMainFragment : ScBaseFragment() {
     private fun getData() {
 
         statusModel.permissionOfReadNotification.postValue(
-            PermissionSingleton.hasNotificationListenerServiceEnabled(context!!)
+            PermissionState.hasNotificationListenerServiceEnabled(context!!)
         )
         statusModel.statusOfService.postValue(
-            NotificationStateSingleton.isNotificationServiceOpen(context)
+            NotificationState.isNotificationServiceOpen(context)
         )
     }
 
@@ -160,14 +160,14 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun checkPermission(): Boolean {
-        val isPermissionOpen = PermissionSingleton.hasNotificationListenerServiceEnabled(context!!)
+        val isPermissionOpen = PermissionState.hasNotificationListenerServiceEnabled(context!!)
         statusModel.permissionOfReadNotification.postValue(isPermissionOpen)
         LogUtils.d("isPermissionOpen is $isPermissionOpen")
         return isPermissionOpen
     }
 
     private fun checkStatus(): Boolean {
-        val isServiceOpen = NotificationStateSingleton.isNotificationServiceOpen(context)
+        val isServiceOpen = NotificationState.isNotificationServiceOpen(context)
         statusModel.statusOfService.postValue(isServiceOpen)
         LogUtils.d("isServiceOpen is $isServiceOpen")
         return isServiceOpen
