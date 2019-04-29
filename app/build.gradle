@@ -10,8 +10,8 @@ android {
         applicationId "com.symeonchen.wakeupscreen"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.2"
+        versionCode project.AppVersionCode as int
+        versionName project.AppVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
