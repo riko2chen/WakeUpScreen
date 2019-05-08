@@ -14,6 +14,7 @@ import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.SettingViewModel
 import com.symeonchen.wakeupscreen.data.StatusViewModel
 import com.symeonchen.wakeupscreen.data.ViewModelInjection
+import com.symeonchen.wakeupscreen.utils.BatteryOptimizationState
 import com.symeonchen.wakeupscreen.utils.NotificationState
 import com.symeonchen.wakeupscreen.utils.NotificationState.Companion.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationState.Companion.openNotificationService
@@ -136,8 +137,10 @@ class ScMainFragment : ScBaseFragment() {
         val builder = AlertDialog.Builder(context!!)
         alertDialog = builder.setMessage(
             resources.getString(R.string.battery_saver_tips)
-        ).setPositiveButton(resources.getString(R.string.i_already_close)) { _, _ ->
-            settingModel.fakeSwitchOfBatterySaver.postValue(true)
+        ).setPositiveButton(resources.getString(R.string.to_setting)) { _, _ ->
+            if (!BatteryOptimizationState.hasIgnoreBatteryOptimization(context)) {
+                BatteryOptimizationState.openBatteryOptimization(context)
+            }
         }.create().apply { show() }
     }
 
@@ -150,6 +153,15 @@ class ScMainFragment : ScBaseFragment() {
         statusModel.statusOfService.postValue(
             NotificationState.isNotificationServiceOpen(context)
         )
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        when(requestCode){
+//            if ()
+//        }
+
+
     }
 
     override fun onResume() {
@@ -207,6 +219,10 @@ class ScMainFragment : ScBaseFragment() {
             statusModel.statusOfService.value,
             settingModel.switchOfApp.value
         )
+    }
+
+    private fun checkBatteryOptimization() {
+//        if (ContextCompat.checkSelfPermission(this,Ma))
     }
 
 }
