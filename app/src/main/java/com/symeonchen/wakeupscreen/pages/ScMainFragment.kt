@@ -141,6 +141,7 @@ class ScMainFragment : ScBaseFragment() {
         ).setPositiveButton(resources.getString(R.string.to_setting)) { _, _ ->
             if (!BatteryOptimizationState.hasIgnoreBatteryOptimization(context)) {
                 BatteryOptimizationState.openBatteryOptimization(context)
+                settingModel.fakeSwitchOfBatterySaver.postValue(true)
             } else {
                 ToastUtils.showShort(R.string.set_up_successfully)
             }
@@ -185,7 +186,6 @@ class ScMainFragment : ScBaseFragment() {
         settingModel.fakeSwitchOfBatterySaver.postValue(isIgnoreBatteryOptimization)
         LogUtils.d("isIgnoreBatteryOptimization is $isIgnoreBatteryOptimization")
         return isIgnoreBatteryOptimization
-
     }
 
     private fun registerProximitySensor() {
