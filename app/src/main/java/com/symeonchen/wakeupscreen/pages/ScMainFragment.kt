@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.SettingViewModel
 import com.symeonchen.wakeupscreen.data.StatusViewModel
 import com.symeonchen.wakeupscreen.data.ViewModelInjection
+import com.symeonchen.wakeupscreen.utils.BatteryOptimizationState
 import com.symeonchen.wakeupscreen.utils.NotificationState
 import com.symeonchen.wakeupscreen.utils.NotificationState.Companion.closeNotificationService
 import com.symeonchen.wakeupscreen.utils.NotificationState.Companion.openNotificationService
@@ -136,8 +138,13 @@ class ScMainFragment : ScBaseFragment() {
         val builder = AlertDialog.Builder(context!!)
         alertDialog = builder.setMessage(
             resources.getString(R.string.battery_saver_tips)
-        ).setPositiveButton(resources.getString(R.string.i_already_close)) { _, _ ->
-            settingModel.fakeSwitchOfBatterySaver.postValue(true)
+        ).setPositiveButton(resources.getString(R.string.to_setting)) { _, _ ->
+            if (!BatteryOptimizationState.hasIgnoreBatteryOptimization(context)) {
+                BatteryOptimizationState.openBatteryOptimization(context)
+                settingModel.fakeSwitchOfBatterySaver.postValue(true)
+            } else {
+                ToastUtils.showShort(R.string.set_up_successfully)
+            }
         }.create().apply { show() }
     }
 
@@ -156,6 +163,7 @@ class ScMainFragment : ScBaseFragment() {
         super.onResume()
         checkPermission()
         checkStatus()
+        checkBatteryOptimization()
         registerProximitySensor()
     }
 
@@ -171,6 +179,13 @@ class ScMainFragment : ScBaseFragment() {
         statusModel.statusOfService.postValue(isServiceOpen)
         LogUtils.d("isServiceOpen is $isServiceOpen")
         return isServiceOpen
+    }
+
+    private fun checkBatteryOptimization(): Boolean {
+        val isIgnoreBatteryOptimization = BatteryOptimizationState.hasIgnoreBatteryOptimization(context)
+        settingModel.fakeSwitchOfBatterySaver.postValue(isIgnoreBatteryOptimization)
+        LogUtils.d("isIgnoreBatteryOptimization is $isIgnoreBatteryOptimization")
+        return isIgnoreBatteryOptimization
     }
 
     private fun registerProximitySensor() {

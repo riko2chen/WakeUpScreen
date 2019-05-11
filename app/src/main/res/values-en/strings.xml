@@ -21,6 +21,7 @@
     <string name="not_close">not close</string>
     <string name="wanna_close">I want to close</string>
     <string name="wanna_open">I want to open</string>
+    <string name="set_up_successfully">Set up successfully!</string>
 
     <!--other-->
     <string name="battery_saver_tips">Turn off the power optimization of this app to ensure that the notification bright

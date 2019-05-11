@@ -22,6 +22,7 @@
     <string name="not_close">未关闭</string>
     <string name="wanna_close">我要关闭</string>
     <string name="wanna_open">我要开启</string>
+    <string name="set_up_successfully">设置成功</string>
 
     <!--other-->
     <string name="battery_saver_tips">关闭本应用的电量优化，可以保证通知亮屏在手机重启前使用有效。\n以三星手机为例，关闭方法如下：\n1. 打开设置\n2. 搜索\"优化电池使用量\"\n3.
