@@ -34,6 +34,9 @@ class ScNotificationListenerService : NotificationListenerService() {
         if (proximitySwitch && proximityStatus == 0) {
             return
         }
+        if (DataInjection.switchOfDebugMode) {
+            // todo add behavior of debug record
+        }
 
         val wl = pm.newWakeLock(
             PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,

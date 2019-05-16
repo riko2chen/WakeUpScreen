@@ -37,6 +37,7 @@
     <string name="pocket_mode">口袋防误触</string>
     <string name="project_address">开源地址</string>
     <string name="feedback">反馈问题</string>
+    <string name="debug_mode">调试模式</string>
 
 
 </resources>

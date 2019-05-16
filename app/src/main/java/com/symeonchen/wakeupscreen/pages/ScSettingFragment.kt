@@ -74,6 +74,13 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
+        item_setting_debug_mode_toast.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                initDebugModeDialog()
+            }
+        }
+
+
         settingModel.timeOfWakeUpScreen.observe(this, Observer {
             item_setting_wake_screen_time.bindData(
                 null,
@@ -95,6 +102,14 @@ class ScSettingFragment : ScBaseFragment() {
                     ProximitySensorSingleton.unRegisterListener(context)
             }
         })
+
+        settingModel.switchOfDebugMode.observe(this, Observer {
+            item_setting_debug_mode_toast.bindData(
+                null,
+                resources.getString(if (it) R.string.already_open else R.string.already_close)
+            )
+        })
+
     }
 
     private fun initWakeScreenTimeDialog() {
@@ -123,6 +138,21 @@ class ScSettingFragment : ScBaseFragment() {
         ) { _, which -> switch = which == 0 }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 settingModel.switchOfProximity.postValue(switch)
+            }
+            .create().apply { show() }
+    }
+
+    private fun initDebugModeDialog() {
+        alertDialog?.dismiss()
+        val builder = AlertDialog.Builder(context!!)
+        val secList = arrayOf(resources.getString(R.string.open), resources.getString(R.string.close))
+        var switch = settingModel.switchOfDebugMode.value!!
+        val checkedItem: Int = if (switch) 0 else 1
+        alertDialog = builder.setSingleChoiceItems(
+            secList, checkedItem
+        ) { _, which -> switch = which == 0 }
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                settingModel.switchOfDebugMode.postValue(switch)
             }
             .create().apply { show() }
     }

@@ -42,4 +42,6 @@
     <string name="pocket_mode">Pocket anti-missing</string>
     <string name="project_address">Open source address</string>
     <string name="feedback">Feedback problem</string>
+    <string name="debug_mode">Debug Mode</string>
+
 </resources>

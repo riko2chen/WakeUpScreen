@@ -25,6 +25,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.fakeSwitchOfBatterySaver)
         }
 
+    var switchOfDebugMode: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.switchOfDebugMode)
+        }
+
     init {
 
         switchOfApp.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
@@ -51,6 +56,11 @@ class SettingViewModel : ViewModel() {
             }
         }
 
+        switchOfDebugMode.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.switchOfDebugMode = value
+            }
+        }
 
     }
 

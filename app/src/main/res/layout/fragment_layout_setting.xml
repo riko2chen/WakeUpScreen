@@ -52,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
 
+
         <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_address"
                 app:sc_setting_item_title_main="@string/project_address"
@@ -63,6 +64,13 @@
                 android:id="@+id/item_setting_question"
                 app:sc_setting_item_title_main="@string/feedback"
                 app:sc_setting_item_title_second="symeonchen@gmail.com"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
+
+        <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_debug_mode_toast"
+                app:sc_setting_item_title_main="@string/debug_mode"
+                app:sc_setting_item_title_second="@string/already_close"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
 
