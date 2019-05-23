@@ -1,11 +1,11 @@
-package com.symeonchen.wakeupscreen.utils
+package com.symeonchen.wakeupscreen.states
 
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.symeonchen.wakeupscreen.services.ScProximitySensor
 
-class ProximitySensorSingleton {
+class ProximitySensorState {
     companion object {
         private var proximityListener = ScProximitySensor()
         private var proximitySensor: Sensor? = null
@@ -22,7 +22,10 @@ class ProximitySensorSingleton {
                 sensorManager?.unregisterListener(proximityListener)
             }
             proximitySensor = sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-            sensorManager?.registerListener(proximityListener, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL)
+            sensorManager?.registerListener(
+                proximityListener,
+                proximitySensor, SensorManager.SENSOR_DELAY_NORMAL
+            )
         }
 
         fun unRegisterListener(context: Context?) {

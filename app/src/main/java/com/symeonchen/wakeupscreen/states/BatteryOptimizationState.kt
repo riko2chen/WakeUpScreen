@@ -1,4 +1,4 @@
-package com.symeonchen.wakeupscreen.utils
+package com.symeonchen.wakeupscreen.states
 
 import android.content.Context
 import android.content.Context.POWER_SERVICE
@@ -13,7 +13,10 @@ class BatteryOptimizationState {
             if (context == null) {
                 return
             }
-            if (!hasIgnoreBatteryOptimization(context)) {
+            if (!hasIgnoreBatteryOptimization(
+                    context
+                )
+            ) {
                 val appContext = context.applicationContext
                 val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
                 intent.data = Uri.parse("package:" + appContext.packageName)

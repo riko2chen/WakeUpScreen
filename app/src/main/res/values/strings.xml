@@ -38,6 +38,9 @@
     <string name="project_address">开源地址</string>
     <string name="feedback">反馈问题</string>
     <string name="debug_mode">调试模式</string>
+    <string name="debug_mode_entry">调试页面</string>
+    <string name="click_to_enter_debug_page">点击进入调试页面</string>
+    <string name="debug_page_hints">在打开调试模式后\n该页面会显示所有收到的通知对应的APP包名\n如果发生了屏幕异常点亮等意外情况\n请将该页面截图并联系作者解决。\n</string>
 
 
 </resources>

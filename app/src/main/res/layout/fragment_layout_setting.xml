@@ -74,6 +74,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
 
+        <com.symeonchen.uicomponent.views.SCSettingItem
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:id="@+id/item_setting_debug_mode_entry"
+                app:sc_setting_item_title_main="@string/debug_mode_entry"
+                app:sc_setting_item_title_second="@string/click_to_enter_debug_page"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
+
     </LinearLayout>
 
 

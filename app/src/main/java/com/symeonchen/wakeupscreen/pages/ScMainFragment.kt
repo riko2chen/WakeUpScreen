@@ -12,15 +12,15 @@ import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
-import com.symeonchen.wakeupscreen.data.SettingViewModel
-import com.symeonchen.wakeupscreen.data.StatusViewModel
-import com.symeonchen.wakeupscreen.data.ViewModelInjection
-import com.symeonchen.wakeupscreen.utils.BatteryOptimizationState
-import com.symeonchen.wakeupscreen.utils.NotificationState
-import com.symeonchen.wakeupscreen.utils.NotificationState.Companion.closeNotificationService
-import com.symeonchen.wakeupscreen.utils.NotificationState.Companion.openNotificationService
-import com.symeonchen.wakeupscreen.utils.PermissionState
-import com.symeonchen.wakeupscreen.utils.ProximitySensorSingleton
+import com.symeonchen.wakeupscreen.model.SettingViewModel
+import com.symeonchen.wakeupscreen.model.StatusViewModel
+import com.symeonchen.wakeupscreen.model.ViewModelInjection
+import com.symeonchen.wakeupscreen.states.BatteryOptimizationState
+import com.symeonchen.wakeupscreen.states.NotificationState
+import com.symeonchen.wakeupscreen.states.NotificationState.Companion.closeNotificationService
+import com.symeonchen.wakeupscreen.states.NotificationState.Companion.openNotificationService
+import com.symeonchen.wakeupscreen.states.PermissionState
+import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
 class ScMainFragment : ScBaseFragment() {
@@ -189,8 +189,8 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun registerProximitySensor() {
-        if (settingModel.switchOfProximity.value == true && !ProximitySensorSingleton.isRegistered()) {
-            ProximitySensorSingleton.registerListener(context)
+        if (settingModel.switchOfProximity.value == true && !ProximitySensorState.isRegistered()) {
+            ProximitySensorState.registerListener(context)
         }
     }
 

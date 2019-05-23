@@ -11,12 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
+import com.symeonchen.wakeupscreen.DebugPageActivity
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.ScConstant
-import com.symeonchen.wakeupscreen.data.SettingViewModel
-import com.symeonchen.wakeupscreen.data.ViewModelInjection
-import com.symeonchen.wakeupscreen.utils.ProximitySensorSingleton
+import com.symeonchen.wakeupscreen.model.SettingViewModel
+import com.symeonchen.wakeupscreen.model.ViewModelInjection
+import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 
 
@@ -94,12 +95,12 @@ class ScSettingFragment : ScBaseFragment() {
                 resources.getString(if (it) R.string.already_open else R.string.already_close)
             )
             if (it) {
-                if (!ProximitySensorSingleton.isRegistered()) {
-                    ProximitySensorSingleton.registerListener(context)
+                if (!ProximitySensorState.isRegistered()) {
+                    ProximitySensorState.registerListener(context)
                 }
             } else {
-                if (ProximitySensorSingleton.isRegistered())
-                    ProximitySensorSingleton.unRegisterListener(context)
+                if (ProximitySensorState.isRegistered())
+                    ProximitySensorState.unRegisterListener(context)
             }
         })
 
@@ -108,8 +109,17 @@ class ScSettingFragment : ScBaseFragment() {
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close)
             )
+            if (it) {
+                item_setting_debug_mode_entry.visibility = View.VISIBLE
+            } else {
+                item_setting_debug_mode_entry.visibility = View.GONE
+            }
+
         })
 
+        item_setting_debug_mode_entry.setOnClickListener {
+            context?.let { mContext -> DebugPageActivity.actionStart(mContext) }
+        }
     }
 
     private fun initWakeScreenTimeDialog() {

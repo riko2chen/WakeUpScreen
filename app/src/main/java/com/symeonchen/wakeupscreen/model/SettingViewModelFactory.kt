@@ -1,4 +1,4 @@
-package com.symeonchen.wakeupscreen.data
+package com.symeonchen.wakeupscreen.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
