@@ -1,4 +1,4 @@
-package com.symeonchen.wakeupscreen.utils
+package com.symeonchen.wakeupscreen.states
 
 import android.content.Context
 import android.content.Intent

@@ -11,12 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
+import com.symeonchen.wakeupscreen.DebugPageActivity
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.ScConstant
-import com.symeonchen.wakeupscreen.data.SettingViewModel
-import com.symeonchen.wakeupscreen.data.ViewModelInjection
-import com.symeonchen.wakeupscreen.utils.ProximitySensorSingleton
+import com.symeonchen.wakeupscreen.model.SettingViewModel
+import com.symeonchen.wakeupscreen.model.ViewModelInjection
+import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 
 
@@ -74,6 +75,13 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
+        item_setting_debug_mode_toast.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                initDebugModeDialog()
+            }
+        }
+
+
         settingModel.timeOfWakeUpScreen.observe(this, Observer {
             item_setting_wake_screen_time.bindData(
                 null,
@@ -87,14 +95,31 @@ class ScSettingFragment : ScBaseFragment() {
                 resources.getString(if (it) R.string.already_open else R.string.already_close)
             )
             if (it) {
-                if (!ProximitySensorSingleton.isRegistered()) {
-                    ProximitySensorSingleton.registerListener(context)
+                if (!ProximitySensorState.isRegistered()) {
+                    ProximitySensorState.registerListener(context)
                 }
             } else {
-                if (ProximitySensorSingleton.isRegistered())
-                    ProximitySensorSingleton.unRegisterListener(context)
+                if (ProximitySensorState.isRegistered())
+                    ProximitySensorState.unRegisterListener(context)
             }
         })
+
+        settingModel.switchOfDebugMode.observe(this, Observer {
+            item_setting_debug_mode_toast.bindData(
+                null,
+                resources.getString(if (it) R.string.already_open else R.string.already_close)
+            )
+            if (it) {
+                item_setting_debug_mode_entry.visibility = View.VISIBLE
+            } else {
+                item_setting_debug_mode_entry.visibility = View.GONE
+            }
+
+        })
+
+        item_setting_debug_mode_entry.setOnClickListener {
+            context?.let { mContext -> DebugPageActivity.actionStart(mContext) }
+        }
     }
 
     private fun initWakeScreenTimeDialog() {
@@ -123,6 +148,21 @@ class ScSettingFragment : ScBaseFragment() {
         ) { _, which -> switch = which == 0 }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 settingModel.switchOfProximity.postValue(switch)
+            }
+            .create().apply { show() }
+    }
+
+    private fun initDebugModeDialog() {
+        alertDialog?.dismiss()
+        val builder = AlertDialog.Builder(context!!)
+        val secList = arrayOf(resources.getString(R.string.open), resources.getString(R.string.close))
+        var switch = settingModel.switchOfDebugMode.value!!
+        val checkedItem: Int = if (switch) 0 else 1
+        alertDialog = builder.setSingleChoiceItems(
+            secList, checkedItem
+        ) { _, which -> switch = which == 0 }
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                settingModel.switchOfDebugMode.postValue(switch)
             }
             .create().apply { show() }
     }

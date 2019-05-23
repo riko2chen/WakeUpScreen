@@ -1,6 +1,7 @@
-package com.symeonchen.wakeupscreen.data
+package com.symeonchen.wakeupscreen.model
 
 import androidx.lifecycle.ViewModel
+import com.symeonchen.wakeupscreen.data.ScLiveData
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 class SettingViewModel : ViewModel() {
@@ -25,6 +26,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.fakeSwitchOfBatterySaver)
         }
 
+    var switchOfDebugMode: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.switchOfDebugMode)
+        }
+
     init {
 
         switchOfApp.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
@@ -33,7 +39,8 @@ class SettingViewModel : ViewModel() {
             }
         }
 
-        switchOfProximity.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+        switchOfProximity.listener = object :
+            ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.switchOfProximity = value
             }
@@ -45,12 +52,19 @@ class SettingViewModel : ViewModel() {
             }
         }
 
-        fakeSwitchOfBatterySaver.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+        fakeSwitchOfBatterySaver.listener = object :
+            ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.fakeSwitchOfBatterySaver = value
             }
         }
 
+        switchOfDebugMode.listener = object :
+            ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.switchOfDebugMode = value
+            }
+        }
 
     }
 
