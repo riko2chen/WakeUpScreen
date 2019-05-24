@@ -8,6 +8,8 @@
     <string name="language">language</string>
     <string name="language_zh_cn">简体中文</string>
     <string name="language_en">English</string>
+    <string name="clear_all">Clear</string>
+
 
     <!--action-->
     <string name="click_to_close">Click to close</string>

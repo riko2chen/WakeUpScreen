@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import com.symeonchen.wakeupscreen.data.NotifyItem
 import io.realm.Realm
-import io.realm.RealmChangeListener
 import io.realm.RealmResults
+import io.realm.Sort
 import kotlinx.android.synthetic.main.activity_debug_page.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,11 +15,13 @@ class DebugPageActivity : ScBaseActivity() {
 
     private var realm: Realm? = null
     private var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    private var results: RealmResults<NotifyItem>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_debug_page)
         realm = Realm.getDefaultInstance()
+        setListener()
         initLogView()
     }
 
@@ -30,21 +32,36 @@ class DebugPageActivity : ScBaseActivity() {
     }
 
     private fun initLogView() {
-        val realmCallback: RealmChangeListener<RealmResults<NotifyItem>> = RealmChangeListener {
-            if (it.size > 0) {
-                var str = resources.getString(R.string.debug_page_hints)
-                for (item in it) {
-                    val itemStr = "\n ${sdf.format(item.time)} : ${item.appName}"
-                    str += itemStr
+
+        results = realm?.where(NotifyItem::class.java)
+            ?.findAll()?.sort("time", Sort.DESCENDING)
+        updateView(results)
+    }
+
+    private fun setListener() {
+        iv_back.setOnClickListener { finish() }
+        tv_clear_all.setOnClickListener {
+            results?.let {
+                realm?.executeTransaction {
+                    results?.deleteAllFromRealm()
                 }
-                tv_log.text = str
+                tv_log.text = ""
             }
         }
-
-        val result = realm?.where(NotifyItem::class.java)
-            ?.findAllAsync()
-        result?.addChangeListener(realmCallback)
     }
+
+    private fun updateView(it: RealmResults<NotifyItem>?) {
+        it ?: return
+        if (it.size > 0) {
+            var str = ""
+            for (item in it) {
+                val itemStr = "\n ${sdf.format(item.time)} : ${item.appName}"
+                str += itemStr
+            }
+            tv_log.text = str
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

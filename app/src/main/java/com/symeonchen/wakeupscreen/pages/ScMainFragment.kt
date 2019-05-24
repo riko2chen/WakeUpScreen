@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.R
@@ -170,21 +169,21 @@ class ScMainFragment : ScBaseFragment() {
     private fun checkPermission(): Boolean {
         val isPermissionOpen = PermissionState.hasNotificationListenerServiceEnabled(context!!)
         statusModel.permissionOfReadNotification.postValue(isPermissionOpen)
-        LogUtils.d("isPermissionOpen is $isPermissionOpen")
+//        LogUtils.d("isPermissionOpen is $isPermissionOpen")
         return isPermissionOpen
     }
 
     private fun checkStatus(): Boolean {
         val isServiceOpen = NotificationState.isNotificationServiceOpen(context)
         statusModel.statusOfService.postValue(isServiceOpen)
-        LogUtils.d("isServiceOpen is $isServiceOpen")
+//        LogUtils.d("isServiceOpen is $isServiceOpen")
         return isServiceOpen
     }
 
     private fun checkBatteryOptimization(): Boolean {
         val isIgnoreBatteryOptimization = BatteryOptimizationState.hasIgnoreBatteryOptimization(context)
         settingModel.fakeSwitchOfBatterySaver.postValue(isIgnoreBatteryOptimization)
-        LogUtils.d("isIgnoreBatteryOptimization is $isIgnoreBatteryOptimization")
+//        LogUtils.d("isIgnoreBatteryOptimization is $isIgnoreBatteryOptimization")
         return isIgnoreBatteryOptimization
     }
 
