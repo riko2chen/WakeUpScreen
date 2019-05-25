@@ -9,7 +9,7 @@ This is an Android app that allows the phone to **wake up** when it receives a *
 
 ### Application screenshot
 
-![](https://blog-1252276648.cos.ap-shanghai.myqcloud.com/WakeUpScreen/wake_up_screen_couple_20190414.png)
+![](https://blog-1252276648.cos.ap-shanghai.myqcloud.com/WakeUpScreen/wake_up_screen_couple_20190525.png)
 
 ### Why am I developing this project?
 
