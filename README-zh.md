@@ -9,7 +9,8 @@
 
 ### 应用截图
 
-![](https://blog-1252276648.cos.ap-shanghai.myqcloud.com/WakeUpScreen/wake_up_screen_couple_20190414.png)
+![](screenshot-zh.png)
+
 
 ### 为什么要开发该项目
 
