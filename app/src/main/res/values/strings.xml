@@ -10,6 +10,7 @@
     <string name="language_zh_cn">简体中文</string>
     <string name="language_en">English</string>
     <string name="clear_all">清空</string>
+    <string name="save">保存</string>
 
     <!--action-->
     <string name="click_to_close">点击关闭</string>
@@ -30,18 +31,19 @@
         点击进入\"优化电池使用量\"\n4. 搜索\"通知亮屏\"\n5. 将按钮设置为\"未选中状态\"\n\n注：三星手机请关闭【熄屏提醒】或将其设置为\"点击来显示\"
     </string>
     <string name="tip_desc_time_cost">开启或关闭通知亮屏需要1~10秒生效\n请耐心等待</string>
-    <string name="tip_change_language_developing">切换语言功能正在开发中</string>
+    <string name="developing">正在开发中</string>
     <string name="permission_of_read_notification">读取通知权限</string>
     <string name="service_of_background">后台服务</string>
     <string name="time_of_wake_up_screen">亮屏时间</string>
     <string name="optimize_of_battery_saver">关闭电量优化</string>
     <string name="pocket_mode">口袋防误触</string>
+    <string name="white_list">白名单模式</string>
     <string name="project_address">开源地址</string>
     <string name="feedback">反馈问题</string>
     <string name="debug_mode">调试模式</string>
     <string name="debug_mode_entry">调试页面</string>
     <string name="click_to_enter_debug_page">点击进入调试页面</string>
     <string name="debug_page_hints">在打开调试模式后\n该页面会显示所有收到的通知对应的APP包名\n如果发生了屏幕异常点亮等意外情况\n请将该页面截图并联系作者解决。\n</string>
-
+    <string name="white_list_hints">只有收到被选中的应用发出的通知才会亮屏</string>
 
 </resources>

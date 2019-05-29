@@ -9,6 +9,7 @@
     <string name="language_zh_cn">简体中文</string>
     <string name="language_en">English</string>
     <string name="clear_all">Clear</string>
+    <string name="save">Save</string>
 
 
     <!--action-->
@@ -36,12 +37,13 @@
     <string name="tip_desc_time_cost">Turning notification on or off will take 1~10 seconds to take effect.\n Please
         wait patiently.
     </string>
-    <string name="tip_change_language_developing">Switching language features are under development</string>
+    <string name="developing">Developing</string>
     <string name="permission_of_read_notification">Read notification permission</string>
     <string name="service_of_background">Background Services</string>
     <string name="time_of_wake_up_screen">Bright screen time</string>
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
     <string name="pocket_mode">Pocket anti-missing</string>
+    <string name="white_list">white-list mode</string>
     <string name="project_address">Open source address</string>
     <string name="feedback">Feedback problem</string>
     <string name="debug_mode">Debug Mode</string>
@@ -50,6 +52,9 @@
     <string name="debug_page_hints">When debugging mode is opened\nthe page will display the name of the APP package
         corresponding to all notifications received\n. If an unexpected situation occurs \nsuch as an abnormal light on
         the screen\nplease take a screenshot of the page and contact the author to solve it\n
+    </string>
+    <string name="white_list_hints">The screen will only wake up when it receives a notification from the selected
+        app.
     </string>
 
 

@@ -81,6 +81,11 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
+        item_setting_white_list.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+//                WhiteListActivity.actionStart(context)
+            }
+        }
 
         settingModel.timeOfWakeUpScreen.observe(this, Observer {
             item_setting_wake_screen_time.bindData(

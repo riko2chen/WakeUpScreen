@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.23.7'
     implementation 'com.tencent:mmkv:1.0.18'
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.8"
 
     implementation project(':uicomponent')
 

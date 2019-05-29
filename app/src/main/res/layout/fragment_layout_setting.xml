@@ -52,6 +52,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
 
+        <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_white_list"
+                app:sc_setting_item_title_main="@string/white_list"
+                app:sc_setting_item_title_second="@string/developing"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+        </com.symeonchen.uicomponent.views.SCSettingItem>
 
         <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_address"
