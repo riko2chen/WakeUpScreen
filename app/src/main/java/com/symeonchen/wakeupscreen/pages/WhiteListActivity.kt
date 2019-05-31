@@ -1,4 +1,4 @@
-package com.symeonchen.wakeupscreen
+package com.symeonchen.wakeupscreen.pages
 
 import android.content.Context
 import android.content.Intent
@@ -12,8 +12,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
 import com.symeonchen.wakeupscreen.states.AppListState
+import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.WhiteListUtils
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,6 +30,7 @@ class WhiteListActivity : ScBaseActivity() {
 
     private var dataList: MutableList<AppInfo> = arrayListOf()
     private var adapter: WhiteListViewAdapter? = null
+    private var map: HashMap<String, Int>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +49,7 @@ class WhiteListActivity : ScBaseActivity() {
 
 
     private fun initView() {
+        map = WhiteListUtils.getMapFromString(DataInjection.appListStringOfNotify)
         adapter = WhiteListViewAdapter(rv_app_list, dataList)
         rv_app_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_app_list.adapter = adapter
@@ -51,6 +57,18 @@ class WhiteListActivity : ScBaseActivity() {
 
     private fun setListener() {
         iv_back.setOnClickListener { finish() }
+
+        tv_save.setOnClickListener {
+            val result = HashMap<String, Int>()
+            for (item in dataList) {
+                if (item.selected) {
+                    result[item.packageName] = 1
+                }
+            }
+            DataInjection.appListStringOfNotify = WhiteListUtils.saveMapToString(result)
+            DataInjection.appListUpdateFlag = System.currentTimeMillis()
+            finish()
+        }
     }
 
     private fun getData() {
@@ -67,8 +85,23 @@ class WhiteListActivity : ScBaseActivity() {
                 }
 
                 override fun onNext(t: List<AppInfo>) {
+                    val resultWithSelected: MutableList<AppInfo> = arrayListOf()
+                    val resultWithUnselected: MutableList<AppInfo> = arrayListOf()
+                    for (item in t) {
+                        if (map?.containsKey(item.packageName) == true) {
+                            item.selected = true
+                            resultWithSelected.add(item)
+                        } else {
+                            resultWithUnselected.add(item)
+                        }
+                    }
                     dataList.clear()
-                    dataList.addAll(t)
+                    dataList.addAll(resultWithSelected.sortedBy {
+                        it.simpleName
+                    })
+                    dataList.addAll(resultWithUnselected.sortedBy {
+                        it.simpleName
+                    })
                     updateView()
                 }
 
@@ -108,12 +141,16 @@ class WhiteListActivity : ScBaseActivity() {
         override fun onBindViewHolder(holder: WhiteListHolder, position: Int) {
             holder.tvAppSimpleName?.text = this.dataList[position].simpleName
             holder.tvAppPackageName?.text = this.dataList[position].packageName
+            holder.cbAppSelect?.isChecked = this.dataList[position].selected
             try {
                 Glide.with(mContext!!)
                     .load(dataList[position].iconDrawable)
                     .into(holder.ivIcon!!)
             } catch (e: Exception) {
                 e.printStackTrace()
+            }
+            holder.cbAppSelect?.setOnCheckedChangeListener { _, checked ->
+                this.dataList[position].selected = checked
             }
         }
 

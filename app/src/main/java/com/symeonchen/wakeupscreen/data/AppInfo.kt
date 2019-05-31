@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 data class AppInfo(
     var simpleName: String = "",
     var packageName: String = "",
-    var iconPath: String = "",
-    var iconDrawable: Drawable? = null
-
+    var iconDrawable: Drawable? = null,
+    var selected: Boolean = false
 )

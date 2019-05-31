@@ -23,10 +23,6 @@ class AppListState {
                     if ((_app.flags and ApplicationInfo.FLAG_SYSTEM) != 0) {
                         continue
                     }
-//                    LogUtils.d(
-//                        TAG,
-//                        "package name is ${_app.packageName}\n appName is ${_app.loadLabel(appContext.packageManager)} \n"
-//                    )
                     val appInfo = AppInfo()
                     appInfo.simpleName = _app.loadLabel(appContext.packageManager).toString()
                     appInfo.packageName = _app.packageName
