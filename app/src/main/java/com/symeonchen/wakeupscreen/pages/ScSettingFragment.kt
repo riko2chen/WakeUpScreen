@@ -14,6 +14,7 @@ import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.DebugPageActivity
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
+import com.symeonchen.wakeupscreen.WhiteListActivity
 import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
@@ -40,7 +41,7 @@ class ScSettingFragment : ScBaseFragment() {
     private fun setListener() {
         item_setting_language.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-                ToastUtils.showShort(resources.getString(R.string.tip_change_language_developing))
+                ToastUtils.showShort(resources.getString(R.string.developing))
             }
         }
 
@@ -83,7 +84,7 @@ class ScSettingFragment : ScBaseFragment() {
 
         item_setting_white_list.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-//                WhiteListActivity.actionStart(context)
+                WhiteListActivity.actionStart(context)
             }
         }
 

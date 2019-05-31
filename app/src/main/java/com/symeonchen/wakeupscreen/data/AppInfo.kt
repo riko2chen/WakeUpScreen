@@ -1,7 +1,11 @@
 package com.symeonchen.wakeupscreen.data
 
+import android.graphics.drawable.Drawable
+
 data class AppInfo(
     var simpleName: String = "",
     var packageName: String = "",
-    var iconPath: String = ""
+    var iconPath: String = "",
+    var iconDrawable: Drawable? = null
+
 )
