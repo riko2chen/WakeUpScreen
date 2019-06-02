@@ -11,10 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
-import com.symeonchen.wakeupscreen.DebugPageActivity
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
-import com.symeonchen.wakeupscreen.WhiteListActivity
+import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
@@ -82,7 +81,13 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
-        item_setting_white_list.listener = object : SCSettingItem.OnItemClickListener {
+        item_setting_current_mode.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                initCurrentModeDialog()
+            }
+        }
+
+        item_setting_white_list_entry.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 WhiteListActivity.actionStart(context)
             }
@@ -121,6 +126,24 @@ class ScSettingFragment : ScBaseFragment() {
                 item_setting_debug_mode_entry.visibility = View.GONE
             }
 
+        })
+
+        settingModel.modeOfCurrent.observe(this, Observer {
+            item_setting_current_mode.bindData(
+                null,
+                resources.getString(
+                    when (it) {
+                        CurrentMode.MODE_WHITE_LIST -> R.string.white_list
+                        CurrentMode.MODE_ALL_NOTIFY -> R.string.all_pass
+                        else -> R.string.all_pass
+                    }
+                )
+            )
+            if (it == CurrentMode.MODE_WHITE_LIST) {
+                item_setting_white_list_entry.visibility = View.VISIBLE
+            } else {
+                item_setting_white_list_entry.visibility = View.GONE
+            }
         })
 
         item_setting_debug_mode_entry.setOnClickListener {
@@ -173,5 +196,20 @@ class ScSettingFragment : ScBaseFragment() {
             .create().apply { show() }
     }
 
+    private fun initCurrentModeDialog() {
+        alertDialog?.dismiss()
+        val builder = AlertDialog.Builder(context!!)
+        val secList = arrayOf(resources.getString(R.string.all_pass), resources.getString(R.string.white_list))
+        var switch = settingModel.modeOfCurrent.value!!
+        val checkedItem: Int = if (switch == CurrentMode.MODE_ALL_NOTIFY) 0 else 1
+        alertDialog = builder
+            .setSingleChoiceItems(
+                secList, checkedItem
+            ) { _, which -> switch = if (which == 0) CurrentMode.MODE_ALL_NOTIFY else CurrentMode.MODE_WHITE_LIST }
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                settingModel.modeOfCurrent.postValue(CurrentMode.getModeFromValue(if (switch == CurrentMode.MODE_ALL_NOTIFY) 0 else 1))
+            }
+            .create().apply { show() }
+    }
 
 }

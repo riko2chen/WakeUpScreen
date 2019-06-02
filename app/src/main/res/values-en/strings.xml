@@ -43,12 +43,16 @@
     <string name="time_of_wake_up_screen">Bright screen time</string>
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
     <string name="pocket_mode">Pocket anti-missing</string>
-    <string name="white_list">white-list mode</string>
+    <string name="current_mode">Current Mode</string>
+    <string name="all_pass">All Notify</string>
+    <string name="white_list">whitelist mode</string>
+    <string name="white_list_page">Whitelist Setting Page</string>
     <string name="project_address">Open source address</string>
     <string name="feedback">Feedback problem</string>
     <string name="debug_mode">Debug Mode</string>
     <string name="debug_mode_entry">Debug Page</string>
     <string name="click_to_enter_debug_page">Click here to enter Debug Page</string>
+    <string name="click_to_enter_white_list_page">Click here to enter Whitelist Page</string>
     <string name="debug_page_hints">When debugging mode is opened\nthe page will display the name of the APP package
         corresponding to all notifications received\n. If an unexpected situation occurs \nsuch as an abnormal light on
         the screen\nplease take a screenshot of the page and contact the author to solve it\n
