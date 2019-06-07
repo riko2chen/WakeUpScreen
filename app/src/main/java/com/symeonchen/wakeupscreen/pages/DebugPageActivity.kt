@@ -1,8 +1,10 @@
-package com.symeonchen.wakeupscreen
+package com.symeonchen.wakeupscreen.pages
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.NotifyItem
 import io.realm.Realm
 import io.realm.RealmResults

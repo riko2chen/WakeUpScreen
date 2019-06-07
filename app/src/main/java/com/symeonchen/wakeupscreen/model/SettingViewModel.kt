@@ -1,6 +1,7 @@
 package com.symeonchen.wakeupscreen.model
 
 import androidx.lifecycle.ViewModel
+import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.ScLiveData
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
@@ -29,6 +30,11 @@ class SettingViewModel : ViewModel() {
     var switchOfDebugMode: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.switchOfDebugMode)
+        }
+
+    var modeOfCurrent: ScLiveData<CurrentMode> = ScLiveData<CurrentMode>()
+        .apply {
+            setValue(DataInjection.modeOfCurrent)
         }
 
     init {
@@ -66,6 +72,11 @@ class SettingViewModel : ViewModel() {
             }
         }
 
+        modeOfCurrent.listener = object : ScLiveData.OnLiveDataValueInput<CurrentMode> {
+            override fun onValueInput(value: CurrentMode) {
+                DataInjection.modeOfCurrent = value
+            }
+        }
     }
 
 }

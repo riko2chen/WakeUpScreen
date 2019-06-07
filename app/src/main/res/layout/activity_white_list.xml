@@ -23,10 +23,11 @@
                 android:layout_height="50dp"/>
 
         <TextView
-                android:id="@+id/tv_clear_all"
+                android:id="@+id/tv_save"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/clear_all"
+                android:text="@string/save"
                 android:paddingEnd="14dp"
+                android:paddingStart="0dp"
                 android:gravity="center_vertical|end"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +41,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/debug_mode_entry"
+                android:text="@string/white_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -48,18 +49,19 @@
     <TextView
             android:id="@+id/tv_log_head_hint"
             app:layout_constraintTop_toBottomOf="@id/ll_header"
-            android:text="@string/debug_page_hints"
+            android:text="@string/white_list_hints"
+            android:gravity="center"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_app_list"
             app:layout_constraintTop_toBottomOf="@id/tv_log_head_hint"
             app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_white_list"
+            tools:orientation="vertical"
+            tools:layoutManager="LinearLayoutManager"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
-        <TextView
-                android:id="@+id/tv_log"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-    </ScrollView>
+            android:layout_height="0dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

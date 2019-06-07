@@ -1,8 +1,15 @@
 package com.symeonchen.wakeupscreen.utils
 
+import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.ScConstant.APP_NOTIFY_MODE
+import com.symeonchen.wakeupscreen.data.ScConstant.APP_WHITE_LIST_FLAG
+import com.symeonchen.wakeupscreen.data.ScConstant.APP_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_SAVER_FAKE_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.CUSTOM_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEBUG_MODE_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_NOTIFY_MODE
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_FLAG
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_APP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_DEBUG_MODE
@@ -38,7 +45,6 @@ object DataInjection {
     var statueOfProximity: Int
         get() {
             return MMKV.defaultMMKV().getInt(PROXIMITY_STATUS, DEFAULT_VALUE_OF_PROXIMITY)
-
         }
         set(state) {
             MMKV.defaultMMKV().putInt(PROXIMITY_STATUS, state)
@@ -67,5 +73,35 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV().putBoolean(DEBUG_MODE_SWITCH, value)
+        }
+
+    var modeOfCurrent: CurrentMode
+        get() {
+            return CurrentMode.getModeFromValue(
+                MMKV.defaultMMKV().getInt(
+                    APP_NOTIFY_MODE,
+                    DEFAULT_APP_NOTIFY_MODE
+                )
+            )
+
+        }
+        set(value) {
+            MMKV.defaultMMKV().putInt(APP_NOTIFY_MODE, value.ordinal)
+        }
+
+    var appListStringOfNotify: String
+        get() {
+            return MMKV.defaultMMKV().getString(APP_WHITE_LIST_STRING, DEFAULT_APP_WHITE_LIST_STRING) ?: ""
+        }
+        set(value) {
+            MMKV.defaultMMKV().putString(APP_WHITE_LIST_STRING, value)
+        }
+
+    var appListUpdateFlag: Long
+        get() {
+            return MMKV.defaultMMKV().getLong(APP_WHITE_LIST_FLAG, DEFAULT_APP_WHITE_LIST_FLAG)
+        }
+        set(value) {
+            MMKV.defaultMMKV().putLong(APP_WHITE_LIST_FLAG, value)
         }
 }

@@ -52,6 +52,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"/>
 
+        <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_current_mode"
+                app:sc_setting_item_title_main="@string/current_mode"
+                app:sc_setting_item_title_second="@string/white_list"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+        </com.symeonchen.uicomponent.views.SCSettingItem>
+
+        <com.symeonchen.uicomponent.views.SCSettingItem
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:id="@+id/item_setting_white_list_entry"
+                app:sc_setting_item_title_main="@string/white_list"
+                app:sc_setting_item_title_second="@string/click_to_enter_white_list_page"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+        </com.symeonchen.uicomponent.views.SCSettingItem>
 
         <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_address"
