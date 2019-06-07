@@ -149,8 +149,13 @@ class WhiteListActivity : ScBaseActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            holder.cbAppSelect?.setOnCheckedChangeListener { _, checked ->
-                this.dataList[position].selected = checked
+            holder.itemView.setOnClickListener {
+                this.dataList[position].selected = !this.dataList[position].selected
+                notifyItemChanged(position, this.dataList[position])
+            }
+            holder.cbAppSelect?.setOnClickListener {
+                this.dataList[position].selected = !this.dataList[position].selected
+                notifyItemChanged(position, this.dataList[position])
             }
         }
 
