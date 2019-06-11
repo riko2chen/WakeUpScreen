@@ -30,9 +30,9 @@ class ScApplication : Application() {
      */
     private fun filterLog() {
         if (BuildConfig.DEBUG) {
-            LogUtils.getConfig().setConsoleSwitch(false)
-        } else {
             LogUtils.getConfig().setConsoleSwitch(true)
+        } else {
+            LogUtils.getConfig().setConsoleSwitch(false)
         }
     }
 
