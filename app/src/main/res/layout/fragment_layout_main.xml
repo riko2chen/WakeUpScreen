@@ -39,15 +39,15 @@
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_control"
-                app:layout_constraintTop_toTopOf="@id/tv_status"
+                app:layout_constraintTop_toBottomOf="@id/tv_status"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="wrap_content"
-                app:rippleColor="@color/blue"
-                android:backgroundTint="@color/colorAccent"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_height="wrap_content"
+                android:layout_width="101dp"
+                app:rippleColor="@color/red"
+                android:backgroundTint="@color/red"
+                android:textAppearance="?android:attr/textAppearance"
+                android:layout_height="52dp"
                 android:textSize="12dp"
                 android:paddingStart="15dp"
                 android:paddingTop="5dp"
@@ -57,8 +57,8 @@
                 android:paddingEnd="15dp"
                 app:cornerRadius="20dp"
                 android:text="@string/wanna_close"
-                app:layout_constraintVertical_bias="0.8"
-                android:textColor="#FFF"/>
+                android:textColor="#FFF"
+        />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -90,5 +90,6 @@
                 android:layout_height="80dp"/>
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ object ScConstant {
     const val APP_NOTIFY_MODE = "app_white_list_switch"
     const val APP_WHITE_LIST_STRING = "white_list_app"
     const val APP_WHITE_LIST_FLAG = "white_list_flag"
+    const val ONGOING_STATUS_DETECT = "ongoing_status_detect"
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
@@ -20,6 +21,7 @@ object ScConstant {
     const val DEFAULT_APP_NOTIFY_MODE: Int = 0
     const val DEFAULT_APP_WHITE_LIST_STRING: String = ""
     const val DEFAULT_APP_WHITE_LIST_FLAG = 0L
+    const val DEFAULT_ONGOING_STATUS_DETECT = true
 
     const val AUTHOR_MAIL = "symeonchen@gmail.com"
     const val DEFAULT_MAIL_HEAD = "【问题反馈】【通知亮屏】在此输入标题"

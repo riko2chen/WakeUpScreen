@@ -37,6 +37,7 @@
     <string name="time_of_wake_up_screen">亮屏时间</string>
     <string name="optimize_of_battery_saver">关闭电量优化</string>
     <string name="pocket_mode">口袋防误触</string>
+    <string name="ongoing_status">持续通知优化(如微信视频、QQ电话)</string>
     <string name="current_mode">当前模式</string>
     <string name="all_pass">全应用通知</string>
     <string name="white_list">白名单模式</string>
