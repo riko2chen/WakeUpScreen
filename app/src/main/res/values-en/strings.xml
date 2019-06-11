@@ -42,7 +42,8 @@
     <string name="service_of_background">Background Services</string>
     <string name="time_of_wake_up_screen">Bright screen time</string>
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
-    <string name="pocket_mode">Pocket anti-missing</string>
+    <string name="pocket_mode">Pocket Mode</string>
+    <string name="ongoing_status">Optimize Ongoing Notify</string>
     <string name="current_mode">Current Mode</string>
     <string name="all_pass">All Notify</string>
     <string name="white_list">whitelist mode</string>

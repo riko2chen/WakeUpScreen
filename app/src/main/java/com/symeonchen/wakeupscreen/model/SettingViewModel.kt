@@ -37,6 +37,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.modeOfCurrent)
         }
 
+    var ongoingOptimize: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.ongoingOptimize)
+        }
+
     init {
 
         switchOfApp.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
@@ -77,6 +82,13 @@ class SettingViewModel : ViewModel() {
                 DataInjection.modeOfCurrent = value
             }
         }
+
+        ongoingOptimize.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.ongoingOptimize = value
+            }
+        }
+
     }
 
 }

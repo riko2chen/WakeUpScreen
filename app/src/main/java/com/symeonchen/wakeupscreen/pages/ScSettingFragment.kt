@@ -56,6 +56,13 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
+        item_setting_ongoing_detect.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                initOngoingSwitchDialog()
+            }
+        }
+
+
         item_setting_address.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 val i = Intent(Intent.ACTION_VIEW)
@@ -91,6 +98,10 @@ class ScSettingFragment : ScBaseFragment() {
             override fun onItemCLick() {
                 WhiteListActivity.actionStart(context)
             }
+        }
+
+        item_setting_debug_mode_entry.setOnClickListener {
+            context?.let { mContext -> DebugPageActivity.actionStart(mContext) }
         }
 
         settingModel.timeOfWakeUpScreen.observe(this, Observer {
@@ -146,9 +157,13 @@ class ScSettingFragment : ScBaseFragment() {
             }
         })
 
-        item_setting_debug_mode_entry.setOnClickListener {
-            context?.let { mContext -> DebugPageActivity.actionStart(mContext) }
-        }
+        settingModel.ongoingOptimize.observe(this, Observer {
+            item_setting_ongoing_detect.bindData(
+                null,
+                resources.getString(if (it) R.string.already_open else R.string.already_close)
+            )
+        })
+
     }
 
     private fun initWakeScreenTimeDialog() {
@@ -177,6 +192,21 @@ class ScSettingFragment : ScBaseFragment() {
         ) { _, which -> switch = which == 0 }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 settingModel.switchOfProximity.postValue(switch)
+            }
+            .create().apply { show() }
+    }
+
+    private fun initOngoingSwitchDialog() {
+        alertDialog?.dismiss()
+        val builder = AlertDialog.Builder(context!!)
+        val secList = arrayOf(resources.getString(R.string.open), resources.getString(R.string.close))
+        var switch = settingModel.ongoingOptimize.value!!
+        val checkedItem: Int = if (switch) 0 else 1
+        alertDialog = builder.setSingleChoiceItems(
+            secList, checkedItem
+        ) { _, which -> switch = which == 0 }
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                settingModel.ongoingOptimize.postValue(switch)
             }
             .create().apply { show() }
     }
