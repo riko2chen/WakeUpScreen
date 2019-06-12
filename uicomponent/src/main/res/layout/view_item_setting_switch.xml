@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <TextView
+            android:layout_marginStart="24dp"
+            android:id="@+id/tv_title_main"
+            tools:text="主标题主标题主"
+            android:textSize="18dp"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_title_second"/>
+
+    <TextView
+            app:layout_constraintStart_toStartOf="@id/tv_title_main"
+            android:textSize="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_main"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/tv_title_second"
+            tools:text="副标题副标题副标题副标题副标题"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    <Switch
+            android:id="@+id/switch_status"
+            android:checked="false"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</merge>

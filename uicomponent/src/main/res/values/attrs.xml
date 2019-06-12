@@ -4,4 +4,10 @@
         <attr name="sc_setting_item_title_main" format="string"/>
         <attr name="sc_setting_item_title_second" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="SCSettingSwitchItem">
+        <attr name="sc_setting_switch_item_title_main" format="string"/>
+        <attr name="sc_setting_switch_item_title_second" format="string"/>
+        <attr name="sc_setting_switch_item_checked" format="boolean"/>
+    </declare-styleable>
 </resources>

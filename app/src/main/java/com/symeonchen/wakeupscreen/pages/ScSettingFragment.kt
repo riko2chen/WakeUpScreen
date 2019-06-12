@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
+import com.symeonchen.uicomponent.views.SCSettingSwitchItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.CurrentMode
@@ -50,15 +51,23 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
-        item_setting_proximity_detect.listener = object : SCSettingItem.OnItemClickListener {
+        item_setting_proximity_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
-                initProximitySwitchDialog()
+            }
+
+            override fun onSwitchClick() {
+                val switchCurr = settingModel.switchOfProximity.value ?: false
+                settingModel.switchOfProximity.postValue(!switchCurr)
             }
         }
 
-        item_setting_ongoing_detect.listener = object : SCSettingItem.OnItemClickListener {
+        item_setting_ongoing_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
-                initOngoingSwitchDialog()
+            }
+
+            override fun onSwitchClick() {
+                val switchCurr = settingModel.ongoingOptimize.value ?: false
+                settingModel.ongoingOptimize.postValue(!switchCurr)
             }
         }
 
@@ -114,7 +123,8 @@ class ScSettingFragment : ScBaseFragment() {
         settingModel.switchOfProximity.observe(this, Observer {
             item_setting_proximity_detect.bindData(
                 null,
-                resources.getString(if (it) R.string.already_open else R.string.already_close)
+                resources.getString(if (it) R.string.already_open else R.string.already_close),
+                it
             )
             if (it) {
                 if (!ProximitySensorState.isRegistered()) {
@@ -160,7 +170,8 @@ class ScSettingFragment : ScBaseFragment() {
         settingModel.ongoingOptimize.observe(this, Observer {
             item_setting_ongoing_detect.bindData(
                 null,
-                resources.getString(if (it) R.string.already_open else R.string.already_close)
+                resources.getString(if (it) R.string.already_open else R.string.already_close),
+                it
             )
         })
 
@@ -177,36 +188,6 @@ class ScSettingFragment : ScBaseFragment() {
         ) { _, which -> index = which }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 settingModel.timeOfWakeUpScreen.postValue((index + 1) * 1000L)
-            }
-            .create().apply { show() }
-    }
-
-    private fun initProximitySwitchDialog() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf(resources.getString(R.string.open), resources.getString(R.string.close))
-        var switch = settingModel.switchOfProximity.value!!
-        val checkedItem: Int = if (switch) 0 else 1
-        alertDialog = builder.setSingleChoiceItems(
-            secList, checkedItem
-        ) { _, which -> switch = which == 0 }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.switchOfProximity.postValue(switch)
-            }
-            .create().apply { show() }
-    }
-
-    private fun initOngoingSwitchDialog() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf(resources.getString(R.string.open), resources.getString(R.string.close))
-        var switch = settingModel.ongoingOptimize.value!!
-        val checkedItem: Int = if (switch) 0 else 1
-        alertDialog = builder.setSingleChoiceItems(
-            secList, checkedItem
-        ) { _, which -> switch = which == 0 }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.ongoingOptimize.postValue(switch)
             }
             .create().apply { show() }
     }
