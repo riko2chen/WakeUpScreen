@@ -49,17 +49,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"/>
 
-            <com.symeonchen.uicomponent.views.SCSettingItem
+            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
                     android:id="@+id/item_setting_proximity_detect"
-                    app:sc_setting_item_title_main="@string/pocket_mode"
-                    app:sc_setting_item_title_second="@string/already_open"
+                    app:sc_setting_switch_item_title_main="@string/pocket_mode"
+                    app:sc_setting_switch_item_title_second="@string/already_open"
+                    app:sc_setting_switch_item_checked="true"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"/>
 
-            <com.symeonchen.uicomponent.views.SCSettingItem
+            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
                     android:id="@+id/item_setting_ongoing_detect"
-                    app:sc_setting_item_title_main="@string/ongoing_status"
-                    app:sc_setting_item_title_second="@string/already_open"
+                    app:sc_setting_switch_item_title_main="@string/ongoing_status"
+                    app:sc_setting_switch_item_title_second="@string/already_open"
+                    app:sc_setting_switch_item_checked="true"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"/>
 
