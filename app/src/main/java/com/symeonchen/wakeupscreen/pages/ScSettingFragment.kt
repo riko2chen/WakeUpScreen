@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
+import com.symeonchen.uicomponent.views.SCSettingSwitchItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.CurrentMode
@@ -18,6 +19,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
+import com.symeonchen.wakeupscreen.utils.AppInfoUtils
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 
 
@@ -50,15 +52,23 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
-        item_setting_proximity_detect.listener = object : SCSettingItem.OnItemClickListener {
+        item_setting_proximity_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
-                initProximitySwitchDialog()
+            }
+
+            override fun onSwitchClick() {
+                val switchCurr = settingModel.switchOfProximity.value ?: false
+                settingModel.switchOfProximity.postValue(!switchCurr)
             }
         }
 
-        item_setting_ongoing_detect.listener = object : SCSettingItem.OnItemClickListener {
+        item_setting_ongoing_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
-                initOngoingSwitchDialog()
+            }
+
+            override fun onSwitchClick() {
+                val switchCurr = settingModel.ongoingOptimize.value ?: false
+                settingModel.ongoingOptimize.postValue(!switchCurr)
             }
         }
 
@@ -73,12 +83,21 @@ class ScSettingFragment : ScBaseFragment() {
 
         item_setting_question.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
+                var mailBody = ScConstant.DEFAULT_MAIL_BODY
+                var mailTitle = ScConstant.DEFAULT_MAIL_HEAD
+                try {
+                    mailBody = AppInfoUtils.getDeviceInfo(context)
+                    mailTitle = resources.getString(R.string.mail_title)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "plain/text"
                 intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(ScConstant.AUTHOR_MAIL))
-                intent.putExtra(Intent.EXTRA_SUBJECT, ScConstant.DEFAULT_MAIL_HEAD)
-                intent.putExtra(Intent.EXTRA_TEXT, ScConstant.DEFAULT_MAIL_BODY)
-                startActivity(Intent.createChooser(intent, ""))
+                intent.putExtra(Intent.EXTRA_SUBJECT, mailTitle)
+                intent.putExtra(Intent.EXTRA_TEXT, mailBody)
+                startActivity(Intent.createChooser(intent, "Choose your mail app"))
             }
         }
 
@@ -114,7 +133,8 @@ class ScSettingFragment : ScBaseFragment() {
         settingModel.switchOfProximity.observe(this, Observer {
             item_setting_proximity_detect.bindData(
                 null,
-                resources.getString(if (it) R.string.already_open else R.string.already_close)
+                resources.getString(if (it) R.string.already_open else R.string.already_close),
+                it
             )
             if (it) {
                 if (!ProximitySensorState.isRegistered()) {
@@ -160,7 +180,8 @@ class ScSettingFragment : ScBaseFragment() {
         settingModel.ongoingOptimize.observe(this, Observer {
             item_setting_ongoing_detect.bindData(
                 null,
-                resources.getString(if (it) R.string.already_open else R.string.already_close)
+                resources.getString(if (it) R.string.already_open else R.string.already_close),
+                it
             )
         })
 
@@ -177,36 +198,6 @@ class ScSettingFragment : ScBaseFragment() {
         ) { _, which -> index = which }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 settingModel.timeOfWakeUpScreen.postValue((index + 1) * 1000L)
-            }
-            .create().apply { show() }
-    }
-
-    private fun initProximitySwitchDialog() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf(resources.getString(R.string.open), resources.getString(R.string.close))
-        var switch = settingModel.switchOfProximity.value!!
-        val checkedItem: Int = if (switch) 0 else 1
-        alertDialog = builder.setSingleChoiceItems(
-            secList, checkedItem
-        ) { _, which -> switch = which == 0 }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.switchOfProximity.postValue(switch)
-            }
-            .create().apply { show() }
-    }
-
-    private fun initOngoingSwitchDialog() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf(resources.getString(R.string.open), resources.getString(R.string.close))
-        var switch = settingModel.ongoingOptimize.value!!
-        val checkedItem: Int = if (switch) 0 else 1
-        alertDialog = builder.setSingleChoiceItems(
-            secList, checkedItem
-        ) { _, which -> switch = which == 0 }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.ongoingOptimize.postValue(switch)
             }
             .create().apply { show() }
     }
