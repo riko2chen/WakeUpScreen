@@ -11,6 +11,7 @@
     <string name="language_en">English</string>
     <string name="clear_all">清空</string>
     <string name="save">保存</string>
+    <string name="mail_title">【问题反馈】【通知亮屏】在此输入标题</string>
 
     <!--action-->
     <string name="click_to_close">点击关闭</string>

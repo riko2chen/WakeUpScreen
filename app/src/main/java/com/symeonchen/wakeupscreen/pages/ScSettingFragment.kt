@@ -19,6 +19,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
+import com.symeonchen.wakeupscreen.utils.AppInfoUtils
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 
 
@@ -82,12 +83,21 @@ class ScSettingFragment : ScBaseFragment() {
 
         item_setting_question.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
+                var mailBody = ScConstant.DEFAULT_MAIL_BODY
+                var mailTitle = ScConstant.DEFAULT_MAIL_HEAD
+                try {
+                    mailBody = AppInfoUtils.getDeviceInfo(context)
+                    mailTitle = resources.getString(R.string.mail_title)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "plain/text"
                 intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(ScConstant.AUTHOR_MAIL))
-                intent.putExtra(Intent.EXTRA_SUBJECT, ScConstant.DEFAULT_MAIL_HEAD)
-                intent.putExtra(Intent.EXTRA_TEXT, ScConstant.DEFAULT_MAIL_BODY)
-                startActivity(Intent.createChooser(intent, ""))
+                intent.putExtra(Intent.EXTRA_SUBJECT, mailTitle)
+                intent.putExtra(Intent.EXTRA_TEXT, mailBody)
+                startActivity(Intent.createChooser(intent, "Choose your mail app"))
             }
         }
 
