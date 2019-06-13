@@ -10,6 +10,7 @@
     <string name="language_en">English</string>
     <string name="clear_all">Clear</string>
     <string name="save">Save</string>
+    <string name="mail_title">[Question] [Wake Up Screen] write title here</string>
 
 
     <!--action-->
@@ -46,10 +47,10 @@
     <string name="ongoing_status">Optimize Ongoing Notify</string>
     <string name="current_mode">Current Mode</string>
     <string name="all_pass">All Notify</string>
-    <string name="white_list">whitelist mode</string>
+    <string name="white_list">Whitelist mode</string>
     <string name="white_list_page">Whitelist Setting Page</string>
     <string name="project_address">Open source address</string>
-    <string name="feedback">Feedback problem</string>
+    <string name="feedback">Feedback</string>
     <string name="debug_mode">Debug Mode</string>
     <string name="debug_mode_entry">Debug Page</string>
     <string name="click_to_enter_debug_page">Click here to enter Debug Page</string>
