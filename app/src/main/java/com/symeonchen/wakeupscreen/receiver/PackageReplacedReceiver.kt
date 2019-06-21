@@ -10,7 +10,7 @@ class PackageReplacedReceiver : BroadcastReceiver() {
         intent ?: return
         intent.action ?: return
         if (intent.action.equals("android.intent.action.MY_PACKAGE_REPLACED", true)) {
-            NotificationState.restartNotificationService(context)
+            NotificationState.openNotificationService(context)
         }
     }
 }

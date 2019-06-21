@@ -182,7 +182,6 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun checkStatus(): Boolean {
-        NotificationState.restartNotificationService(context)
         val isServiceOpen = NotificationState.isNotificationServiceOpen(context)
         statusModel.statusOfService.postValue(isServiceOpen)
         LogUtils.d("isServiceOpen is $isServiceOpen")

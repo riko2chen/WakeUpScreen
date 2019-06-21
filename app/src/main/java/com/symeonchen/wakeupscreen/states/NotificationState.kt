@@ -9,7 +9,9 @@ class NotificationState {
     companion object {
 
         fun isNotificationServiceOpen(context: Context?): Boolean {
-            context ?: return false
+            if (context == null) {
+                return false
+            }
             val appContext = context.applicationContext
             val pm = appContext.packageManager
             val state = pm.getComponentEnabledSetting(
@@ -24,7 +26,9 @@ class NotificationState {
         }
 
         fun closeNotificationService(context: Context?) {
-            context ?: return
+            if (context == null) {
+                return
+            }
             val appContext = context.applicationContext
             val pm = appContext.packageManager
             pm.setComponentEnabledSetting(
@@ -36,7 +40,9 @@ class NotificationState {
         }
 
         fun openNotificationService(context: Context?) {
-            context ?: return
+            if (context == null) {
+                return
+            }
             val appContext = context.applicationContext
             val pm = appContext.packageManager
             pm.setComponentEnabledSetting(
@@ -45,12 +51,6 @@ class NotificationState {
                 ),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
             )
-        }
-
-        fun restartNotificationService(context: Context?) {
-            context ?: return
-            closeNotificationService(context)
-            openNotificationService(context)
         }
     }
 }
