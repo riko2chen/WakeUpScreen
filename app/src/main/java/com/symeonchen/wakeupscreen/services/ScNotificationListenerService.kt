@@ -28,6 +28,9 @@ class ScNotificationListenerService : NotificationListenerService() {
         super.onNotificationPosted(sbn)
 //        LogUtils.d("Received notification from: " + sbn?.packageName)
         sbn ?: return
+        if (sbn.packageName == "com.android.systemui") {
+            return
+        }
 
         checkStatus()
         val pm = getSystemService(POWER_SERVICE) as PowerManager
