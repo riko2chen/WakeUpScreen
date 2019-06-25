@@ -63,5 +63,8 @@
         app.
     </string>
 
+    <string name="custom">Custom</string>
+    <string name="about">About</string>
+    <string name="debug">Debug</string>
 
 </resources>

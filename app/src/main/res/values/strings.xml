@@ -52,4 +52,8 @@
     <string name="debug_page_hints">在打开调试模式后\n该页面会显示所有收到的通知对应的APP包名\n如果发生了屏幕异常点亮等意外情况\n请将该页面截图并联系作者解决。\n</string>
     <string name="white_list_hints">只有收到被选中的应用发出的通知才会亮屏</string>
 
+    <string name="custom">自定义</string>
+    <string name="about">关于</string>
+    <string name="debug">调试</string>
+
 </resources>
