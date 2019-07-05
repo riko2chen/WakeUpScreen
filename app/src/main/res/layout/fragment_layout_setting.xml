@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"/>
 
             <com.symeonchen.uicomponent.views.SCSettingItem
-                    android:visibility="gone"
+                android:visibility="visible"
                     tools:visibility="visible"
                     android:id="@+id/item_setting_language"
                     app:sc_setting_item_title_main="@string/language"

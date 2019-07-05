@@ -6,7 +6,7 @@
     <string name="open">开启</string>
     <string name="close">关闭</string>
     <string name="ok">确定</string>
-    <string name="language">语言</string>
+    <string name="language">Language（语言）</string>
     <string name="language_zh_cn">简体中文</string>
     <string name="language_en">English</string>
     <string name="clear_all">清空</string>

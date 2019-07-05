@@ -9,18 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.LanguageUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.uicomponent.views.SCSettingSwitchItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.AppInfoUtils
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
+import java.util.*
 
 
 class ScSettingFragment : ScBaseFragment() {
@@ -42,7 +44,7 @@ class ScSettingFragment : ScBaseFragment() {
     private fun setListener() {
         item_setting_language.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-                ToastUtils.showShort(resources.getString(R.string.developing))
+                initLanguageSettingDialog()
             }
         }
 
@@ -184,6 +186,44 @@ class ScSettingFragment : ScBaseFragment() {
                 it
             )
         })
+
+        settingModel.languageSelected.observe(this, Observer {
+            item_setting_language.bindData(
+                null,
+                when (it) {
+                    LanguageInfo.CHINESE_SIMPLE -> "简体中文"
+                    LanguageInfo.ENGLISH -> "English"
+                    else -> "跟随系统(Follow System)"
+                }
+            )
+        })
+
+    }
+
+    private fun initLanguageSettingDialog() {
+        alertDialog?.dismiss()
+        val builder = AlertDialog.Builder(context!!)
+        val secList =
+            arrayOf("跟随系统(Follow System)", "English", "简体中文")
+        var switch = settingModel.languageSelected.value!!.ordinal
+        val checkedItem: Int = LanguageInfo.getModeFromValue(switch).ordinal
+
+        alertDialog = builder.setSingleChoiceItems(
+            secList, checkedItem
+        ) { _, which -> switch = LanguageInfo.getModeFromValue(which).ordinal }
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                if (switch == LanguageInfo.FOLLOW_SYSTEM.ordinal) {
+                    settingModel.languageSelected.postValue(LanguageInfo.FOLLOW_SYSTEM)
+                    LanguageUtils.applySystemLanguage("")
+                } else if (switch == LanguageInfo.ENGLISH.ordinal) {
+                    settingModel.languageSelected.postValue(LanguageInfo.ENGLISH)
+                    LanguageUtils.applyLanguage(Locale.US, "")
+                } else {
+                    settingModel.languageSelected.postValue(LanguageInfo.CHINESE_SIMPLE)
+                    LanguageUtils.applyLanguage(Locale.CHINA, "")
+                }
+            }
+            .create().apply { show() }
 
     }
 

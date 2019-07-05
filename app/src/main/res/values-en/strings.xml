@@ -5,7 +5,7 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="ok">OK</string>
-    <string name="language">language</string>
+    <string name="language">语言(Language)</string>
     <string name="language_zh_cn">简体中文</string>
     <string name="language_en">English</string>
     <string name="clear_all">Clear</string>
@@ -17,7 +17,7 @@
     <string name="click_to_close">Click to close</string>
     <string name="click_to_open">Click to open</string>
     <string name="to_setting">To setting</string>
-    <string name="how_to_set">How to set</string>
+    <string name="how_to_set">How to set</string>ß
     <string name="already_open">Already open</string>
     <string name="already_close">Already close</string>
     <string name="i_already_close">Already close</string>
@@ -49,7 +49,7 @@
     <string name="all_pass">All Notify</string>
     <string name="white_list">Whitelist mode</string>
     <string name="white_list_page">Whitelist Setting Page</string>
-    <string name="project_address">Open source address</string>
+    <string name="project_address">Open Source Project</string>
     <string name="feedback">Feedback</string>
     <string name="debug_mode">Debug Mode</string>
     <string name="debug_mode_entry">Debug Page</string>
