@@ -2,6 +2,7 @@ package com.symeonchen.wakeupscreen.model
 
 import androidx.lifecycle.ViewModel
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.ScLiveData
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
@@ -41,6 +42,13 @@ class SettingViewModel : ViewModel() {
         .apply {
             setValue(DataInjection.ongoingOptimize)
         }
+
+
+    var languageSelected: ScLiveData<LanguageInfo> = ScLiveData<LanguageInfo>()
+        .apply {
+            setValue(DataInjection.languageSelected)
+        }
+
 
     init {
 
@@ -86,6 +94,12 @@ class SettingViewModel : ViewModel() {
         ongoingOptimize.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.ongoingOptimize = value
+            }
+        }
+
+        languageSelected.listener = object : ScLiveData.OnLiveDataValueInput<LanguageInfo> {
+            override fun onValueInput(value: LanguageInfo) {
+                DataInjection.languageSelected = value
             }
         }
 

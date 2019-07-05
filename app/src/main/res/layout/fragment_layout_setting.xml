@@ -13,6 +13,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center"
             android:text="@string/setting"
+            android:textSize="18dp"
             android:textColor="#fff"
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
@@ -32,9 +33,15 @@
                 android:showDividers="middle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+            <TextView
+                    android:layout_marginStart="24dp"
+                    android:text="@string/custom"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             <com.symeonchen.uicomponent.views.SCSettingItem
-                    android:visibility="gone"
+                android:visibility="visible"
                     tools:visibility="visible"
                     android:id="@+id/item_setting_language"
                     app:sc_setting_item_title_main="@string/language"
@@ -83,19 +90,12 @@
                     android:layout_height="70dp">
             </com.symeonchen.uicomponent.views.SCSettingItem>
 
-            <com.symeonchen.uicomponent.views.SCSettingItem
-                    android:id="@+id/item_setting_address"
-                    app:sc_setting_item_title_main="@string/project_address"
-                    app:sc_setting_item_title_second="https://github.com/SymeonChen/WakeUpScreen"
+            <TextView
+                    android:paddingStart="24dp"
+                    android:text="@string/debug"
+                    android:textColor="@color/colorPrimary"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"/>
-
-            <com.symeonchen.uicomponent.views.SCSettingItem
-                    android:id="@+id/item_setting_question"
-                    app:sc_setting_item_title_main="@string/feedback"
-                    app:sc_setting_item_title_second="symeonchen@gmail.com"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"/>
+                    android:layout_height="wrap_content"/>
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                     android:id="@+id/item_setting_debug_mode_toast"
@@ -113,6 +113,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"/>
 
+            <TextView
+                    android:paddingStart="24dp"
+                    android:text="@string/about"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <com.symeonchen.uicomponent.views.SCSettingItem
+                    android:id="@+id/item_setting_address"
+                    app:sc_setting_item_title_main="@string/project_address"
+                    app:sc_setting_item_title_second="https://github.com/SymeonChen/WakeUpScreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"/>
+
+            <com.symeonchen.uicomponent.views.SCSettingItem
+                    android:id="@+id/item_setting_question"
+                    app:sc_setting_item_title_main="@string/feedback"
+                    app:sc_setting_item_title_second="symeonchen@gmail.com"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"/>
         </LinearLayout>
     </ScrollView>
 

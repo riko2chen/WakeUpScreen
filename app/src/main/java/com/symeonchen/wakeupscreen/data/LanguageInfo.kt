@@ -1,14 +1,15 @@
 package com.symeonchen.wakeupscreen.data
 
 @Suppress("UNUSED_PARAMETER")
-enum class CurrentMode(name: String, referenceNum: Int) {
-    MODE_ALL_NOTIFY("All Notify", 0),
-    MODE_WHITE_LIST("Whitelist mode", 1);
+enum class LanguageInfo(referenceNum: Int) {
+    FOLLOW_SYSTEM(0),
+    ENGLISH(1),
+    CHINESE_SIMPLE(2);
 
     companion object {
 
-        fun getModeFromValue(referenceNum: Int): CurrentMode {
-            var mode = MODE_ALL_NOTIFY
+        fun getModeFromValue(referenceNum: Int): LanguageInfo {
+            var mode = FOLLOW_SYSTEM
             for (item in values()) {
                 if (referenceNum == item.ordinal) {
                     mode = item
@@ -17,5 +18,6 @@ enum class CurrentMode(name: String, referenceNum: Int) {
             }
             return mode
         }
+
     }
 }
