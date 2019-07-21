@@ -15,44 +15,70 @@ import com.bumptech.glide.Glide
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
+import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.states.AppListState
 import com.symeonchen.wakeupscreen.utils.DataInjection
-import com.symeonchen.wakeupscreen.utils.WhiteListUtils
+import com.symeonchen.wakeupscreen.utils.FilterListUtils
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_app_filter_list.*
 import kotlinx.android.synthetic.main.activity_debug_page.iv_back
-import kotlinx.android.synthetic.main.activity_white_list.*
 
-class WhiteListActivity : ScBaseActivity() {
+class FilterListActivity : ScBaseActivity() {
 
     private var dataList: MutableList<AppInfo> = arrayListOf()
     private var adapter: WhiteListViewAdapter? = null
     private var map: HashMap<String, Int>? = null
+    private var currentModeValue = CurrentMode.MODE_WHITE_LIST.ordinal
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_white_list)
+        setContentView(R.layout.activity_app_filter_list)
         initView()
         setListener()
         getData()
     }
 
     companion object {
-        fun actionStart(context: Context?) {
+        private const val CURRENT_MODE = "currentMode"
+
+        fun actionStartWithMode(context: Context?, currentMode: CurrentMode) {
             context ?: return
-            context.startActivity(Intent(context, WhiteListActivity::class.java))
+            val intent = Intent(context, FilterListActivity::class.java)
+            intent.putExtra(CURRENT_MODE, currentMode.ordinal)
+            context.startActivity(intent)
         }
     }
 
 
     private fun initView() {
-        map = WhiteListUtils.getMapFromString(DataInjection.appListStringOfNotify)
+        currentModeValue = intent.getIntExtra(CURRENT_MODE, CurrentMode.MODE_WHITE_LIST.ordinal)
+        map = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
+            FilterListUtils.getMapFromString(DataInjection.appBlackListStringOfNotify)
+        } else {
+            FilterListUtils.getMapFromString(DataInjection.appWhiteListStringOfNotify)
+        }
+
+        tv_title.text = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
+            resources.getString(R.string.black_list)
+        } else {
+            resources.getString(R.string.white_list)
+        }
+
         adapter = WhiteListViewAdapter(rv_app_list, dataList)
         rv_app_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_app_list.adapter = adapter
+
+        val hints = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
+            resources.getString(R.string.black_list_hints)
+        } else {
+            resources.getString(R.string.white_list_hints)
+        }
+        tv_log_head_hint.text = hints
     }
 
     private fun setListener() {
@@ -65,7 +91,11 @@ class WhiteListActivity : ScBaseActivity() {
                     result[item.packageName] = 1
                 }
             }
-            DataInjection.appListStringOfNotify = WhiteListUtils.saveMapToString(result)
+            if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
+                DataInjection.appBlackListStringOfNotify = FilterListUtils.saveMapToString(result)
+            } else {
+                DataInjection.appWhiteListStringOfNotify = FilterListUtils.saveMapToString(result)
+            }
             DataInjection.appListUpdateFlag = System.currentTimeMillis()
             finish()
         }
