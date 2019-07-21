@@ -7,8 +7,8 @@ import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.NotifyItem
 import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.FilterListUtils
 import com.symeonchen.wakeupscreen.utils.NotifyDataUtils
-import com.symeonchen.wakeupscreen.utils.WhiteListUtils
 
 @Suppress("DEPRECATION")
 class ScNotificationListenerService : NotificationListenerService() {
@@ -37,7 +37,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         checkPocketMode() ?: return
         checkDebugMode(sbn) ?: return
         checkIfInteractive(pm) ?: return
-        checkWhiteListMode(sbn) ?: return
+        checkFilterListMode(sbn) ?: return
         checkIfUpdateOnGoingNotification(sbn) ?: return
 
         val wl = pm.newWakeLock(
@@ -102,19 +102,34 @@ class ScNotificationListenerService : NotificationListenerService() {
     /**
      * Check if open whitelist mode
      */
-    private fun checkWhiteListMode(sbn: StatusBarNotification): Boolean? {
-        if (DataInjection.modeOfCurrent == CurrentMode.MODE_WHITE_LIST) {
-            if (currentWhiteListFlag != DataInjection.appListUpdateFlag) {
-                currentWhiteListFlag = DataInjection.appListUpdateFlag
-                map = WhiteListUtils.getMapFromString(DataInjection.appListStringOfNotify)
+    private fun checkFilterListMode(sbn: StatusBarNotification): Boolean? {
+        when (DataInjection.modeOfCurrent) {
+            CurrentMode.MODE_ALL_NOTIFY -> return true
+            CurrentMode.MODE_WHITE_LIST -> {
+                if (currentWhiteListFlag != DataInjection.appListUpdateFlag) {
+                    currentWhiteListFlag = DataInjection.appListUpdateFlag
+                    map = FilterListUtils.getMapFromString(DataInjection.appWhiteListStringOfNotify)
+                }
+                LogUtils.d(TAG_WAKE, sbn.packageName)
+                LogUtils.d(DataInjection.appWhiteListStringOfNotify)
+                if (!map.containsKey(sbn.packageName)) {
+                    return null
+                }
             }
-            LogUtils.d(TAG_WAKE, sbn.packageName)
-            LogUtils.d(DataInjection.appListStringOfNotify)
-            if (!map.containsKey(sbn.packageName)) {
-                return null
+            CurrentMode.MODE_BLACK_LIST -> {
+                if (currentWhiteListFlag != DataInjection.appListUpdateFlag) {
+                    currentWhiteListFlag = DataInjection.appListUpdateFlag
+                    map = FilterListUtils.getMapFromString(DataInjection.appBlackListStringOfNotify)
+                }
+                LogUtils.d(TAG_WAKE, sbn.packageName)
+                LogUtils.d(DataInjection.appBlackListStringOfNotify)
+                if (map.containsKey(sbn.packageName)) {
+                    return null
+                }
             }
         }
         return true
+
     }
 
     /**

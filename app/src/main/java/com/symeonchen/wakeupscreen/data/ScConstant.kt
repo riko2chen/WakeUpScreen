@@ -8,8 +8,9 @@ object ScConstant {
     const val BATTERY_SAVER_FAKE_SWITCH = "battery_saver_fake_switch"
     const val DEBUG_MODE_SWITCH = "debug_mode_switch"
     const val APP_NOTIFY_MODE = "app_white_list_switch"
-    const val APP_WHITE_LIST_STRING = "white_list_app"
-    const val APP_WHITE_LIST_FLAG = "white_list_flag"
+    const val APP_FILTER_WHITE_LIST_STRING = "white_list_app"
+    const val APP_FILTER_BLACK_LIST_STRING = "black_list_app"
+    const val APP_FILTER_LIST_FLAG = "white_list_flag"
     const val ONGOING_STATUS_DETECT = "ongoing_status_detect"
     const val LANGUAGE_SELECTED = "language_selected"
 
@@ -21,6 +22,7 @@ object ScConstant {
     const val DEFAULT_SWITCH_OF_DEBUG_MODE: Boolean = false
     const val DEFAULT_APP_NOTIFY_MODE: Int = 0
     const val DEFAULT_APP_WHITE_LIST_STRING: String = ""
+    const val DEFAULT_APP_BLACK_LIST_STRING: String = ""
     const val DEFAULT_APP_WHITE_LIST_FLAG = 0L
     const val DEFAULT_ONGOING_STATUS_DETECT = true
     const val DEFAULT_LANGUAGE_SELECTED: Int = 0

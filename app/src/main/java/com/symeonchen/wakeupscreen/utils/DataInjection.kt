@@ -2,12 +2,14 @@ package com.symeonchen.wakeupscreen.utils
 
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.LanguageInfo
+import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_BLACK_LIST_STRING
+import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_LIST_FLAG
+import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_NOTIFY_MODE
-import com.symeonchen.wakeupscreen.data.ScConstant.APP_WHITE_LIST_FLAG
-import com.symeonchen.wakeupscreen.data.ScConstant.APP_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_SAVER_FAKE_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.CUSTOM_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEBUG_MODE_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_BLACK_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_NOTIFY_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_FLAG
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_STRING
@@ -94,20 +96,28 @@ object DataInjection {
             MMKV.defaultMMKV().putInt(APP_NOTIFY_MODE, value.ordinal)
         }
 
-    var appListStringOfNotify: String
+    var appWhiteListStringOfNotify: String
         get() {
-            return MMKV.defaultMMKV().getString(APP_WHITE_LIST_STRING, DEFAULT_APP_WHITE_LIST_STRING) ?: ""
+            return MMKV.defaultMMKV().getString(APP_FILTER_WHITE_LIST_STRING, DEFAULT_APP_WHITE_LIST_STRING) ?: ""
         }
         set(value) {
-            MMKV.defaultMMKV().putString(APP_WHITE_LIST_STRING, value)
+            MMKV.defaultMMKV().putString(APP_FILTER_WHITE_LIST_STRING, value)
+        }
+
+    var appBlackListStringOfNotify: String
+        get() {
+            return MMKV.defaultMMKV().getString(APP_FILTER_BLACK_LIST_STRING, DEFAULT_APP_BLACK_LIST_STRING) ?: ""
+        }
+        set(value) {
+            MMKV.defaultMMKV().putString(APP_FILTER_BLACK_LIST_STRING, value)
         }
 
     var appListUpdateFlag: Long
         get() {
-            return MMKV.defaultMMKV().getLong(APP_WHITE_LIST_FLAG, DEFAULT_APP_WHITE_LIST_FLAG)
+            return MMKV.defaultMMKV().getLong(APP_FILTER_LIST_FLAG, DEFAULT_APP_WHITE_LIST_FLAG)
         }
         set(value) {
-            MMKV.defaultMMKV().putLong(APP_WHITE_LIST_FLAG, value)
+            MMKV.defaultMMKV().putLong(APP_FILTER_LIST_FLAG, value)
         }
 
     var ongoingOptimize: Boolean

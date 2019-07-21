@@ -2,7 +2,7 @@ package com.symeonchen.wakeupscreen.utils
 
 import android.text.TextUtils
 
-class WhiteListUtils {
+class FilterListUtils {
 
     companion object {
 

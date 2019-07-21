@@ -117,13 +117,21 @@ class ScSettingFragment : ScBaseFragment() {
 
         item_setting_white_list_entry.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-                WhiteListActivity.actionStart(context)
+                FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_WHITE_LIST)
+            }
+        }
+
+        item_setting_black_list_entry.listener = object : SCSettingItem.OnItemClickListener {
+            override fun onItemCLick() {
+                FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_BLACK_LIST)
             }
         }
 
         item_setting_debug_mode_entry.setOnClickListener {
             context?.let { mContext -> DebugPageActivity.actionStart(mContext) }
         }
+
+
 
         settingModel.timeOfWakeUpScreen.observe(this, Observer {
             item_setting_wake_screen_time.bindData(
@@ -166,6 +174,7 @@ class ScSettingFragment : ScBaseFragment() {
                 null,
                 resources.getString(
                     when (it) {
+                        CurrentMode.MODE_BLACK_LIST -> R.string.black_list
                         CurrentMode.MODE_WHITE_LIST -> R.string.white_list
                         CurrentMode.MODE_ALL_NOTIFY -> R.string.all_pass
                         else -> R.string.all_pass
@@ -174,8 +183,13 @@ class ScSettingFragment : ScBaseFragment() {
             )
             if (it == CurrentMode.MODE_WHITE_LIST) {
                 item_setting_white_list_entry.visibility = View.VISIBLE
+                item_setting_black_list_entry.visibility = View.GONE
+            } else if (it == CurrentMode.MODE_BLACK_LIST) {
+                item_setting_white_list_entry.visibility = View.GONE
+                item_setting_black_list_entry.visibility = View.VISIBLE
             } else {
                 item_setting_white_list_entry.visibility = View.GONE
+                item_setting_black_list_entry.visibility = View.GONE
             }
         })
 
@@ -260,15 +274,39 @@ class ScSettingFragment : ScBaseFragment() {
     private fun initCurrentModeDialog() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf(resources.getString(R.string.all_pass), resources.getString(R.string.white_list))
+        val secList = arrayOf(
+            resources.getString(R.string.all_pass),
+            resources.getString(R.string.white_list),
+            resources.getString(R.string.black_list)
+        )
         var switch = settingModel.modeOfCurrent.value!!
-        val checkedItem: Int = if (switch == CurrentMode.MODE_ALL_NOTIFY) 0 else 1
+        val checkedItem: Int = when (switch) {
+            CurrentMode.MODE_ALL_NOTIFY -> 0
+            CurrentMode.MODE_WHITE_LIST -> 1
+            else -> 2
+        }
+
         alertDialog = builder
             .setSingleChoiceItems(
                 secList, checkedItem
-            ) { _, which -> switch = if (which == 0) CurrentMode.MODE_ALL_NOTIFY else CurrentMode.MODE_WHITE_LIST }
+            ) { _, which ->
+                switch =
+                    when (which) {
+                        0 -> CurrentMode.MODE_ALL_NOTIFY
+                        1 -> CurrentMode.MODE_WHITE_LIST
+                        else -> CurrentMode.MODE_BLACK_LIST
+                    }
+            }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.modeOfCurrent.postValue(CurrentMode.getModeFromValue(if (switch == CurrentMode.MODE_ALL_NOTIFY) 0 else 1))
+                settingModel.modeOfCurrent.postValue(
+                    CurrentMode.getModeFromValue(
+                        when (switch) {
+                            CurrentMode.MODE_ALL_NOTIFY -> 0
+                            CurrentMode.MODE_WHITE_LIST -> 1
+                            else -> 2
+                        }
+                    )
+                )
             }
             .create().apply { show() }
     }
