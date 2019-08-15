@@ -103,7 +103,7 @@ class FilterListActivity : ScBaseActivity() {
 
     private fun getData() {
         Observable.create<List<AppInfo>> { e ->
-            e.onNext(AppListState.getInstalledAppList(this))
+            e.onNext(AppListState.getInstalledAppList(this, true))
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<List<AppInfo>> {
