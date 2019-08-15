@@ -10,7 +10,7 @@ class AppListState {
 
         private var TAG: String = this::class.java.simpleName ?: ""
 
-        fun getInstalledAppList(context: Context?): ArrayList<AppInfo> {
+        fun getInstalledAppList(context: Context?, includeSystemApp: Boolean = false): ArrayList<AppInfo> {
             var appList = arrayListOf<AppInfo>()
             if (context == null) {
                 return appList
@@ -20,7 +20,7 @@ class AppListState {
                 var applicationInfoList =
                     appContext.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
                 for (_app in applicationInfoList) {
-                    if ((_app.flags and ApplicationInfo.FLAG_SYSTEM) != 0) {
+                    if (!includeSystemApp && ((_app.flags and ApplicationInfo.FLAG_SYSTEM) != 0)) {
                         continue
                     }
                     val appInfo = AppInfo()
@@ -35,5 +35,7 @@ class AppListState {
                 return appList
             }
         }
+
+
     }
 }
