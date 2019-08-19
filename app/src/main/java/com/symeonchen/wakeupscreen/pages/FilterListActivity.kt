@@ -56,6 +56,9 @@ class FilterListActivity : ScBaseActivity() {
 
 
     private fun initView() {
+
+        view_loading.startLoadingAnimation()
+
         currentModeValue = intent.getIntExtra(CURRENT_MODE, CurrentMode.MODE_WHITE_LIST.ordinal)
         map = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
             FilterListUtils.getMapFromString(DataInjection.appBlackListStringOfNotify)
@@ -108,10 +111,10 @@ class FilterListActivity : ScBaseActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<List<AppInfo>> {
                 override fun onComplete() {
-                    updateView()
                 }
 
                 override fun onSubscribe(d: Disposable) {
+                    mCompositeDisposable.add(d)
                 }
 
                 override fun onNext(t: List<AppInfo>) {
@@ -141,6 +144,8 @@ class FilterListActivity : ScBaseActivity() {
     }
 
     private fun updateView() {
+        view_loading.stopoLoadingAnimation()
+        view_loading.visibility = View.GONE
         adapter?.dataList?.clear()
         adapter?.dataList?.addAll(dataList)
         adapter?.notifyDataSetChanged()
