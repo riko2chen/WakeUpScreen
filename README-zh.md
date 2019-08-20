@@ -18,7 +18,7 @@
 
 ## 截图
 
-![](screenshots/main-zh.png)
+![](screenshots/main-zh.jpg)
 
 ## 功能
 

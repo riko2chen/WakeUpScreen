@@ -18,7 +18,7 @@ Specially for Samsung S10 optimization. Also compatible with other devices.
 
 ## Screenshots
 
-![](screenshots/main-en.png)
+![](screenshots/main-en.jpg)
 
 ## Features
 

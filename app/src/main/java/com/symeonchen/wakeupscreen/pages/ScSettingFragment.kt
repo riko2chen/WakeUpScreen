@@ -244,14 +244,15 @@ class ScSettingFragment : ScBaseFragment() {
     private fun initWakeScreenTimeDialog() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf("1s", "2s", "3s", "4s", "5s")
-        val checkedItem: Int = (settingModel.timeOfWakeUpScreen.value!! / 1000).toInt() - 1
+        val secList = arrayOf(1, 2, 3, 4, 5, 8, 15, 30, 60, 120)
+        val secStrList: Array<String> = secList.map { it.toString() + "s" }.toTypedArray()
+        val checkedItem: Int = secList.indexOf((settingModel.timeOfWakeUpScreen.value!! / 1000).toInt())
         var index = checkedItem
         alertDialog = builder.setSingleChoiceItems(
-            secList, checkedItem
+            secStrList, checkedItem
         ) { _, which -> index = which }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.timeOfWakeUpScreen.postValue((index + 1) * 1000L)
+                settingModel.timeOfWakeUpScreen.postValue(secList[index] * 1000L)
             }
             .create().apply { show() }
     }

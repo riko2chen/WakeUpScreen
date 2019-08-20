@@ -66,4 +66,12 @@
         tools:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/item_white_list"
         tools:orientation="vertical" />
+
+    <com.symeonchen.uicomponent.views.SCLoadingItem
+        android:id="@+id/view_loading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_log_head_hint" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
