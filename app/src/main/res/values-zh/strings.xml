@@ -1,0 +1,63 @@
+<resources>
+    <!--common-->
+    <string name="app_name">通知亮屏</string>
+    <string name="home">首页</string>
+    <string name="setting">设置</string>
+    <string name="open">开启</string>
+    <string name="close">关闭</string>
+    <string name="ok">确定</string>
+    <string name="language">Language（语言）</string>
+    <string name="language_zh_cn">简体中文</string>
+    <string name="language_en">English</string>
+    <string name="clear_all">清空</string>
+    <string name="save">保存</string>
+    <string name="mail_title">【问题反馈】【通知亮屏】在此输入标题</string>
+
+    <!--action-->
+    <string name="click_to_close">点击关闭</string>
+    <string name="click_to_open">点击开启</string>
+    <string name="to_setting">去设置</string>
+    <string name="how_to_set">如何设置</string>
+    <string name="already_open">已开启</string>
+    <string name="already_close">已关闭</string>
+    <string name="i_already_close">我已关闭</string>
+    <string name="not_open">未开启</string>
+    <string name="not_close">未关闭</string>
+    <string name="wanna_close">我要关闭</string>
+    <string name="wanna_open">我要开启</string>
+    <string name="set_up_successfully">设置成功</string>
+
+    <!--other-->
+    <string name="battery_saver_tips">关闭本应用的电量优化，可以保证通知亮屏在手机重启前使用有效。\n以三星手机为例，关闭方法如下：\n1. 打开设置\n2. 搜索\"优化电池使用量\"\n3.
+        点击进入\"优化电池使用量\"\n4. 搜索\"通知亮屏\"\n5. 将按钮设置为\"未选中状态\"\n\n注：三星手机请关闭【熄屏提醒】或将其设置为\"点击来显示\"
+    </string>
+    <string name="tip_desc_time_cost">开启或关闭通知亮屏需要1~10秒生效\n请耐心等待</string>
+    <string name="developing">正在开发中</string>
+    <string name="permission_of_read_notification">读取通知权限</string>
+    <string name="service_of_background">后台服务</string>
+    <string name="time_of_wake_up_screen">亮屏时间</string>
+    <string name="optimize_of_battery_saver">关闭电量优化</string>
+    <string name="pocket_mode">口袋防误触</string>
+    <string name="ongoing_status">持续通知优化(如微信视频、QQ电话)</string>
+    <string name="current_mode">当前模式</string>
+    <string name="all_pass">全应用通知</string>
+    <string name="white_list">白名单模式</string>
+    <string name="white_list_page">白名单模式设置页面</string>
+    <string name="black_list">黑名单模式</string>
+    <string name="black_list_page">黑名单模式设置页面</string>
+    <string name="project_address">开源地址</string>
+    <string name="feedback">反馈问题</string>
+    <string name="debug_mode">调试模式</string>
+    <string name="debug_mode_entry">调试页面</string>
+    <string name="click_to_enter_debug_page">点击进入调试页面</string>
+    <string name="click_to_enter_white_list_page">点击进入白名单页面</string>
+    <string name="click_to_enter_black_list_page">点击进入黑名单页面</string>
+    <string name="debug_page_hints">在打开调试模式后\n该页面会显示所有收到的通知对应的APP包名\n如果发生了屏幕异常点亮等意外情况\n请将该页面截图并联系作者解决。\n</string>
+    <string name="white_list_hints">只有收到被选中的应用发出的通知才会亮屏</string>
+    <string name="black_list_hints">将会忽略被选中的应用发出的通知</string>
+
+    <string name="custom">自定义</string>
+    <string name="about">关于</string>
+    <string name="debug">调试</string>
+
+</resources>
