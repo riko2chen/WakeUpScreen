@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.StatusItem
@@ -30,7 +30,11 @@ class ScMainFragment : ScBaseFragment() {
     private var alertDialog: AlertDialog? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
     }
 
@@ -38,8 +42,8 @@ class ScMainFragment : ScBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val statusFactory = ViewModelInjection.provideStatusViewModelFactory()
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
-        statusModel = ViewModelProviders.of(this, statusFactory).get(StatusViewModel::class.java)
-        settingModel = ViewModelProviders.of(this, settingFactory).get(SettingViewModel::class.java)
+        statusModel = ViewModelProvider(this, statusFactory).get(StatusViewModel::class.java)
+        settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
 
         initView()
         setListener()
@@ -81,7 +85,8 @@ class ScMainFragment : ScBaseFragment() {
         })
 
         settingModel.switchOfApp.observe(this, Observer {
-            btn_control.text = resources.getString(if (it) R.string.wanna_close else R.string.wanna_open)
+            btn_control.text =
+                resources.getString(if (it) R.string.wanna_close else R.string.wanna_open)
             refresh()
         })
 
@@ -190,7 +195,8 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun checkBatteryOptimization(): Boolean {
-        val isIgnoreBatteryOptimization = BatteryOptimizationState.hasIgnoreBatteryOptimization(context)
+        val isIgnoreBatteryOptimization =
+            BatteryOptimizationState.hasIgnoreBatteryOptimization(context)
         settingModel.fakeSwitchOfBatterySaver.postValue(isIgnoreBatteryOptimization)
         LogUtils.d("isIgnoreBatteryOptimization is $isIgnoreBatteryOptimization")
         return isIgnoreBatteryOptimization
@@ -202,17 +208,23 @@ class ScMainFragment : ScBaseFragment() {
         }
     }
 
-    private fun refreshState(permissionStatus: Boolean?, serviceStatus: Boolean?, customStatus: Boolean?) {
+    private fun refreshState(
+        permissionStatus: Boolean?,
+        serviceStatus: Boolean?,
+        customStatus: Boolean?
+    ) {
         btn_control.visibility = View.INVISIBLE
         if (permissionStatus != true) {
             val text =
-                resources.getString(R.string.permission_of_read_notification) + resources.getString(R.string.not_open)
+                resources.getString(R.string.permission_of_read_notification) + resources.getString(
+                    R.string.not_open
+                )
             tv_status?.text = text
             return
         }
         if (serviceStatus != true) {
             val text =
-                resources.getString(R.string.service_of_background) + resources.getString(R.string.not_open)
+                resources.getString(R.string.service_of_background) + " " + resources.getString(R.string.not_open)
             tv_status?.text = text
             return
         }
