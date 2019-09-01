@@ -1,93 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/cl_header"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/tip_desc_time_cost"
+            android:textColor="#fff"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_status"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/cl_header"
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
-        <TextView
-                android:id="@+id/tv_tips"
-                android:text="@string/tip_desc_time_cost"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/tv_status"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <TextView
-                android:id="@+id/tv_status"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_tips"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:text="@string/already_close"
-                android:textColor="#fff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_control"
-                app:layout_constraintTop_toBottomOf="@id/tv_status"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="101dp"
-                app:rippleColor="@color/red"
-                android:backgroundTint="@color/red"
-                android:textAppearance="?android:attr/textAppearance"
-                android:layout_height="52dp"
-                android:textSize="12dp"
-                android:paddingStart="15dp"
-                android:paddingTop="5dp"
-                android:stateListAnimator="@animator/button_press_scale"
-                android:paddingBottom="5dp"
-                android:gravity="center"
-                android:paddingEnd="15dp"
-                app:cornerRadius="20dp"
-                android:text="@string/wanna_close"
-                android:textColor="#FFF"
-        />
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_close"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_tips" />
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/btn_control"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:theme="@style/SwitchTheme"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_status"
+            tools:checked="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-            android:id="@+id/ll_middle"
-            app:layout_constraintTop_toBottomOf="@id/cl_header"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/ll_middle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:divider="@drawable/shape_divider"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_header">
+
+
+        <com.symeonchen.uicomponent.views.StatusItem
+            android:id="@+id/main_item_service"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
-
-
-        <com.symeonchen.uicomponent.views.StatusItem
-                android:id="@+id/main_item_service"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"/>
+            android:layout_height="70dp" />
 
         <com.symeonchen.uicomponent.views.StatusItem
-                android:id="@+id/main_item_permission_notification"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"/>
+            android:id="@+id/main_item_permission_notification"
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
 
         <com.symeonchen.uicomponent.views.StatusItem
-                android:id="@+id/main_item_battery_saver"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"/>
+            android:id="@+id/main_item_battery_saver"
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
 
     </LinearLayout>
 

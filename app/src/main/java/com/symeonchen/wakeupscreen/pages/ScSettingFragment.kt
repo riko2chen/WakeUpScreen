@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LanguageUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.uicomponent.views.SCSettingSwitchItem
@@ -37,7 +37,7 @@ class ScSettingFragment : ScBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
-        settingModel = ViewModelProviders.of(this, settingFactory).get(SettingViewModel::class.java)
+        settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
     }
 
@@ -135,16 +135,16 @@ class ScSettingFragment : ScBaseFragment() {
 
         settingModel.timeOfWakeUpScreen.observe(this, Observer {
             item_setting_wake_screen_time.bindData(
-                null,
-                "${it / 1000}s"
+                    null,
+                    "${it / 1000}s"
             )
         })
 
         settingModel.switchOfProximity.observe(this, Observer {
             item_setting_proximity_detect.bindData(
-                null,
-                resources.getString(if (it) R.string.already_open else R.string.already_close),
-                it
+                    null,
+                    resources.getString(if (it) R.string.already_open else R.string.already_close),
+                    it
             )
             if (it) {
                 if (!ProximitySensorState.isRegistered()) {
@@ -158,8 +158,8 @@ class ScSettingFragment : ScBaseFragment() {
 
         settingModel.switchOfDebugMode.observe(this, Observer {
             item_setting_debug_mode_toast.bindData(
-                null,
-                resources.getString(if (it) R.string.already_open else R.string.already_close)
+                    null,
+                    resources.getString(if (it) R.string.already_open else R.string.already_close)
             )
             if (it) {
                 item_setting_debug_mode_entry.visibility = View.VISIBLE
@@ -171,15 +171,15 @@ class ScSettingFragment : ScBaseFragment() {
 
         settingModel.modeOfCurrent.observe(this, Observer {
             item_setting_current_mode.bindData(
-                null,
-                resources.getString(
-                    when (it) {
-                        CurrentMode.MODE_BLACK_LIST -> R.string.black_list
-                        CurrentMode.MODE_WHITE_LIST -> R.string.white_list
-                        CurrentMode.MODE_ALL_NOTIFY -> R.string.all_pass
-                        else -> R.string.all_pass
-                    }
-                )
+                    null,
+                    resources.getString(
+                            when (it) {
+                                CurrentMode.MODE_BLACK_LIST -> R.string.black_list
+                                CurrentMode.MODE_WHITE_LIST -> R.string.white_list
+                                CurrentMode.MODE_ALL_NOTIFY -> R.string.all_pass
+                                else -> R.string.all_pass
+                            }
+                    )
             )
             if (it == CurrentMode.MODE_WHITE_LIST) {
                 item_setting_white_list_entry.visibility = View.VISIBLE
@@ -195,20 +195,20 @@ class ScSettingFragment : ScBaseFragment() {
 
         settingModel.ongoingOptimize.observe(this, Observer {
             item_setting_ongoing_detect.bindData(
-                null,
-                resources.getString(if (it) R.string.already_open else R.string.already_close),
-                it
+                    null,
+                    resources.getString(if (it) R.string.already_open else R.string.already_close),
+                    it
             )
         })
 
         settingModel.languageSelected.observe(this, Observer {
             item_setting_language.bindData(
-                null,
-                when (it) {
-                    LanguageInfo.CHINESE_SIMPLE -> "简体中文"
-                    LanguageInfo.ENGLISH -> "English"
-                    else -> "跟随系统(Follow System)"
-                }
+                    null,
+                    when (it) {
+                        LanguageInfo.CHINESE_SIMPLE -> "简体中文"
+                        LanguageInfo.ENGLISH -> "English"
+                        else -> "跟随系统(Follow System)"
+                    }
             )
         })
 
@@ -218,26 +218,26 @@ class ScSettingFragment : ScBaseFragment() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
         val secList =
-            arrayOf("跟随系统(Follow System)", "English", "简体中文")
+                arrayOf("跟随系统(Follow System)", "English", "简体中文")
         var switch = settingModel.languageSelected.value!!.ordinal
         val checkedItem: Int = LanguageInfo.getModeFromValue(switch).ordinal
 
         alertDialog = builder.setSingleChoiceItems(
-            secList, checkedItem
+                secList, checkedItem
         ) { _, which -> switch = LanguageInfo.getModeFromValue(which).ordinal }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                if (switch == LanguageInfo.FOLLOW_SYSTEM.ordinal) {
-                    settingModel.languageSelected.postValue(LanguageInfo.FOLLOW_SYSTEM)
-                    LanguageUtils.applySystemLanguage("")
-                } else if (switch == LanguageInfo.ENGLISH.ordinal) {
-                    settingModel.languageSelected.postValue(LanguageInfo.ENGLISH)
-                    LanguageUtils.applyLanguage(Locale.US, "")
-                } else {
-                    settingModel.languageSelected.postValue(LanguageInfo.CHINESE_SIMPLE)
-                    LanguageUtils.applyLanguage(Locale.CHINA, "")
+                .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                    if (switch == LanguageInfo.FOLLOW_SYSTEM.ordinal) {
+                        settingModel.languageSelected.postValue(LanguageInfo.FOLLOW_SYSTEM)
+                        LanguageUtils.applySystemLanguage("")
+                    } else if (switch == LanguageInfo.ENGLISH.ordinal) {
+                        settingModel.languageSelected.postValue(LanguageInfo.ENGLISH)
+                        LanguageUtils.applyLanguage(Locale.US, "")
+                    } else {
+                        settingModel.languageSelected.postValue(LanguageInfo.CHINESE_SIMPLE)
+                        LanguageUtils.applyLanguage(Locale.CHINA, "")
+                    }
                 }
-            }
-            .create().apply { show() }
+                .create().apply { show() }
 
     }
 
@@ -249,12 +249,12 @@ class ScSettingFragment : ScBaseFragment() {
         val checkedItem: Int = secList.indexOf((settingModel.timeOfWakeUpScreen.value!! / 1000).toInt())
         var index = checkedItem
         alertDialog = builder.setSingleChoiceItems(
-            secStrList, checkedItem
+                secStrList, checkedItem
         ) { _, which -> index = which }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.timeOfWakeUpScreen.postValue(secList[index] * 1000L)
-            }
-            .create().apply { show() }
+                .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                    settingModel.timeOfWakeUpScreen.postValue(secList[index] * 1000L)
+                }
+                .create().apply { show() }
     }
 
     private fun initDebugModeDialog() {
@@ -264,21 +264,21 @@ class ScSettingFragment : ScBaseFragment() {
         var switch = settingModel.switchOfDebugMode.value!!
         val checkedItem: Int = if (switch) 0 else 1
         alertDialog = builder.setSingleChoiceItems(
-            secList, checkedItem
+                secList, checkedItem
         ) { _, which -> switch = which == 0 }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.switchOfDebugMode.postValue(switch)
-            }
-            .create().apply { show() }
+                .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                    settingModel.switchOfDebugMode.postValue(switch)
+                }
+                .create().apply { show() }
     }
 
     private fun initCurrentModeDialog() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
         val secList = arrayOf(
-            resources.getString(R.string.all_pass),
-            resources.getString(R.string.white_list),
-            resources.getString(R.string.black_list)
+                resources.getString(R.string.all_pass),
+                resources.getString(R.string.white_list),
+                resources.getString(R.string.black_list)
         )
         var switch = settingModel.modeOfCurrent.value!!
         val checkedItem: Int = when (switch) {
@@ -288,28 +288,28 @@ class ScSettingFragment : ScBaseFragment() {
         }
 
         alertDialog = builder
-            .setSingleChoiceItems(
-                secList, checkedItem
-            ) { _, which ->
-                switch =
-                    when (which) {
-                        0 -> CurrentMode.MODE_ALL_NOTIFY
-                        1 -> CurrentMode.MODE_WHITE_LIST
-                        else -> CurrentMode.MODE_BLACK_LIST
-                    }
-            }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.modeOfCurrent.postValue(
-                    CurrentMode.getModeFromValue(
-                        when (switch) {
-                            CurrentMode.MODE_ALL_NOTIFY -> 0
-                            CurrentMode.MODE_WHITE_LIST -> 1
-                            else -> 2
-                        }
+                .setSingleChoiceItems(
+                        secList, checkedItem
+                ) { _, which ->
+                    switch =
+                            when (which) {
+                                0 -> CurrentMode.MODE_ALL_NOTIFY
+                                1 -> CurrentMode.MODE_WHITE_LIST
+                                else -> CurrentMode.MODE_BLACK_LIST
+                            }
+                }
+                .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
+                    settingModel.modeOfCurrent.postValue(
+                            CurrentMode.getModeFromValue(
+                                    when (switch) {
+                                        CurrentMode.MODE_ALL_NOTIFY -> 0
+                                        CurrentMode.MODE_WHITE_LIST -> 1
+                                        else -> 2
+                                    }
+                            )
                     )
-                )
-            }
-            .create().apply { show() }
+                }
+                .create().apply { show() }
     }
 
 }
