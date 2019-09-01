@@ -1,12 +1,13 @@
 package com.symeonchen.wakeupscreen.pages
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.StatusItem
@@ -30,7 +31,11 @@ class ScMainFragment : ScBaseFragment() {
     private var alertDialog: AlertDialog? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_layout_main, container, false)
     }
 
@@ -38,8 +43,8 @@ class ScMainFragment : ScBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val statusFactory = ViewModelInjection.provideStatusViewModelFactory()
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
-        statusModel = ViewModelProviders.of(this, statusFactory).get(StatusViewModel::class.java)
-        settingModel = ViewModelProviders.of(this, settingFactory).get(SettingViewModel::class.java)
+        statusModel = ViewModelProvider(this, statusFactory).get(StatusViewModel::class.java)
+        settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
 
         initView()
         setListener()
@@ -49,21 +54,21 @@ class ScMainFragment : ScBaseFragment() {
     private fun initView() {
 
         main_item_permission_notification.bindData(
-            resources.getString(R.string.permission_of_read_notification),
-            statusModel.permissionOfReadNotification.value ?: false,
-            resources.getString(R.string.to_setting)
+                resources.getString(R.string.permission_of_read_notification),
+                statusModel.permissionOfReadNotification.value ?: false,
+                resources.getString(R.string.to_setting)
         )
 
         main_item_service.bindData(
-            resources.getString(R.string.service_of_background),
-            statusModel.statusOfService.value ?: false,
-            resources.getString(R.string.click_to_open)
+                resources.getString(R.string.service_of_background),
+                statusModel.statusOfService.value ?: false,
+                resources.getString(R.string.click_to_open)
         )
 
         main_item_battery_saver.bindData(
-            resources.getString(R.string.optimize_of_battery_saver),
-            settingModel.fakeSwitchOfBatterySaver.value ?: false,
-            resources.getString(R.string.how_to_set)
+                resources.getString(R.string.optimize_of_battery_saver),
+                settingModel.fakeSwitchOfBatterySaver.value ?: false,
+                resources.getString(R.string.how_to_set)
         )
 
     }
@@ -81,7 +86,9 @@ class ScMainFragment : ScBaseFragment() {
         })
 
         settingModel.switchOfApp.observe(this, Observer {
-            btn_control.text = resources.getString(if (it) R.string.wanna_close else R.string.wanna_open)
+            btn_control.isChecked = it
+//            btn_control.text =
+//                resources.getString(if (it) R.string.wanna_close else R.string.wanna_open)
             refresh()
         })
 
@@ -100,6 +107,8 @@ class ScMainFragment : ScBaseFragment() {
                 statusModel.statusOfService.postValue(true)
             }
         }
+
+
 
 
         main_item_permission_notification.listener = object : StatusItem.OnItemClickListener {
@@ -144,7 +153,7 @@ class ScMainFragment : ScBaseFragment() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
         alertDialog = builder.setMessage(
-            resources.getString(R.string.battery_saver_tips)
+                resources.getString(R.string.battery_saver_tips)
         ).setPositiveButton(resources.getString(R.string.to_setting)) { _, _ ->
             if (!BatteryOptimizationState.hasIgnoreBatteryOptimization(context)) {
                 BatteryOptimizationState.openBatteryOptimization(context)
@@ -159,10 +168,10 @@ class ScMainFragment : ScBaseFragment() {
     private fun getData() {
 
         statusModel.permissionOfReadNotification.postValue(
-            PermissionState.hasNotificationListenerServiceEnabled(context!!)
+                PermissionState.hasNotificationListenerServiceEnabled(context!!)
         )
         statusModel.statusOfService.postValue(
-            NotificationState.isNotificationServiceOpen(context)
+                NotificationState.isNotificationServiceOpen(context)
         )
     }
 
@@ -189,7 +198,8 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun checkBatteryOptimization(): Boolean {
-        val isIgnoreBatteryOptimization = BatteryOptimizationState.hasIgnoreBatteryOptimization(context)
+        val isIgnoreBatteryOptimization =
+                BatteryOptimizationState.hasIgnoreBatteryOptimization(context)
         settingModel.fakeSwitchOfBatterySaver.postValue(isIgnoreBatteryOptimization)
         LogUtils.d("isIgnoreBatteryOptimization is $isIgnoreBatteryOptimization")
         return isIgnoreBatteryOptimization
@@ -201,33 +211,46 @@ class ScMainFragment : ScBaseFragment() {
         }
     }
 
-    private fun refreshState(permissionStatus: Boolean?, serviceStatus: Boolean?, customStatus: Boolean?) {
+    private fun refreshState(
+            permissionStatus: Boolean?,
+            serviceStatus: Boolean?,
+            customStatus: Boolean?
+    ) {
         btn_control.visibility = View.INVISIBLE
+
+        var btnVisibility = View.VISIBLE
+        var tvStatusText = resources.getString(R.string.already_open)
+        var headerBackgroundColor = context?.getColor(R.color.colorPrimary)
+
         if (permissionStatus != true) {
-            val text =
-                resources.getString(R.string.permission_of_read_notification) + resources.getString(R.string.not_open)
-            tv_status?.text = text
-            return
+            tvStatusText =
+                    resources.getString(R.string.permission_of_read_notification) + resources.getString(
+                            R.string.not_open
+                    )
+            btnVisibility = View.INVISIBLE
+            headerBackgroundColor = context?.getColor(R.color.red)
         }
         if (serviceStatus != true) {
-            val text =
-                resources.getString(R.string.service_of_background) + resources.getString(R.string.not_open)
-            tv_status?.text = text
-            return
+            tvStatusText =
+                    resources.getString(R.string.service_of_background) + " " + resources.getString(R.string.not_open)
+            btnVisibility = View.INVISIBLE
+            headerBackgroundColor = context?.getColor(R.color.red)
         }
-        btn_control.visibility = View.VISIBLE
         if (customStatus != true) {
-            tv_status?.text = resources.getString(R.string.already_close)
-            return
+            tvStatusText = resources.getString(R.string.already_close)
+            headerBackgroundColor = context?.getColor(R.color.red)
         }
-        tv_status?.text = resources.getString(R.string.already_open)
+
+        btn_control.visibility = btnVisibility
+        tv_status?.text = tvStatusText
+        cl_header.setBackgroundColor(headerBackgroundColor ?: Color.WHITE)
     }
 
     private fun refresh() {
         refreshState(
-            statusModel.permissionOfReadNotification.value,
-            statusModel.statusOfService.value,
-            settingModel.switchOfApp.value
+                statusModel.permissionOfReadNotification.value,
+                statusModel.statusOfService.value,
+                settingModel.switchOfApp.value
         )
     }
 

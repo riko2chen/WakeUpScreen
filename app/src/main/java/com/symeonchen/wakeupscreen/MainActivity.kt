@@ -48,7 +48,7 @@ class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
     }
 
     inner class MainViewPagerAdapter(fm: FragmentManager, fragmentList: ArrayList<Fragment>) :
-        FragmentPagerAdapter(fm) {
+        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         private var fragmentList = ArrayList<Fragment>()
 
