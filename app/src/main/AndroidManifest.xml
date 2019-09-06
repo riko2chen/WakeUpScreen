@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.symeonchen.wakeupscreen">
+    package="com.symeonchen.wakeupscreen">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
-            android:name=".ScApplication"
-            android:allowBackup="false"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".pages.DebugPageActivity"/>
+        android:name=".ScApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".pages.AdvanceSettingPageActivity" />
+        <activity android:name=".pages.AboutThisPageActivity" />
+        <activity android:name=".pages.DebugPageActivity" />
         <activity android:name=".pages.FilterListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScBaseActivity"/>
+        <activity android:name=".ScBaseActivity" />
 
         <service
-                android:name=".services.ScNotificationListenerService"
-                android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            android:name=".services.ScNotificationListenerService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService"/>
+                <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
 
         <receiver android:name=".receiver.PackageReplacedReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
 

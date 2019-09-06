@@ -56,22 +56,6 @@
                 app:sc_setting_item_title_main="@string/time_of_wake_up_screen"
                 app:sc_setting_item_title_second="2s" />
 
-            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
-                android:id="@+id/item_setting_proximity_detect"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_switch_item_checked="true"
-                app:sc_setting_switch_item_title_main="@string/pocket_mode"
-                app:sc_setting_switch_item_title_second="@string/already_open" />
-
-            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
-                android:id="@+id/item_setting_ongoing_detect"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_switch_item_checked="true"
-                app:sc_setting_switch_item_title_main="@string/ongoing_status"
-                app:sc_setting_switch_item_title_second="@string/already_open" />
-
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_current_mode"
                 android:layout_width="match_parent"
@@ -86,7 +70,7 @@
                 android:visibility="gone"
                 app:sc_setting_item_title_main="@string/white_list"
                 app:sc_setting_item_title_second="@string/click_to_enter_white_list_page"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_black_list_entry"
@@ -95,30 +79,15 @@
                 android:visibility="gone"
                 app:sc_setting_item_title_main="@string/black_list"
                 app:sc_setting_item_title_second="@string/click_to_enter_black_list_page"
-                tools:visibility="visible" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="24dp"
-                android:text="@string/debug"
-                android:textColor="@color/colorPrimary" />
+                tools:visibility="gone" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
-                android:id="@+id/item_setting_debug_mode_toast"
+                android:id="@+id/item_setting_advanced_setting"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                app:sc_setting_item_title_main="@string/debug_mode"
-                app:sc_setting_item_title_second="@string/already_close" />
+                app:sc_setting_item_title_main="@string/advanced_setting"
+                app:sc_setting_item_title_second="@string/click_to_open" />
 
-            <com.symeonchen.uicomponent.views.SCSettingItem
-                android:id="@+id/item_setting_debug_mode_entry"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:visibility="gone"
-                app:sc_setting_item_title_main="@string/debug_mode_entry"
-                app:sc_setting_item_title_second="@string/click_to_enter_debug_page"
-                tools:visibility="visible" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -126,6 +95,13 @@
                 android:paddingStart="24dp"
                 android:text="@string/about"
                 android:textColor="@color/colorPrimary" />
+
+            <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_about_this"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:sc_setting_item_title_main="@string/about_this_app"
+                app:sc_setting_item_title_second="@string/click_to_open" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_address"
