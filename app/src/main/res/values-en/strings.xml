@@ -71,6 +71,14 @@
     <string name="custom">Custom</string>
     <string name="about">About</string>
     <string name="debug">Debug</string>
+    <string name="advanced_setting">Advanced Setting</string>
+    <string name="about_this_app">About Wake Up Screen</string>
+    <string name="app_info">App Info</string>
+    <string name="info">Info</string>
+    <string name="app_introduce">App Intro</string>
+    <string name="give_star">Five-star rate</string>
+    <string name="click_here_to_open_google_play_store">Click here to open Google Play Store</string>
 
+    <string name="app_intro_full">This is an Android app that allows the phone to wake up when it receives a notification.\nSpecially for Samsung S10 optimization. Also compatible with other devices.\nIt\'s open source, no internet access, and free.</string>
 
 </resources>

@@ -59,5 +59,14 @@
     <string name="custom">自定义</string>
     <string name="about">关于</string>
     <string name="debug">调试</string>
+    <string name="advanced_setting">高级设置</string>
+    <string name="about_this_app">关于通知亮屏</string>
+    <string name="app_info">应用信息</string>
+    <string name="info">信息</string>
+    <string name="app_introduce">应用介绍</string>
+    <string name="give_star">五星好评</string>
+    <string name="click_here_to_open_google_play_store">点击打开Google Play商店</string>
+
+    <string name="app_intro_full">这是一个可以使手机在接收到通知时点亮屏幕的 Android APP。\n特别为三星s10优化，同样兼容其他设备。\n本应用开源、无需连接网络、免费无广告。</string>
 
 </resources>
