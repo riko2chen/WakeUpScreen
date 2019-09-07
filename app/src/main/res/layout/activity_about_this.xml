@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/advanced_setting"
+            android:text="@string/about"
             android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,6 +48,27 @@
             android:divider="@drawable/shape_divider"
             android:orientation="vertical"
             android:showDividers="middle">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="24dp"
+                android:text="@string/info"
+                android:textColor="@color/colorPrimary" />
+
+            <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_app_introduce"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:sc_setting_item_title_main="@string/app_introduce"
+                app:sc_setting_single_line="true" />
+
+            <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_give_star"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:sc_setting_item_title_main="@string/give_star"
+                app:sc_setting_item_title_second="@string/click_here_to_open_google_play_store" />
 
             <TextView
                 android:layout_width="match_parent"

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SCSettingItem">
-        <attr name="sc_setting_item_title_main" format="string"/>
-        <attr name="sc_setting_item_title_second" format="string"/>
+        <attr name="sc_setting_single_line" format="boolean" />
+        <attr name="sc_setting_item_title_main" format="string" />
+        <attr name="sc_setting_item_title_second" format="string" />
     </declare-styleable>
 
     <declare-styleable name="SCSettingSwitchItem">
-        <attr name="sc_setting_switch_item_title_main" format="string"/>
-        <attr name="sc_setting_switch_item_title_second" format="string"/>
-        <attr name="sc_setting_switch_item_checked" format="boolean"/>
+        <attr name="sc_setting_switch_item_title_main" format="string" />
+        <attr name="sc_setting_switch_item_title_second" format="string" />
+        <attr name="sc_setting_switch_item_checked" format="boolean" />
     </declare-styleable>
 </resources>

@@ -1,8 +1,10 @@
 package com.symeonchen.wakeupscreen.pages
 
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -47,6 +49,31 @@ class AboutThisPageActivity : ScBaseActivity() {
 
         item_setting_debug_mode_entry.setOnClickListener {
             DebugPageActivity.actionStart(this)
+        }
+
+        item_setting_app_introduce.setOnClickListener {
+            AppInfoPageActivity.actionStart(this)
+        }
+
+        item_setting_give_star.setOnClickListener {
+            try {
+
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(
+                        "https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen"
+                    )
+                    setPackage("com.android.vending")
+                }
+                startActivity(intent)
+            } catch (anfe: ActivityNotFoundException) {
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(
+                    "https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen"
+                )
+                startActivity(i)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
 

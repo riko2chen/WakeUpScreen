@@ -17,6 +17,7 @@ class SCSettingItem @JvmOverloads constructor(
     private var v: View? = null
     private var titleMain = ""
     private var titleSecond = ""
+    private var singleLine = false
 
     var listener: OnItemClickListener? = null
 
@@ -39,7 +40,9 @@ class SCSettingItem @JvmOverloads constructor(
         val a = context.obtainStyledAttributes(attrs, R.styleable.SCSettingItem)
 
         titleMain = a.getString(R.styleable.SCSettingItem_sc_setting_item_title_main) ?: titleMain
-        titleSecond = a.getString(R.styleable.SCSettingItem_sc_setting_item_title_second) ?: titleSecond
+        titleSecond =
+            a.getString(R.styleable.SCSettingItem_sc_setting_item_title_second) ?: titleSecond
+        singleLine = a.getBoolean(R.styleable.SCSettingItem_sc_setting_single_line, false)
 
         a.recycle()
     }
@@ -64,6 +67,7 @@ class SCSettingItem @JvmOverloads constructor(
     private fun refresh() {
         tv_title_main.text = titleMain
         tv_title_second.text = titleSecond
+        tv_title_second.visibility = if (singleLine) View.GONE else View.VISIBLE
     }
 
     interface OnItemClickListener {

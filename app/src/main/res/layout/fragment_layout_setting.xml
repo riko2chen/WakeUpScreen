@@ -86,13 +86,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 app:sc_setting_item_title_main="@string/advanced_setting"
-                app:sc_setting_item_title_second="@string/click_to_open" />
+                app:sc_setting_single_line="true" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="24dp"
+                android:paddingEnd="0dp"
                 android:text="@string/about"
                 android:textColor="@color/colorPrimary" />
 
@@ -100,8 +101,8 @@
                 android:id="@+id/item_setting_about_this"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                app:sc_setting_item_title_main="@string/about_this_app"
-                app:sc_setting_item_title_second="@string/click_to_open" />
+                app:sc_setting_item_title_main="@string/app_info"
+                app:sc_setting_single_line="true" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_address"
