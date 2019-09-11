@@ -32,17 +32,20 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
-    implementation 'androidx.preference:preference:1.1.0-rc01'
-    implementation 'androidx.core:core-ktx:1.2.0-alpha03'
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha03"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha03"
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0-alpha04'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha04"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha04"
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
 
     implementation 'com.blankj:utilcodex:1.24.7'
     implementation 'com.tencent:mmkv:1.0.22'
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
+
     implementation "io.reactivex.rxjava2:rxjava:2.2.8"
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
