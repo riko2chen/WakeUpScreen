@@ -45,7 +45,8 @@ class ScNotificationListenerService : NotificationListenerService() {
             TAG_WAKE
         )
         val sec = DataInjection.milliSecondOfWakeUpScreen
-        wl.acquire((sec * 1000))
+        LogUtils.d("sec is $sec")
+        wl.acquire((sec))
         wl.release()
 
     }

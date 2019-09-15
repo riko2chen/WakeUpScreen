@@ -41,7 +41,7 @@
     <string name="developing">Developing</string>
     <string name="permission_of_read_notification">Read notification permission</string>
     <string name="service_of_background">Background Services</string>
-    <string name="time_of_wake_up_screen">Bright screen time</string>
+    <string name="time_of_wake_up_screen">Bright screen time(Do not work on some devices)</string>
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
     <string name="pocket_mode">Pocket Mode</string>
     <string name="ongoing_status">Optimize Ongoing Notify</string>

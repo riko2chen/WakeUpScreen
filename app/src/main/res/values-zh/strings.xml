@@ -35,7 +35,6 @@
     <string name="developing">正在开发中</string>
     <string name="permission_of_read_notification">读取通知权限</string>
     <string name="service_of_background">后台服务</string>
-    <string name="time_of_wake_up_screen">亮屏时间</string>
     <string name="optimize_of_battery_saver">关闭电量优化</string>
     <string name="pocket_mode">口袋防误触</string>
     <string name="ongoing_status">持续通知优化(如微信视频、QQ电话)</string>
@@ -68,5 +67,6 @@
     <string name="click_here_to_open_google_play_store">点击打开Google Play商店</string>
 
     <string name="app_intro_full">这是一个可以使手机在接收到通知时点亮屏幕的 Android APP。\n特别为三星s10优化，同样兼容其他设备。\n本应用开源、无需连接网络、免费无广告。</string>
+    <string name="time_of_wake_up_screen">自定义亮屏时长(部分设备上无效)</string>
 
 </resources>
