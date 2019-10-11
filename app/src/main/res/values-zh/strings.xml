@@ -67,6 +67,8 @@
     <string name="click_here_to_open_google_play_store">点击打开Google Play商店</string>
 
     <string name="app_intro_full">这是一个可以使手机在接收到通知时点亮屏幕的 Android APP。\n特别为三星s10优化，同样兼容其他设备。\n本应用开源、无需连接网络、免费无广告。</string>
-    <string name="time_of_wake_up_screen">自定义亮屏时长(部分设备上无效)</string>
+    <string name="time_of_wake_up_screen">自定义亮屏时长</string>
+    <string name="sleep_mode_open_desc">在凌晨1到5点，屏幕将不会点亮</string>
+    <string name="sleep_mode">睡眠模式</string>
 
 </resources>

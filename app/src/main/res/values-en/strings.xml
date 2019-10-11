@@ -41,7 +41,7 @@
     <string name="developing">Developing</string>
     <string name="permission_of_read_notification">Read notification permission</string>
     <string name="service_of_background">Background Services</string>
-    <string name="time_of_wake_up_screen">Bright screen time(Do not work on some devices)</string>
+    <string name="time_of_wake_up_screen">Bright screen time</string>
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
     <string name="pocket_mode">Pocket Mode</string>
     <string name="ongoing_status">Optimize Ongoing Notify</string>
@@ -80,5 +80,7 @@
     <string name="click_here_to_open_google_play_store">Click here to open Google Play Store</string>
 
     <string name="app_intro_full">This is an Android app that allows the phone to wake up when it receives a notification.\nSpecially for Samsung S10 optimization. Also compatible with other devices.\nIt\'s open source, no internet access, and free.</string>
+    <string name="sleep_mode_open_desc">The screen will not wake between 1:00 am to 5:00 am</string>
+    <string name="sleep_mode">Sleep Mode</string>
 
 </resources>
