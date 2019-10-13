@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
@@ -26,9 +27,11 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_app_filter_list.*
 import kotlinx.android.synthetic.main.activity_debug_page.iv_back
+import java.util.concurrent.TimeUnit
 
 class FilterListActivity : ScBaseActivity() {
 
+    private var visibleList: MutableList<AppInfo> = arrayListOf()
     private var dataList: MutableList<AppInfo> = arrayListOf()
     private var adapter: WhiteListViewAdapter? = null
     private var map: HashMap<String, Int>? = null
@@ -72,7 +75,7 @@ class FilterListActivity : ScBaseActivity() {
             resources.getString(R.string.white_list)
         }
 
-        adapter = WhiteListViewAdapter(rv_app_list, dataList)
+        adapter = WhiteListViewAdapter(rv_app_list, visibleList)
         rv_app_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_app_list.adapter = adapter
 
@@ -102,6 +105,46 @@ class FilterListActivity : ScBaseActivity() {
             DataInjection.appListUpdateFlag = System.currentTimeMillis()
             finish()
         }
+
+        RxTextView.textChanges(et_search_filter)
+            .debounce(300, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<CharSequence> {
+                override fun onComplete() {
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                    mCompositeDisposable.add(d)
+                }
+
+                override fun onNext(charSequence: CharSequence) {
+                    if (dataList.isEmpty()) {
+                        return
+                    }
+                    val keyStr = charSequence.toString()
+                    val result = if (keyStr.isNotEmpty()) {
+                        FilterListUtils.splitWithSelected(dataList.filter {
+                            it.simpleName.contains(
+                                keyStr,
+                                true
+                            )
+                        }, map)
+
+                    } else {
+                        FilterListUtils.splitWithSelected(dataList, map)
+                    }
+
+                    visibleList.clear()
+                    visibleList.addAll(result)
+                    updateView()
+                }
+
+                override fun onError(e: Throwable) {
+                    e.printStackTrace()
+                }
+            })
+
+
     }
 
     private fun getData() {
@@ -118,23 +161,9 @@ class FilterListActivity : ScBaseActivity() {
                 }
 
                 override fun onNext(t: List<AppInfo>) {
-                    val resultWithSelected: MutableList<AppInfo> = arrayListOf()
-                    val resultWithUnselected: MutableList<AppInfo> = arrayListOf()
-                    for (item in t) {
-                        if (map?.containsKey(item.packageName) == true) {
-                            item.selected = true
-                            resultWithSelected.add(item)
-                        } else {
-                            resultWithUnselected.add(item)
-                        }
-                    }
-                    dataList.clear()
-                    dataList.addAll(resultWithSelected.sortedBy {
-                        it.simpleName
-                    })
-                    dataList.addAll(resultWithUnselected.sortedBy {
-                        it.simpleName
-                    })
+                    dataList = FilterListUtils.splitWithSelected(t, map)
+                    visibleList.clear()
+                    visibleList.addAll(dataList)
                     updateView()
                 }
 
@@ -147,7 +176,7 @@ class FilterListActivity : ScBaseActivity() {
         view_loading.stopoLoadingAnimation()
         view_loading.visibility = View.GONE
         adapter?.dataList?.clear()
-        adapter?.dataList?.addAll(dataList)
+        adapter?.dataList?.addAll(visibleList)
         adapter?.notifyDataSetChanged()
     }
 

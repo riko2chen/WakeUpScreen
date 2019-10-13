@@ -1,6 +1,7 @@
 package com.symeonchen.wakeupscreen.utils
 
 import android.text.TextUtils
+import com.symeonchen.wakeupscreen.data.AppInfo
 
 class FilterListUtils {
 
@@ -13,6 +14,32 @@ class FilterListUtils {
         fun saveMapToString(map: HashMap<String, Int>): String {
             return saveMapToString(map, ",")
         }
+
+        fun splitWithSelected(
+            appList: List<AppInfo>,
+            map: HashMap<String, Int>?
+        ): MutableList<AppInfo> {
+            val dataList: MutableList<AppInfo> = mutableListOf()
+            val resultWithSelected: MutableList<AppInfo> = arrayListOf()
+            val resultWithUnselected: MutableList<AppInfo> = arrayListOf()
+            for (item in appList) {
+                if (map?.containsKey(item.packageName) == true) {
+                    item.selected = true
+                    resultWithSelected.add(item)
+                } else {
+                    resultWithUnselected.add(item)
+                }
+            }
+            dataList.clear()
+            dataList.addAll(resultWithSelected.sortedBy {
+                it.simpleName
+            })
+            dataList.addAll(resultWithUnselected.sortedBy {
+                it.simpleName
+            })
+            return dataList
+        }
+
 
         private fun getMapFromString(appStr: String, separator: String): HashMap<String, Int> {
             val map = HashMap<String, Int>()

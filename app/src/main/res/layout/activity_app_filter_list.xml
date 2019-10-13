@@ -57,12 +57,20 @@
         android:text="@string/white_list_hints"
         app:layout_constraintTop_toBottomOf="@id/ll_header" />
 
+    <EditText
+        android:id="@+id/et_search_filter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawableStart="@drawable/ic_search_green_24dp"
+        android:singleLine="true"
+        app:layout_constraintTop_toBottomOf="@id/tv_log_head_hint" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_app_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_log_head_hint"
+        app:layout_constraintTop_toBottomOf="@id/et_search_filter"
         tools:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/item_white_list"
         tools:orientation="vertical" />
@@ -72,6 +80,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_log_head_hint" />
+        app:layout_constraintTop_toBottomOf="@id/et_search_filter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
