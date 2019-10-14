@@ -93,6 +93,15 @@
                 app:sc_setting_item_title_second="@string/click_to_enter_debug_page"
                 tools:visibility="visible" />
 
+            <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_debug_delay_to_wake"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:visibility="visible"
+                app:sc_setting_item_title_main="@string/delay_to_wakeup"
+                app:sc_setting_item_title_second="@string/click_here_and_press_power_button_within_10_sec"
+                tools:visibility="visible" />
+
 
         </LinearLayout>
     </ScrollView>

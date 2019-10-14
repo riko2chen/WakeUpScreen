@@ -70,5 +70,7 @@
     <string name="time_of_wake_up_screen">自定义亮屏时长</string>
     <string name="sleep_mode_open_desc">在凌晨1到5点，屏幕将不会点亮</string>
     <string name="sleep_mode">睡眠模式</string>
+    <string name="delay_to_wakeup">点击此处测试是否能够正常点亮</string>
+    <string name="click_here_and_press_power_button_within_10_sec">点击之后，在五秒内关闭屏幕，观察是否能点亮</string>
 
 </resources>
