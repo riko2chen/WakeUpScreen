@@ -9,6 +9,8 @@ import com.symeonchen.wakeupscreen.data.NotifyItem
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.FilterListUtils
 import com.symeonchen.wakeupscreen.utils.NotifyDataUtils
+import java.util.*
+import kotlin.collections.HashMap
 
 @Suppress("DEPRECATION")
 class ScNotificationListenerService : NotificationListenerService() {
@@ -36,13 +38,15 @@ class ScNotificationListenerService : NotificationListenerService() {
         checkIfInteractive(pm) ?: return
         checkFilterListMode(sbn) ?: return
         checkIfUpdateOnGoingNotification(sbn) ?: return
+        checkIfInSleepModeTime() ?: return
 
         val wl = pm.newWakeLock(
             PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
             TAG_WAKE
         )
         val sec = DataInjection.milliSecondOfWakeUpScreen
-        wl.acquire((sec * 1000))
+        LogUtils.d("sec is $sec")
+        wl.acquire((sec))
         wl.release()
 
     }
@@ -147,5 +151,15 @@ class ScNotificationListenerService : NotificationListenerService() {
         return true
     }
 
+    private fun checkIfInSleepModeTime(): Boolean? {
+        if (DataInjection.sleepModeBoolean) {
+            val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            LogUtils.d("currentHour is $currentHour")
+            if (currentHour in 2..4) {
+                return null
+            }
+        }
+        return true
+    }
 
 }

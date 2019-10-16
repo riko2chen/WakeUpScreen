@@ -14,6 +14,7 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
+import com.symeonchen.wakeupscreen.utils.NotificationUtils
 import kotlinx.android.synthetic.main.activity_about_this.*
 
 
@@ -54,6 +55,17 @@ class AboutThisPageActivity : ScBaseActivity() {
         item_setting_app_introduce.setOnClickListener {
             AppInfoPageActivity.actionStart(this)
         }
+
+        item_setting_debug_delay_to_wake.setOnClickListener {
+            it.postDelayed({
+                NotificationUtils(this.applicationContext).sendNotification(
+                    "This is a test",
+                    "Just for testing wakeup screen"
+                )
+
+            }, 5000)
+        }
+
 
         item_setting_give_star.setOnClickListener {
             try {

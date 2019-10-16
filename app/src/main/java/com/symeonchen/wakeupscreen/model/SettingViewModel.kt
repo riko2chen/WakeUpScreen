@@ -49,6 +49,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.languageSelected)
         }
 
+    var sleepModeBoolean: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.sleepModeBoolean)
+        }
+
 
     init {
 
@@ -100,6 +105,12 @@ class SettingViewModel : ViewModel() {
         languageSelected.listener = object : ScLiveData.OnLiveDataValueInput<LanguageInfo> {
             override fun onValueInput(value: LanguageInfo) {
                 DataInjection.languageSelected = value
+            }
+        }
+
+        sleepModeBoolean.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.sleepModeBoolean = value
             }
         }
 

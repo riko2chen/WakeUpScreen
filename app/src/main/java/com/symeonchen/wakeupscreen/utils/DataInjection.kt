@@ -16,6 +16,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_APP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_DEBUG_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
@@ -25,6 +26,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.WAKE_SCREEN_SECOND
 import com.tencent.mmkv.MMKV
 
@@ -40,7 +42,8 @@ object DataInjection {
 
     var milliSecondOfWakeUpScreen: Long
         get() {
-            return MMKV.defaultMMKV().getLong(WAKE_SCREEN_SECOND, DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS)
+            return MMKV.defaultMMKV()
+                .getLong(WAKE_SCREEN_SECOND, DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS)
         }
         set(millisSec) {
             if (millisSec < 0) {
@@ -98,7 +101,10 @@ object DataInjection {
 
     var appWhiteListStringOfNotify: String
         get() {
-            return MMKV.defaultMMKV().getString(APP_FILTER_WHITE_LIST_STRING, DEFAULT_APP_WHITE_LIST_STRING) ?: ""
+            return MMKV.defaultMMKV().getString(
+                APP_FILTER_WHITE_LIST_STRING,
+                DEFAULT_APP_WHITE_LIST_STRING
+            ) ?: ""
         }
         set(value) {
             MMKV.defaultMMKV().putString(APP_FILTER_WHITE_LIST_STRING, value)
@@ -106,7 +112,10 @@ object DataInjection {
 
     var appBlackListStringOfNotify: String
         get() {
-            return MMKV.defaultMMKV().getString(APP_FILTER_BLACK_LIST_STRING, DEFAULT_APP_BLACK_LIST_STRING) ?: ""
+            return MMKV.defaultMMKV().getString(
+                APP_FILTER_BLACK_LIST_STRING,
+                DEFAULT_APP_BLACK_LIST_STRING
+            ) ?: ""
         }
         set(value) {
             MMKV.defaultMMKV().putString(APP_FILTER_BLACK_LIST_STRING, value)
@@ -122,7 +131,8 @@ object DataInjection {
 
     var ongoingOptimize: Boolean
         get() {
-            return MMKV.defaultMMKV().getBoolean(ONGOING_STATUS_DETECT, DEFAULT_ONGOING_STATUS_DETECT)
+            return MMKV.defaultMMKV()
+                .getBoolean(ONGOING_STATUS_DETECT, DEFAULT_ONGOING_STATUS_DETECT)
         }
         set(value) {
             MMKV.defaultMMKV().putBoolean(ONGOING_STATUS_DETECT, value)
@@ -140,6 +150,14 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV().putInt(LANGUAGE_SELECTED, value.ordinal)
+        }
+
+    var sleepModeBoolean: Boolean
+        get() {
+            return MMKV.defaultMMKV().getBoolean(SLEEP_MODE_BOOLEAN, DEFAULT_SLEEP_MODE_BOOLEAN)
+        }
+        set(value) {
+            MMKV.defaultMMKV().putBoolean(SLEEP_MODE_BOOLEAN, value)
         }
 
 }

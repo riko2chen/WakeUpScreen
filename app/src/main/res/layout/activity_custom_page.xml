@@ -65,6 +65,14 @@
                 app:sc_setting_switch_item_title_main="@string/ongoing_status"
                 app:sc_setting_switch_item_title_second="@string/already_open" />
 
+            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
+                android:id="@+id/item_setting_sleep_ignore"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:sc_setting_switch_item_checked="true"
+                app:sc_setting_switch_item_title_main="@string/sleep_mode"
+                app:sc_setting_switch_item_title_second="@string/already_close" />
+
 
         </LinearLayout>
     </ScrollView>

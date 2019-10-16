@@ -57,6 +57,16 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
         }
 
+        item_setting_sleep_ignore.listener = object : SCSettingSwitchItem.OnItemClickListener {
+            override fun onItemCLick() {
+            }
+
+            override fun onSwitchClick() {
+                val switchCurr = settingModel.sleepModeBoolean.value ?: false
+                settingModel.sleepModeBoolean.postValue(!switchCurr)
+            }
+        }
+
 
         settingModel.switchOfProximity.observe(this, Observer {
             item_setting_proximity_detect.bindData(
@@ -82,6 +92,13 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             )
         })
 
+        settingModel.sleepModeBoolean.observe(this, Observer {
+            item_setting_sleep_ignore.bindData(
+                null,
+                resources.getString(if (it) R.string.sleep_mode_open_desc else R.string.already_close),
+                it
+            )
+        })
 
     }
 
