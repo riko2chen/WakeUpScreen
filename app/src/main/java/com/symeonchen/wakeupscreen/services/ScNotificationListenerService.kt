@@ -9,9 +9,13 @@ import com.symeonchen.wakeupscreen.data.NotifyItem
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.FilterListUtils
 import com.symeonchen.wakeupscreen.utils.NotifyDataUtils
+import com.symeonchen.wakeupscreen.utils.TimeRangeCalculateUtils
 import java.util.*
 import kotlin.collections.HashMap
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 @Suppress("DEPRECATION")
 class ScNotificationListenerService : NotificationListenerService() {
 
@@ -154,8 +158,9 @@ class ScNotificationListenerService : NotificationListenerService() {
     private fun checkIfInSleepModeTime(): Boolean? {
         if (DataInjection.sleepModeBoolean) {
             val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-            LogUtils.d("currentHour is $currentHour")
-            if (currentHour in 2..4) {
+            val beginHour = DataInjection.sleepModeTimeBeginHour
+            val endHour = DataInjection.sleepModeTimeEndHour
+            if (TimeRangeCalculateUtils.hourInRange(currentHour, beginHour, endHour)) {
                 return null
             }
         }

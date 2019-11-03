@@ -6,6 +6,9 @@ import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.ScLiveData
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class SettingViewModel : ViewModel() {
 
     var switchOfApp: ScLiveData<Boolean> = ScLiveData<Boolean>()
@@ -53,6 +56,10 @@ class SettingViewModel : ViewModel() {
         .apply {
             setValue(DataInjection.sleepModeBoolean)
         }
+
+    var sleepModeTimeRange: ScLiveData<Pair<Int, Int>> = ScLiveData<Pair<Int, Int>>().apply {
+        setValue(Pair(DataInjection.sleepModeTimeBeginHour, DataInjection.sleepModeTimeEndHour))
+    }
 
 
     init {
@@ -114,6 +121,13 @@ class SettingViewModel : ViewModel() {
             }
         }
 
+
+        sleepModeTimeRange.listener = object : ScLiveData.OnLiveDataValueInput<Pair<Int, Int>> {
+            override fun onValueInput(value: Pair<Int, Int>) {
+                DataInjection.sleepModeTimeBeginHour = value.first
+                DataInjection.sleepModeTimeEndHour = value.second
+            }
+        }
     }
 
 }

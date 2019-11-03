@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.activity_debug_page.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class DebugPageActivity : ScBaseActivity() {
 
     private var realm: Realm? = null

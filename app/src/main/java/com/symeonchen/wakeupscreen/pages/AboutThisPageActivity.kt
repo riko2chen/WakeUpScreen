@@ -17,7 +17,9 @@ import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.NotificationUtils
 import kotlinx.android.synthetic.main.activity_about_this.*
 
-
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class AboutThisPageActivity : ScBaseActivity() {
 
     private var alertDialog: AlertDialog? = null

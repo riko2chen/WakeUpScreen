@@ -2,6 +2,9 @@ package com.symeonchen.wakeupscreen.data
 
 import androidx.lifecycle.LiveData
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class ScLiveData<T> : LiveData<T>() {
 
     var listener: OnLiveDataValueInput<T>? = null

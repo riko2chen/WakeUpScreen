@@ -73,6 +73,15 @@
                 app:sc_setting_switch_item_title_main="@string/sleep_mode"
                 app:sc_setting_switch_item_title_second="@string/already_close" />
 
+            <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_sleep_ignore_detail_time"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:visibility="gone"
+                app:sc_setting_item_title_main="@string/sleep_time"
+                app:sc_setting_item_title_second="@string/sleep_mode_open_desc"
+                tools:visibility="visible" />
+
 
         </LinearLayout>
     </ScrollView>

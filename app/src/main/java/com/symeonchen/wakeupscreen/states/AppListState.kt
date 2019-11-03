@@ -5,12 +5,18 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.symeonchen.wakeupscreen.data.AppInfo
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class AppListState {
     companion object {
 
         private var TAG: String = this::class.java.simpleName ?: ""
 
-        fun getInstalledAppList(context: Context?, includeSystemApp: Boolean = false): ArrayList<AppInfo> {
+        fun getInstalledAppList(
+            context: Context?,
+            includeSystemApp: Boolean = false
+        ): ArrayList<AppInfo> {
             var appList = arrayListOf<AppInfo>()
             if (context == null) {
                 return appList

@@ -4,6 +4,9 @@ import android.content.Context
 import android.os.Build
 import androidx.core.content.pm.PackageInfoCompat
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class AppInfoUtils {
     companion object {
         fun getDeviceInfo(context: Context?): String {

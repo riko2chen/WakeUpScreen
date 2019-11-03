@@ -11,6 +11,9 @@ import com.symeonchen.wakeupscreen.pages.ScMainFragment
 import com.symeonchen.wakeupscreen.pages.ScSettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
 
     private var fragmentList = ArrayList<Fragment>()

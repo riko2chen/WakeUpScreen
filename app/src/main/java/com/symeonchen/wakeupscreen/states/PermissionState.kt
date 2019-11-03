@@ -6,6 +6,9 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.provider.Settings
 import androidx.core.app.NotificationManagerCompat
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class PermissionState {
     companion object {
         fun hasNotificationListenerServiceEnabled(context: Context?): Boolean {

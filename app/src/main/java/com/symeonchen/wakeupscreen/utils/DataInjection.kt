@@ -17,6 +17,8 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_BOOLEAN
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_TIME_END_HOUR
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_APP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_DEBUG_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
@@ -27,9 +29,14 @@ import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_BOOLEAN
+import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_BEGIN
+import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_END
 import com.symeonchen.wakeupscreen.data.ScConstant.WAKE_SCREEN_SECOND
 import com.tencent.mmkv.MMKV
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 object DataInjection {
 
     var switchOfApp: Boolean
@@ -160,4 +167,25 @@ object DataInjection {
             MMKV.defaultMMKV().putBoolean(SLEEP_MODE_BOOLEAN, value)
         }
 
+    var sleepModeTimeBeginHour: Int
+        get() {
+            return MMKV.defaultMMKV().getInt(
+                SLEEP_MODE_TIME_BEGIN,
+                DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR
+            )
+        }
+        set(value) {
+            MMKV.defaultMMKV().putInt(SLEEP_MODE_TIME_BEGIN, value)
+        }
+
+    var sleepModeTimeEndHour: Int
+        get() {
+            return MMKV.defaultMMKV().getInt(
+                SLEEP_MODE_TIME_END,
+                DEFAULT_SLEEP_MODE_TIME_END_HOUR
+            )
+        }
+        set(value) {
+            MMKV.defaultMMKV().putInt(SLEEP_MODE_TIME_END, value)
+        }
 }

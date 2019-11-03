@@ -12,7 +12,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.VISIBILITY_SECRET
 import com.symeonchen.wakeupscreen.R
 
-
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
 
     companion object {
@@ -58,7 +60,7 @@ class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
     }
 
     /**
-     * 发送通知
+     * Send Notification
      */
     fun sendNotification(title: String, content: String) {
         val builder = getNotification(title, content)
@@ -73,19 +75,15 @@ class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
             builder = NotificationCompat.Builder(applicationContext)
             builder.priority = PRIORITY_DEFAULT
         }
-        //标题
         builder.setContentTitle(title)
-        //文本内容
         builder.setContentText(content)
-        //小图标
         builder.setSmallIcon(R.mipmap.ic_launcher)
-        //设置点击信息后自动清除通知
         builder.setAutoCancel(true)
         return builder
     }
 
     /**
-     * 发送通知
+     * Send Notification
      */
     fun sendNotification(notifyId: Int, title: String, content: String) {
         val builder = getNotification(title, content)

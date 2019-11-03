@@ -3,6 +3,9 @@ package com.symeonchen.wakeupscreen.utils
 import android.text.TextUtils
 import com.symeonchen.wakeupscreen.data.AppInfo
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class FilterListUtils {
 
     companion object {
