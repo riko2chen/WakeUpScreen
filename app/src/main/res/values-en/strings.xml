@@ -80,9 +80,10 @@
     <string name="click_here_to_open_google_play_store">Click here to open Google Play Store</string>
 
     <string name="app_intro_full">This is an Android app that allows the phone to wake up when it receives a notification.\nSpecially for Samsung S10 optimization. Also compatible with other devices.\nIt\'s open source, no internet access, and free.</string>
-    <string name="sleep_mode_open_desc">The screen will not wake between 1:00 am to 5:00 am</string>
+    <string name="sleep_mode_open_desc">The screen will not wake between </string>
     <string name="sleep_mode">Sleep Mode</string>
     <string name="delay_to_wakeup">Click here to begin wake test</string>
     <string name="click_here_and_press_power_button_within_10_sec">Click here and press power button within 5 seconds</string>
+    <string name="sleep_time">Sleep Time</string>
 
 </resources>

@@ -5,6 +5,9 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.symeonchen.wakeupscreen.services.ScProximitySensor
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class ProximitySensorState {
     companion object {
         private var proximityListener = ScProximitySensor()
@@ -15,7 +18,8 @@ class ProximitySensorState {
                 return
             }
             if (sensorManager == null) {
-                sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+                sensorManager =
+                    context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
             }
 
             if (isRegistered()) {
@@ -33,7 +37,8 @@ class ProximitySensorState {
                 return
             }
             if (sensorManager == null) {
-                sensorManager = context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+                sensorManager =
+                    context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
             }
             sensorManager?.unregisterListener(proximityListener)
             proximitySensor = null

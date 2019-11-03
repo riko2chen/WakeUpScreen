@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pages.DebugPageActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_arrow_back_white_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sleep_time"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_begin_time_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_header"
+        tools:text="22:00" />
+
+    <SeekBar
+        android:id="@+id/sb_begin_time_hour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:max="23"
+        app:layout_constraintBottom_toBottomOf="@id/tv_begin_time_hour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_begin_time_hour"
+        app:layout_constraintTop_toTopOf="@id/tv_begin_time_hour"
+        tools:progress="22" />
+
+    <TextView
+        android:id="@+id/tv_end_time_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_begin_time_hour"
+        tools:text="4:00" />
+
+    <SeekBar
+        android:id="@+id/sb_end_time_hour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="23"
+        android:paddingEnd="14dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_end_time_hour"
+        app:layout_constraintEnd_toEndOf="@id/sb_begin_time_hour"
+        app:layout_constraintStart_toStartOf="@id/sb_begin_time_hour"
+        app:layout_constraintTop_toTopOf="@id/tv_end_time_hour"
+        tools:progress="4" />
+
+
+    <TextView
+        android:id="@+id/tv_sleep_mode_desc_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sleep_mode_open_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_end_time_hour"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/tv_sleep_time_desc_begin_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toStartOf="@id/tv_desc_arrow"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sleep_mode_desc_header"
+        tools:text="22:00" />
+
+    <TextView
+        android:id="@+id/tv_desc_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" ➡ "
+        app:layout_constraintBottom_toBottomOf="@id/tv_sleep_time_desc_begin_hour"
+        app:layout_constraintEnd_toStartOf="@id/tv_sleep_time_desc_end_hour"
+        app:layout_constraintStart_toEndOf="@id/tv_sleep_time_desc_begin_hour"
+        app:layout_constraintTop_toTopOf="@id/tv_sleep_time_desc_begin_hour" />
+
+    <TextView
+        android:id="@+id/tv_sleep_time_desc_end_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sleep_time_desc_begin_hour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_desc_arrow"
+        app:layout_constraintTop_toTopOf="@id/tv_sleep_time_desc_begin_hour"
+        tools:text="4:00" />
+</androidx.constraintlayout.widget.ConstraintLayout>

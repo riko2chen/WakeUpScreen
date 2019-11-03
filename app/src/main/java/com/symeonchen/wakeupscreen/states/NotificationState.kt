@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import com.symeonchen.wakeupscreen.services.ScNotificationListenerService
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class NotificationState {
     companion object {
 

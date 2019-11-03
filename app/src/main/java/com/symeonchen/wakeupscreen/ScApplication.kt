@@ -6,7 +6,9 @@ import com.tencent.mmkv.MMKV
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
-
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 @Suppress("unused")
 class ScApplication : Application() {
 

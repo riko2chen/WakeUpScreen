@@ -22,7 +22,9 @@ import com.symeonchen.wakeupscreen.utils.AppInfoUtils
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 import java.util.*
 
-
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class ScSettingFragment : ScBaseFragment() {
 
     private var alertDialog: AlertDialog? = null

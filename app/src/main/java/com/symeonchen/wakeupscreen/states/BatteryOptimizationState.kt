@@ -7,6 +7,9 @@ import android.net.Uri
 import android.os.PowerManager
 import android.provider.Settings
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class BatteryOptimizationState {
     companion object {
         fun openBatteryOptimization(context: Context?) {

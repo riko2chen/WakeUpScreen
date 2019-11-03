@@ -1,5 +1,8 @@
 package com.symeonchen.wakeupscreen.data
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 @Suppress("UNUSED_PARAMETER")
 enum class LanguageInfo(referenceNum: Int) {
     FOLLOW_SYSTEM(0),

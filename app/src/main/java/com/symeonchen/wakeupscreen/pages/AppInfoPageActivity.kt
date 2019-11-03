@@ -7,7 +7,9 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import kotlinx.android.synthetic.main.activity_app_info.*
 
-
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class AppInfoPageActivity : ScBaseActivity() {
 
 

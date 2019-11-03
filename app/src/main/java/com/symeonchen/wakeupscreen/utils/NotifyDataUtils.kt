@@ -3,6 +3,9 @@ package com.symeonchen.wakeupscreen.utils
 import com.symeonchen.wakeupscreen.data.NotifyItem
 import io.realm.Realm
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class NotifyDataUtils {
     companion object {
         @Synchronized

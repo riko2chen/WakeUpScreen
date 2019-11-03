@@ -5,6 +5,9 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class ScProximitySensor : SensorEventListener {
 
     private var isProximityNear = 1.0f

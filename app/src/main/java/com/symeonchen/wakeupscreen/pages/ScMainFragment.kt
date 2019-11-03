@@ -24,6 +24,9 @@ import com.symeonchen.wakeupscreen.states.PermissionState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class ScMainFragment : ScBaseFragment() {
 
     private lateinit var statusModel: StatusViewModel

@@ -29,6 +29,9 @@ import kotlinx.android.synthetic.main.activity_app_filter_list.*
 import kotlinx.android.synthetic.main.activity_debug_page.iv_back
 import java.util.concurrent.TimeUnit
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 class FilterListActivity : ScBaseActivity() {
 
     private var visibleList: MutableList<AppInfo> = arrayListOf()

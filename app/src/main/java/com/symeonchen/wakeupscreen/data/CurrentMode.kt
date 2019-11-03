@@ -1,5 +1,8 @@
 package com.symeonchen.wakeupscreen.data
 
+/**
+ * Created by SymeonChen on 2019-10-27.
+ */
 @Suppress("UNUSED_PARAMETER")
 enum class CurrentMode(name: String, referenceNum: Int) {
     MODE_ALL_NOTIFY("All Notify", 0),
