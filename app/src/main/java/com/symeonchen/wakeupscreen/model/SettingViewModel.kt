@@ -61,6 +61,10 @@ class SettingViewModel : ViewModel() {
         setValue(Pair(DataInjection.sleepModeTimeBeginHour, DataInjection.sleepModeTimeEndHour))
     }
 
+    var dndDetectBoolean: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.dndDetectSwitch)
+        }
 
     init {
 
@@ -126,6 +130,12 @@ class SettingViewModel : ViewModel() {
             override fun onValueInput(value: Pair<Int, Int>) {
                 DataInjection.sleepModeTimeBeginHour = value.first
                 DataInjection.sleepModeTimeEndHour = value.second
+            }
+        }
+
+        dndDetectBoolean.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.dndDetectSwitch = value
             }
         }
     }

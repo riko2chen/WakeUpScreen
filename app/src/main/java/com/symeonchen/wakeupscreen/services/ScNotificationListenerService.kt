@@ -6,10 +6,7 @@ import android.service.notification.StatusBarNotification
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.NotifyItem
-import com.symeonchen.wakeupscreen.utils.DataInjection
-import com.symeonchen.wakeupscreen.utils.FilterListUtils
-import com.symeonchen.wakeupscreen.utils.NotifyDataUtils
-import com.symeonchen.wakeupscreen.utils.TimeRangeCalculateUtils
+import com.symeonchen.wakeupscreen.utils.*
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -43,6 +40,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         checkFilterListMode(sbn) ?: return
         checkIfUpdateOnGoingNotification(sbn) ?: return
         checkIfInSleepModeTime() ?: return
+        checkIfInDnd() ?: return
 
         val wl = pm.newWakeLock(
             PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
@@ -167,4 +165,12 @@ class ScNotificationListenerService : NotificationListenerService() {
         return true
     }
 
+    private fun checkIfInDnd(): Boolean? {
+        if (DataInjection.dndDetectSwitch) {
+            if (true != NotificationUtils(applicationContext).detectDnd()) {
+                return null
+            }
+        }
+        return true
+    }
 }

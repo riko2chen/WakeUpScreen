@@ -14,6 +14,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_NOTIFY_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_FLAG
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_BOOLEAN
@@ -24,6 +25,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_DEBUG_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_VALUE_OF_PROXIMITY
+import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
@@ -187,5 +189,13 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV().putInt(SLEEP_MODE_TIME_END, value)
+        }
+
+    var dndDetectSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV().getBoolean(DND_DETECT_SWITCH, DEFAULT_DND_DETECT_SWITCH)
+        }
+        set(value) {
+            MMKV.defaultMMKV().putBoolean(DND_DETECT_SWITCH, value)
         }
 }

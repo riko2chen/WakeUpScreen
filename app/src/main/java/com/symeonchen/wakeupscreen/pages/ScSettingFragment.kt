@@ -120,7 +120,7 @@ class ScSettingFragment : ScBaseFragment() {
         }
 
 
-        settingModel.timeOfWakeUpScreen.observe(this, Observer {
+        settingModel.timeOfWakeUpScreen.observe(viewLifecycleOwner, Observer {
             item_setting_wake_screen_time.bindData(
                 null,
                 "${it / 1000}s"
@@ -131,7 +131,7 @@ class ScSettingFragment : ScBaseFragment() {
 
 
 
-        settingModel.modeOfCurrent.observe(this, Observer {
+        settingModel.modeOfCurrent.observe(viewLifecycleOwner, Observer {
             item_setting_current_mode.bindData(
                 null,
                 resources.getString(
@@ -156,7 +156,7 @@ class ScSettingFragment : ScBaseFragment() {
         })
 
 
-        settingModel.languageSelected.observe(this, Observer {
+        settingModel.languageSelected.observe(viewLifecycleOwner, Observer {
             item_setting_language.bindData(
                 null,
                 when (it) {

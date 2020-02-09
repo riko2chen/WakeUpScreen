@@ -90,4 +90,17 @@ class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
         manager!!.notify(notifyId, builder.build())
     }
 
+
+    /**
+     * Detect whether Do Not Disturb is open or close.
+     */
+    fun detectDnd(): Boolean? {
+        return try {
+            val status = manager!!.currentInterruptionFilter
+            status == NotificationManager.INTERRUPTION_FILTER_ALL
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }
