@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
             android:id="@+id/main_mb_item_nav"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
