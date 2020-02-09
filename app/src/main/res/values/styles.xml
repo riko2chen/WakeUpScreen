@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/ScActivityAnimation</item>
     </style>
 
     <style name="BottomNavigationTheme" parent="Widget.Design.BottomNavigationView">
@@ -31,6 +32,13 @@
 
         <!-- inactive track color (30% transparency) -->
         <item name="android:colorForeground">#221f1f</item>
+    </style>
+
+    <style name="ScActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/page_slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/page_slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/page_slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/page_slide_out_right</item>
     </style>
 
 </resources>
