@@ -77,25 +77,25 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun setListener() {
-        statusModel.statusOfService.observe(this, Observer {
+        statusModel.statusOfService.observe(viewLifecycleOwner, Observer {
             main_item_service.setState(it)
             main_item_service.setBtnText(resources.getString(if (it) R.string.click_to_close else R.string.click_to_open))
             refresh()
         })
 
-        statusModel.permissionOfReadNotification.observe(this, Observer {
+        statusModel.permissionOfReadNotification.observe(viewLifecycleOwner, Observer {
             main_item_permission_notification.setState(it)
             refresh()
         })
 
-        settingModel.switchOfApp.observe(this, Observer {
+        settingModel.switchOfApp.observe(viewLifecycleOwner, Observer {
             btn_control.isChecked = it
 //            btn_control.text =
 //                resources.getString(if (it) R.string.wanna_close else R.string.wanna_open)
             refresh()
         })
 
-        settingModel.fakeSwitchOfBatterySaver.observe(this, Observer {
+        settingModel.fakeSwitchOfBatterySaver.observe(viewLifecycleOwner, Observer {
             main_item_battery_saver.setState(it)
         })
 
