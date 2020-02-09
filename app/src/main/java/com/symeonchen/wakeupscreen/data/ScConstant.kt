@@ -19,6 +19,7 @@ object ScConstant {
     const val SLEEP_MODE_BOOLEAN = "sleep_mode_boolean"
     const val SLEEP_MODE_TIME_BEGIN = "sleep_mode_time_begin"
     const val SLEEP_MODE_TIME_END = "sleep_mode_time_end"
+    const val DND_DETECT_SWITCH = "dnd_detect_switch"
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
@@ -35,6 +36,7 @@ object ScConstant {
     const val DEFAULT_SLEEP_MODE_BOOLEAN: Boolean = false
     const val DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR = 2
     const val DEFAULT_SLEEP_MODE_TIME_END_HOUR = 4
+    const val DEFAULT_DND_DETECT_SWITCH = true
 
     const val AUTHOR_MAIL = "symeonchen@gmail.com"
     const val DEFAULT_MAIL_HEAD = "【问题反馈】【通知亮屏】在此输入标题"

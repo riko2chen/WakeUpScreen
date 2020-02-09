@@ -85,5 +85,7 @@
     <string name="delay_to_wakeup">Click here to begin wake test</string>
     <string name="click_here_and_press_power_button_within_10_sec">Click here and press power button within 5 seconds</string>
     <string name="sleep_time">Sleep Time</string>
+    <string name="dnd_detect_title">Detection of Do Not Disturb</string>
+    <string name="dnd_detect_desc">Close it if you want to wake up  in DND mode.</string>
 
 </resources>

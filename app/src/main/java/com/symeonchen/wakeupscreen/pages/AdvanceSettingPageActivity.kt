@@ -62,6 +62,13 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
         }
 
+        item_setting_dnd_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
+            override fun onSwitchClick() {
+                val switchCurr = settingModel.dndDetectBoolean.value ?: false
+                settingModel.dndDetectBoolean.postValue(!switchCurr)
+            }
+        }
+
         item_setting_sleep_ignore.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
             }
@@ -99,6 +106,14 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             item_setting_ongoing_detect.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
+                it
+            )
+        })
+
+        settingModel.dndDetectBoolean.observe(this, Observer {
+            item_setting_dnd_detect.bindData(
+                null,
+                null,
                 it
             )
         })
