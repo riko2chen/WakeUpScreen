@@ -1,31 +1,32 @@
 <resources>
     <string name="app_name">WakeUpScreen</string>
     <string name="home">Home</string>
-    <string name="setting">Setting</string>
-    <string name="open">open</string>
-    <string name="close">close</string>
+    <string name="setting">Impostazioni</string>
+    <string name="open">apri</string>
+    <string name="close">chiudi</string>
     <string name="ok">OK</string>
-    <string name="language">语言(Language)</string>
-    <string name="language_zh_cn">简体中文</string>
-    <string name="language_en">English</string>
-    <string name="clear_all">Clear</string>
-    <string name="save">Save</string>
-    <string name="mail_title">[Question] [Wake Up Screen] write title here</string>
+    <string name="language">Lingua</string>
+    <string name="language_zh_cn">Cinese Semplificato</string>
+    <string name="language_en">Inglese</string>
+    <string name="language_it">Italiano</string>
+    <string name="clear_all">Cancella</string>
+    <string name="save">Salva</string>
+    <string name="mail_title">[Domanda] [Wake Up Screen] scrivi il titolo qui</string>
 
 
     <!--action-->
-    <string name="click_to_close">Click to close</string>
-    <string name="click_to_open">Click to open</string>
-    <string name="to_setting">To setting</string>
-    <string name="how_to_set">How to set</string>ß
-    <string name="already_open">Already open</string>
-    <string name="already_close">Already close</string>
-    <string name="i_already_close">Already close</string>
-    <string name="not_open">not open</string>
-    <string name="not_close">not close</string>
-    <string name="wanna_close">I want to close</string>
-    <string name="wanna_open">I want to open</string>
-    <string name="set_up_successfully">Set up successfully!</string>
+    <string name="click_to_close">Click per chiudere</string>
+    <string name="click_to_open">Click per aprire</string>
+    <string name="to_setting">All\'impostazione</string>
+    <string name="how_to_set">Come impostare</string>ß
+    <string name="already_open">Già aperto</string>
+    <string name="already_close">Già chiuso</string>
+    <string name="i_already_close">Già chiuso</string>
+    <string name="not_open">non aperto</string>
+    <string name="not_close">non chiuso</string>
+    <string name="wanna_close">Chiudi</string>
+    <string name="wanna_open">Apri</string>
+    <string name="set_up_successfully">Configurato con successo!</string>
 
     <!--other-->
     <string name="battery_saver_tips">Turn off the power optimization of this app to ensure that the notification bright
@@ -39,21 +40,21 @@
         wait patiently.
     </string>
     <string name="developing">Developing</string>
-    <string name="permission_of_read_notification">Read notification permission</string>
+    <string name="permission_of_read_notification">Leggi l\'autorizzazione di notifica</string>
     <string name="service_of_background">Background Services</string>
-    <string name="time_of_wake_up_screen">Bright screen time</string>
-    <string name="optimize_of_battery_saver">Turn off power optimization</string>
+    <string name="time_of_wake_up_screen">Tempo di schermo acceso</string>
+    <string name="optimize_of_battery_saver">Disattiva l\'ottimizzazione della batteria</string>
     <string name="pocket_mode">Pocket Mode</string>
     <string name="ongoing_status">Optimize Ongoing Notify</string>
-    <string name="current_mode">Current Mode</string>
-    <string name="all_pass">All Notify</string>
-    <string name="white_list">Whitelist mode</string>
+    <string name="current_mode">Modalità</string>
+    <string name="all_pass">Tutte le notifiche</string>
+    <string name="white_list">Modalità whitelist</string>
     <string name="white_list_page">Whitelist Setting Page</string>
     <string name="black_list">Blacklist mode</string>
     <string name="black_list_page">Blacklist Setting Page</string>
     <string name="project_address">Open Source Project</string>
     <string name="feedback">Feedback</string>
-    <string name="debug_mode">Debug Mode</string>
+    <string name="debug_mode">Modalità Debug</string>
     <string name="debug_mode_entry">Debug Page</string>
     <string name="click_to_enter_debug_page">Click here to enter Debug Page</string>
     <string name="click_to_enter_white_list_page">Click here to enter Whitelist Page</string>
@@ -69,23 +70,23 @@
 
 
     <string name="custom">Custom</string>
-    <string name="about">About</string>
+    <string name="about">Info</string>
     <string name="debug">Debug</string>
-    <string name="advanced_setting">Advanced Setting</string>
-    <string name="about_this_app">About Wake Up Screen</string>
+    <string name="advanced_setting">Impostazioni avanzate</string>
+    <string name="about_this_app">info su Wake Up Screen</string>
     <string name="app_info">App Info</string>
     <string name="info">Info</string>
     <string name="app_introduce">App Intro</string>
-    <string name="give_star">Five-star rate</string>
-    <string name="click_here_to_open_google_play_store">Click here to open Google Play Store</string>
+    <string name="give_star">Valuta cinque stelle</string>
+    <string name="click_here_to_open_google_play_store">Fai clic qui per aprire Google Play Store</string>
 
-    <string name="app_intro_full">This is an Android app that allows the phone to wake up when it receives a notification.\nSpecially for Samsung S10 optimization. Also compatible with other devices.\nIt\'s open source, no internet access, and free.</string>
-    <string name="sleep_mode_open_desc">The screen will not wake between </string>
+    <string name="app_intro_full">Questa è un applicazione Android che permette al telefono di risvegliarsi quando riceve una notifica.\nOttimizzato specialmente per il Samsung S10.\nCompatibile con altri dispositivi.E\' open source, senza accesso a internet, e gratis.</string>
+    <string name="sleep_mode_open_desc">"The screen will not wake between "</string>
     <string name="sleep_mode">Sleep Mode</string>
-    <string name="delay_to_wakeup">Click here to begin wake test</string>
+    <string name="delay_to_wakeup">Fare clic qui per iniziare il test di riattivazione</string>
     <string name="click_here_and_press_power_button_within_10_sec">Click here and press power button within 5 seconds</string>
     <string name="sleep_time">Sleep Time</string>
-    <string name="dnd_detect_title">Detection of Do Not Disturb</string>
+    <string name="dnd_detect_title">Rilevamento Non Disturbare</string>
     <string name="dnd_detect_desc">Close it if you want to wake up  in DND mode.</string>
 
 </resources>

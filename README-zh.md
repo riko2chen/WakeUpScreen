@@ -1,4 +1,5 @@
 * [English Version](https://github.com/SymeonChen/WakeUpScreen/blob/master/README.md)
+* [Italian Version](https://github.com/SymeonChen/WakeUpScreen/blob/master/README-it.md)
 * [中文版](https://github.com/SymeonChen/WakeUpScreen/blob/master/README-zh.md)
 
 # 通知亮屏（WakeUpScreen）
