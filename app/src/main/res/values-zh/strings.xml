@@ -75,5 +75,6 @@
     <string name="sleep_time">睡眠时间</string>
     <string name="dnd_detect_title">免打扰模式侦测功能</string>
     <string name="dnd_detect_desc">免打扰模式将不会点亮屏幕</string>
+    <string name="language_it">Italiano</string>
 
 </resources>

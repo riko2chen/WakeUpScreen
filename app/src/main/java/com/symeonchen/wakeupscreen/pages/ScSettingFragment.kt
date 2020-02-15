@@ -162,6 +162,7 @@ class ScSettingFragment : ScBaseFragment() {
                 when (it) {
                     LanguageInfo.CHINESE_SIMPLE -> "简体中文"
                     LanguageInfo.ENGLISH -> "English"
+                    LanguageInfo.ITALIAN -> "Italiano"
                     else -> "跟随系统(Follow System)"
                 }
             )
@@ -173,7 +174,7 @@ class ScSettingFragment : ScBaseFragment() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
         val secList =
-            arrayOf("跟随系统(Follow System)", "English", "简体中文")
+            arrayOf("跟随系统(Follow System)", "English", "简体中文", "Italiano")
         var switch = settingModel.languageSelected.value!!.ordinal
         val checkedItem: Int = LanguageInfo.getModeFromValue(switch).ordinal
 
@@ -187,6 +188,9 @@ class ScSettingFragment : ScBaseFragment() {
                 } else if (switch == LanguageInfo.ENGLISH.ordinal) {
                     settingModel.languageSelected.postValue(LanguageInfo.ENGLISH)
                     LanguageUtils.applyLanguage(Locale.US, "")
+                } else if (switch == LanguageInfo.ITALIAN.ordinal) {
+                    settingModel.languageSelected.postValue(LanguageInfo.ITALIAN)
+                    LanguageUtils.applyLanguage(Locale.ITALY, "")
                 } else {
                     settingModel.languageSelected.postValue(LanguageInfo.CHINESE_SIMPLE)
                     LanguageUtils.applyLanguage(Locale.CHINA, "")
