@@ -5,8 +5,8 @@
 # WakeUpScreen
 <img src="app/src/main/ic_launcher-web.png" align="left" width="200" hspace="10" vspace="10">
 </br>
-This is an Android app that allows the phone to wake up when it receives a notification.
-Specially for Samsung S10 optimization. Also compatible with other devices.
+Questa è un applicazione Android che permette al telefono di risvegliarsi quando riceve una notifica.
+Ottimizzato specialmente per il Samsung S10. Compatibile con altri dispositivi.
 </br>
 <div style="display:flex;" >
 <a href="https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen">
@@ -21,10 +21,10 @@ Specially for Samsung S10 optimization. Also compatible with other devices.
 
 ![](screenshots/main-en.jpg)
 
-## Features
+## Caratteristiche
 
 1. Open source.
-2. No internet access.
-3. Support Pocket Mode.
-4. Support for custom APP lists.
-5. Support for custom screen time.
+2. Nessun accesso a internet.
+3. Supporto al Pocket Mode.
+4. Supporto agli elenchi di APP usati.
+5. Supporto agli orari personalizzati.
