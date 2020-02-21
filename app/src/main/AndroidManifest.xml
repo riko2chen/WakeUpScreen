@@ -19,6 +19,7 @@
         <activity android:name=".pages.FilterListActivity" />
         <activity android:name=".pages.AppInfoPageActivity" />
         <activity android:name=".pages.SleepTimeSettingActivity" />
+        <activity android:name=".pages.WakeUptimeSettingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

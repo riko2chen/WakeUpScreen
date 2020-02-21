@@ -88,5 +88,8 @@
     <string name="dnd_detect_title">Detection of Do Not Disturb</string>
     <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
     <string name="language_it">Italiano</string>
+    <string name="wake_hint_before">The screen will wake</string>
+    <string name="seconds">second(s)</string>
+    <string name="wake_up_time_limitaon_desc">Notice: \nIn many Devices, this setting will not work properly. \nThis is a limitation by the system.</string>
 
 </resources>

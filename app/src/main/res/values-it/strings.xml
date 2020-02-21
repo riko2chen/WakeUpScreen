@@ -88,5 +88,8 @@
     <string name="sleep_time">Sleep Time</string>
     <string name="dnd_detect_title">Rilevamento Non Disturbare</string>
     <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
+    <string name="wake_hint_before">Lo schermo si sveglia</string>
+    <string name="seconds">secondo</string>
+    <string name="wake_up_time_limitaon_desc">Avviso: \nin molti dispositivi, questa impostazione non funzionerà correttamente. \nQuesta è una limitazione del sistema.</string>
 
 </resources>
