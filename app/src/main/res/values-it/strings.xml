@@ -91,5 +91,7 @@
     <string name="wake_hint_before">Lo schermo si sveglia</string>
     <string name="seconds">secondo</string>
     <string name="wake_up_time_limitaon_desc">Avviso: \nin molti dispositivi, questa impostazione non funzionerà correttamente. \nQuesta è una limitazione del sistema.</string>
+    <string name="invalid_number">Numero non valido</string>
+    <string name="saved_successfully">Salvato con successo</string>
 
 </resources>

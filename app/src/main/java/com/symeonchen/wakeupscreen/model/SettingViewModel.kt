@@ -21,11 +21,6 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.switchOfProximity)
         }
 
-    var timeOfWakeUpScreen: ScLiveData<Long> = ScLiveData<Long>()
-        .apply {
-            setValue(DataInjection.milliSecondOfWakeUpScreen)
-        }
-
     var fakeSwitchOfBatterySaver: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.fakeSwitchOfBatterySaver)
@@ -78,12 +73,6 @@ class SettingViewModel : ViewModel() {
             ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.switchOfProximity = value
-            }
-        }
-
-        timeOfWakeUpScreen.listener = object : ScLiveData.OnLiveDataValueInput<Long> {
-            override fun onValueInput(value: Long) {
-                DataInjection.milliSecondOfWakeUpScreen = value
             }
         }
 

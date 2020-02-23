@@ -91,5 +91,7 @@
     <string name="wake_hint_before">The screen will wake</string>
     <string name="seconds">second(s)</string>
     <string name="wake_up_time_limitaon_desc">Notice: \nIn many Devices, this setting will not work properly. \nThis is a limitation by the system.</string>
+    <string name="invalid_number">Invalid number</string>
+    <string name="saved_successfully">Saved successfully</string>
 
 </resources>

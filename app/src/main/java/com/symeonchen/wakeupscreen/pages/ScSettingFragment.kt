@@ -54,7 +54,7 @@ class ScSettingFragment : ScBaseFragment() {
 
         item_setting_wake_screen_time.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-                initWakeScreenTimeDialog()
+                context?.let { mContext -> WakeUptimeSettingActivity.actionStart(mContext) }
             }
         }
 
@@ -118,18 +118,6 @@ class ScSettingFragment : ScBaseFragment() {
         item_setting_about_this.setOnClickListener {
             context?.let { mContext -> AboutThisPageActivity.actionStart(mContext) }
         }
-
-
-        settingModel.timeOfWakeUpScreen.observe(viewLifecycleOwner, Observer {
-            item_setting_wake_screen_time.bindData(
-                null,
-                "${it / 1000}s"
-            )
-        })
-
-
-
-
 
         settingModel.modeOfCurrent.observe(viewLifecycleOwner, Observer {
             item_setting_current_mode.bindData(
@@ -198,26 +186,6 @@ class ScSettingFragment : ScBaseFragment() {
             }
             .create().apply { show() }
 
-    }
-
-    private fun initWakeScreenTimeDialog() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf(1, 2, 3, 4, 5)
-        val secStrList: Array<String> = secList.map { it.toString() + "s" }.toTypedArray()
-        var checkedItem: Int =
-            secList.indexOf((settingModel.timeOfWakeUpScreen.value!! / 1000).toInt())
-        if (checkedItem == -1) {
-            checkedItem = 0
-        }
-        var index = checkedItem
-        alertDialog = builder.setSingleChoiceItems(
-            secStrList, checkedItem
-        ) { _, which -> index = which }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.timeOfWakeUpScreen.postValue(secList[index] * 1000L)
-            }
-            .create().apply { show() }
     }
 
 

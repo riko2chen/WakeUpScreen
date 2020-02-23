@@ -79,5 +79,7 @@
     <string name="wake_hint_before">屏幕将点亮</string>
     <string name="seconds">秒</string>
     <string name="wake_up_time_limitaon_desc">注意：\n在许多设备中，此设置将无法正常工作。 \n这是系统的限制。</string>
+    <string name="invalid_number">无效数字</string>
+    <string name="saved_successfully">保存成功</string>
 
 </resources>

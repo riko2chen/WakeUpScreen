@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 app:sc_setting_item_title_main="@string/time_of_wake_up_screen"
-                app:sc_setting_item_title_second="2s" />
+                app:sc_setting_single_line="true" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_current_mode"
