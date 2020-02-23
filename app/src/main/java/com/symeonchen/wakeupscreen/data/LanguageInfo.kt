@@ -7,7 +7,8 @@ package com.symeonchen.wakeupscreen.data
 enum class LanguageInfo(referenceNum: Int) {
     FOLLOW_SYSTEM(0),
     ENGLISH(1),
-    CHINESE_SIMPLE(2);
+    CHINESE_SIMPLE(2),
+    ITALIAN(3);
 
     companion object {
 

@@ -87,6 +87,11 @@
     <string name="click_here_and_press_power_button_within_10_sec">Click here and press power button within 5 seconds</string>
     <string name="sleep_time">Sleep Time</string>
     <string name="dnd_detect_title">Rilevamento Non Disturbare</string>
-    <string name="dnd_detect_desc">Close it if you want to wake up  in DND mode.</string>
+    <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
+    <string name="wake_hint_before">Lo schermo si sveglia</string>
+    <string name="seconds">secondo</string>
+    <string name="wake_up_time_limitaon_desc">Avviso: \nin molti dispositivi, questa impostazione non funzionerà correttamente. \nQuesta è una limitazione del sistema.</string>
+    <string name="invalid_number">Numero non valido</string>
+    <string name="saved_successfully">Salvato con successo</string>
 
 </resources>

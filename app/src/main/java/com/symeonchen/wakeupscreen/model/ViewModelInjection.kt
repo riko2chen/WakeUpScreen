@@ -13,4 +13,8 @@ object ViewModelInjection {
         return SettingViewModelFactory()
     }
 
+    fun provideWakeUpTimeViewModelFactory(): WakeUpTimeViewModelFactory {
+        return WakeUpTimeViewModelFactory()
+    }
+
 }

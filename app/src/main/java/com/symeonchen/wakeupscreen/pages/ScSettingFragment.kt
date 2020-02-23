@@ -54,7 +54,7 @@ class ScSettingFragment : ScBaseFragment() {
 
         item_setting_wake_screen_time.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-                initWakeScreenTimeDialog()
+                context?.let { mContext -> WakeUptimeSettingActivity.actionStart(mContext) }
             }
         }
 
@@ -119,18 +119,6 @@ class ScSettingFragment : ScBaseFragment() {
             context?.let { mContext -> AboutThisPageActivity.actionStart(mContext) }
         }
 
-
-        settingModel.timeOfWakeUpScreen.observe(viewLifecycleOwner, Observer {
-            item_setting_wake_screen_time.bindData(
-                null,
-                "${it / 1000}s"
-            )
-        })
-
-
-
-
-
         settingModel.modeOfCurrent.observe(viewLifecycleOwner, Observer {
             item_setting_current_mode.bindData(
                 null,
@@ -162,6 +150,7 @@ class ScSettingFragment : ScBaseFragment() {
                 when (it) {
                     LanguageInfo.CHINESE_SIMPLE -> "简体中文"
                     LanguageInfo.ENGLISH -> "English"
+                    LanguageInfo.ITALIAN -> "Italiano"
                     else -> "跟随系统(Follow System)"
                 }
             )
@@ -173,7 +162,7 @@ class ScSettingFragment : ScBaseFragment() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(context!!)
         val secList =
-            arrayOf("跟随系统(Follow System)", "English", "简体中文")
+            arrayOf("跟随系统(Follow System)", "English", "简体中文", "Italiano")
         var switch = settingModel.languageSelected.value!!.ordinal
         val checkedItem: Int = LanguageInfo.getModeFromValue(switch).ordinal
 
@@ -187,6 +176,9 @@ class ScSettingFragment : ScBaseFragment() {
                 } else if (switch == LanguageInfo.ENGLISH.ordinal) {
                     settingModel.languageSelected.postValue(LanguageInfo.ENGLISH)
                     LanguageUtils.applyLanguage(Locale.US, "")
+                } else if (switch == LanguageInfo.ITALIAN.ordinal) {
+                    settingModel.languageSelected.postValue(LanguageInfo.ITALIAN)
+                    LanguageUtils.applyLanguage(Locale.ITALY, "")
                 } else {
                     settingModel.languageSelected.postValue(LanguageInfo.CHINESE_SIMPLE)
                     LanguageUtils.applyLanguage(Locale.CHINA, "")
@@ -194,26 +186,6 @@ class ScSettingFragment : ScBaseFragment() {
             }
             .create().apply { show() }
 
-    }
-
-    private fun initWakeScreenTimeDialog() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(context!!)
-        val secList = arrayOf(1, 2, 3, 4, 5)
-        val secStrList: Array<String> = secList.map { it.toString() + "s" }.toTypedArray()
-        var checkedItem: Int =
-            secList.indexOf((settingModel.timeOfWakeUpScreen.value!! / 1000).toInt())
-        if (checkedItem == -1) {
-            checkedItem = 0
-        }
-        var index = checkedItem
-        alertDialog = builder.setSingleChoiceItems(
-            secStrList, checkedItem
-        ) { _, which -> index = which }
-            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                settingModel.timeOfWakeUpScreen.postValue(secList[index] * 1000L)
-            }
-            .create().apply { show() }
     }
 
 

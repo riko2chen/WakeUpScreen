@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pages.DebugPageActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_arrow_back_white_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical|end"
+            android:paddingStart="0dp"
+            android:paddingEnd="14dp"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_of_wake_up_screen"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_time_second_1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/lite_gray"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/btn_time_second_2"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_header" />
+
+    <Button
+        android:id="@+id/btn_time_second_2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/lite_gray"
+        android:includeFontPadding="false"
+        android:text="2"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/btn_time_second_3"
+        app:layout_constraintStart_toEndOf="@id/btn_time_second_1"
+        app:layout_constraintTop_toTopOf="@id/btn_time_second_1" />
+
+    <Button
+        android:id="@+id/btn_time_second_3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/lite_gray"
+        android:includeFontPadding="false"
+        android:text="3"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/btn_time_second_4"
+        app:layout_constraintStart_toEndOf="@id/btn_time_second_2"
+        app:layout_constraintTop_toTopOf="@id/btn_time_second_1"
+        tools:background="@color/green" />
+
+    <Button
+        android:id="@+id/btn_time_second_4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/lite_gray"
+        android:includeFontPadding="false"
+        android:text="4"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/btn_time_second_5"
+        app:layout_constraintStart_toEndOf="@id/btn_time_second_3"
+        app:layout_constraintTop_toTopOf="@id/btn_time_second_1" />
+
+    <Button
+        android:id="@+id/btn_time_second_5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/lite_gray"
+        android:includeFontPadding="false"
+        android:text="5"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_time_second_4"
+        app:layout_constraintTop_toTopOf="@id/btn_time_second_1" />
+
+    <TextView
+        android:id="@+id/tv_wake_hint_before"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/wake_hint_before"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_time_second_1" />
+
+    <EditText
+        android:id="@+id/et_wake_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_wake_hint_before"
+        tools:text="3" />
+
+    <TextView
+        android:id="@+id/tv_wake_hint_after"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/seconds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_wake_time" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/shape_notice"
+        android:lineSpacingMultiplier="1.3"
+        android:padding="10dp"
+        android:text="@string/wake_up_time_limitaon_desc"
+        android:textColor="#000"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_wake_hint_after" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
