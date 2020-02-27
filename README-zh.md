@@ -3,6 +3,9 @@
 * [中文版](https://github.com/SymeonChen/WakeUpScreen/blob/master/README-zh.md)
 
 # 通知亮屏（WakeUpScreen）
+
+![](screenshots/introduction_zh.png)
+
 <img src="app/src/main/ic_launcher-web.png" align="left" width="200" hspace="10" vspace="10">
 </br>
 这是一个可以使手机在接收到通知时点亮屏幕的 Android APP。
@@ -21,7 +24,7 @@
 
 ![](screenshots/main-zh.jpg)
 
-## 功能
+## 特点
 
 1. 开源
 2. 无需网络连接
