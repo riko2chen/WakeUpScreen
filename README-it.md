@@ -3,6 +3,9 @@
 * [中文版](https://github.com/SymeonChen/WakeUpScreen/blob/master/README-zh.md)
 
 # WakeUpScreen
+
+![](screenshots/introduction_en.png)
+
 <img src="app/src/main/ic_launcher-web.png" align="left" width="200" hspace="10" vspace="10">
 </br>
 Questa è un applicazione Android che permette al telefono di risvegliarsi quando riceve una notifica.
