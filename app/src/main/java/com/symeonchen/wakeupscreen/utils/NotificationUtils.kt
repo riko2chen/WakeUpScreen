@@ -1,7 +1,6 @@
 package com.symeonchen.wakeupscreen.utils
 
 import android.annotation.TargetApi
-import android.app.Notification.PRIORITY_DEFAULT
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -9,6 +8,7 @@ import android.content.ContextWrapper
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.PRIORITY_DEFAULT
 import androidx.core.app.NotificationCompat.VISIBILITY_SECRET
 import com.symeonchen.wakeupscreen.R
 
@@ -72,6 +72,7 @@ class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
         } else {
+            @Suppress("DEPRECATION")
             builder = NotificationCompat.Builder(applicationContext)
             builder.priority = PRIORITY_DEFAULT
         }
