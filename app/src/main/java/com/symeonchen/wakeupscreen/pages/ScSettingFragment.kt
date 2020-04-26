@@ -58,8 +58,6 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
-
-
         item_setting_address.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 val i = Intent(Intent.ACTION_VIEW)
@@ -88,8 +86,6 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
-
-
         item_setting_current_mode.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 initCurrentModeDialog()
@@ -107,9 +103,6 @@ class ScSettingFragment : ScBaseFragment() {
                 FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_BLACK_LIST)
             }
         }
-
-
-
 
         item_setting_advanced_setting.setOnClickListener {
             context?.let { mContext -> AdvanceSettingPageActivity.actionStart(mContext) }
@@ -131,18 +124,21 @@ class ScSettingFragment : ScBaseFragment() {
                     }
                 )
             )
-            if (it == CurrentMode.MODE_WHITE_LIST) {
-                item_setting_white_list_entry.visibility = View.VISIBLE
-                item_setting_black_list_entry.visibility = View.GONE
-            } else if (it == CurrentMode.MODE_BLACK_LIST) {
-                item_setting_white_list_entry.visibility = View.GONE
-                item_setting_black_list_entry.visibility = View.VISIBLE
-            } else {
-                item_setting_white_list_entry.visibility = View.GONE
-                item_setting_black_list_entry.visibility = View.GONE
+            when (it) {
+                CurrentMode.MODE_WHITE_LIST -> {
+                    item_setting_white_list_entry.visibility = View.VISIBLE
+                    item_setting_black_list_entry.visibility = View.GONE
+                }
+                CurrentMode.MODE_BLACK_LIST -> {
+                    item_setting_white_list_entry.visibility = View.GONE
+                    item_setting_black_list_entry.visibility = View.VISIBLE
+                }
+                else -> {
+                    item_setting_white_list_entry.visibility = View.GONE
+                    item_setting_black_list_entry.visibility = View.GONE
+                }
             }
         })
-
 
         settingModel.languageSelected.observe(viewLifecycleOwner, Observer {
             item_setting_language.bindData(
@@ -160,7 +156,7 @@ class ScSettingFragment : ScBaseFragment() {
 
     private fun initLanguageSettingDialog() {
         alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(context!!)
+        val builder = AlertDialog.Builder(requireContext())
         val secList =
             arrayOf("跟随系统(Follow System)", "English", "简体中文", "Italiano")
         var switch = settingModel.languageSelected.value!!.ordinal
@@ -170,18 +166,23 @@ class ScSettingFragment : ScBaseFragment() {
             secList, checkedItem
         ) { _, which -> switch = LanguageInfo.getModeFromValue(which).ordinal }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                if (switch == LanguageInfo.FOLLOW_SYSTEM.ordinal) {
-                    settingModel.languageSelected.postValue(LanguageInfo.FOLLOW_SYSTEM)
-                    LanguageUtils.applySystemLanguage("")
-                } else if (switch == LanguageInfo.ENGLISH.ordinal) {
-                    settingModel.languageSelected.postValue(LanguageInfo.ENGLISH)
-                    LanguageUtils.applyLanguage(Locale.US, "")
-                } else if (switch == LanguageInfo.ITALIAN.ordinal) {
-                    settingModel.languageSelected.postValue(LanguageInfo.ITALIAN)
-                    LanguageUtils.applyLanguage(Locale.ITALY, "")
-                } else {
-                    settingModel.languageSelected.postValue(LanguageInfo.CHINESE_SIMPLE)
-                    LanguageUtils.applyLanguage(Locale.CHINA, "")
+                when (switch) {
+                    LanguageInfo.FOLLOW_SYSTEM.ordinal -> {
+                        settingModel.languageSelected.postValue(LanguageInfo.FOLLOW_SYSTEM)
+                        LanguageUtils.applySystemLanguage("")
+                    }
+                    LanguageInfo.ENGLISH.ordinal -> {
+                        settingModel.languageSelected.postValue(LanguageInfo.ENGLISH)
+                        LanguageUtils.applyLanguage(Locale.US, "")
+                    }
+                    LanguageInfo.ITALIAN.ordinal -> {
+                        settingModel.languageSelected.postValue(LanguageInfo.ITALIAN)
+                        LanguageUtils.applyLanguage(Locale.ITALY, "")
+                    }
+                    else -> {
+                        settingModel.languageSelected.postValue(LanguageInfo.CHINESE_SIMPLE)
+                        LanguageUtils.applyLanguage(Locale.CHINA, "")
+                    }
                 }
             }
             .create().apply { show() }
@@ -191,7 +192,7 @@ class ScSettingFragment : ScBaseFragment() {
 
     private fun initCurrentModeDialog() {
         alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(context!!)
+        val builder = AlertDialog.Builder(requireContext())
         val secList = arrayOf(
             resources.getString(R.string.all_pass),
             resources.getString(R.string.white_list),
