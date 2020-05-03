@@ -7,6 +7,9 @@ import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.NotifyItem
 import com.symeonchen.wakeupscreen.utils.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -82,12 +85,14 @@ class ScNotificationListenerService : NotificationListenerService() {
      */
     private fun checkDebugMode(sbn: StatusBarNotification): Boolean? {
         if (DataInjection.switchOfDebugMode) {
-            val time = System.currentTimeMillis()
-            val notifyItem = NotifyItem()
-            notifyItem.id = time
-            notifyItem.time = time
-            notifyItem.appName = sbn.packageName ?: ""
-            NotifyDataUtils.addData(notifyItem)
+            CoroutineScope(Dispatchers.IO).launch {
+                val time = System.currentTimeMillis()
+                val notifyItem = NotifyItem()
+                notifyItem.id = time
+                notifyItem.time = time
+                notifyItem.appName = sbn.packageName ?: ""
+                NotifyDataUtils.addData(notifyItem, application)
+            }
         }
         return true
     }

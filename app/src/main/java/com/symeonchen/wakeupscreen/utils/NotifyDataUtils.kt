@@ -1,7 +1,9 @@
 package com.symeonchen.wakeupscreen.utils
 
+import android.app.Application
+import com.symeonchen.wakeupscreen.ScRoomDatabase
 import com.symeonchen.wakeupscreen.data.NotifyItem
-import io.realm.Realm
+import com.symeonchen.wakeupscreen.repository.NotifyItemRepository
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -9,12 +11,10 @@ import io.realm.Realm
 class NotifyDataUtils {
     companion object {
         @Synchronized
-        fun addData(notifyItem: NotifyItem) {
-            val realm = Realm.getDefaultInstance()
-            realm.executeTransaction {
-                it.copyToRealmOrUpdate(notifyItem)
-            }
-            realm.close()
+        suspend fun addData(notifyItem: NotifyItem, application: Application) {
+            val notifyItemDao = ScRoomDatabase.getDatabase(application).notifyItemDao()
+            val repository = NotifyItemRepository(notifyItemDao)
+            repository.insert(notifyItem)
         }
     }
 }
