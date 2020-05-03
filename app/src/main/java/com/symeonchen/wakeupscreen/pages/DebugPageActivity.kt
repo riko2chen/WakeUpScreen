@@ -34,7 +34,7 @@ class DebugPageActivity : ScBaseActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(NotifyItemViewModel::class.java)
+        viewModel = ViewModelProvider(this)[NotifyItemViewModel::class.java]
     }
 
     private fun setListener() {

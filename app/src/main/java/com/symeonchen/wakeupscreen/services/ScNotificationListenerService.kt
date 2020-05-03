@@ -25,9 +25,11 @@ class ScNotificationListenerService : NotificationListenerService() {
     private var lastNotificationId = 0
     private var lastNotificationOngoing = false
 
-
     companion object {
         private const val TAG_WAKE = "symeonchen:wakeupscreen"
+        private const val PASS = true
+        private val BLOCK = null
+
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
@@ -62,9 +64,9 @@ class ScNotificationListenerService : NotificationListenerService() {
     private fun checkStatus(): Boolean? {
         val status = DataInjection.switchOfApp
         if (!status) {
-            return null
+            return BLOCK
         }
-        return true
+        return PASS
     }
 
     /**
@@ -75,9 +77,9 @@ class ScNotificationListenerService : NotificationListenerService() {
         val proximitySwitch = DataInjection.switchOfProximity
 
         if (proximitySwitch && proximityStatus == 0) {
-            return null
+            return BLOCK
         }
-        return true
+        return PASS
     }
 
     /**
@@ -94,7 +96,7 @@ class ScNotificationListenerService : NotificationListenerService() {
                 NotifyDataUtils.addData(notifyItem, application)
             }
         }
-        return true
+        return PASS
     }
 
     /**
@@ -102,9 +104,9 @@ class ScNotificationListenerService : NotificationListenerService() {
      */
     private fun checkIfInteractive(pm: PowerManager): Boolean? {
         if (pm.isInteractive) {
-            return null
+            return BLOCK
         }
-        return true
+        return PASS
     }
 
     /**
@@ -112,7 +114,7 @@ class ScNotificationListenerService : NotificationListenerService() {
      */
     private fun checkFilterListMode(sbn: StatusBarNotification): Boolean? {
         when (DataInjection.modeOfCurrent) {
-            CurrentMode.MODE_ALL_NOTIFY -> return true
+            CurrentMode.MODE_ALL_NOTIFY -> return PASS
             CurrentMode.MODE_WHITE_LIST -> {
                 if (currentWhiteListFlag != DataInjection.appListUpdateFlag) {
                     currentWhiteListFlag = DataInjection.appListUpdateFlag
@@ -121,7 +123,7 @@ class ScNotificationListenerService : NotificationListenerService() {
                 LogUtils.d(TAG_WAKE, sbn.packageName)
                 LogUtils.d(DataInjection.appWhiteListStringOfNotify)
                 if (!map.containsKey(sbn.packageName)) {
-                    return null
+                    return BLOCK
                 }
             }
             CurrentMode.MODE_BLACK_LIST -> {
@@ -132,11 +134,11 @@ class ScNotificationListenerService : NotificationListenerService() {
                 LogUtils.d(TAG_WAKE, sbn.packageName)
                 LogUtils.d(DataInjection.appBlackListStringOfNotify)
                 if (map.containsKey(sbn.packageName)) {
-                    return null
+                    return BLOCK
                 }
             }
         }
-        return true
+        return PASS
 
     }
 
@@ -149,13 +151,13 @@ class ScNotificationListenerService : NotificationListenerService() {
                 if (lastNotificationOngoing && sbn.isOngoing) {
                     lastNotificationId = sbn.id
                     lastNotificationOngoing = sbn.isOngoing
-                    return null
+                    return BLOCK
                 }
             }
             lastNotificationId = sbn.id
             lastNotificationOngoing = sbn.isOngoing
         }
-        return true
+        return PASS
     }
 
     private fun checkIfInSleepModeTime(): Boolean? {
@@ -164,18 +166,18 @@ class ScNotificationListenerService : NotificationListenerService() {
             val beginHour = DataInjection.sleepModeTimeBeginHour
             val endHour = DataInjection.sleepModeTimeEndHour
             if (TimeRangeCalculateUtils.hourInRange(currentHour, beginHour, endHour)) {
-                return null
+                return BLOCK
             }
         }
-        return true
+        return PASS
     }
 
     private fun checkIfInDnd(): Boolean? {
         if (DataInjection.dndDetectSwitch) {
             if (true != NotificationUtils(applicationContext).detectDnd()) {
-                return null
+                return BLOCK
             }
         }
-        return true
+        return PASS
     }
 }

@@ -60,7 +60,7 @@
     <string name="click_to_enter_white_list_page">Click here to enter Whitelist Page</string>
     <string name="click_to_enter_black_list_page">Click here to enter Blacklist Page</string>
     <string name="debug_page_hints">When debugging mode is opened\nthe page will display the name of the APP package
-        corresponding to all notifications received\n. If an unexpected situation occurs \nsuch as an abnormal light on
+        corresponding to all notifications received. \nIf an unexpected situation occurs \nsuch as an abnormal light on
         the screen\nplease take a screenshot of the page and contact the author to solve it\n
     </string>
     <string name="white_list_hints">The screen will only wake up when it receives a notification from selected

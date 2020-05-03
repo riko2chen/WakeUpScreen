@@ -11,19 +11,20 @@ import com.symeonchen.wakeupscreen.data.AppInfo
 class AppListState {
     companion object {
 
+        @Suppress("unused")
         private var TAG: String = this::class.java.simpleName ?: ""
 
         fun getInstalledAppList(
             context: Context?,
             includeSystemApp: Boolean = false
         ): ArrayList<AppInfo> {
-            var appList = arrayListOf<AppInfo>()
+            val appList = arrayListOf<AppInfo>()
             if (context == null) {
                 return appList
             }
             val appContext = context.applicationContext
             try {
-                var applicationInfoList =
+                val applicationInfoList =
                     appContext.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
                 for (_app in applicationInfoList) {
                     if (!includeSystemApp && ((_app.flags and ApplicationInfo.FLAG_SYSTEM) != 0)) {

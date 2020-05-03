@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.states
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.POWER_SERVICE
 import android.content.Intent
@@ -12,6 +13,7 @@ import android.provider.Settings
  */
 class BatteryOptimizationState {
     companion object {
+        @SuppressLint("BatteryLife")
         fun openBatteryOptimization(context: Context?) {
             if (context == null) {
                 return
