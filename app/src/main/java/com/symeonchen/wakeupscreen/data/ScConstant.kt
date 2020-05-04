@@ -39,7 +39,7 @@ object ScConstant {
     const val DEFAULT_DND_DETECT_SWITCH = true
 
     const val AUTHOR_MAIL = "symeonchen@gmail.com"
-    const val DEFAULT_MAIL_HEAD = "【问题反馈】【通知亮屏】在此输入标题"
+    const val DEFAULT_MAIL_HEAD = "[Question] [Wake Up Screen] write title here"
     const val DEFAULT_MAIL_BODY = ""
 
 }
