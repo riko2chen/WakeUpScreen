@@ -1,7 +1,7 @@
 package com.symeonchen.wakeupscreen.model
 
 import androidx.lifecycle.ViewModel
-import com.symeonchen.wakeupscreen.data.ScLiveData
+import com.symeonchen.wakeupscreen.ScLiveData
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 
