@@ -3,16 +3,18 @@ package com.symeonchen.wakeupscreen.pages
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.jakewharton.rxbinding2.widget.RxTextView
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
@@ -20,14 +22,11 @@ import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.states.AppListState
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.FilterListUtils
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_app_filter_list.*
 import kotlinx.android.synthetic.main.activity_debug_page.iv_back
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -39,6 +38,39 @@ class FilterListActivity : ScBaseActivity() {
     private var adapter: WhiteListViewAdapter? = null
     private var map: HashMap<String, Int>? = null
     private var currentModeValue = CurrentMode.MODE_WHITE_LIST.ordinal
+    private val textWatcher: TextWatcher by lazy {
+        object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (dataList.isEmpty()) {
+                    return
+                }
+                val keyStr = p0.toString()
+                val result = if (keyStr.isNotEmpty()) {
+                    FilterListUtils.splitWithSelected(dataList.filter {
+                        it.simpleName.contains(
+                            keyStr,
+                            true
+                        )
+                    }, map)
+
+                } else {
+                    FilterListUtils.splitWithSelected(dataList, map)
+                }
+
+                visibleList.clear()
+                visibleList.addAll(result)
+                updateView()
+            }
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,70 +141,29 @@ class FilterListActivity : ScBaseActivity() {
             finish()
         }
 
-        RxTextView.textChanges(et_search_filter)
-            .debounce(300, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<CharSequence> {
-                override fun onComplete() {
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                    mCompositeDisposable.add(d)
-                }
-
-                override fun onNext(charSequence: CharSequence) {
-                    if (dataList.isEmpty()) {
-                        return
-                    }
-                    val keyStr = charSequence.toString()
-                    val result = if (keyStr.isNotEmpty()) {
-                        FilterListUtils.splitWithSelected(dataList.filter {
-                            it.simpleName.contains(
-                                keyStr,
-                                true
-                            )
-                        }, map)
-
-                    } else {
-                        FilterListUtils.splitWithSelected(dataList, map)
-                    }
-
-                    visibleList.clear()
-                    visibleList.addAll(result)
-                    updateView()
-                }
-
-                override fun onError(e: Throwable) {
-                    e.printStackTrace()
-                }
-            })
-
+        et_search_filter.addTextChangedListener(textWatcher)
 
     }
 
+    override fun onDestroy() {
+        try {
+            et_search_filter?.removeTextChangedListener(textWatcher)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        super.onDestroy()
+    }
+
     private fun getData() {
-        Observable.create<List<AppInfo>> { e ->
-            e.onNext(AppListState.getInstalledAppList(this, true))
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<List<AppInfo>> {
-                override fun onComplete() {
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                    mCompositeDisposable.add(d)
-                }
-
-                override fun onNext(t: List<AppInfo>) {
-                    dataList = FilterListUtils.splitWithSelected(t, map)
-                    visibleList.clear()
-                    visibleList.addAll(dataList)
-                    updateView()
-                }
-
-                override fun onError(e: Throwable) {
-                }
-            })
+        lifecycleScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                val appList = AppListState.getInstalledAppList(this@FilterListActivity, true)
+                dataList = FilterListUtils.splitWithSelected(appList, map)
+                visibleList.clear()
+                visibleList.addAll(dataList)
+            }
+            updateView()
+        }
     }
 
     private fun updateView() {
