@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
@@ -138,6 +139,7 @@ class FilterListActivity : ScBaseActivity() {
                 DataInjection.appWhiteListStringOfNotify = FilterListUtils.saveMapToString(result)
             }
             DataInjection.appListUpdateFlag = System.currentTimeMillis()
+            ToastUtils.showLong(resources.getString(R.string.saved_successfully))
             finish()
         }
 

@@ -1,7 +1,10 @@
 package com.symeonchen.wakeupscreen
 
 import android.app.Application
+import android.view.Gravity
+import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.tencent.mmkv.MMKV
 
 /**
@@ -14,6 +17,7 @@ class ScApplication : Application() {
         super.onCreate()
         MMKV.initialize(this)
         filterLog()
+        initToast()
     }
 
     /**
@@ -25,6 +29,13 @@ class ScApplication : Application() {
         } else {
             LogUtils.getConfig().setConsoleSwitch(false)
         }
+    }
+
+    private fun initToast() {
+        ToastUtils.setGravity(Gravity.CENTER, 0, 0)
+        ToastUtils.setBgColor(ContextCompat.getColor(this, R.color.black))
+        ToastUtils.setMsgColor(ContextCompat.getColor(this, R.color.white))
+        ToastUtils.setMsgTextSize(16)
     }
 
 }
