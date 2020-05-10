@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.StatusItem
@@ -25,10 +26,8 @@ import com.symeonchen.wakeupscreen.states.NotificationState.Companion.closeNotif
 import com.symeonchen.wakeupscreen.states.NotificationState.Companion.openNotificationService
 import com.symeonchen.wakeupscreen.states.PermissionState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_layout_main.*
+import kotlinx.coroutines.launch
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -177,35 +176,28 @@ class ScMainFragment : ScBaseFragment() {
 
     @Synchronized
     private fun resetApp() {
-        mCompositeDisposable?.clear()
-        mCompositeDisposable?.add(Observable.create<Boolean> { emitter ->
-            val isSuccess: Boolean
-            if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
-                try {
-                    isSuccess =
-                        (requireContext().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
-                            .clearApplicationUserData()
-                    emitter.onNext(isSuccess)
-                } catch (e: Exception) {
-                    emitter.onNext(false)
-                }
-            } else {
-                try {
-                    val packageName = requireContext().applicationContext.packageName
-                    val runtime = Runtime.getRuntime()
-                    runtime.exec("pm clear $packageName")
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+        lifecycleScope.launch {
+            clearData()
+        }
+    }
+
+    private fun clearData() {
+        if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
+            try {
+                (requireContext().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
+                    .clearApplicationUserData()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            emitter.onComplete()
-        }.subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                if (it == false) {
-                    ToastUtils.showShort("Operation failed.")
-                }
-            })
+        } else {
+            try {
+                val packageName = requireContext().applicationContext.packageName
+                val runtime = Runtime.getRuntime()
+                runtime.exec("pm clear $packageName")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun onBatterySaverClick() {

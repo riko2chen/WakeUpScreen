@@ -1,10 +1,11 @@
 package com.symeonchen.wakeupscreen
 
 import android.app.Application
+import android.view.Gravity
+import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.tencent.mmkv.MMKV
-import io.realm.Realm
-import io.realm.RealmConfiguration
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -15,16 +16,8 @@ class ScApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         MMKV.initialize(this)
-        Realm.init(this)
-        checkIfNeedDeleteOldData()
         filterLog()
-    }
-
-
-    private fun checkIfNeedDeleteOldData() {
-        RealmConfiguration.Builder()
-            .deleteRealmIfMigrationNeeded()
-            .build()
+        initToast()
     }
 
     /**
@@ -36,6 +29,13 @@ class ScApplication : Application() {
         } else {
             LogUtils.getConfig().setConsoleSwitch(false)
         }
+    }
+
+    private fun initToast() {
+        ToastUtils.setGravity(Gravity.CENTER, 0, 0)
+        ToastUtils.setBgColor(ContextCompat.getColor(this, R.color.black))
+        ToastUtils.setMsgColor(ContextCompat.getColor(this, R.color.white))
+        ToastUtils.setMsgTextSize(16)
     }
 
 }

@@ -68,7 +68,7 @@ class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
     }
 
     private fun getNotification(title: String, content: String): NotificationCompat.Builder {
-        var builder: NotificationCompat.Builder? = null
+        var builder: NotificationCompat.Builder?
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
         } else {

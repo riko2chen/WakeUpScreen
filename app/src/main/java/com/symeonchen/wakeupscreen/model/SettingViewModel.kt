@@ -1,9 +1,9 @@
 package com.symeonchen.wakeupscreen.model
 
 import androidx.lifecycle.ViewModel
+import com.symeonchen.wakeupscreen.ScLiveData
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.LanguageInfo
-import com.symeonchen.wakeupscreen.data.ScLiveData
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 /**
@@ -52,7 +52,8 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.sleepModeBoolean)
         }
 
-    var sleepModeTimeRange: ScLiveData<Pair<Int, Int>> = ScLiveData<Pair<Int, Int>>().apply {
+    var sleepModeTimeRange: ScLiveData<Pair<Int, Int>> = ScLiveData<Pair<Int, Int>>()
+        .apply {
         setValue(Pair(DataInjection.sleepModeTimeBeginHour, DataInjection.sleepModeTimeEndHour))
     }
 

@@ -3,12 +3,11 @@ package com.symeonchen.wakeupscreen.pages
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.NotifyItem
-import io.realm.Realm
-import io.realm.RealmResults
-import io.realm.Sort
+import com.symeonchen.wakeupscreen.model.NotifyItemViewModel
 import kotlinx.android.synthetic.main.activity_debug_page.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,16 +17,14 @@ import java.util.*
  */
 class DebugPageActivity : ScBaseActivity() {
 
-    private var realm: Realm? = null
     private var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-    private var results: RealmResults<NotifyItem>? = null
+    private var viewModel: NotifyItemViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_debug_page)
-        realm = Realm.getDefaultInstance()
+        initViewModel()
         setListener()
-        initLogView()
     }
 
     companion object {
@@ -36,28 +33,24 @@ class DebugPageActivity : ScBaseActivity() {
         }
     }
 
-    private fun initLogView() {
-
-        results = realm?.where(NotifyItem::class.java)
-            ?.findAll()?.sort("time", Sort.DESCENDING)
-        updateView(results)
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this)[NotifyItemViewModel::class.java]
     }
 
     private fun setListener() {
+        viewModel?.allNotifyItem?.observe(this, androidx.lifecycle.Observer {
+            updateView(it)
+        })
         iv_back.setOnClickListener { finish() }
         tv_clear_all.setOnClickListener {
-            results?.let {
-                realm?.executeTransaction {
-                    results?.deleteAllFromRealm()
-                }
-                tv_log.text = ""
-            }
+            viewModel?.clearAll()
         }
     }
 
-    private fun updateView(it: RealmResults<NotifyItem>?) {
-        it ?: return
-        if (it.size > 0) {
+    private fun updateView(it: List<NotifyItem>?) {
+        if (it.isNullOrEmpty()) {
+            tv_log.text = ""
+        } else {
             var str = ""
             for (item in it) {
                 val itemStr = "\n ${sdf.format(item.time)} : ${item.appName}"
@@ -68,8 +61,4 @@ class DebugPageActivity : ScBaseActivity() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        realm?.close()
-    }
 }
