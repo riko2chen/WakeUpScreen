@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
+import com.symeonchen.uicomponent.views.UiTools
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
@@ -96,7 +97,7 @@ class FilterListActivity : ScBaseActivity() {
 
     private fun initView() {
 
-        view_loading.startLoadingAnimation()
+        UiTools.instance.showLoading(this, view_loading)
 
         currentModeValue = intent.getIntExtra(CURRENT_MODE, CurrentMode.MODE_WHITE_LIST.ordinal)
         map = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
@@ -169,8 +170,7 @@ class FilterListActivity : ScBaseActivity() {
     }
 
     private fun updateView() {
-        view_loading.stopoLoadingAnimation()
-        view_loading.visibility = View.GONE
+        UiTools.instance.hideLoading()
         adapter?.dataList?.clear()
         adapter?.dataList?.addAll(visibleList)
         adapter?.notifyDataSetChanged()
