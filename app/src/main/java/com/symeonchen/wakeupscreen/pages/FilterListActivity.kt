@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
-import com.symeonchen.uicomponent.views.UiTools
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
@@ -24,6 +23,7 @@ import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.states.AppListState
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.FilterListUtils
+import com.symeonchen.wakeupscreen.utils.UiTools
 import kotlinx.android.synthetic.main.activity_app_filter_list.*
 import kotlinx.android.synthetic.main.activity_debug_page.iv_back
 import kotlinx.coroutines.Dispatchers

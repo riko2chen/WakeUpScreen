@@ -1,7 +1,10 @@
-package com.symeonchen.uicomponent.views
+package com.symeonchen.wakeupscreen.utils
 
+import android.app.Activity
 import android.content.Context
 import android.view.ViewGroup
+import com.blankj.utilcode.util.ActivityUtils
+import com.symeonchen.uicomponent.views.SCLoadingItem
 
 
 /**
@@ -19,7 +22,15 @@ class UiTools private constructor() {
     @Synchronized
     fun showLoading(context: Context, container: ViewGroup? = null) {
         scLoadingItem = SCLoadingItem(context)
-        scLoadingItem?.showLoading(container)
+        val rootView =
+            if (container == null) {
+                val currActivity: Activity? = ActivityUtils.getActivityByContext(context)
+                currActivity?.findViewById<ViewGroup>(android.R.id.content)
+            } else {
+                container
+            }
+        scLoadingItem?.showLoading(rootView)
+
     }
 
     fun hideLoading() {
