@@ -9,5 +9,6 @@ data class AppInfo(
     var simpleName: String = "",
     var packageName: String = "",
     var iconDrawable: Drawable? = null,
-    var selected: Boolean = false
+    var selected: Boolean = false,
+    var systemApp: Boolean = false
 )
