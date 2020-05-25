@@ -11,7 +11,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
@@ -20,25 +21,20 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
 import com.symeonchen.wakeupscreen.data.CurrentMode
-import com.symeonchen.wakeupscreen.states.AppListState
-import com.symeonchen.wakeupscreen.utils.DataInjection
-import com.symeonchen.wakeupscreen.utils.FilterListUtils
+import com.symeonchen.wakeupscreen.model.FilterListViewModel
 import com.symeonchen.wakeupscreen.utils.UiTools
 import kotlinx.android.synthetic.main.activity_app_filter_list.*
 import kotlinx.android.synthetic.main.activity_debug_page.iv_back
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * Created by SymeonChen on 2019-10-27.
  */
 class FilterListActivity : ScBaseActivity() {
 
+    private var viewModel: FilterListViewModel? = null
     private var visibleList: MutableList<AppInfo> = arrayListOf()
     private var dataList: MutableList<AppInfo> = arrayListOf()
     private var adapter: WhiteListViewAdapter? = null
-    private var map: HashMap<String, Int>? = null
     private var currentModeValue = CurrentMode.MODE_WHITE_LIST.ordinal
     private val textWatcher: TextWatcher by lazy {
         object : TextWatcher {
@@ -51,25 +47,7 @@ class FilterListActivity : ScBaseActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (dataList.isEmpty()) {
-                    return
-                }
-                val keyStr = p0.toString()
-                val result = if (keyStr.isNotEmpty()) {
-                    FilterListUtils.splitWithSelected(dataList.filter {
-                        it.simpleName.contains(
-                            keyStr,
-                            true
-                        )
-                    }, map)
-
-                } else {
-                    FilterListUtils.splitWithSelected(dataList, map)
-                }
-
-                visibleList.clear()
-                visibleList.addAll(result)
-                updateView()
+                viewModel?.searchKey = p0?.toString() ?: ""
             }
         }
     }
@@ -78,13 +56,15 @@ class FilterListActivity : ScBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_filter_list)
+        initViewModel()
         initView()
         setListener()
+        setViewModelListener()
         getData()
     }
 
     companion object {
-        private const val CURRENT_MODE = "currentMode"
+        const val CURRENT_MODE = "currentMode"
 
         fun actionStartWithMode(context: Context?, currentMode: CurrentMode) {
             context ?: return
@@ -94,17 +74,14 @@ class FilterListActivity : ScBaseActivity() {
         }
     }
 
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this)[FilterListViewModel::class.java]
+    }
 
     private fun initView() {
 
-        UiTools.instance.showLoading(this, view_loading)
-
-        currentModeValue = intent.getIntExtra(CURRENT_MODE, CurrentMode.MODE_WHITE_LIST.ordinal)
-        map = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
-            FilterListUtils.getMapFromString(DataInjection.appBlackListStringOfNotify)
-        } else {
-            FilterListUtils.getMapFromString(DataInjection.appWhiteListStringOfNotify)
-        }
+        viewModel?.initIntent(intent)
+        currentModeValue = viewModel?.currentModeValue!!
 
         tv_title.text = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
             resources.getString(R.string.black_list)
@@ -128,24 +105,33 @@ class FilterListActivity : ScBaseActivity() {
         iv_back.setOnClickListener { finish() }
 
         tv_save.setOnClickListener {
-            val result = HashMap<String, Int>()
-            for (item in dataList) {
-                if (item.selected) {
-                    result[item.packageName] = 1
-                }
-            }
-            if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
-                DataInjection.appBlackListStringOfNotify = FilterListUtils.saveMapToString(result)
-            } else {
-                DataInjection.appWhiteListStringOfNotify = FilterListUtils.saveMapToString(result)
-            }
-            DataInjection.appListUpdateFlag = System.currentTimeMillis()
+            viewModel?.saveList()
             ToastUtils.showLong(resources.getString(R.string.saved_successfully))
             finish()
         }
 
         et_search_filter.addTextChangedListener(textWatcher)
 
+        cb_search_switch_system_app.setOnCheckedChangeListener { _, isChecked ->
+            viewModel?.includeSystemApp = isChecked
+        }
+
+    }
+
+    private fun setViewModelListener() {
+        viewModel?.visibleList?.observe(this, Observer {
+            if (it.size > 0) {
+                UiTools.instance.hideLoading()
+                adapter?.dataList?.clear()
+                adapter?.dataList?.addAll(it)
+                adapter?.notifyDataSetChanged()
+            }
+        })
+    }
+
+    private fun getData() {
+        UiTools.instance.showLoading(this, view_loading)
+        viewModel?.readAllApp()
     }
 
     override fun onDestroy() {
@@ -156,26 +142,6 @@ class FilterListActivity : ScBaseActivity() {
         }
         super.onDestroy()
     }
-
-    private fun getData() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            withContext(Dispatchers.IO) {
-                val appList = AppListState.getInstalledAppList(this@FilterListActivity, true)
-                dataList = FilterListUtils.splitWithSelected(appList, map)
-                visibleList.clear()
-                visibleList.addAll(dataList)
-            }
-            updateView()
-        }
-    }
-
-    private fun updateView() {
-        UiTools.instance.hideLoading()
-        adapter?.dataList?.clear()
-        adapter?.dataList?.addAll(visibleList)
-        adapter?.notifyDataSetChanged()
-    }
-
 
     class WhiteListViewAdapter(recyclerView: RecyclerView, dataList: List<AppInfo>?) :
         RecyclerView.Adapter<WhiteListViewAdapter.WhiteListHolder>() {

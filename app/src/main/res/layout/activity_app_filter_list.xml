@@ -57,13 +57,22 @@
         android:text="@string/white_list_hints"
         app:layout_constraintTop_toBottomOf="@id/ll_header" />
 
+    <CheckBox
+        android:id="@+id/cb_search_switch_system_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/include_system_app"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_log_head_hint" />
+
     <EditText
         android:id="@+id/et_search_filter"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:drawableStart="@drawable/ic_search_green_24dp"
         android:singleLine="true"
-        app:layout_constraintTop_toBottomOf="@id/tv_log_head_hint" />
+        app:layout_constraintTop_toBottomOf="@id/cb_search_switch_system_app" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_app_list"
