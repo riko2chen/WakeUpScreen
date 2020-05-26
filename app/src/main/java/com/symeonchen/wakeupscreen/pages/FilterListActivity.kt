@@ -32,10 +32,7 @@ import kotlinx.android.synthetic.main.activity_debug_page.iv_back
 class FilterListActivity : ScBaseActivity() {
 
     private var viewModel: FilterListViewModel? = null
-    private var visibleList: MutableList<AppInfo> = arrayListOf()
-    private var dataList: MutableList<AppInfo> = arrayListOf()
     private var adapter: WhiteListViewAdapter? = null
-    private var currentModeValue = CurrentMode.MODE_WHITE_LIST.ordinal
     private val textWatcher: TextWatcher by lazy {
         object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -81,7 +78,7 @@ class FilterListActivity : ScBaseActivity() {
     private fun initView() {
 
         viewModel?.initIntent(intent)
-        currentModeValue = viewModel?.currentModeValue!!
+        val currentModeValue = viewModel?.currentModeValue!!
 
         tv_title.text = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
             resources.getString(R.string.black_list)
@@ -89,7 +86,7 @@ class FilterListActivity : ScBaseActivity() {
             resources.getString(R.string.white_list)
         }
 
-        adapter = WhiteListViewAdapter(rv_app_list, visibleList)
+        adapter = WhiteListViewAdapter(rv_app_list, mutableListOf())
         rv_app_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_app_list.adapter = adapter
 

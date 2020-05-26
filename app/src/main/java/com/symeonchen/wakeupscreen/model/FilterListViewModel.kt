@@ -23,6 +23,8 @@ class FilterListViewModel(application: Application) : AndroidViewModel(applicati
     private var viewModelApplication: Application = application
 
     private var appList: MutableList<AppInfo>? = null
+    private var map: HashMap<String, Int>? = null
+
     var currentModeValue = CurrentMode.MODE_WHITE_LIST.ordinal
     var visibleList: MutableLiveData<MutableList<AppInfo>> =
         MutableLiveData(mutableListOf())
@@ -38,7 +40,6 @@ class FilterListViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    var map: HashMap<String, Int>? = null
 
     fun initIntent(intent: Intent) {
         currentModeValue =
@@ -74,19 +75,22 @@ class FilterListViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     private fun calculateFilter() {
-        val result = appList?.filter {
-            if (!includeSystemApp) {
-                !it.systemApp
-            } else {
-                true
+        val result = appList
+            ?.filter {
+                if (!includeSystemApp) {
+                    !it.systemApp
+                } else {
+                    true
+                }
             }
-        }?.filter {
-            if (searchKey.isEmpty()) {
-                true
-            } else {
-                it.simpleName.contains(searchKey, true)
+            ?.filter {
+                if (searchKey.isEmpty()) {
+                    true
+                } else {
+                    it.simpleName.contains(searchKey, true)
+                }
             }
-        } ?: mutableListOf()
+            ?: mutableListOf()
         visibleList.postValue(FilterListUtils.splitWithSelected(result, map))
     }
 
