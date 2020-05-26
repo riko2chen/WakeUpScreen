@@ -7,9 +7,11 @@
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ProgressBar
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:id="@+id/pb_loading"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:background="#16000000"
+        android:padding="30dp"
         android:indeterminateBehavior="repeat"
         android:indeterminateDrawable="@drawable/rotate_loop_green"
         app:layout_constraintBottom_toBottomOf="parent"

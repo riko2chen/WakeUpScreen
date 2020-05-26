@@ -83,5 +83,6 @@
     <string name="saved_successfully">保存成功</string>
     <string name="still_have_problem">仍然有问题吗？点击这里重置应用。</string>
     <string name="close_app_notice">此操作将关闭应用，请在此之后重新打开它。</string>
+    <string name="include_system_app">包括系统应用</string>
 
 </resources>
