@@ -15,6 +15,7 @@ object ScConstant {
     const val APP_FILTER_BLACK_LIST_STRING = "black_list_app"
     const val APP_FILTER_LIST_FLAG = "white_list_flag"
     const val ONGOING_STATUS_DETECT = "ongoing_status_detect"
+    const val RADICAL_ONGOING_DETECT = "radical_ongoing_detect"
     const val LANGUAGE_SELECTED = "language_selected"
     const val SLEEP_MODE_BOOLEAN = "sleep_mode_boolean"
     const val SLEEP_MODE_TIME_BEGIN = "sleep_mode_time_begin"
@@ -32,6 +33,7 @@ object ScConstant {
     const val DEFAULT_APP_BLACK_LIST_STRING: String = ""
     const val DEFAULT_APP_WHITE_LIST_FLAG = 0L
     const val DEFAULT_ONGOING_STATUS_DETECT = true
+    const val DEFAULT_RADICAL_ONGOING_DETECT = true
     const val DEFAULT_LANGUAGE_SELECTED: Int = 0
     const val DEFAULT_SLEEP_MODE_BOOLEAN: Boolean = false
     const val DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR = 2

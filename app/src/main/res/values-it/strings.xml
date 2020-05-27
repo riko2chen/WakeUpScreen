@@ -96,5 +96,6 @@
     <string name="still_have_problem">Hai ancora problemi? Fai clic qui per ripristinare l\'applicazione.</string>
     <string name="close_app_notice">Questa azione chiuderà l\'Applicazione, quindi riaprire l\'APP successivamente.</string>
     <string name="include_system_app">Includi APP di sistema</string>
+    <string name="radical_ongoing_detact">Detección continua radical (inestable)</string>
 
 </resources>

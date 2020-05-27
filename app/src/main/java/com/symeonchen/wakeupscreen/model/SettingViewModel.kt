@@ -41,6 +41,10 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.ongoingOptimize)
         }
 
+    var radicalOngoingOptimize: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.radicalOngoingOptimize)
+        }
 
     var languageSelected: ScLiveData<LanguageInfo> = ScLiveData<LanguageInfo>()
         .apply {

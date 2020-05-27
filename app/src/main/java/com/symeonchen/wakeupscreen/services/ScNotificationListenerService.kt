@@ -44,6 +44,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         checkIfInteractive(pm) ?: return
         checkFilterListMode(sbn) ?: return
         checkIfUpdateOnGoingNotification(sbn) ?: return
+        checkIfRadicalOnGoingNotificationFilterOpen(sbn) ?: return
         checkIfInSleepModeTime() ?: return
         checkIfInDnd() ?: return
 
@@ -156,6 +157,15 @@ class ScNotificationListenerService : NotificationListenerService() {
             }
             lastNotificationId = sbn.id
             lastNotificationOngoing = sbn.isOngoing
+        }
+        return PASS
+    }
+
+    private fun checkIfRadicalOnGoingNotificationFilterOpen(sbn: StatusBarNotification): Boolean? {
+        if (DataInjection.radicalOngoingOptimize) {
+            if (sbn.isOngoing && !sbn.isClearable) {
+                return BLOCK
+            }
         }
         return PASS
     }
