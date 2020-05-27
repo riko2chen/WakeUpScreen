@@ -96,5 +96,6 @@
     <string name="still_have_problem">Still having problems? Click here to reset the application.</string>
     <string name="close_app_notice">This action will close Application, please reopen the APP after that.</string>
     <string name="include_system_app">Include system APP</string>
+    <string name="radical_ongoing_detact">Radical Ongoing Detect (unstable)</string>
 
 </resources>

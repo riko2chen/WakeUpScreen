@@ -62,6 +62,14 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
         }
 
+        item_setting_radical_ongoing_detect.listener =
+            object : SCSettingSwitchItem.OnItemClickListener {
+                override fun onSwitchClick() {
+                    val switchCurr = settingModel.radicalOngoingOptimize.value ?: false
+                    settingModel.radicalOngoingOptimize.postValue(!switchCurr)
+                }
+            }
+
         item_setting_dnd_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onSwitchClick() {
                 val switchCurr = settingModel.dndDetectBoolean.value ?: false
@@ -104,6 +112,14 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
 
         settingModel.ongoingOptimize.observe(this, Observer {
             item_setting_ongoing_detect.bindData(
+                null,
+                resources.getString(if (it) R.string.already_open else R.string.already_close),
+                it
+            )
+        })
+
+        settingModel.radicalOngoingOptimize.observe(this, Observer {
+            item_setting_radical_ongoing_detect.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it

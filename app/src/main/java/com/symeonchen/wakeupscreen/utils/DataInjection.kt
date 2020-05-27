@@ -17,6 +17,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_TIME_END_HOUR
@@ -30,6 +31,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_BEGIN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_END
@@ -142,6 +144,15 @@ object DataInjection {
         get() {
             return MMKV.defaultMMKV()
                 .getBoolean(ONGOING_STATUS_DETECT, DEFAULT_ONGOING_STATUS_DETECT)
+        }
+        set(value) {
+            MMKV.defaultMMKV().putBoolean(ONGOING_STATUS_DETECT, value)
+        }
+
+    var radicalOngoingOptimize: Boolean
+        get() {
+            return MMKV.defaultMMKV()
+                .getBoolean(RADICAL_ONGOING_DETECT, DEFAULT_RADICAL_ONGOING_DETECT)
         }
         set(value) {
             MMKV.defaultMMKV().putBoolean(ONGOING_STATUS_DETECT, value)
