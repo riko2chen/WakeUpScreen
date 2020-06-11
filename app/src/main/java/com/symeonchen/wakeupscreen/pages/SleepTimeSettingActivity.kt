@@ -1,8 +1,6 @@
 package com.symeonchen.wakeupscreen.pages
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
@@ -29,12 +27,6 @@ class SleepTimeSettingActivity : ScBaseActivity() {
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
         initData()
-    }
-
-    companion object {
-        fun actionStart(context: Context) {
-            context.startActivity(Intent(context, SleepTimeSettingActivity::class.java))
-        }
     }
 
     @SuppressLint("SetTextI18n")

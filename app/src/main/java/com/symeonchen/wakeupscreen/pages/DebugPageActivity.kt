@@ -1,7 +1,5 @@
 package com.symeonchen.wakeupscreen.pages
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.wakeupscreen.R
@@ -25,12 +23,6 @@ class DebugPageActivity : ScBaseActivity() {
         setContentView(R.layout.activity_debug_page)
         initViewModel()
         setListener()
-    }
-
-    companion object {
-        fun actionStart(context: Context) {
-            context.startActivity(Intent(context, DebugPageActivity::class.java))
-        }
     }
 
     private fun initViewModel() {

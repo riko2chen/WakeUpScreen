@@ -19,6 +19,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.AppInfoUtils
+import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 import java.util.*
 
@@ -54,7 +55,7 @@ class ScSettingFragment : ScBaseFragment() {
 
         item_setting_wake_screen_time.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
-                context?.let { mContext -> WakeUptimeSettingActivity.actionStart(mContext) }
+                context?.quickStartActivity<WakeUptimeSettingActivity>()
             }
         }
 
@@ -105,11 +106,11 @@ class ScSettingFragment : ScBaseFragment() {
         }
 
         item_setting_advanced_setting.setOnClickListener {
-            context?.let { mContext -> AdvanceSettingPageActivity.actionStart(mContext) }
+            context?.run { this.quickStartActivity<AdvanceSettingPageActivity>() }
         }
 
         item_setting_about_this.setOnClickListener {
-            context?.let { mContext -> AboutThisPageActivity.actionStart(mContext) }
+            context?.run { this.quickStartActivity<AboutThisPageActivity>() }
         }
 
         settingModel.modeOfCurrent.observe(viewLifecycleOwner, Observer {

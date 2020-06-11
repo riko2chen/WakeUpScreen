@@ -2,7 +2,6 @@ package com.symeonchen.wakeupscreen.pages
 
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,6 +14,7 @@ import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.NotificationUtils
+import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.android.synthetic.main.activity_about_this.*
 
 /**
@@ -33,13 +33,6 @@ class AboutThisPageActivity : ScBaseActivity() {
         setListener()
     }
 
-    companion object {
-        fun actionStart(context: Context) {
-            context.startActivity(Intent(context, AboutThisPageActivity::class.java))
-        }
-    }
-
-
     private fun setListener() {
 
         iv_back.setOnClickListener { finish() }
@@ -51,11 +44,11 @@ class AboutThisPageActivity : ScBaseActivity() {
         }
 
         item_setting_debug_mode_entry.setOnClickListener {
-            DebugPageActivity.actionStart(this)
+            this.quickStartActivity<DebugPageActivity>()
         }
 
         item_setting_app_introduce.setOnClickListener {
-            AppInfoPageActivity.actionStart(this)
+            this.quickStartActivity<AppInfoPageActivity>()
         }
 
         item_setting_debug_delay_to_wake.setOnClickListener {
