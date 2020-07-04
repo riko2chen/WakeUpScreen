@@ -1,7 +1,5 @@
 package com.symeonchen.wakeupscreen.pages
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -20,13 +18,6 @@ import kotlinx.android.synthetic.main.activity_wake_up_time.*
 class WakeUptimeSettingActivity : ScBaseActivity() {
 
     private var viewModel: WakeUpTimeViewModel? = null
-
-    companion object {
-        fun actionStart(context: Context) {
-            context.startActivity(Intent(context, WakeUptimeSettingActivity::class.java))
-        }
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,7 +1,5 @@
 package com.symeonchen.wakeupscreen.pages
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -14,6 +12,7 @@ import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.android.synthetic.main.activity_custom_page.*
 
 /**
@@ -30,13 +29,6 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
     }
-
-    companion object {
-        fun actionStart(context: Context) {
-            context.startActivity(Intent(context, AdvanceSettingPageActivity::class.java))
-        }
-    }
-
 
     private fun setListener() {
 
@@ -90,7 +82,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         item_setting_sleep_ignore_detail_time.listener =
             object : SCSettingItem.OnItemClickListener {
                 override fun onItemCLick() {
-                    SleepTimeSettingActivity.actionStart(this@AdvanceSettingPageActivity)
+                    quickStartActivity<SleepTimeSettingActivity>()
                 }
             }
 
