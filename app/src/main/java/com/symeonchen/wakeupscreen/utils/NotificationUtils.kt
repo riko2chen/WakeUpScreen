@@ -8,7 +8,6 @@ import android.content.ContextWrapper
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationCompat.PRIORITY_DEFAULT
 import androidx.core.app.NotificationCompat.VISIBILITY_SECRET
 import com.symeonchen.wakeupscreen.R
 
@@ -19,9 +18,8 @@ class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
 
     companion object {
 
-        val CHANNEL_ID = "default"
-        private val CHANNEL_NAME = "Default Channel"
-        private val CHANNEL_DESCRIPTION = "this is default channel!"
+        const val CHANNEL_ID = "default"
+        private const val CHANNEL_NAME = "Default Channel"
     }
 
     private var mManager: NotificationManager? = null
@@ -59,42 +57,19 @@ class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
         manager!!.createNotificationChannel(channel)
     }
 
-    /**
-     * Send Notification
-     */
-    fun sendNotification(title: String, content: String) {
-        val builder = getNotification(title, content)
-        manager!!.notify(1, builder.build())
-    }
-
     private fun getNotification(title: String, content: String): NotificationCompat.Builder {
-        var builder: NotificationCompat.Builder?
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-        } else {
-            @Suppress("DEPRECATION")
-            builder = NotificationCompat.Builder(applicationContext)
-            builder.priority = PRIORITY_DEFAULT
-        }
-        builder.setContentTitle(title)
-        builder.setContentText(content)
-        builder.setSmallIcon(R.mipmap.ic_launcher)
-        builder.setAutoCancel(true)
-        return builder
+        return NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+            .setContentTitle(title)
+            .setContentText(content)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setAutoCancel(true)
     }
 
-    /**
-     * Send Notification
-     */
     fun sendNotification(notifyId: Int, title: String, content: String) {
         val builder = getNotification(title, content)
         manager!!.notify(notifyId, builder.build())
     }
 
-
-    /**
-     * Detect whether Do Not Disturb is open or close.
-     */
     fun detectDnd(): Boolean? {
         return try {
             val status = manager!!.currentInterruptionFilter

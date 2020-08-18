@@ -54,6 +54,7 @@ class AboutThisPageActivity : ScBaseActivity() {
         item_setting_debug_delay_to_wake.setOnClickListener {
             it.postDelayed({
                 NotificationUtils(this.applicationContext).sendNotification(
+                    1,
                     "This is a test",
                     "Just for testing wakeup screen"
                 )
