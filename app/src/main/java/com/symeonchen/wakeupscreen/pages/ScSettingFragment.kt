@@ -1,6 +1,7 @@
 package com.symeonchen.wakeupscreen.pages
 
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LanguageUtils
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
@@ -30,6 +33,7 @@ class ScSettingFragment : ScBaseFragment() {
 
     private var alertDialog: AlertDialog? = null
     private lateinit var settingModel: SettingViewModel
+    private val manager: ReviewManager by lazy { ReviewManagerFactory.create(context) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -111,6 +115,17 @@ class ScSettingFragment : ScBaseFragment() {
 
         item_setting_about_this.setOnClickListener {
             context?.run { this.quickStartActivity<AboutThisPageActivity>() }
+        }
+
+        item_setting_give_star.setOnClickListener {
+            val request = manager.requestReviewFlow()
+            request.addOnCompleteListener { result ->
+                if (result.isSuccessful) {
+                    manager.launchReviewFlow(activity, result.result)
+                } else {
+                    jumpToPlayStore()
+                }
+            }
         }
 
         settingModel.modeOfCurrent.observe(viewLifecycleOwner, Observer {
@@ -231,4 +246,23 @@ class ScSettingFragment : ScBaseFragment() {
             .create().apply { show() }
     }
 
+    private fun jumpToPlayStore() {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(
+                    "https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen"
+                )
+                setPackage("com.android.vending")
+            }
+            startActivity(intent)
+        } catch (ignore: ActivityNotFoundException) {
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(
+                "https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen"
+            )
+            startActivity(i)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 }

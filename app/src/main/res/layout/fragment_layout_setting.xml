@@ -117,6 +117,14 @@
                 android:layout_height="70dp"
                 app:sc_setting_item_title_main="@string/feedback"
                 app:sc_setting_item_title_second="symeonchen@gmail.com" />
+
+            <com.symeonchen.uicomponent.views.SCSettingItem
+                android:id="@+id/item_setting_give_star"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:sc_setting_item_title_main="@string/give_star"
+                app:sc_setting_item_title_second="@string/click_here_to_open_google_play_store" />
+
         </LinearLayout>
     </ScrollView>
 
