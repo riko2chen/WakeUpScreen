@@ -16,6 +16,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_BOOLEAN
@@ -28,6 +29,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_VALUE_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
+import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
@@ -208,5 +210,16 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV().putBoolean(DND_DETECT_SWITCH, value)
+        }
+
+    var lastInAppReviewTime: String
+        get() {
+            return MMKV.defaultMMKV().getString(
+                LAST_IN_APP_REVIEW_TIMESTAMP,
+                DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
+            ) ?: DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
+        }
+        set(value) {
+            MMKV.defaultMMKV().putString(LAST_IN_APP_REVIEW_TIMESTAMP, value)
         }
 }

@@ -1,7 +1,6 @@
 package com.symeonchen.wakeupscreen.pages
 
 import android.app.AlertDialog
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,8 +10,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LanguageUtils
-import com.google.android.play.core.review.ReviewManager
-import com.google.android.play.core.review.ReviewManagerFactory
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
@@ -22,6 +19,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.AppInfoUtils
+import com.symeonchen.wakeupscreen.utils.PlayStoreTools
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
 import java.util.*
@@ -33,7 +31,7 @@ class ScSettingFragment : ScBaseFragment() {
 
     private var alertDialog: AlertDialog? = null
     private lateinit var settingModel: SettingViewModel
-    private val manager: ReviewManager by lazy { ReviewManagerFactory.create(context) }
+    private var playStoreToolInstance: PlayStoreTools? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +46,8 @@ class ScSettingFragment : ScBaseFragment() {
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
+        playStoreToolInstance = PlayStoreTools.newInstance(context)
+        playStoreToolInstance?.prepare()
     }
 
     private fun setListener() {
@@ -118,14 +118,7 @@ class ScSettingFragment : ScBaseFragment() {
         }
 
         item_setting_give_star.setOnClickListener {
-            val request = manager.requestReviewFlow()
-            request.addOnCompleteListener { result ->
-                if (result.isSuccessful) {
-                    manager.launchReviewFlow(activity, result.result)
-                } else {
-                    jumpToPlayStore()
-                }
-            }
+            playStoreToolInstance?.openPlayStore(activity)
         }
 
         settingModel.modeOfCurrent.observe(viewLifecycleOwner, Observer {
@@ -246,23 +239,5 @@ class ScSettingFragment : ScBaseFragment() {
             .create().apply { show() }
     }
 
-    private fun jumpToPlayStore() {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(
-                    "https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen"
-                )
-                setPackage("com.android.vending")
-            }
-            startActivity(intent)
-        } catch (ignore: ActivityNotFoundException) {
-            val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(
-                "https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen"
-            )
-            startActivity(i)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
+
 }
