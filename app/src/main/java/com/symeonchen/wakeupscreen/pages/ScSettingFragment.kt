@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.LanguageUtils
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
@@ -22,7 +21,6 @@ import com.symeonchen.wakeupscreen.utils.AppInfoUtils
 import com.symeonchen.wakeupscreen.utils.PlayStoreTools
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.android.synthetic.main.fragment_layout_setting.*
-import java.util.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -152,12 +150,7 @@ class ScSettingFragment : ScBaseFragment() {
         settingModel.languageSelected.observe(viewLifecycleOwner, Observer {
             item_setting_language.bindData(
                 null,
-                when (it) {
-                    LanguageInfo.CHINESE_SIMPLE -> "简体中文"
-                    LanguageInfo.ENGLISH -> "English"
-                    LanguageInfo.ITALIAN -> "Italiano"
-                    else -> "跟随系统(Follow System)"
-                }
+                it.desc
             )
         })
 
@@ -166,32 +159,19 @@ class ScSettingFragment : ScBaseFragment() {
     private fun initLanguageSettingDialog() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(requireContext())
-        val secList =
-            arrayOf("跟随系统(Follow System)", "English", "简体中文", "Italiano")
-        var switch = settingModel.languageSelected.value!!.ordinal
-        val checkedItem: Int = LanguageInfo.getModeFromValue(switch).ordinal
+        val languageArray = LanguageInfo.values()
+        val languageNameArray = languageArray.map { it.desc }.toTypedArray()
+        val refNum = settingModel.languageSelected.value!!.referenceNum
+        val checkedItem: Int = languageArray.map { it.referenceNum }.indexOf(refNum)
+        var selectedItem: LanguageInfo? = null
 
         alertDialog = builder.setSingleChoiceItems(
-            secList, checkedItem
-        ) { _, which -> switch = LanguageInfo.getModeFromValue(which).ordinal }
+            languageNameArray, checkedItem
+        ) { _, which -> selectedItem = languageArray.get(which) }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-                when (switch) {
-                    LanguageInfo.FOLLOW_SYSTEM.ordinal -> {
-                        settingModel.languageSelected.postValue(LanguageInfo.FOLLOW_SYSTEM)
-                        LanguageUtils.applySystemLanguage("")
-                    }
-                    LanguageInfo.ENGLISH.ordinal -> {
-                        settingModel.languageSelected.postValue(LanguageInfo.ENGLISH)
-                        LanguageUtils.applyLanguage(Locale.US, "")
-                    }
-                    LanguageInfo.ITALIAN.ordinal -> {
-                        settingModel.languageSelected.postValue(LanguageInfo.ITALIAN)
-                        LanguageUtils.applyLanguage(Locale.ITALY, "")
-                    }
-                    else -> {
-                        settingModel.languageSelected.postValue(LanguageInfo.CHINESE_SIMPLE)
-                        LanguageUtils.applyLanguage(Locale.CHINA, "")
-                    }
+                selectedItem?.run {
+                    settingModel.languageSelected.postValue(this)
+                    this.applyLanguage()
                 }
             }
             .create().apply { show() }
