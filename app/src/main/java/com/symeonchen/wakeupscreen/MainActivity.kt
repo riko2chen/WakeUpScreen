@@ -7,9 +7,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.jaeger.library.StatusBarUtil
+import com.symeonchen.wakeupscreen.databinding.ActivityMainBinding
 import com.symeonchen.wakeupscreen.pages.ScMainFragment
 import com.symeonchen.wakeupscreen.pages.ScSettingFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -17,9 +17,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
 
     private var fragmentList = ArrayList<Fragment>()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary))
         initView()
@@ -32,10 +34,10 @@ class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
     }
 
     private fun setListener() {
-        vp_main.adapter = MainViewPagerAdapter(supportFragmentManager, fragmentList)
-        vp_main.addOnPageChangeListener(this)
-        bnv_main.setOnNavigationItemSelectedListener {
-            vp_main.currentItem = it.order
+        binding.vpMain.adapter = MainViewPagerAdapter(supportFragmentManager, fragmentList)
+        binding.vpMain.addOnPageChangeListener(this)
+        binding.bnvMain.setOnNavigationItemSelectedListener {
+            binding.vpMain.currentItem = it.order
             return@setOnNavigationItemSelectedListener true
         }
     }
@@ -47,7 +49,7 @@ class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
     }
 
     override fun onPageSelected(position: Int) {
-        bnv_main.menu.getItem(position).isChecked = true
+        binding.bnvMain.menu.getItem(position).isChecked = true
     }
 
     inner class MainViewPagerAdapter(fm: FragmentManager, fragmentList: ArrayList<Fragment>) :

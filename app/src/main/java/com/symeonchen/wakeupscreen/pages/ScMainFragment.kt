@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
+import com.symeonchen.wakeupscreen.databinding.FragmentLayoutMainBinding
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.StatusViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
@@ -26,7 +27,6 @@ import com.symeonchen.wakeupscreen.states.NotificationState.Companion.closeNotif
 import com.symeonchen.wakeupscreen.states.NotificationState.Companion.openNotificationService
 import com.symeonchen.wakeupscreen.states.PermissionState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
-import kotlinx.android.synthetic.main.fragment_layout_main.*
 import kotlinx.coroutines.launch
 
 /**
@@ -37,14 +37,21 @@ class ScMainFragment : ScBaseFragment() {
     private lateinit var statusModel: StatusViewModel
     private lateinit var settingModel: SettingViewModel
     private var alertDialog: AlertDialog? = null
-
+    private var _binding: FragmentLayoutMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_layout_main, container, false)
+    ): View {
+        _binding = FragmentLayoutMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,19 +69,19 @@ class ScMainFragment : ScBaseFragment() {
 
     private fun initView() {
 
-        main_item_permission_notification.bindData(
+        binding.mainItemPermissionNotification.bindData(
             resources.getString(R.string.permission_of_read_notification),
             statusModel.permissionOfReadNotification.value ?: false,
             resources.getString(R.string.to_setting)
         )
 
-        main_item_service.bindData(
+        binding.mainItemService.bindData(
             resources.getString(R.string.service_of_background),
             statusModel.statusOfService.value ?: false,
             resources.getString(R.string.click_to_open)
         )
 
-        main_item_battery_saver.bindData(
+        binding.mainItemBatterySaver.bindData(
             resources.getString(R.string.optimize_of_battery_saver),
             settingModel.fakeSwitchOfBatterySaver.value ?: false,
             resources.getString(R.string.how_to_set)
@@ -84,29 +91,29 @@ class ScMainFragment : ScBaseFragment() {
 
     private fun setDataListener() {
         statusModel.statusOfService.observe(viewLifecycleOwner, Observer {
-            main_item_service.setState(it)
-            main_item_service.setBtnText(resources.getString(if (it) R.string.click_to_close else R.string.click_to_open))
+            binding.mainItemService.setState(it)
+            binding.mainItemService.setBtnText(resources.getString(if (it) R.string.click_to_close else R.string.click_to_open))
             refresh()
         })
 
         statusModel.permissionOfReadNotification.observe(viewLifecycleOwner, Observer {
-            main_item_permission_notification.setState(it)
+            binding.mainItemPermissionNotification.setState(it)
             refresh()
         })
 
         settingModel.switchOfApp.observe(viewLifecycleOwner, Observer {
-            btn_control.isChecked = it
+            binding.btnControl.isChecked = it
             refresh()
         })
 
         settingModel.fakeSwitchOfBatterySaver.observe(viewLifecycleOwner, Observer {
-            main_item_battery_saver.setState(it)
+            binding.mainItemBatterySaver.setState(it)
         })
 
     }
 
     private fun setViewListener() {
-        btn_control.setOnClickListener {
+        binding.btnControl.setOnClickListener {
             val status = settingModel.switchOfApp.value ?: false
             settingModel.switchOfApp.postValue(!status)
             if (status) {
@@ -118,7 +125,7 @@ class ScMainFragment : ScBaseFragment() {
             }
         }
 
-        main_item_permission_notification.listener = object : StatusItem.OnItemClickListener {
+        binding.mainItemPermissionNotification.listener = object : StatusItem.OnItemClickListener {
             override fun onBtnClick() {
                 openNotificationService(context)
                 PermissionState.openReadNotificationSetting(context)
@@ -129,7 +136,7 @@ class ScMainFragment : ScBaseFragment() {
             }
         }
 
-        main_item_service.listener = object : StatusItem.OnItemClickListener {
+        binding.mainItemService.listener = object : StatusItem.OnItemClickListener {
             override fun onItemClick() {
             }
 
@@ -145,7 +152,7 @@ class ScMainFragment : ScBaseFragment() {
             }
         }
 
-        main_item_battery_saver.listener = object : StatusItem.OnItemClickListener {
+        binding.mainItemBatterySaver.listener = object : StatusItem.OnItemClickListener {
             override fun onItemClick() {
                 onBatterySaverClick()
             }
@@ -155,8 +162,8 @@ class ScMainFragment : ScBaseFragment() {
             }
         }
 
-        tv_reset_application?.setOnClickListener {
-            if (tv_reset_application?.visibility != View.VISIBLE) {
+        binding.tvResetApplication.setOnClickListener {
+            if (binding.tvResetApplication.visibility != View.VISIBLE) {
                 return@setOnClickListener
             }
             onResetAppClick()
@@ -266,7 +273,7 @@ class ScMainFragment : ScBaseFragment() {
         serviceStatus: Boolean?,
         customStatus: Boolean?
     ) {
-        btn_control.visibility = View.INVISIBLE
+        binding.btnControl.visibility = View.INVISIBLE
 
         var btnVisibility = View.VISIBLE
         var tvStatusText = resources.getString(R.string.already_open)
@@ -295,10 +302,10 @@ class ScMainFragment : ScBaseFragment() {
             visibilityOfResetNotice = View.INVISIBLE
         }
 
-        btn_control.visibility = btnVisibility
-        tv_status?.text = tvStatusText
-        cl_header?.setBackgroundColor(headerBackgroundColor ?: Color.WHITE)
-        tv_reset_application?.visibility = visibilityOfResetNotice
+        binding.btnControl.visibility = btnVisibility
+        binding.tvStatus.text = tvStatusText
+        binding.clHeader.setBackgroundColor(headerBackgroundColor ?: Color.WHITE)
+        binding.tvResetApplication.visibility = visibilityOfResetNotice
     }
 
     private fun refresh() {

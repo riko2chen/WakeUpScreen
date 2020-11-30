@@ -21,16 +21,16 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.databinding.ActivityAppFilterListBinding
 import com.symeonchen.wakeupscreen.model.FilterListViewModel
 import com.symeonchen.wakeupscreen.utils.UiTools
-import kotlinx.android.synthetic.main.activity_app_filter_list.*
-import kotlinx.android.synthetic.main.activity_debug_page.iv_back
 
 /**
  * Created by SymeonChen on 2019-10-27.
  */
 class FilterListActivity : ScBaseActivity() {
 
+    private lateinit var binding: ActivityAppFilterListBinding
     private var viewModel: FilterListViewModel? = null
     private var adapter: WhiteListViewAdapter? = null
     private val textWatcher: TextWatcher by lazy {
@@ -52,6 +52,7 @@ class FilterListActivity : ScBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityAppFilterListBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_app_filter_list)
         initViewModel()
         initView()
@@ -80,36 +81,36 @@ class FilterListActivity : ScBaseActivity() {
         viewModel?.initIntent(intent)
         val currentModeValue = viewModel?.currentModeValue!!
 
-        tv_title.text = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
+        binding.tvTitle.text = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
             resources.getString(R.string.black_list)
         } else {
             resources.getString(R.string.white_list)
         }
 
-        adapter = WhiteListViewAdapter(rv_app_list, mutableListOf())
-        rv_app_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        rv_app_list.adapter = adapter
+        adapter = WhiteListViewAdapter(binding.rvAppList, mutableListOf())
+        binding.rvAppList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.rvAppList.adapter = adapter
 
         val hints = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
             resources.getString(R.string.black_list_hints)
         } else {
             resources.getString(R.string.white_list_hints)
         }
-        tv_log_head_hint.text = hints
+        binding.tvLogHeadHint.text = hints
     }
 
     private fun setListener() {
-        iv_back.setOnClickListener { finish() }
+        binding.ivBack.setOnClickListener { finish() }
 
-        tv_save.setOnClickListener {
+        binding.tvSave.setOnClickListener {
             viewModel?.saveList()
             ToastUtils.showLong(resources.getString(R.string.saved_successfully))
             finish()
         }
 
-        et_search_filter.addTextChangedListener(textWatcher)
+        binding.etSearchFilter.addTextChangedListener(textWatcher)
 
-        cb_search_switch_system_app.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbSearchSwitchSystemApp.setOnCheckedChangeListener { _, isChecked ->
             viewModel?.includeSystemApp = isChecked
         }
 
@@ -127,13 +128,13 @@ class FilterListActivity : ScBaseActivity() {
     }
 
     private fun getData() {
-        UiTools.instance.showLoading(this, view_loading)
+        UiTools.instance.showLoading(this, binding.viewLoading)
         viewModel?.readAllApp()
     }
 
     override fun onDestroy() {
         try {
-            et_search_filter?.removeTextChangedListener(textWatcher)
+            binding.etSearchFilter.removeTextChangedListener(textWatcher)
         } catch (e: Exception) {
             e.printStackTrace()
         }
