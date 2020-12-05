@@ -23,7 +23,7 @@ class WakeUptimeSettingActivity : ScBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWakeUpTimeBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_wake_up_time)
+        setContentView(binding.root)
         initViewModel()
         setListener()
     }

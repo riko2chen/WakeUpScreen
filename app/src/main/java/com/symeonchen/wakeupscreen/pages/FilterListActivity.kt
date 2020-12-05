@@ -53,7 +53,7 @@ class FilterListActivity : ScBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAppFilterListBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_app_filter_list)
+        setContentView(binding.root)
         initViewModel()
         initView()
         setListener()

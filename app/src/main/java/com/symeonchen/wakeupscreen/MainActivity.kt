@@ -22,7 +22,7 @@ class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary))
         initView()
         setListener()
