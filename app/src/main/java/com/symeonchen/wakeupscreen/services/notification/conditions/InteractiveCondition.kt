@@ -13,8 +13,8 @@ class InteractiveCondition : LimitedCondition.AbstractPmCondition() {
     /**
      * Check if screen is interactive
      */
-    override fun provideResult(t: PowerManager?): ConditionState {
-        if (true == t?.isInteractive) {
+    override fun provideResult(pm: PowerManager?): ConditionState {
+        if (true == pm?.isInteractive) {
             return ConditionState.BLOCK
         }
         return ConditionState.SUCCESS
