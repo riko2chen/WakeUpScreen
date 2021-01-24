@@ -7,9 +7,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.jaeger.library.StatusBarUtil
-import com.symeonchen.wakeupscreen.databinding.ActivityMainBinding
 import com.symeonchen.wakeupscreen.pages.ScMainFragment
 import com.symeonchen.wakeupscreen.pages.ScSettingFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -17,12 +17,10 @@ import com.symeonchen.wakeupscreen.pages.ScSettingFragment
 class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
 
     private var fragmentList = ArrayList<Fragment>()
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary))
         initView()
         setListener()
@@ -34,10 +32,10 @@ class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
     }
 
     private fun setListener() {
-        binding.vpMain.adapter = MainViewPagerAdapter(supportFragmentManager, fragmentList)
-        binding.vpMain.addOnPageChangeListener(this)
-        binding.bnvMain.setOnNavigationItemSelectedListener {
-            binding.vpMain.currentItem = it.order
+        vp_main.adapter = MainViewPagerAdapter(supportFragmentManager, fragmentList)
+        vp_main.addOnPageChangeListener(this)
+        bnv_main.setOnNavigationItemSelectedListener {
+            vp_main.currentItem = it.order
             return@setOnNavigationItemSelectedListener true
         }
     }
@@ -49,7 +47,7 @@ class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
     }
 
     override fun onPageSelected(position: Int) {
-        binding.bnvMain.menu.getItem(position).isChecked = true
+        bnv_main.menu.getItem(position).isChecked = true
     }
 
     inner class MainViewPagerAdapter(fm: FragmentManager, fragmentList: ArrayList<Fragment>) :

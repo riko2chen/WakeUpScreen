@@ -15,7 +15,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".pages.AdvanceSettingPageActivity" />
         <activity android:name=".pages.AboutThisPageActivity" />
-        <activity android:name=".pages.DebugPageActivity" />
         <activity android:name=".pages.FilterListActivity" />
         <activity android:name=".pages.AppInfoPageActivity" />
         <activity android:name=".pages.SleepTimeSettingActivity" />

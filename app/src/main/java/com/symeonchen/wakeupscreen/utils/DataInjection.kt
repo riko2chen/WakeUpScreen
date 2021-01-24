@@ -19,6 +19,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_TIME_END_HOUR
@@ -34,6 +35,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
+import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_BEGIN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_END
@@ -160,6 +162,14 @@ object DataInjection {
             MMKV.defaultMMKV().putBoolean(ONGOING_STATUS_DETECT, value)
         }
 
+    var radicalOngoingNotificationSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()
+                .getBoolean(RADICAL_ONGOING_NOTIFICATION_SWITCH, DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH)
+        }
+        set(value) {
+            MMKV.defaultMMKV().putBoolean(RADICAL_ONGOING_NOTIFICATION_SWITCH, value)
+        }
 
     var languageSelected: LanguageInfo
         get() {
