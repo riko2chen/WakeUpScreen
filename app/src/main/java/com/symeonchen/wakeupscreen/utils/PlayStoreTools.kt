@@ -55,7 +55,7 @@ class PlayStoreTools private constructor() {
             LogUtils.w(TAG, "Not exceeding the prescribed time limit. ")
             return
         }
-        manager = ReviewManagerFactory.create(context!!)
+        manager = ReviewManagerFactory.create(context)
         val request = manager?.requestReviewFlow()
         request?.addOnCompleteListener { callback ->
             requesting = false

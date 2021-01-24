@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.symeonchen.uicomponent.R
-import com.symeonchen.uicomponent.databinding.ViewItemSettingSwitchBinding
+import kotlinx.android.synthetic.main.view_item_setting_switch.view.*
 
 class SCSettingSwitchItem @JvmOverloads constructor(
     context: Context,
@@ -18,13 +18,11 @@ class SCSettingSwitchItem @JvmOverloads constructor(
     private var titleMain = ""
     private var titleSecond = ""
     private var checked = false
-    private var _binding: ViewItemSettingSwitchBinding? = null
-    private val binding get() = _binding!!
 
     var listener: OnItemClickListener? = null
 
     init {
-        _binding = ViewItemSettingSwitchBinding.inflate(LayoutInflater.from(context), this)
+        v = LayoutInflater.from(context).inflate(R.layout.view_item_setting_switch, this, true)
 
         initBackground()
         initCustomValue(attrs)
@@ -41,13 +39,9 @@ class SCSettingSwitchItem @JvmOverloads constructor(
     private fun initCustomValue(attrs: AttributeSet?) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.SCSettingSwitchItem)
 
-        titleMain = a.getString(R.styleable.SCSettingSwitchItem_sc_setting_switch_item_title_main)
-            ?: titleMain
-        titleSecond =
-            a.getString(R.styleable.SCSettingSwitchItem_sc_setting_switch_item_title_second)
-                ?: titleSecond
-        checked =
-            a.getBoolean(R.styleable.SCSettingSwitchItem_sc_setting_switch_item_checked, checked)
+        titleMain = a.getString(R.styleable.SCSettingSwitchItem_sc_setting_switch_item_title_main) ?: titleMain
+        titleSecond = a.getString(R.styleable.SCSettingSwitchItem_sc_setting_switch_item_title_second) ?: titleSecond
+        checked = a.getBoolean(R.styleable.SCSettingSwitchItem_sc_setting_switch_item_checked, checked)
 
         a.recycle()
     }
@@ -61,7 +55,7 @@ class SCSettingSwitchItem @JvmOverloads constructor(
         this.setOnClickListener {
             listener?.onItemCLick()
         }
-        binding.switchStatus.setOnClickListener {
+        this.switch_status.setOnClickListener {
             listener?.onSwitchClick()
         }
     }
@@ -74,9 +68,9 @@ class SCSettingSwitchItem @JvmOverloads constructor(
     }
 
     private fun refresh() {
-        binding.tvTitleMain.text = titleMain
-        binding.tvTitleSecond.text = titleSecond
-        binding.switchStatus.isChecked = checked
+        tv_title_main.text = titleMain
+        tv_title_second.text = titleSecond
+        switch_status.isChecked = checked
     }
 
     interface OnItemClickListener {

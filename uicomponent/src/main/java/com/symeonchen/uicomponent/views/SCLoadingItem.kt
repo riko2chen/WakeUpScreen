@@ -5,8 +5,9 @@ import android.graphics.drawable.RotateDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.symeonchen.uicomponent.databinding.ViewProgressLoadingBinding
+import com.symeonchen.uicomponent.R
 
 class SCLoadingItem @JvmOverloads constructor(
     context: Context,
@@ -14,11 +15,11 @@ class SCLoadingItem @JvmOverloads constructor(
     defStyle: Int = 0
 ) : ConstraintLayout(context, attrs, defStyle) {
 
-    private var _binding: ViewProgressLoadingBinding? = null
-    private val binding get() = _binding!!
+    private var pbLoading: ProgressBar? = null
 
     init {
-        _binding = ViewProgressLoadingBinding.inflate(LayoutInflater.from(context), this)
+        val v = LayoutInflater.from(context).inflate(R.layout.view_progress_loading, this, true)
+        pbLoading = v.findViewById(R.id.pb_loading)
     }
 
     fun showLoading(container: ViewGroup? = null) {
@@ -41,13 +42,13 @@ class SCLoadingItem @JvmOverloads constructor(
     }
 
     private fun startLoadingAnimation() {
-        binding.pbLoading.indeterminateDrawable?.let {
+        pbLoading?.indeterminateDrawable?.let {
             (it as RotateDrawable).toDegrees = 1440f
         }
     }
 
     private fun stopLoadingAnimation() {
-        binding.pbLoading.indeterminateDrawable?.let {
+        pbLoading?.indeterminateDrawable?.let {
             (it as RotateDrawable).toDegrees = 0f
         }
     }

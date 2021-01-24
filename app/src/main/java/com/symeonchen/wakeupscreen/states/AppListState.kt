@@ -12,7 +12,7 @@ class AppListState {
     companion object {
 
         @Suppress("unused")
-        private var TAG: String = this::class.java.simpleName
+        private var TAG: String = this::class.java.simpleName ?: ""
 
         fun getInstalledAppList(
             appContext: Context?,

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.symeonchen.uicomponent.R
-import com.symeonchen.uicomponent.databinding.ViewItemSettingDoubleLineBinding
+import kotlinx.android.synthetic.main.view_item_setting_double_line.view.*
 
 class SCSettingItem @JvmOverloads constructor(
     context: Context,
@@ -18,19 +18,17 @@ class SCSettingItem @JvmOverloads constructor(
     private var titleMain = ""
     private var titleSecond = ""
     private var singleLine = false
-    private var _binding: ViewItemSettingDoubleLineBinding? = null
-    private val binding get() = _binding!!
 
     var listener: OnItemClickListener? = null
 
     init {
-        _binding = ViewItemSettingDoubleLineBinding.inflate(LayoutInflater.from(context), this)
+        v = LayoutInflater.from(context).inflate(R.layout.view_item_setting_double_line, this, true)
+
         initBackground()
         initCustomValue(attrs)
         setListener()
         refresh()
     }
-
 
     private fun initBackground() {
         this.setBackgroundResource(R.drawable.list_selected)
@@ -54,15 +52,6 @@ class SCSettingItem @JvmOverloads constructor(
         setListener()
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-
-    }
-
     private fun setListener() {
         this.setOnClickListener {
             listener?.onItemCLick()
@@ -76,9 +65,9 @@ class SCSettingItem @JvmOverloads constructor(
     }
 
     private fun refresh() {
-        binding.tvTitleMain.text = titleMain
-        binding.tvTitleSecond.text = titleSecond
-        binding.tvTitleSecond.visibility = if (singleLine) View.GONE else View.VISIBLE
+        tv_title_main.text = titleMain
+        tv_title_second.text = titleSecond
+        tv_title_second.visibility = if (singleLine) View.GONE else View.VISIBLE
     }
 
     interface OnItemClickListener {
