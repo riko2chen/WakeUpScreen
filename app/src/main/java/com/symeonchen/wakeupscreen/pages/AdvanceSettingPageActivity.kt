@@ -26,7 +26,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCustomPageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_custom_page)
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()

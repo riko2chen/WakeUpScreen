@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.databinding.ActivitySleepTimeSettingBinding
@@ -23,7 +24,7 @@ class SleepTimeSettingActivity : ScBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySleepTimeSettingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_sleep_time_setting)
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()

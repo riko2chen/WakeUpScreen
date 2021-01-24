@@ -2,6 +2,7 @@ package com.symeonchen.wakeupscreen.pages
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.NotifyItem
 import com.symeonchen.wakeupscreen.databinding.ActivityDebugPageBinding
@@ -21,7 +22,7 @@ class DebugPageActivity : ScBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDebugPageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_debug_page)
         initViewModel()
         setListener()
     }
