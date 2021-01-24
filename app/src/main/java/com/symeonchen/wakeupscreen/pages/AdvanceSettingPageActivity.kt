@@ -8,12 +8,12 @@ import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.uicomponent.views.SCSettingSwitchItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
-import com.symeonchen.wakeupscreen.databinding.ActivityCustomPageBinding
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
+import kotlinx.android.synthetic.main.activity_custom_page.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -21,11 +21,9 @@ import com.symeonchen.wakeupscreen.utils.quickStartActivity
 class AdvanceSettingPageActivity : ScBaseActivity() {
 
     private lateinit var settingModel: SettingViewModel
-    private lateinit var binding: ActivityCustomPageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCustomPageBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_custom_page)
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
@@ -34,31 +32,29 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
 
     private fun setListener() {
 
-        binding.ivBack.setOnClickListener { finish() }
+        iv_back.setOnClickListener { finish() }
 
-        binding.itemSettingProximityDetect.listener =
-            object : SCSettingSwitchItem.OnItemClickListener {
-                override fun onItemCLick() {
-                }
-
-                override fun onSwitchClick() {
-                    val switchCurr = settingModel.switchOfProximity.value ?: false
-                    settingModel.switchOfProximity.postValue(!switchCurr)
-                }
+        item_setting_proximity_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
+            override fun onItemCLick() {
             }
 
-        binding.itemSettingOngoingDetect.listener =
-            object : SCSettingSwitchItem.OnItemClickListener {
-                override fun onItemCLick() {
-                }
+            override fun onSwitchClick() {
+                val switchCurr = settingModel.switchOfProximity.value ?: false
+                settingModel.switchOfProximity.postValue(!switchCurr)
+            }
+        }
 
-                override fun onSwitchClick() {
-                    val switchCurr = settingModel.ongoingOptimize.value ?: false
-                    settingModel.ongoingOptimize.postValue(!switchCurr)
-                }
+        item_setting_ongoing_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
+            override fun onItemCLick() {
             }
 
-        binding.itemSettingRadicalOngoingDetect.listener =
+            override fun onSwitchClick() {
+                val switchCurr = settingModel.ongoingOptimize.value ?: false
+                settingModel.ongoingOptimize.postValue(!switchCurr)
+            }
+        }
+
+        item_setting_radical_ongoing_detect.listener =
             object : SCSettingSwitchItem.OnItemClickListener {
                 override fun onSwitchClick() {
                     val switchCurr = settingModel.radicalOngoingOptimize.value ?: false
@@ -66,14 +62,14 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 }
             }
 
-        binding.itemSettingDndDetect.listener = object : SCSettingSwitchItem.OnItemClickListener {
+        item_setting_dnd_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onSwitchClick() {
                 val switchCurr = settingModel.dndDetectBoolean.value ?: false
                 settingModel.dndDetectBoolean.postValue(!switchCurr)
             }
         }
 
-        binding.itemSettingSleepIgnore.listener = object : SCSettingSwitchItem.OnItemClickListener {
+        item_setting_sleep_ignore.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
             }
 
@@ -83,7 +79,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
         }
 
-        binding.itemSettingSleepIgnoreDetailTime.listener =
+        item_setting_sleep_ignore_detail_time.listener =
             object : SCSettingItem.OnItemClickListener {
                 override fun onItemCLick() {
                     quickStartActivity<SleepTimeSettingActivity>()
@@ -91,7 +87,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
 
         settingModel.switchOfProximity.observe(this, Observer {
-            binding.itemSettingProximityDetect.bindData(
+            item_setting_proximity_detect.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
@@ -107,7 +103,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.ongoingOptimize.observe(this, Observer {
-            binding.itemSettingOngoingDetect.bindData(
+            item_setting_ongoing_detect.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
@@ -115,7 +111,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.radicalOngoingOptimize.observe(this, Observer {
-            binding.itemSettingRadicalOngoingDetect.bindData(
+            item_setting_radical_ongoing_detect.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
@@ -123,7 +119,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.dndDetectBoolean.observe(this, Observer {
-            binding.itemSettingDndDetect.bindData(
+            item_setting_dnd_detect.bindData(
                 null,
                 null,
                 it
@@ -131,17 +127,16 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.sleepModeBoolean.observe(this, Observer {
-            binding.itemSettingSleepIgnore.bindData(
+            item_setting_sleep_ignore.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
             )
-            binding.itemSettingSleepIgnoreDetailTime.visibility =
-                if (it) View.VISIBLE else View.GONE
+            item_setting_sleep_ignore_detail_time.visibility = if (it) View.VISIBLE else View.GONE
         })
 
         settingModel.sleepModeTimeRange.observe(this, Observer {
-            binding.itemSettingSleepIgnoreDetailTime.bindData(
+            item_setting_sleep_ignore_detail_time.bindData(
                 null,
                 "${resources.getString(R.string.sleep_mode_open_desc)} ${it.first}:00➡️${it.second}:00"
             )

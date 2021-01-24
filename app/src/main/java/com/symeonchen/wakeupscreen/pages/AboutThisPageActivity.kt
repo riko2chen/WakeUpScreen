@@ -8,12 +8,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
-import com.symeonchen.wakeupscreen.databinding.ActivityAboutThisBinding
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.NotificationUtils
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
-
+import kotlinx.android.synthetic.main.activity_about_this.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -22,12 +21,10 @@ class AboutThisPageActivity : ScBaseActivity() {
 
     private var alertDialog: AlertDialog? = null
     private lateinit var settingModel: SettingViewModel
-    private lateinit var binding: ActivityAboutThisBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAboutThisBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_about_this)
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
@@ -35,23 +32,23 @@ class AboutThisPageActivity : ScBaseActivity() {
 
     private fun setListener() {
 
-        binding.ivBack.setOnClickListener { finish() }
+        iv_back.setOnClickListener { finish() }
 
-        binding.itemSettingDebugModeToast.listener = object : SCSettingItem.OnItemClickListener {
+        item_setting_debug_mode_toast.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 initDebugModeDialog()
             }
         }
 
-        binding.itemSettingDebugModeEntry.setOnClickListener {
+        item_setting_debug_mode_entry.setOnClickListener {
             this.quickStartActivity<DebugPageActivity>()
         }
 
-        binding.itemSettingAppIntroduce.setOnClickListener {
+        item_setting_app_introduce.setOnClickListener {
             this.quickStartActivity<AppInfoPageActivity>()
         }
 
-        binding.itemSettingDebugDelayToWake.setOnClickListener {
+        item_setting_debug_delay_to_wake.setOnClickListener {
             it.postDelayed({
                 NotificationUtils(this.applicationContext).sendNotification(
                     1,
@@ -63,14 +60,14 @@ class AboutThisPageActivity : ScBaseActivity() {
         }
 
         settingModel.switchOfDebugMode.observe(this, Observer {
-            binding.itemSettingDebugModeToast.bindData(
+            item_setting_debug_mode_toast.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close)
             )
             if (it) {
-                binding.itemSettingDebugModeEntry.visibility = View.VISIBLE
+                item_setting_debug_mode_entry.visibility = View.VISIBLE
             } else {
-                binding.itemSettingDebugModeEntry.visibility = View.GONE
+                item_setting_debug_mode_entry.visibility = View.GONE
             }
 
         })

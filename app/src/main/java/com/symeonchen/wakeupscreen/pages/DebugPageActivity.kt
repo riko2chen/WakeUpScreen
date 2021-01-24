@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.NotifyItem
-import com.symeonchen.wakeupscreen.databinding.ActivityDebugPageBinding
 import com.symeonchen.wakeupscreen.model.NotifyItemViewModel
+import kotlinx.android.synthetic.main.activity_debug_page.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,11 +17,9 @@ class DebugPageActivity : ScBaseActivity() {
 
     private var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     private var viewModel: NotifyItemViewModel? = null
-    private lateinit var binding: ActivityDebugPageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDebugPageBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_debug_page)
         initViewModel()
         setListener()
@@ -35,22 +33,22 @@ class DebugPageActivity : ScBaseActivity() {
         viewModel?.allNotifyItem?.observe(this, androidx.lifecycle.Observer {
             updateView(it)
         })
-        binding.ivBack.setOnClickListener { finish() }
-        binding.tvClearAll.setOnClickListener {
+        iv_back.setOnClickListener { finish() }
+        tv_clear_all.setOnClickListener {
             viewModel?.clearAll()
         }
     }
 
     private fun updateView(it: List<NotifyItem>?) {
         if (it.isNullOrEmpty()) {
-            binding.tvLog.text = ""
+            tv_log.text = ""
         } else {
             var str = ""
             for (item in it) {
                 val itemStr = "\n ${sdf.format(item.time)} : ${item.appName}"
                 str += itemStr
             }
-            binding.tvLog.text = str
+            tv_log.text = str
         }
     }
 

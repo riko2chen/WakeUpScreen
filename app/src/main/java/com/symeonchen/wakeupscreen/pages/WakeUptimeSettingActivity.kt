@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
-import com.symeonchen.wakeupscreen.databinding.ActivityWakeUpTimeBinding
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.model.WakeUpTimeViewModel
+import kotlinx.android.synthetic.main.activity_wake_up_time.*
 
 
 /**
@@ -18,11 +18,9 @@ import com.symeonchen.wakeupscreen.model.WakeUpTimeViewModel
 class WakeUptimeSettingActivity : ScBaseActivity() {
 
     private var viewModel: WakeUpTimeViewModel? = null
-    private lateinit var binding: ActivityWakeUpTimeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWakeUpTimeBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_wake_up_time)
         initViewModel()
         setListener()
@@ -40,27 +38,27 @@ class WakeUptimeSettingActivity : ScBaseActivity() {
     }
 
     private fun setViewListener() {
-        binding.btnTimeSecond1.setOnClickListener {
+        btn_time_second_1.setOnClickListener {
             viewModel?.temporaryTimeOfWakeUpScreen?.postValue(1000L)
         }
-        binding.btnTimeSecond2.setOnClickListener {
+        btn_time_second_2.setOnClickListener {
             viewModel?.temporaryTimeOfWakeUpScreen?.postValue(2000L)
         }
-        binding.btnTimeSecond3.setOnClickListener {
+        btn_time_second_3.setOnClickListener {
             viewModel?.temporaryTimeOfWakeUpScreen?.postValue(3000L)
         }
-        binding.btnTimeSecond4.setOnClickListener {
+        btn_time_second_4.setOnClickListener {
             viewModel?.temporaryTimeOfWakeUpScreen?.postValue(4000L)
         }
-        binding.btnTimeSecond5.setOnClickListener {
+        btn_time_second_5.setOnClickListener {
             viewModel?.temporaryTimeOfWakeUpScreen?.postValue(5000L)
         }
 
-        binding.ivBack.setOnClickListener {
+        iv_back.setOnClickListener {
             finish()
         }
 
-        binding.tvSave.setOnClickListener {
+        tv_save.setOnClickListener {
             tryToSaveWakeUpTime()
         }
 
@@ -69,49 +67,24 @@ class WakeUptimeSettingActivity : ScBaseActivity() {
     private fun setDataObserver() {
         viewModel?.temporaryTimeOfWakeUpScreen?.observe(this, Observer {
             val second = it / 1000
-            binding.etWakeTime.setText("$second")
+            et_wake_time.setText("$second")
             refreshBtnView(second)
         })
 
     }
 
     private fun refreshBtnView(second: Long) {
-        binding.btnTimeSecond1.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        binding.btnTimeSecond2.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        binding.btnTimeSecond3.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        binding.btnTimeSecond4.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        binding.btnTimeSecond5.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
+        btn_time_second_1.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
+        btn_time_second_2.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
+        btn_time_second_3.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
+        btn_time_second_4.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
+        btn_time_second_5.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
         when (second) {
-            1L -> binding.btnTimeSecond1.setBackgroundColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.green
-                )
-            )
-            2L -> binding.btnTimeSecond2.setBackgroundColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.green
-                )
-            )
-            3L -> binding.btnTimeSecond3.setBackgroundColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.green
-                )
-            )
-            4L -> binding.btnTimeSecond4.setBackgroundColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.green
-                )
-            )
-            5L -> binding.btnTimeSecond5.setBackgroundColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.green
-                )
-            )
+            1L -> btn_time_second_1.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+            2L -> btn_time_second_2.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+            3L -> btn_time_second_3.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+            4L -> btn_time_second_4.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+            5L -> btn_time_second_5.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
             else -> {
             }
         }
@@ -126,7 +99,7 @@ class WakeUptimeSettingActivity : ScBaseActivity() {
 
         val etNum =
             try {
-                binding.etWakeTime.text.toString().toLong()
+                et_wake_time.text.toString().toLong()
             } catch (nfe: NumberFormatException) {
                 nfe.printStackTrace()
                 -1L
