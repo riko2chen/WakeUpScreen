@@ -1,5 +1,7 @@
 package com.symeonchen.wakeupscreen.services
 
+import android.content.ComponentName
+import android.os.Build
 import android.os.PowerManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
@@ -8,6 +10,7 @@ import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.ListenerManager
 import com.symeonchen.wakeupscreen.services.notification.conditions.*
 import com.symeonchen.wakeupscreen.utils.DataInjection
+import java.lang.Exception
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -26,6 +29,21 @@ class ScNotificationListenerService : NotificationListenerService() {
             .register(OnGoingNotificationCondition())
             .register(SleepModeCondition())
             .register(DndCondition())
+    }
+
+    override fun onListenerDisconnected() {
+        super.onListenerDisconnected()
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                requestRebind(
+                    ComponentName(
+                        applicationContext, ScNotificationListenerService::class.java
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
