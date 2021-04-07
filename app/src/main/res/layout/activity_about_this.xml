@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".pages.DebugPageActivity">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_header"
@@ -69,22 +68,6 @@
                 android:paddingStart="24dp"
                 android:text="@string/debug"
                 android:textColor="@color/colorPrimary" />
-
-            <com.symeonchen.uicomponent.views.SCSettingItem
-                android:id="@+id/item_setting_debug_mode_toast"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_item_title_main="@string/debug_mode"
-                app:sc_setting_item_title_second="@string/already_close" />
-
-            <com.symeonchen.uicomponent.views.SCSettingItem
-                android:id="@+id/item_setting_debug_mode_entry"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:visibility="gone"
-                app:sc_setting_item_title_main="@string/debug_mode_entry"
-                app:sc_setting_item_title_second="@string/click_to_enter_debug_page"
-                tools:visibility="visible" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_debug_delay_to_wake"

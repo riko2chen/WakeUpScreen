@@ -26,6 +26,7 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.fakeSwitchOfBatterySaver)
         }
 
+    @Deprecated("Remove debugMode and database")
     var switchOfDebugMode: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.switchOfDebugMode)
@@ -46,6 +47,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.radicalOngoingOptimize)
         }
 
+    var radicalOngoingNotificationSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.radicalOngoingNotificationSwitch)
+        }
+
     var languageSelected: ScLiveData<LanguageInfo> = ScLiveData<LanguageInfo>()
         .apply {
             setValue(DataInjection.languageSelected)
@@ -58,8 +64,8 @@ class SettingViewModel : ViewModel() {
 
     var sleepModeTimeRange: ScLiveData<Pair<Int, Int>> = ScLiveData<Pair<Int, Int>>()
         .apply {
-        setValue(Pair(DataInjection.sleepModeTimeBeginHour, DataInjection.sleepModeTimeEndHour))
-    }
+            setValue(Pair(DataInjection.sleepModeTimeBeginHour, DataInjection.sleepModeTimeEndHour))
+        }
 
     var dndDetectBoolean: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
@@ -88,13 +94,6 @@ class SettingViewModel : ViewModel() {
             }
         }
 
-        switchOfDebugMode.listener = object :
-            ScLiveData.OnLiveDataValueInput<Boolean> {
-            override fun onValueInput(value: Boolean) {
-                DataInjection.switchOfDebugMode = value
-            }
-        }
-
         modeOfCurrent.listener = object : ScLiveData.OnLiveDataValueInput<CurrentMode> {
             override fun onValueInput(value: CurrentMode) {
                 DataInjection.modeOfCurrent = value
@@ -104,6 +103,18 @@ class SettingViewModel : ViewModel() {
         ongoingOptimize.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.ongoingOptimize = value
+            }
+        }
+
+        radicalOngoingOptimize.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.radicalOngoingOptimize = value
+            }
+        }
+
+        radicalOngoingNotificationSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.radicalOngoingNotificationSwitch = value
             }
         }
 

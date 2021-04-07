@@ -85,5 +85,6 @@
     <string name="close_app_notice">此操作将关闭应用，请在此之后重新打开它。</string>
     <string name="include_system_app">包括系统应用</string>
     <string name="radical_ongoing_detact">严格的持续通知过滤（实验功能）</string>
+    <string name="running_to_prevent_kill_app">服务正常运行中</string>
 
 </resources>

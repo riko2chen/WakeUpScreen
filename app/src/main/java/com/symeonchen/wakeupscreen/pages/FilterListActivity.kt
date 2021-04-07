@@ -24,7 +24,6 @@ import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.model.FilterListViewModel
 import com.symeonchen.wakeupscreen.utils.UiTools
 import kotlinx.android.synthetic.main.activity_app_filter_list.*
-import kotlinx.android.synthetic.main.activity_debug_page.iv_back
 
 /**
  * Created by SymeonChen on 2019-10-27.

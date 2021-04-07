@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:name=".ScApplication"
@@ -15,7 +16,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".pages.AdvanceSettingPageActivity" />
         <activity android:name=".pages.AboutThisPageActivity" />
-        <activity android:name=".pages.DebugPageActivity" />
         <activity android:name=".pages.FilterListActivity" />
         <activity android:name=".pages.AppInfoPageActivity" />
         <activity android:name=".pages.SleepTimeSettingActivity" />
