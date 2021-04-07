@@ -97,5 +97,6 @@
     <string name="close_app_notice">This action will close Application, please reopen the APP after that.</string>
     <string name="include_system_app">Include system APP</string>
     <string name="radical_ongoing_detact">Radical Ongoing Detect (unstable)</string>
+    <string name="running_to_prevent_kill_app">Service is running</string>
 
 </resources>

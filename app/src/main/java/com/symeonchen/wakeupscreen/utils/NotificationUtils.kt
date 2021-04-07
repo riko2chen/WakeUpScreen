@@ -57,7 +57,7 @@ class NotificationUtils(appContext: Context) : ContextWrapper(appContext) {
         manager!!.createNotificationChannel(channel)
     }
 
-    private fun getNotification(title: String, content: String): NotificationCompat.Builder {
+    fun getNotification(title: String, content: String): NotificationCompat.Builder {
         return NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setContentTitle(title)
             .setContentText(content)
