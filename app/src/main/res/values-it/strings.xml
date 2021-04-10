@@ -98,5 +98,6 @@
     <string name="include_system_app">Includi APP di sistema</string>
     <string name="radical_ongoing_detact">Detección continua radical (inestable)</string>
     <string name="running_to_prevent_kill_app">Servizio in esecuzione</string>
+    <string name="show_notification_when_service_start">Mostra notifica dopo l\'inizio del servizio(Esso avrà effetto dopo che il telefono sarà riavviato)</string>
 
 </resources>
