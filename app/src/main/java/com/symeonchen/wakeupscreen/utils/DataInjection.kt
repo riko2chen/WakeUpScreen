@@ -18,6 +18,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PERSISTENT_NOTIFICATION
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_BOOLEAN
@@ -32,6 +33,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
+import com.symeonchen.wakeupscreen.data.ScConstant.PERSISTENT_NOTIFICATION
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
@@ -231,5 +233,16 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV().putString(LAST_IN_APP_REVIEW_TIMESTAMP, value)
+        }
+
+    var persistentNotification: Boolean
+        get() {
+            return MMKV.defaultMMKV().getBoolean(
+                PERSISTENT_NOTIFICATION,
+                DEFAULT_PERSISTENT_NOTIFICATION
+            )
+        }
+        set(value) {
+            MMKV.defaultMMKV().putBoolean(PERSISTENT_NOTIFICATION, value)
         }
 }

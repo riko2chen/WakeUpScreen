@@ -23,6 +23,7 @@ object ScConstant {
     const val SLEEP_MODE_TIME_END = "sleep_mode_time_end"
     const val DND_DETECT_SWITCH = "dnd_detect_switch"
     const val LAST_IN_APP_REVIEW_TIMESTAMP = "last_in_app_review_timestamp"
+    const val PERSISTENT_NOTIFICATION = "persistent_notification"
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
@@ -43,6 +44,7 @@ object ScConstant {
     const val DEFAULT_SLEEP_MODE_TIME_END_HOUR = 4
     const val DEFAULT_DND_DETECT_SWITCH = true
     const val DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP = "0"
+    const val DEFAULT_PERSISTENT_NOTIFICATION = true
 
 
     const val AUTHOR_MAIL = "symeonchen@gmail.com"

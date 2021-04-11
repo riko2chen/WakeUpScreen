@@ -73,6 +73,14 @@
                 app:sc_setting_switch_item_title_second="@string/already_open" />
 
             <com.symeonchen.uicomponent.views.SCSettingSwitchItem
+                android:id="@+id/item_show_persistent_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:sc_setting_item_title_main="@string/show_notification_when_service_start"
+                tools:visibility="visible" />
+
+            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
                 android:id="@+id/item_setting_dnd_detect"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
