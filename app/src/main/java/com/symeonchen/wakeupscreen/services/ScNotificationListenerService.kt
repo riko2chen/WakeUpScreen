@@ -27,6 +27,9 @@ class ScNotificationListenerService : NotificationListenerService() {
 
     override fun onCreate() {
         super.onCreate()
+        if (!DataInjection.persistentNotification) {
+            return
+        }
         val notificationBuilder = NotificationUtils(this).getNotification(
             resources.getString(R.string.app_name),
             resources.getString(R.string.running_to_prevent_kill_app)

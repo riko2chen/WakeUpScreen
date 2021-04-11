@@ -26,6 +26,7 @@ import com.symeonchen.wakeupscreen.states.NotificationState.Companion.closeNotif
 import com.symeonchen.wakeupscreen.states.NotificationState.Companion.openNotificationService
 import com.symeonchen.wakeupscreen.states.PermissionState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
+import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.android.synthetic.main.fragment_layout_main.*
 import kotlinx.coroutines.launch
 
@@ -83,23 +84,23 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun setDataListener() {
-        statusModel.statusOfService.observe(viewLifecycleOwner, Observer {
+        statusModel.statusOfService.observe(viewLifecycleOwner, {
             main_item_service.setState(it)
             main_item_service.setBtnText(resources.getString(if (it) R.string.click_to_close else R.string.click_to_open))
             refresh()
         })
 
-        statusModel.permissionOfReadNotification.observe(viewLifecycleOwner, Observer {
+        statusModel.permissionOfReadNotification.observe(viewLifecycleOwner, {
             main_item_permission_notification.setState(it)
             refresh()
         })
 
-        settingModel.switchOfApp.observe(viewLifecycleOwner, Observer {
+        settingModel.switchOfApp.observe(viewLifecycleOwner, {
             btn_control.isChecked = it
             refresh()
         })
 
-        settingModel.fakeSwitchOfBatterySaver.observe(viewLifecycleOwner, Observer {
+        settingModel.fakeSwitchOfBatterySaver.observe(viewLifecycleOwner, {
             main_item_battery_saver.setState(it)
         })
 
@@ -159,19 +160,13 @@ class ScMainFragment : ScBaseFragment() {
             if (tv_reset_application?.visibility != View.VISIBLE) {
                 return@setOnClickListener
             }
-            onResetAppClick()
+            jumpToAdvanceSettingPage()
         }
     }
 
     @Synchronized
-    private fun onResetAppClick() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(requireContext())
-        alertDialog = builder.setMessage(
-            resources.getString(R.string.close_app_notice)
-        ).setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
-            resetApp()
-        }.create().apply { show() }
+    private fun jumpToAdvanceSettingPage() {
+        context?.run { this.quickStartActivity<AdvanceSettingPageActivity>() }
     }
 
     @Synchronized

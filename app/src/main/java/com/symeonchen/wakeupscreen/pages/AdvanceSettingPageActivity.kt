@@ -86,6 +86,14 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 }
             }
 
+        item_show_persistent_notification.listener =
+            object : SCSettingSwitchItem.OnItemClickListener {
+                override fun onSwitchClick() {
+                    val switchCurr = settingModel.persistentSwitch.value ?: false
+                    settingModel.persistentSwitch.postValue(!switchCurr)
+                }
+            }
+
         settingModel.switchOfProximity.observe(this, Observer {
             item_setting_proximity_detect.bindData(
                 null,
@@ -113,6 +121,14 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         settingModel.radicalOngoingOptimize.observe(this, Observer {
             item_setting_radical_ongoing_detect.bindData(
                 null,
+                resources.getString(if (it) R.string.already_open else R.string.already_close),
+                it
+            )
+        })
+
+        settingModel.persistentSwitch.observe(this, {
+            item_show_persistent_notification.bindData(
+                resources.getString(R.string.show_notification_when_service_start),
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
             )
