@@ -93,7 +93,7 @@
     <string name="wake_up_time_limitaon_desc">Notice: \nIn many Devices, this setting will not work properly. \nThis is a limitation by the system.</string>
     <string name="invalid_number">Invalid number</string>
     <string name="saved_successfully">Saved successfully</string>
-    <string name="still_have_problem">Still having problems? Click here to reset the application.</string>
+    <string name="still_have_problem">Still having problems? Click here to open setting</string>
     <string name="close_app_notice">This action will close Application, please reopen the APP after that.</string>
     <string name="include_system_app">Include system APP</string>
     <string name="radical_ongoing_detact">Radical Ongoing Detect (unstable)</string>

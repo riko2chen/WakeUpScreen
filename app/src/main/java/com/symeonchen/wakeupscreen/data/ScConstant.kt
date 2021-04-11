@@ -44,7 +44,7 @@ object ScConstant {
     const val DEFAULT_SLEEP_MODE_TIME_END_HOUR = 4
     const val DEFAULT_DND_DETECT_SWITCH = true
     const val DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP = "0"
-    const val DEFAULT_PERSISTENT_NOTIFICATION = false
+    const val DEFAULT_PERSISTENT_NOTIFICATION = true
 
 
     const val AUTHOR_MAIL = "symeonchen@gmail.com"

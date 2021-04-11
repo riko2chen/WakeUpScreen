@@ -93,7 +93,7 @@
     <string name="wake_up_time_limitaon_desc">Avviso: \nin molti dispositivi, questa impostazione non funzionerà correttamente. \nQuesta è una limitazione del sistema.</string>
     <string name="invalid_number">Numero non valido</string>
     <string name="saved_successfully">Salvato con successo</string>
-    <string name="still_have_problem">Hai ancora problemi? Fai clic qui per ripristinare l\'applicazione.</string>
+    <string name="still_have_problem">Hai ancora problemi?Clicca qui per aprire l\'impostazione</string>
     <string name="close_app_notice">Questa azione chiuderà l\'Applicazione, quindi riaprire l\'APP successivamente.</string>
     <string name="include_system_app">Includi APP di sistema</string>
     <string name="radical_ongoing_detact">Detección continua radical (inestable)</string>
