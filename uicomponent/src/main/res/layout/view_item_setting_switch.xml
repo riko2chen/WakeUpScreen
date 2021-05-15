@@ -14,7 +14,7 @@
         android:id="@+id/tv_title_main"
         tools:text="Title Main"
         android:textSize="18dp"
-        android:textColor="#000"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintVertical_chainStyle="packed"
