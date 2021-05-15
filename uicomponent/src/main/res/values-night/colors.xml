@@ -6,7 +6,7 @@
     <color name="gray">#5C5C5C</color>
     <color name="lite_gray">#ACACAC</color>
     <color name="deep_gray">#2B2B2B</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="white">#353535</color>
+    <color name="black">#E6E6E6</color>
 
 </resources>
