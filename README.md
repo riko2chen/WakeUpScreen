@@ -27,7 +27,8 @@ Specially for Samsung S10 optimization. Also compatible with other devices.
 ## Features
 
 1. Open source.
-2. No internet access.
+2. No internet access required.
 3. Support Pocket Mode.
 4. Support for custom APP lists.
-5. Support for custom screen time.
+5. Support dark mode.
+6. More...

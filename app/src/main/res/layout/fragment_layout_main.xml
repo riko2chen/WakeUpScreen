@@ -99,6 +99,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
+        android:textColor="@color/gray"
         android:text="@string/still_have_problem"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

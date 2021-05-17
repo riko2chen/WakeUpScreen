@@ -29,7 +29,6 @@ class ScSettingFragment : ScBaseFragment() {
 
     private var alertDialog: AlertDialog? = null
     private lateinit var settingModel: SettingViewModel
-    private var playStoreToolInstance: PlayStoreTools? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,8 +43,6 @@ class ScSettingFragment : ScBaseFragment() {
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
-        playStoreToolInstance = PlayStoreTools.newInstance(context)
-        playStoreToolInstance?.prepare()
     }
 
     private fun setListener() {
@@ -116,10 +113,10 @@ class ScSettingFragment : ScBaseFragment() {
         }
 
         item_setting_give_star.setOnClickListener {
-            playStoreToolInstance?.openPlayStore(activity)
+            PlayStoreTools.openPlayStoreWithUrl(context)
         }
 
-        settingModel.modeOfCurrent.observe(viewLifecycleOwner, Observer {
+        settingModel.modeOfCurrent.observe(viewLifecycleOwner) {
             item_setting_current_mode.bindData(
                 null,
                 resources.getString(
@@ -145,14 +142,14 @@ class ScSettingFragment : ScBaseFragment() {
                     item_setting_black_list_entry.visibility = View.GONE
                 }
             }
-        })
+        }
 
-        settingModel.languageSelected.observe(viewLifecycleOwner, Observer {
+        settingModel.languageSelected.observe(viewLifecycleOwner) {
             item_setting_language.bindData(
                 null,
                 it.desc
             )
-        })
+        }
 
     }
 
