@@ -6,11 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,9 +17,10 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.databinding.ActivityAppFilterListBinding
+import com.symeonchen.wakeupscreen.databinding.ItemWhiteListBinding
 import com.symeonchen.wakeupscreen.model.FilterListViewModel
 import com.symeonchen.wakeupscreen.utils.UiTools
-import kotlinx.android.synthetic.main.activity_app_filter_list.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -49,9 +46,11 @@ class FilterListActivity : ScBaseActivity() {
     }
 
 
+    private val binding by lazy { ActivityAppFilterListBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_app_filter_list)
+
+        setContentView(binding.root)
         initViewModel()
         initView()
         setListener()
@@ -79,36 +78,36 @@ class FilterListActivity : ScBaseActivity() {
         viewModel?.initIntent(intent)
         val currentModeValue = viewModel?.currentModeValue!!
 
-        tv_title.text = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
+        binding.tvTitle.text = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
             resources.getString(R.string.black_list)
         } else {
             resources.getString(R.string.white_list)
         }
 
-        adapter = WhiteListViewAdapter(rv_app_list, mutableListOf())
-        rv_app_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        rv_app_list.adapter = adapter
+        adapter = WhiteListViewAdapter(binding.rvAppList, mutableListOf())
+        binding.rvAppList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.rvAppList.adapter = adapter
 
         val hints = if (currentModeValue == CurrentMode.MODE_BLACK_LIST.ordinal) {
             resources.getString(R.string.black_list_hints)
         } else {
             resources.getString(R.string.white_list_hints)
         }
-        tv_log_head_hint.text = hints
+        binding.tvLogHeadHint.text = hints
     }
 
     private fun setListener() {
-        iv_back.setOnClickListener { finish() }
+        binding.ivBack.setOnClickListener { finish() }
 
-        tv_save.setOnClickListener {
+        binding.tvSave.setOnClickListener {
             viewModel?.saveList()
             ToastUtils.showLong(resources.getString(R.string.saved_successfully))
             finish()
         }
 
-        et_search_filter.addTextChangedListener(textWatcher)
+        binding.etSearchFilter.addTextChangedListener(textWatcher)
 
-        cb_search_switch_system_app.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbSearchSwitchSystemApp.setOnCheckedChangeListener { _, isChecked ->
             viewModel?.includeSystemApp = isChecked
         }
 
@@ -126,13 +125,13 @@ class FilterListActivity : ScBaseActivity() {
     }
 
     private fun getData() {
-        UiTools.instance.showLoading(this, view_loading)
+        UiTools.instance.showLoading(this, binding.viewLoading)
         viewModel?.readAllApp()
     }
 
     override fun onDestroy() {
         try {
-            et_search_filter?.removeTextChangedListener(textWatcher)
+            binding.etSearchFilter.removeTextChangedListener(textWatcher)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -152,8 +151,9 @@ class FilterListActivity : ScBaseActivity() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WhiteListHolder {
+
             val v = LayoutInflater.from(mContext).inflate(R.layout.item_white_list, parent, false)
-            return WhiteListHolder(v)
+            return WhiteListHolder(ItemWhiteListBinding.bind(v))
         }
 
         override fun getItemCount(): Int {
@@ -161,13 +161,13 @@ class FilterListActivity : ScBaseActivity() {
         }
 
         override fun onBindViewHolder(holder: WhiteListHolder, position: Int) {
-            holder.tvAppSimpleName?.text = this.dataList[position].simpleName
-            holder.tvAppPackageName?.text = this.dataList[position].packageName
-            holder.cbAppSelect?.isChecked = this.dataList[position].selected
+            holder.binding.tvAppPackageName.text = this.dataList[position].simpleName
+            holder.binding.tvAppPackageName.text = this.dataList[position].packageName
+            holder.binding.cbAppSelect.isChecked = this.dataList[position].selected
             try {
                 Glide.with(mContext!!)
                     .load(dataList[position].iconDrawable)
-                    .into(holder.ivIcon!!)
+                    .into(holder.binding.ivAppIcon)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -175,25 +175,13 @@ class FilterListActivity : ScBaseActivity() {
                 this.dataList[position].selected = !this.dataList[position].selected
                 notifyItemChanged(position, this.dataList[position])
             }
-            holder.cbAppSelect?.setOnClickListener {
+            holder.binding.cbAppSelect.setOnClickListener {
                 this.dataList[position].selected = !this.dataList[position].selected
                 notifyItemChanged(position, this.dataList[position])
             }
         }
 
-        class WhiteListHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            var ivIcon: ImageView? = null
-            var tvAppSimpleName: TextView? = null
-            var tvAppPackageName: TextView? = null
-            var cbAppSelect: CheckBox? = null
-
-            init {
-                ivIcon = itemView.findViewById(R.id.iv_app_icon)
-                tvAppSimpleName = itemView.findViewById(R.id.tv_app_simple_name)
-                tvAppPackageName = itemView.findViewById(R.id.tv_app_package_name)
-                cbAppSelect = itemView.findViewById(R.id.cb_app_select)
-            }
-        }
+        class WhiteListHolder(var binding: ItemWhiteListBinding) : RecyclerView.ViewHolder(binding.root)
 
     }
 }

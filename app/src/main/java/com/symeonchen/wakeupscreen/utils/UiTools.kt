@@ -25,7 +25,7 @@ class UiTools private constructor() {
         val rootView =
             if (container == null) {
                 val currActivity: Activity? = ActivityUtils.getActivityByContext(context)
-                currActivity?.findViewById<ViewGroup>(android.R.id.content)
+                currActivity?.findViewById(android.R.id.content)
             } else {
                 container
             }

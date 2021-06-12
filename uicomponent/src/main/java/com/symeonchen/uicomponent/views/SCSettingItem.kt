@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.symeonchen.uicomponent.R
-import kotlinx.android.synthetic.main.view_item_setting_double_line.view.*
+import com.symeonchen.uicomponent.databinding.ViewItemSettingDoubleLineBinding
 
 class SCSettingItem @JvmOverloads constructor(
     context: Context,
@@ -14,16 +14,16 @@ class SCSettingItem @JvmOverloads constructor(
     defStyle: Int = 0
 ) : ConstraintLayout(context, attrs, defStyle) {
 
-    private var v: View? = null
     private var titleMain = ""
     private var titleSecond = ""
     private var singleLine = false
 
     var listener: OnItemClickListener? = null
+    private val binding: ViewItemSettingDoubleLineBinding by lazy {
+        ViewItemSettingDoubleLineBinding.inflate(LayoutInflater.from(context), this)
+    }
 
     init {
-        v = LayoutInflater.from(context).inflate(R.layout.view_item_setting_double_line, this, true)
-
         initBackground()
         initCustomValue(attrs)
         setListener()
@@ -65,9 +65,9 @@ class SCSettingItem @JvmOverloads constructor(
     }
 
     private fun refresh() {
-        tv_title_main.text = titleMain
-        tv_title_second.text = titleSecond
-        tv_title_second.visibility = if (singleLine) View.GONE else View.VISIBLE
+        binding.tvTitleMain.text = titleMain
+        binding.tvTitleSecond.text = titleSecond
+        binding.tvTitleSecond.visibility = if (singleLine) View.GONE else View.VISIBLE
     }
 
     interface OnItemClickListener {

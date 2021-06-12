@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -38,10 +36,13 @@ android {
             proguardFiles getDefaultProguardFile(
                     'proguard-android-optimize.txt'),
                     'proguard-rules.pro'
-            ndk{
+            ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a"
             }
         }
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 

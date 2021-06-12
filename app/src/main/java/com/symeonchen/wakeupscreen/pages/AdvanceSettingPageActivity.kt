@@ -13,7 +13,7 @@ import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
-import kotlinx.android.synthetic.main.activity_custom_page.*
+import com.symeonchen.wakeupscreen.databinding.ActivityCustomPageBinding
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -22,9 +22,10 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
 
     private lateinit var settingModel: SettingViewModel
 
+    private val binding by lazy { ActivityCustomPageBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_custom_page)
+        setContentView(binding.root)
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
@@ -32,9 +33,9 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
 
     private fun setListener() {
 
-        iv_back.setOnClickListener { finish() }
+        binding.ivBack.setOnClickListener { finish() }
 
-        item_setting_proximity_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
+        binding.itemSettingProximityDetect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
             }
 
@@ -44,7 +45,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
         }
 
-        item_setting_ongoing_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
+        binding.itemSettingOngoingDetect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
             }
 
@@ -54,7 +55,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
         }
 
-        item_setting_radical_ongoing_detect.listener =
+        binding.itemSettingRadicalOngoingDetect.listener =
             object : SCSettingSwitchItem.OnItemClickListener {
                 override fun onSwitchClick() {
                     val switchCurr = settingModel.radicalOngoingOptimize.value ?: false
@@ -62,14 +63,14 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 }
             }
 
-        item_setting_dnd_detect.listener = object : SCSettingSwitchItem.OnItemClickListener {
+        binding.itemSettingDndDetect.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onSwitchClick() {
                 val switchCurr = settingModel.dndDetectBoolean.value ?: false
                 settingModel.dndDetectBoolean.postValue(!switchCurr)
             }
         }
 
-        item_setting_sleep_ignore.listener = object : SCSettingSwitchItem.OnItemClickListener {
+        binding.itemSettingSleepIgnore.listener = object : SCSettingSwitchItem.OnItemClickListener {
             override fun onItemCLick() {
             }
 
@@ -79,14 +80,14 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
         }
 
-        item_setting_sleep_ignore_detail_time.listener =
+        binding.itemSettingSleepIgnoreDetailTime.listener =
             object : SCSettingItem.OnItemClickListener {
                 override fun onItemCLick() {
                     quickStartActivity<SleepTimeSettingActivity>()
                 }
             }
 
-        item_show_persistent_notification.listener =
+        binding.itemShowPersistentNotification.listener =
             object : SCSettingSwitchItem.OnItemClickListener {
                 override fun onSwitchClick() {
                     val switchCurr = settingModel.persistentSwitch.value ?: false
@@ -95,7 +96,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             }
 
         settingModel.switchOfProximity.observe(this, Observer {
-            item_setting_proximity_detect.bindData(
+            binding.itemSettingProximityDetect.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
@@ -111,7 +112,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.ongoingOptimize.observe(this, Observer {
-            item_setting_ongoing_detect.bindData(
+            binding.itemSettingOngoingDetect.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
@@ -119,7 +120,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.radicalOngoingOptimize.observe(this, Observer {
-            item_setting_radical_ongoing_detect.bindData(
+            binding.itemSettingRadicalOngoingDetect.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
@@ -127,7 +128,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.persistentSwitch.observe(this, {
-            item_show_persistent_notification.bindData(
+            binding.itemShowPersistentNotification.bindData(
                 resources.getString(R.string.show_notification_when_service_start),
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
@@ -135,7 +136,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.dndDetectBoolean.observe(this, Observer {
-            item_setting_dnd_detect.bindData(
+            binding.itemSettingDndDetect.bindData(
                 null,
                 null,
                 it
@@ -143,16 +144,16 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         })
 
         settingModel.sleepModeBoolean.observe(this, Observer {
-            item_setting_sleep_ignore.bindData(
+            binding.itemSettingSleepIgnore.bindData(
                 null,
                 resources.getString(if (it) R.string.already_open else R.string.already_close),
                 it
             )
-            item_setting_sleep_ignore_detail_time.visibility = if (it) View.VISIBLE else View.GONE
+            binding.itemSettingSleepIgnoreDetailTime.visibility = if (it) View.VISIBLE else View.GONE
         })
 
         settingModel.sleepModeTimeRange.observe(this, Observer {
-            item_setting_sleep_ignore_detail_time.bindData(
+            binding.itemSettingSleepIgnoreDetailTime.bindData(
                 null,
                 "${resources.getString(R.string.sleep_mode_open_desc)} ${it.first}:00➡️${it.second}:00"
             )

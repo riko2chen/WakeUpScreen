@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.databinding.ActivitySleepTimeSettingBinding
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
-import kotlinx.android.synthetic.main.activity_sleep_time_setting.*
 
 
 /**
@@ -20,9 +19,11 @@ class SleepTimeSettingActivity : ScBaseActivity() {
 
     private lateinit var settingModel: SettingViewModel
 
+    private val binding by lazy { ActivitySleepTimeSettingBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sleep_time_setting)
+
+        setContentView(binding.root)
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
@@ -32,18 +33,18 @@ class SleepTimeSettingActivity : ScBaseActivity() {
     @SuppressLint("SetTextI18n")
     private fun setListener() {
 
-        iv_back.setOnClickListener { finish() }
+        binding.ivBack.setOnClickListener { finish() }
 
         settingModel.sleepModeTimeRange.observe(this, Observer {
-            tv_begin_time_hour.text = "${it.first}:00"
-            tv_sleep_time_desc_begin_hour.text = "${it.first}:00"
+            binding.tvBeginTimeHour.text = "${it.first}:00"
+            binding.tvSleepTimeDescBeginHour.text = "${it.first}:00"
 
-            tv_end_time_hour.text = "${it.second}:00"
-            tv_sleep_time_desc_end_hour.text = "${it.second}:00"
+            binding.tvEndTimeHour.text = "${it.second}:00"
+            binding.tvSleepTimeDescEndHour.text = "${it.second}:00"
 
         })
 
-        sb_begin_time_hour.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.sbBeginTimeHour.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     settingModel.sleepModeTimeRange.postValue(
@@ -63,7 +64,7 @@ class SleepTimeSettingActivity : ScBaseActivity() {
             }
         })
 
-        sb_end_time_hour.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.sbEndTimeHour.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     settingModel.sleepModeTimeRange.postValue(
@@ -86,9 +87,9 @@ class SleepTimeSettingActivity : ScBaseActivity() {
 
 
     private fun initData() {
-        sb_begin_time_hour.progress = settingModel.sleepModeTimeRange.value?.first
+        binding.sbBeginTimeHour.progress = settingModel.sleepModeTimeRange.value?.first
             ?: ScConstant.DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR
-        sb_end_time_hour.progress = settingModel.sleepModeTimeRange.value?.second
+        binding.sbEndTimeHour.progress = settingModel.sleepModeTimeRange.value?.second
             ?: ScConstant.DEFAULT_SLEEP_MODE_TIME_END_HOUR
     }
 }
