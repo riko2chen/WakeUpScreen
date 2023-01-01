@@ -28,9 +28,9 @@ enum class LanguageInfo(val referenceNum: Int, val desc: String, private val loc
 
     fun applyLanguage() {
         if (this.locale == null) {
-            LanguageUtils.applySystemLanguage("")
+            LanguageUtils.applySystemLanguage(false)
         } else {
-            LanguageUtils.applyLanguage(this.locale, "")
+            LanguageUtils.applyLanguage(this.locale, false)
         }
     }
 }

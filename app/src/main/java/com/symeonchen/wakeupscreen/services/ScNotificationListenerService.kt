@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.PowerManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
@@ -13,6 +12,7 @@ import com.symeonchen.wakeupscreen.services.notification.ListenerManager
 import com.symeonchen.wakeupscreen.services.notification.conditions.*
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.NotificationUtils
+import kotlinx.coroutines.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -67,6 +67,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
         sbn ?: return
@@ -92,7 +93,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         )
         val sec = DataInjection.milliSecondOfWakeUpScreen
 
-        wl.acquire((sec))
+        wl.acquire(sec)
         wl.release()
 
     }

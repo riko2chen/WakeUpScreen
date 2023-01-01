@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.jaeger.library.StatusBarUtil
 import com.symeonchen.wakeupscreen.databinding.ActivityMainBinding
 import com.symeonchen.wakeupscreen.pages.ScMainFragment
 import com.symeonchen.wakeupscreen.pages.ScSettingFragment
@@ -23,7 +22,6 @@ class MainActivity : ScBaseActivity(), ViewPager.OnPageChangeListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary))
         initView()
         setListener()
     }
