@@ -20,7 +20,8 @@
         <activity android:name=".pages.AppInfoPageActivity" />
         <activity android:name=".pages.SleepTimeSettingActivity" />
         <activity android:name=".pages.WakeUptimeSettingActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -32,13 +33,15 @@
 
         <service
             android:name=".services.ScNotificationListenerService"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
 
-        <receiver android:name=".receiver.PackageReplacedReceiver">
+        <receiver android:name=".receiver.PackageReplacedReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>

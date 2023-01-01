@@ -8,23 +8,24 @@ import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
+import com.symeonchen.wakeupscreen.databinding.ActivityAboutThisBinding
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.NotificationUtils
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
-import kotlinx.android.synthetic.main.activity_about_this.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
  */
 class AboutThisPageActivity : ScBaseActivity() {
 
+    private val binding by lazy { ActivityAboutThisBinding.inflate(layoutInflater) }
     private var alertDialog: AlertDialog? = null
     private lateinit var settingModel: SettingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about_this)
+        setContentView(binding.root)
         val settingFactory = ViewModelInjection.provideSettingViewModelFactory()
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
         setListener()
@@ -32,13 +33,13 @@ class AboutThisPageActivity : ScBaseActivity() {
 
     private fun setListener() {
 
-        iv_back.setOnClickListener { finish() }
+        binding.ivBack.setOnClickListener { finish() }
 
-        item_setting_app_introduce.setOnClickListener {
+        binding.itemSettingAppIntroduce.setOnClickListener {
             this.quickStartActivity<AppInfoPageActivity>()
         }
 
-        item_setting_debug_delay_to_wake.setOnClickListener {
+        binding.itemSettingDebugDelayToWake.setOnClickListener {
             it.postDelayed({
                 NotificationUtils(this.applicationContext).sendNotification(
                     1,

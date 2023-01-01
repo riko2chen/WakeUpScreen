@@ -3,10 +3,9 @@ package com.symeonchen.uicomponent.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.symeonchen.uicomponent.R
-import kotlinx.android.synthetic.main.view_item_setting_switch.view.*
+import com.symeonchen.uicomponent.databinding.ViewItemSettingSwitchBinding
 
 class SCSettingSwitchItem @JvmOverloads constructor(
     context: Context,
@@ -14,16 +13,16 @@ class SCSettingSwitchItem @JvmOverloads constructor(
     defStyle: Int = 0
 ) : ConstraintLayout(context, attrs, defStyle) {
 
-    private var v: View? = null
     private var titleMain = ""
     private var titleSecond = ""
     private var checked = false
 
     var listener: OnItemClickListener? = null
+    private val binding: ViewItemSettingSwitchBinding by lazy {
+        ViewItemSettingSwitchBinding.inflate(LayoutInflater.from(context), this)
+    }
 
     init {
-        v = LayoutInflater.from(context).inflate(R.layout.view_item_setting_switch, this, true)
-
         initBackground()
         initCustomValue(attrs)
         setListener()
@@ -55,7 +54,7 @@ class SCSettingSwitchItem @JvmOverloads constructor(
         this.setOnClickListener {
             listener?.onItemCLick()
         }
-        this.switch_status.setOnClickListener {
+        binding.switchStatus.setOnClickListener {
             listener?.onSwitchClick()
         }
     }
@@ -68,9 +67,9 @@ class SCSettingSwitchItem @JvmOverloads constructor(
     }
 
     private fun refresh() {
-        tv_title_main.text = titleMain
-        tv_title_second.text = titleSecond
-        switch_status.isChecked = checked
+        binding.tvTitleMain.text = titleMain
+        binding.tvTitleSecond.text = titleSecond
+        binding.switchStatus.isChecked = checked
     }
 
     interface OnItemClickListener {

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.uicomponent.views.SCSettingItem
 import com.symeonchen.wakeupscreen.R
@@ -15,12 +14,12 @@ import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.databinding.FragmentLayoutSettingBinding
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.AppInfoUtils
 import com.symeonchen.wakeupscreen.utils.PlayStoreTools
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
-import kotlinx.android.synthetic.main.fragment_layout_setting.*
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -30,12 +29,22 @@ class ScSettingFragment : ScBaseFragment() {
     private var alertDialog: AlertDialog? = null
     private lateinit var settingModel: SettingViewModel
 
+    private var _binding: FragmentLayoutSettingBinding? = null
+    private val binding get() = _binding!!
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_layout_setting, container, false)
+    ): View {
+        _binding = FragmentLayoutSettingBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,19 +55,19 @@ class ScSettingFragment : ScBaseFragment() {
     }
 
     private fun setListener() {
-        item_setting_language.listener = object : SCSettingItem.OnItemClickListener {
+        binding.itemSettingLanguage.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 initLanguageSettingDialog()
             }
         }
 
-        item_setting_wake_screen_time.listener = object : SCSettingItem.OnItemClickListener {
+        binding.itemSettingWakeScreenTime.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 context?.quickStartActivity<WakeUptimeSettingActivity>()
             }
         }
 
-        item_setting_address.listener = object : SCSettingItem.OnItemClickListener {
+        binding.itemSettingAddress.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 val i = Intent(Intent.ACTION_VIEW)
                 i.data = Uri.parse("https://github.com/SymeonChen/WakeUpScreen")
@@ -66,7 +75,7 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
-        item_setting_question.listener = object : SCSettingItem.OnItemClickListener {
+        binding.itemSettingQuestion.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 var mailBody = ScConstant.DEFAULT_MAIL_BODY
                 var mailTitle = ScConstant.DEFAULT_MAIL_HEAD
@@ -86,38 +95,38 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
 
-        item_setting_current_mode.listener = object : SCSettingItem.OnItemClickListener {
+        binding.itemSettingCurrentMode.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 initCurrentModeDialog()
             }
         }
 
-        item_setting_white_list_entry.listener = object : SCSettingItem.OnItemClickListener {
+        binding.itemSettingWhiteListEntry.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_WHITE_LIST)
             }
         }
 
-        item_setting_black_list_entry.listener = object : SCSettingItem.OnItemClickListener {
+        binding.itemSettingBlackListEntry.listener = object : SCSettingItem.OnItemClickListener {
             override fun onItemCLick() {
                 FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_BLACK_LIST)
             }
         }
 
-        item_setting_advanced_setting.setOnClickListener {
+        binding.itemSettingAdvancedSetting.setOnClickListener {
             context?.run { this.quickStartActivity<AdvanceSettingPageActivity>() }
         }
 
-        item_setting_about_this.setOnClickListener {
+        binding.itemSettingAboutThis.setOnClickListener {
             context?.run { this.quickStartActivity<AboutThisPageActivity>() }
         }
 
-        item_setting_give_star.setOnClickListener {
+        binding.itemSettingGiveStar.setOnClickListener {
             PlayStoreTools.openPlayStoreWithUrl(context)
         }
 
         settingModel.modeOfCurrent.observe(viewLifecycleOwner) {
-            item_setting_current_mode.bindData(
+            binding.itemSettingCurrentMode.bindData(
                 null,
                 resources.getString(
                     when (it) {
@@ -130,22 +139,22 @@ class ScSettingFragment : ScBaseFragment() {
             )
             when (it) {
                 CurrentMode.MODE_WHITE_LIST -> {
-                    item_setting_white_list_entry.visibility = View.VISIBLE
-                    item_setting_black_list_entry.visibility = View.GONE
+                    binding.itemSettingWhiteListEntry.visibility = View.VISIBLE
+                    binding.itemSettingBlackListEntry.visibility = View.GONE
                 }
                 CurrentMode.MODE_BLACK_LIST -> {
-                    item_setting_white_list_entry.visibility = View.GONE
-                    item_setting_black_list_entry.visibility = View.VISIBLE
+                    binding.itemSettingWhiteListEntry.visibility = View.GONE
+                    binding.itemSettingBlackListEntry.visibility = View.VISIBLE
                 }
                 else -> {
-                    item_setting_white_list_entry.visibility = View.GONE
-                    item_setting_black_list_entry.visibility = View.GONE
+                    binding.itemSettingWhiteListEntry.visibility = View.GONE
+                    binding.itemSettingBlackListEntry.visibility = View.GONE
                 }
             }
         }
 
         settingModel.languageSelected.observe(viewLifecycleOwner) {
-            item_setting_language.bindData(
+            binding.itemSettingLanguage.bindData(
                 null,
                 it.desc
             )
@@ -164,7 +173,7 @@ class ScSettingFragment : ScBaseFragment() {
 
         alertDialog = builder.setSingleChoiceItems(
             languageNameArray, checkedItem
-        ) { _, which -> selectedItem = languageArray.get(which) }
+        ) { _, which -> selectedItem = languageArray[which] }
             .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 selectedItem?.run {
                     settingModel.languageSelected.postValue(this)
