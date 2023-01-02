@@ -89,6 +89,12 @@ class ScMainFragment : ScBaseFragment() {
             resources.getString(R.string.how_to_set)
         )
 
+        binding.mainItemSendNotification.bindData(
+            resources.getString(R.string.send_notification_permission),
+            settingModel.permissionOfSendNotification.value ?: false,
+            resources.getString(R.string.click_to_open)
+        )
+
     }
 
     private fun setDataListener() {
@@ -110,6 +116,10 @@ class ScMainFragment : ScBaseFragment() {
 
         settingModel.fakeSwitchOfBatterySaver.observe(viewLifecycleOwner) {
             binding.mainItemBatterySaver.setState(it)
+        }
+
+        settingModel.permissionOfSendNotification.observe(viewLifecycleOwner) {
+            binding.mainItemSendNotification.setState(it)
         }
 
     }
@@ -161,6 +171,18 @@ class ScMainFragment : ScBaseFragment() {
 
             override fun onBtnClick() {
                 onBatterySaverClick()
+            }
+        }
+
+        binding.mainItemSendNotification.listener = object : StatusItem.OnItemClickListener {
+            override fun onItemClick() {
+                openNotificationService(context)
+                PermissionState.openSendNotificationSetting(context, settingModel)
+            }
+
+            override fun onBtnClick() {
+                openNotificationService(context)
+                PermissionState.openSendNotificationSetting(context, settingModel)
             }
         }
 
@@ -233,6 +255,7 @@ class ScMainFragment : ScBaseFragment() {
         checkStatus()
         checkBatteryOptimization()
         registerProximitySensor()
+        checkNotificationPermission()
     }
 
     private fun checkPermission(): Boolean {
@@ -256,6 +279,14 @@ class ScMainFragment : ScBaseFragment() {
         settingModel.fakeSwitchOfBatterySaver.postValue(isIgnoreBatteryOptimization)
         LogUtils.d("isIgnoreBatteryOptimization is $isIgnoreBatteryOptimization")
         return isIgnoreBatteryOptimization
+    }
+
+    private fun checkNotificationPermission(): Boolean {
+        val isNotificationPermissionOpen =
+            PermissionState.hasSendNotificationPermission(context)
+        settingModel.permissionOfSendNotification.postValue(isNotificationPermissionOpen)
+        LogUtils.d("isNotificationPermissionOpen is $isNotificationPermissionOpen")
+        return isNotificationPermissionOpen
     }
 
     private fun registerProximitySensor() {

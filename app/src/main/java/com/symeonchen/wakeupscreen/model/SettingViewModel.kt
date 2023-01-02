@@ -26,6 +26,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.fakeSwitchOfBatterySaver)
         }
 
+    var permissionOfSendNotification: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.permissionOfSendNotification)
+        }
+
     @Deprecated("Remove debugMode and database")
     var switchOfDebugMode: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {

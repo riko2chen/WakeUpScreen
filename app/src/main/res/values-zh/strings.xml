@@ -87,5 +87,6 @@
     <string name="radical_ongoing_detact">严格的持续通知过滤（实验功能）</string>
     <string name="running_to_prevent_kill_app">服务正常运行中</string>
     <string name="show_notification_when_service_start">服务启动后显示通知（手机重启后生效）</string>
+    <string name="send_notification_permission">发送通知的权限</string>
 
 </resources>
