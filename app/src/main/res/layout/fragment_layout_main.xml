@@ -85,6 +85,11 @@
             android:layout_width="match_parent"
             android:layout_height="70dp" />
 
+        <com.symeonchen.uicomponent.views.StatusItem
+            android:id="@+id/main_item_send_notification"
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
+
     </LinearLayout>
 
     <TextView

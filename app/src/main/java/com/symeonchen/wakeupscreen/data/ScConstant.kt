@@ -9,6 +9,7 @@ object ScConstant {
     const val PROXIMITY_STATUS = "proximity_status"
     const val PROXIMITY_SWITCH = "proximity_switch"
     const val BATTERY_SAVER_FAKE_SWITCH = "battery_saver_fake_switch"
+    const val SEND_NOTIFICATION_PERMISSION = "send_notification_permission"
     const val DEBUG_MODE_SWITCH = "debug_mode_switch"
     const val APP_NOTIFY_MODE = "app_white_list_switch"
     const val APP_FILTER_WHITE_LIST_STRING = "white_list_app"
@@ -30,6 +31,7 @@ object ScConstant {
     const val DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS: Long = 2000
     const val DEFAULT_VALUE_OF_PROXIMITY: Int = 1
     const val DEFAULT_BATTERY_SAVER: Boolean = false
+    const val DEFAULT_PERMISSION_OF_SEND_NOTIFICATION: Boolean = false
     const val DEFAULT_SWITCH_OF_DEBUG_MODE: Boolean = false
     const val DEFAULT_APP_NOTIFY_MODE: Int = 0
     const val DEFAULT_APP_WHITE_LIST_STRING: String = ""

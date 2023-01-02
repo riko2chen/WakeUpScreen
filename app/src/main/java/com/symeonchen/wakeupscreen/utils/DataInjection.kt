@@ -18,6 +18,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PERMISSION_OF_SEND_NOTIFICATION
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PERSISTENT_NOTIFICATION
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
@@ -38,6 +39,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_NOTIFICATION_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.SEND_NOTIFICATION_PERMISSION
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_BEGIN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_END
@@ -97,6 +99,16 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV()?.putBoolean(BATTERY_SAVER_FAKE_SWITCH, value)
+        }
+
+    var permissionOfSendNotification: Boolean
+        get() {
+            return MMKV.defaultMMKV()
+                ?.getBoolean(SEND_NOTIFICATION_PERMISSION, DEFAULT_PERMISSION_OF_SEND_NOTIFICATION)
+                ?: DEFAULT_PERMISSION_OF_SEND_NOTIFICATION
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(SEND_NOTIFICATION_PERMISSION, value)
         }
 
     var switchOfDebugMode: Boolean
