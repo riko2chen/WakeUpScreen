@@ -23,6 +23,7 @@ import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
 /**
  * Created by SymeonChen on 2019-10-27.
+ * modified by balkce on 2024-04-23.
  */
 class ScSettingFragment : ScBaseFragment() {
 
@@ -133,6 +134,7 @@ class ScSettingFragment : ScBaseFragment() {
                         CurrentMode.MODE_BLACK_LIST -> R.string.black_list
                         CurrentMode.MODE_WHITE_LIST -> R.string.white_list
                         CurrentMode.MODE_ALL_NOTIFY -> R.string.all_pass
+                        CurrentMode.MODE_IGNORE_SILENT -> R.string.ignore_silent
                         else -> R.string.all_pass
                     }
                 )
@@ -191,12 +193,14 @@ class ScSettingFragment : ScBaseFragment() {
         val secList = arrayOf(
             resources.getString(R.string.all_pass),
             resources.getString(R.string.white_list),
-            resources.getString(R.string.black_list)
+            resources.getString(R.string.black_list),
+            resources.getString(R.string.ignore_silent)
         )
         var switch = settingModel.modeOfCurrent.value!!
         val checkedItem: Int = when (switch) {
             CurrentMode.MODE_ALL_NOTIFY -> 0
             CurrentMode.MODE_WHITE_LIST -> 1
+            CurrentMode.MODE_IGNORE_SILENT -> 3
             else -> 2
         }
 
@@ -208,6 +212,7 @@ class ScSettingFragment : ScBaseFragment() {
                     when (which) {
                         0 -> CurrentMode.MODE_ALL_NOTIFY
                         1 -> CurrentMode.MODE_WHITE_LIST
+                        3 -> CurrentMode.MODE_IGNORE_SILENT
                         else -> CurrentMode.MODE_BLACK_LIST
                     }
             }
@@ -217,6 +222,7 @@ class ScSettingFragment : ScBaseFragment() {
                         when (switch) {
                             CurrentMode.MODE_ALL_NOTIFY -> 0
                             CurrentMode.MODE_WHITE_LIST -> 1
+                            CurrentMode.MODE_IGNORE_SILENT -> 3
                             else -> 2
                         }
                     )

@@ -51,6 +51,7 @@
     <string name="white_list_page">Whitelist Setting Page</string>
     <string name="black_list">Blacklist mode</string>
     <string name="black_list_page">Blacklist Setting Page</string>
+    <string name="ignore_silent">Ignore Silent</string>
     <string name="project_address">Open Source Project</string>
     <string name="feedback">Feedback</string>
     <string name="debug_mode">Debug Mode</string>

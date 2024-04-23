@@ -10,6 +10,7 @@ import com.symeonchen.wakeupscreen.utils.FilterListUtils
 
 /**
  * Created by SymeonChen on 2020/6/25.
+ * modified by balkce on 2024-04-23.
  */
 class FilterListCondition : LimitedCondition.AbstractSbnCondition() {
 
@@ -27,6 +28,12 @@ class FilterListCondition : LimitedCondition.AbstractSbnCondition() {
             CurrentMode.MODE_BLACK_LIST -> {
                 map = FilterListUtils.getMapFromString(DataInjection.appBlackListStringOfNotify)
                 if (map.containsKey(sbn.packageName)) {
+                    return ConditionState.BLOCK
+                }
+            }
+            CurrentMode.MODE_IGNORE_SILENT -> {
+                int priority = sbn.getNotification().priority;
+                if (priority == PRIORITY_LOW || priority == PRIORITY_MIN) {
                     return ConditionState.BLOCK
                 }
             }
