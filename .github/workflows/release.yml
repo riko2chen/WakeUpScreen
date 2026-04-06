@@ -3,9 +3,35 @@ name: Build & Release APK
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'gradle.properties'
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if AppVersionName changed
+        id: check
+        run: |
+          PREV=$(git show HEAD~1:gradle.properties 2>/dev/null | grep '^AppVersionName=' | cut -d'=' -f2 || echo "")
+          CURR=$(grep '^AppVersionName=' gradle.properties | cut -d'=' -f2)
+          echo "Previous: $PREV, Current: $CURR"
+          if [ "$PREV" != "$CURR" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
   build:
+    needs: check
+    if: needs.check.outputs.version_changed == 'true'
     runs-on: ubuntu-latest
 
     steps:
