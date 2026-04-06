@@ -19,6 +19,9 @@ data class NotificationLogEntry(
     val packageName: String,
     val status: LogStatus,
     val blockReason: String = "",
+    val importance: Int = -1,
+    val hasSound: Boolean? = null,
+    val hasVibration: Boolean? = null,
 )
 
 object NotificationLogStore {
@@ -34,6 +37,9 @@ object NotificationLogStore {
             put("pkg", entry.packageName)
             put("status", entry.status.key)
             put("reason", entry.blockReason)
+            put("importance", entry.importance)
+            if (entry.hasSound != null) put("hasSound", entry.hasSound)
+            if (entry.hasVibration != null) put("hasVibration", entry.hasVibration)
         }
         arr.put(obj)
         while (arr.length() > MAX_LOGS) {
@@ -54,6 +60,9 @@ object NotificationLogStore {
                     packageName = obj.getString("pkg"),
                     status = LogStatus.fromKey(obj.optString("status", "blocked")),
                     blockReason = obj.optString("reason", ""),
+                    importance = obj.optInt("importance", -1),
+                    hasSound = if (obj.has("hasSound")) obj.getBoolean("hasSound") else null,
+                    hasVibration = if (obj.has("hasVibration")) obj.getBoolean("hasVibration") else null,
                 )
             )
         }
