@@ -1,16 +1,13 @@
 package com.symeonchen.wakeupscreen.utils
 
 import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 
 /**
@@ -28,14 +25,12 @@ fun <T : ViewBinding> Fragment.inflate(
     inflater: (LayoutInflater, ViewGroup?, Boolean) -> T
 ) = lazy {
     var binding: T? = inflater(layoutInflater, parent, attachToParent)
-    this.viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
-        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        fun onCreateView() {
+    this.viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+        override fun onCreate(owner: LifecycleOwner) {
             binding = inflater(layoutInflater, parent, attachToParent)
         }
 
-        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        fun onDestroyView() {
+        override fun onDestroy(owner: LifecycleOwner) {
             this@inflate.viewLifecycleOwner.lifecycle.removeObserver(this)
             binding = null
         }
@@ -62,4 +57,3 @@ fun <T : ViewBinding> ViewGroup.viewInflate(
 ) = lazy {
     inflater(LayoutInflater.from(context), this, attachToParent)
 }
-
