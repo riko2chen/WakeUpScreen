@@ -34,6 +34,17 @@ android {
             enableSplit = true
         }
     }
+    signingConfigs {
+        release {
+            def keystoreFile = System.getenv("KEYSTORE_FILE")
+            if (keystoreFile) {
+                storeFile file(keystoreFile)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
@@ -43,6 +54,10 @@ android {
                     'proguard-rules.pro'
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a"
+            }
+            def keystoreFile = System.getenv("KEYSTORE_FILE")
+            if (keystoreFile) {
+                signingConfig signingConfigs.release
             }
         }
     }
