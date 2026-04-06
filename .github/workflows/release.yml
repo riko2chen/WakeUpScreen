@@ -1,0 +1,53 @@
+name: Build & Release APK
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Read version from gradle.properties
+        id: version
+        run: |
+          VERSION_NAME=$(grep '^AppVersionName=' gradle.properties | cut -d'=' -f2)
+          VERSION_CODE=$(grep '^AppVersionCode=' gradle.properties | cut -d'=' -f2)
+          echo "name=$VERSION_NAME" >> "$GITHUB_OUTPUT"
+          echo "code=$VERSION_CODE" >> "$GITHUB_OUTPUT"
+
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      - name: Rename APK
+        run: |
+          mv app/build/outputs/apk/release/app-release-unsigned.apk \
+             app/build/outputs/apk/release/WakeUpScreen-v${{ steps.version.outputs.name }}.apk
+
+      - name: Create Tag and Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.name }}
+          name: Release v${{ steps.version.outputs.name }}
+          body: |
+            **WakeUpScreen v${{ steps.version.outputs.name }}** (versionCode: ${{ steps.version.outputs.code }})
+
+            Built from commit ${{ github.sha }}
+          files: app/build/outputs/apk/release/WakeUpScreen-v${{ steps.version.outputs.name }}.apk
+          make_latest: true
