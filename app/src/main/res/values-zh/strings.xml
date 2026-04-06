@@ -71,11 +71,15 @@
     <string name="sleep_mode_open_desc">屏幕在该时段将不会点亮：</string>
     <string name="sleep_mode">睡眠模式</string>
     <string name="delay_to_wakeup">点击此处测试是否能够正常点亮</string>
-    <string name="click_here_and_press_power_button_within_10_sec">点击之后，在五秒内关闭屏幕，观察是否能点亮</string>
+    <string name="click_here_and_press_power_button_within_10_sec">点击之后，在十秒内关闭屏幕，观察是否能点亮</string>
     <string name="sleep_time">睡眠时间</string>
     <string name="dnd_detect_title">免打扰模式侦测功能</string>
     <string name="dnd_detect_desc">免打扰模式将不会点亮屏幕</string>
     <string name="language_it">Italiano</string>
+    <string name="language_ja">日本語</string>
+    <string name="language_ko">한국어</string>
+    <string name="language_th">ไทย</string>
+    <string name="language_zh_tw">繁體中文</string>
     <string name="wake_hint_before">屏幕将点亮</string>
     <string name="seconds">秒</string>
     <string name="wake_up_time_limitaon_desc">注意：\n在许多设备中，此设置将无法正常工作。 \n这是系统的限制。</string>
@@ -88,5 +92,34 @@
     <string name="running_to_prevent_kill_app">服务正常运行中</string>
     <string name="show_notification_when_service_start">服务启动后显示通知（手机重启后生效）</string>
     <string name="send_notification_permission">发送通知的权限</string>
+
+    <string name="function_test">功能测试</string>
+    <string name="view_logs">查看日志</string>
+    <string name="view_logs_subtitle">通知记录及屏幕点亮情况</string>
+    <string name="log_empty">暂无日志</string>
+    <string name="log_screen_already_on">屏幕已亮</string>
+    <string name="log_screen_waked_up">已点亮</string>
+    <string name="log_screen_blocked">已拦截</string>
+    <string name="wake_test_toast">请在10秒内关闭屏幕</string>
+    <string name="log_detail_title">详情</string>
+    <string name="log_detail_source_app">来源应用</string>
+    <string name="log_detail_time">时间</string>
+    <string name="log_detail_status">状态</string>
+    <string name="log_detail_reason">原因</string>
+    <string name="log_status_already_on_desc">收到该通知时屏幕已经处于点亮状态，无需操作。</string>
+    <string name="log_status_waked_up_desc">屏幕已由本应用成功点亮。</string>
+    <string name="log_reason_app_switch_off">应用总开关已关闭。</string>
+    <string name="log_reason_pocket_mode">口袋模式已激活——距离传感器检测到设备在口袋中。</string>
+    <string name="log_reason_filter_list">该应用被白名单/黑名单规则过滤。</string>
+    <string name="log_reason_ongoing">持续通知被过滤。</string>
+    <string name="log_reason_sleep_mode">当前处于睡眠模式时段。</string>
+    <string name="log_reason_dnd">免打扰模式已开启。</string>
+    <string name="log_reason_unknown">未知原因。</string>
+    <string name="feedback_subtitle">联系作者</string>
+    <string name="feedback_send_email">发邮件</string>
+    <string name="feedback_copy_email">复制邮箱</string>
+    <string name="feedback_email_copied">邮箱已复制</string>
+    <string name="feedback_contact_x">X（Twitter）</string>
+    <string name="feedback_contact_xiaohongshu">小红书</string>
 
 </resources>

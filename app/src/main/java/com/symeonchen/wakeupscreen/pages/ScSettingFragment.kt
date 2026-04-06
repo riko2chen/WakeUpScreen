@@ -19,10 +19,8 @@ import com.symeonchen.wakeupscreen.compose.components.SelectionDialog
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.LanguageInfo
-import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
-import com.symeonchen.wakeupscreen.utils.AppInfoUtils
 import com.symeonchen.wakeupscreen.utils.PlayStoreTools
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
@@ -72,11 +70,11 @@ class ScSettingFragment : ScBaseFragment() {
                     onWhiteListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_WHITE_LIST) },
                     onBlackListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_BLACK_LIST) },
                     onAdvancedSettingClick = { context?.quickStartActivity<AdvanceSettingPageActivity>() },
-                    onAboutClick = { context?.quickStartActivity<AboutThisPageActivity>() },
+                    onFunctionTestClick = { context?.quickStartActivity<FunctionTestPageActivity>() },
                     onAddressClick = {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SymeonChen/WakeUpScreen")))
                     },
-                    onFeedbackClick = ::openFeedbackEmail,
+                    onFeedbackClick = { context?.quickStartActivity<FeedbackPageActivity>() },
                     onGiveStarClick = { PlayStoreTools.openPlayStoreWithUrl(context) },
                 )
 
@@ -129,21 +127,4 @@ class ScSettingFragment : ScBaseFragment() {
         }
     }
 
-    private fun openFeedbackEmail() {
-        var mailBody = ScConstant.DEFAULT_MAIL_BODY
-        var mailTitle = ScConstant.DEFAULT_MAIL_HEAD
-        try {
-            mailBody = AppInfoUtils.getDeviceInfo(context)
-            mailTitle = getString(R.string.mail_title)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            type = "plain/text"
-            putExtra(Intent.EXTRA_EMAIL, arrayOf(ScConstant.AUTHOR_MAIL))
-            putExtra(Intent.EXTRA_SUBJECT, mailTitle)
-            putExtra(Intent.EXTRA_TEXT, mailBody)
-        }
-        startActivity(Intent.createChooser(intent, "Choose your mail app"))
-    }
 }

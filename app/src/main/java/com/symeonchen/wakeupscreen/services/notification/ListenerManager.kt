@@ -1,6 +1,11 @@
 package com.symeonchen.wakeupscreen.services.notification
 
 
+data class ConditionCheckResult(
+    val state: ConditionState,
+    val blockingCondition: String? = null,
+)
+
 /**
  * Created by SymeonChen on 2020/6/24.
  */
@@ -18,13 +23,16 @@ object ListenerManager {
     }
 
     @Synchronized
-    fun provideState(param: ConditionParam): ConditionState {
+    fun provideState(param: ConditionParam): ConditionCheckResult {
         for (condition in mConditionList) {
             if (calculateCondition(condition, param) == ConditionState.BLOCK) {
-                return ConditionState.BLOCK
+                return ConditionCheckResult(
+                    ConditionState.BLOCK,
+                    condition::class.java.simpleName,
+                )
             }
         }
-        return ConditionState.SUCCESS
+        return ConditionCheckResult(ConditionState.SUCCESS)
     }
 
     private fun calculateCondition(
