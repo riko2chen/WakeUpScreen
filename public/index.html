@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WakeUpScreen - Wake Your Display on Notification</title>
+<meta name="description" content="An open-source Android app that automatically wakes up your phone's display when it receives a notification. Lightweight, private, no internet required.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a1a;
+  --aurora-green: #2dd4a8;
+  --aurora-teal: #0ea5e9;
+  --aurora-purple: #a855f7;
+  --aurora-blue: #6366f1;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --card-bg: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.08);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ---- Aurora background ---- */
+.aurora {
+  position: fixed;
+  top: -40%;
+  left: -20%;
+  width: 140%;
+  height: 70%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  filter: blur(80px);
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(45,212,168,0.5), transparent),
+    radial-gradient(ellipse 50% 60% at 60% 30%, rgba(14,165,233,0.4), transparent),
+    radial-gradient(ellipse 40% 50% at 80% 50%, rgba(168,85,247,0.45), transparent);
+  animation: auroraShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes auroraShift {
+  0% { transform: translateX(0) translateY(0) scale(1); opacity: 0.4; }
+  33% { transform: translateX(40px) translateY(-20px) scale(1.05); opacity: 0.55; }
+  66% { transform: translateX(-30px) translateY(10px) scale(1.02); opacity: 0.45; }
+  100% { transform: translateX(20px) translateY(-30px) scale(1.07); opacity: 0.5; }
+}
+
+.aurora-secondary {
+  position: fixed;
+  top: -30%;
+  left: -10%;
+  width: 120%;
+  height: 60%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.25;
+  filter: blur(100px);
+  background:
+    radial-gradient(ellipse 50% 40% at 40% 50%, rgba(99,102,241,0.5), transparent),
+    radial-gradient(ellipse 60% 50% at 70% 40%, rgba(45,212,168,0.3), transparent);
+  animation: auroraShift2 16s ease-in-out infinite alternate;
+}
+
+@keyframes auroraShift2 {
+  0% { transform: translateX(0) translateY(0) rotate(0deg); }
+  100% { transform: translateX(-50px) translateY(20px) rotate(3deg); }
+}
+
+/* ---- Stars / particles canvas ---- */
+#stars-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---- Layout ---- */
+.content { position: relative; z-index: 1; }
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---- Nav ---- */
+.nav {
+  padding: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-links { display: flex; gap: 28px; align-items: center; }
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 400;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* ---- Language Switcher ---- */
+.lang-switcher {
+  position: relative;
+  margin-left: 8px;
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
+  white-space: nowrap;
+}
+
+.lang-btn:hover {
+  border-color: rgba(45,212,168,0.25);
+  color: var(--text);
+  box-shadow: 0 0 20px rgba(45,212,168,0.06);
+}
+
+.lang-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.lang-btn .lang-arrow {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.25s;
+}
+
+.lang-switcher.open .lang-btn .lang-arrow {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: rgba(15,15,35,0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+  z-index: 100;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 30px rgba(45,212,168,0.04);
+}
+
+.lang-switcher.open .lang-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.lang-option:hover {
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+}
+
+.lang-option.active {
+  color: var(--aurora-green);
+  background: rgba(45,212,168,0.08);
+}
+
+.lang-option .lang-code {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  margin-left: auto;
+  font-weight: 300;
+}
+
+/* ---- Hero ---- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0 80px;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-text h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.hero-text h1 .gradient-text {
+  background: linear-gradient(135deg, var(--aurora-green), var(--aurora-teal), var(--aurora-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientFlow 6s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-text .subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--text-dim);
+  margin-bottom: 28px;
+  font-weight: 400;
+}
+
+.hero-text p {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 460px;
+  margin-bottom: 36px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--aurora-green), var(--aurora-teal));
+  color: var(--bg);
+  border: none;
+  border-radius: 12px;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.3s;
+  box-shadow: 0 0 30px rgba(45,212,168,0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 50px rgba(45,212,168,0.35);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s, border-color 0.3s, background 0.3s;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.07);
+}
+
+/* ---- Phone mockup ---- */
+.phone-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.phone {
+  width: 260px;
+  height: 530px;
+  background: #111;
+  border-radius: 36px;
+  border: 3px solid #2a2a3a;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05),
+    0 25px 80px rgba(0,0,0,0.6),
+    0 0 60px rgba(45,212,168,0.0);
+  animation: phoneGlow 4s ease-in-out infinite alternate;
+  transform: rotateY(-5deg) rotateX(2deg);
+  transition: transform 0.6s ease;
+}
+
+.phone:hover {
+  transform: rotateY(0deg) rotateX(0deg);
+}
+
+@keyframes phoneGlow {
+  0% { box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 25px 80px rgba(0,0,0,0.6), 0 0 40px rgba(45,212,168,0.0); }
+  100% { box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 25px 80px rgba(0,0,0,0.6), 0 0 60px rgba(45,212,168,0.15); }
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 24px;
+  background: #111;
+  border-radius: 0 0 18px 18px;
+  z-index: 5;
+}
+
+.phone-screen {
+  position: absolute;
+  inset: 8px;
+  border-radius: 28px;
+  background: #050510;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-screen-overlay {
+  position: absolute;
+  inset: 0;
+  background: #050510;
+  z-index: 3;
+  opacity: 1;
+  animation: screenWake 3s ease-out 1s forwards;
+}
+
+@keyframes screenWake {
+  0% { opacity: 1; }
+  40% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+.phone-time {
+  font-family: var(--sans);
+  font-size: 3rem;
+  font-weight: 300;
+  color: white;
+  opacity: 0;
+  animation: fadeUp 1s ease-out 2s forwards;
+  z-index: 2;
+}
+
+.phone-date {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 4px;
+  opacity: 0;
+  animation: fadeUp 1s ease-out 2.3s forwards;
+  z-index: 2;
+}
+
+.phone-notification {
+  position: absolute;
+  bottom: 80px;
+  left: 14px;
+  right: 14px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: notifSlide 0.6s ease-out 2.8s forwards;
+  z-index: 2;
+}
+
+.phone-notification .notif-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--aurora-green), var(--aurora-teal));
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-notification .notif-icon svg { width: 18px; height: 18px; }
+
+.notif-text { flex: 1; }
+
+.notif-text .notif-app {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.notif-text .notif-title {
+  font-size: 0.8rem;
+  color: white;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.notif-text .notif-body {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+}
+
+.phone-screen-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #0a1628 0%, #0d0d2b 40%, #130d20 100%);
+  z-index: 1;
+}
+
+.phone-screen-aurora {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 60%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(45,212,168,0.15), transparent 70%);
+  filter: blur(30px);
+  z-index: 1;
+  opacity: 0;
+  animation: screenAurora 3s ease-out 1.5s forwards;
+}
+
+@keyframes screenAurora {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes notifSlide {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Section styling ---- */
+section { padding: 100px 0; }
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--aurora-green);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.section-desc {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 560px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-header .section-desc { margin: 0 auto; }
+
+/* ---- Features ---- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 36px 28px;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(45,212,168,0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(45,212,168,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(45,212,168,0.05);
+}
+
+.feature-card:hover::before { opacity: 1; }
+
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.feature-icon.green { background: rgba(45,212,168,0.1); }
+.feature-icon.teal { background: rgba(14,165,233,0.1); }
+.feature-icon.purple { background: rgba(168,85,247,0.1); }
+.feature-icon.blue { background: rgba(99,102,241,0.1); }
+
+.feature-icon svg { width: 24px; height: 24px; }
+
+.feature-icon.green svg { color: var(--aurora-green); }
+.feature-icon.teal svg { color: var(--aurora-teal); }
+.feature-icon.purple svg { color: var(--aurora-purple); }
+.feature-icon.blue svg { color: var(--aurora-blue); }
+
+.feature-card h3 {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* ---- How it works ---- */
+.timeline {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--aurora-green), var(--aurora-teal), var(--aurora-purple), transparent);
+  opacity: 0.3;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 52px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-dot {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-dot.s1 {
+  background: rgba(45,212,168,0.12);
+  color: var(--aurora-green);
+  box-shadow: 0 0 30px rgba(45,212,168,0.1);
+}
+
+.timeline-dot.s2 {
+  background: rgba(14,165,233,0.12);
+  color: var(--aurora-teal);
+  box-shadow: 0 0 30px rgba(14,165,233,0.1);
+}
+
+.timeline-dot.s3 {
+  background: rgba(168,85,247,0.12);
+  color: var(--aurora-purple);
+  box-shadow: 0 0 30px rgba(168,85,247,0.1);
+}
+
+.timeline-content { padding-top: 10px; }
+
+.timeline-content h3 {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.timeline-content p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* ---- Open source ---- */
+.oss-section {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.oss-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 60px;
+  padding: 18px 36px;
+  margin-top: 28px;
+  transition: border-color 0.3s, transform 0.3s;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.oss-badge:hover {
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+}
+
+.oss-badge svg { width: 28px; height: 28px; color: var(--text); }
+
+.oss-badge span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.oss-badge .oss-lang {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 300;
+}
+
+/* ---- CTA ---- */
+.cta-section {
+  padding: 100px 0 120px;
+  text-align: center;
+  position: relative;
+}
+
+.cta-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(45,212,168,0.08), transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.cta-section .section-title { margin-bottom: 12px; }
+
+.cta-section .section-desc {
+  margin: 0 auto 40px;
+}
+
+/* ---- Footer ---- */
+footer {
+  border-top: 1px solid var(--card-border);
+  padding: 40px 0;
+  text-align: center;
+}
+
+footer p {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer a:hover { color: var(--aurora-green); }
+
+/* ---- Fade-in observer ---- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    text-align: center;
+  }
+  .hero-text p { margin-left: auto; margin-right: auto; }
+  .hero-buttons { justify-content: center; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .phone { width: 220px; height: 450px; }
+}
+
+@media (max-width: 600px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .nav-links a[href] { display: none; }
+  .nav-links { gap: 0; }
+  section { padding: 70px 0; }
+  .hero { padding: 80px 0 50px; min-height: auto; }
+  .phone { width: 200px; height: 410px; }
+  .timeline-item { gap: 20px; }
+  .timeline::before { left: 22px; }
+  .timeline-dot { width: 46px; height: 46px; font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="aurora"></div>
+<div class="aurora-secondary"></div>
+<canvas id="stars-canvas"></canvas>
+
+<div class="content">
+
+  <!-- Nav -->
+  <header class="container">
+    <nav class="nav">
+      <div class="nav-links">
+        <a href="#features" data-i18n="nav_features">Features</a>
+        <a href="#how-it-works" data-i18n="nav_how">How it works</a>
+        <a href="#download" data-i18n="nav_download">Download</a>
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn" id="langBtn" aria-label="Select language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+            <span id="langLabel">EN</span>
+            <svg class="lang-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button class="lang-option active" data-lang="en">English <span class="lang-code">EN</span></button>
+            <button class="lang-option" data-lang="zh-Hans">简体中文 <span class="lang-code">ZH</span></button>
+            <button class="lang-option" data-lang="zh-Hant">繁體中文 <span class="lang-code">ZH</span></button>
+            <button class="lang-option" data-lang="ja">日本語 <span class="lang-code">JA</span></button>
+            <button class="lang-option" data-lang="ko">한국어 <span class="lang-code">KO</span></button>
+            <button class="lang-option" data-lang="it">Italiano <span class="lang-code">IT</span></button>
+            <button class="lang-option" data-lang="th">ไทย <span class="lang-code">TH</span></button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h1>
+            <span class="gradient-text">WakeUpScreen</span>
+          </h1>
+          <p class="subtitle" data-i18n="hero_subtitle">Your screen, awake when it matters.</p>
+          <p data-i18n="hero_desc">An open-source Android app that gently wakes your display the moment a notification arrives. No cloud, no clutter, no compromise.</p>
+          <div class="hero-buttons">
+            <a href="https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen" class="btn-primary" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 2H6.477L0 17.346l3.26 4.054h17.48L24 17.346 17.523 2zM12 17a5 5 0 110-10 5 5 0 010 10z"/></svg>
+              <span data-i18n="btn_google_play">Google Play</span>
+            </a>
+            <a href="https://github.com/SymeonChen/WakeUpScreen" class="btn-secondary" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span data-i18n="btn_source">Source Code</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="phone-wrapper">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-screen-bg"></div>
+              <div class="phone-screen-aurora"></div>
+              <div class="phone-screen-overlay"></div>
+              <span class="phone-time">9:41</span>
+              <span class="phone-date">Sunday, April 6</span>
+              <div class="phone-notification">
+                <div class="notif-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </div>
+                <div class="notif-text">
+                  <div class="notif-app" data-i18n="notif_app">Messages</div>
+                  <div class="notif-title">Alex</div>
+                  <div class="notif-body" data-i18n="notif_body">Hey, are you free tonight?</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label" data-i18n="features_label">Features</p>
+        <h2 class="section-title" data-i18n="features_title">Designed with intention</h2>
+        <p class="section-desc" data-i18n="features_desc">Every feature exists for a reason. Nothing more, nothing less.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          </div>
+          <h3 data-i18n="feat_wake_title">Instant Wake</h3>
+          <p data-i18n="feat_wake_desc">Your screen lights up the moment a notification arrives. Never miss what matters while your phone sits on the desk.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </div>
+          <h3 data-i18n="feat_pocket_title">Pocket Mode</h3>
+          <p data-i18n="feat_pocket_desc">Intelligently detects when your phone is in a pocket or bag, and stays off. Saves battery where it counts.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <h3 data-i18n="feat_filter_title">App Filtering</h3>
+          <p data-i18n="feat_filter_desc">Choose exactly which apps can wake your screen. Full control over what deserves your attention.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </div>
+          <h3 data-i18n="feat_dark_title">Dark Mode</h3>
+          <p data-i18n="feat_dark_desc">A beautiful dark interface that feels at home on any AMOLED display. Easy on the eyes, easy on the battery.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </div>
+          <h3 data-i18n="feat_nointernet_title">No Internet</h3>
+          <p data-i18n="feat_nointernet_desc">Runs entirely on your device. Zero data collected, zero servers contacted. Your privacy is absolute.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 data-i18n="feat_light_title">Lightweight</h3>
+          <p data-i18n="feat_light_desc">Minimal footprint, negligible battery impact. Built in Kotlin for native performance that just works.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how-it-works">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label" data-i18n="how_label">How it works</p>
+        <h2 class="section-title" data-i18n="how_title">Three steps to never miss a thing</h2>
+        <p class="section-desc" data-i18n="how_desc">Set it once and forget it. WakeUpScreen handles the rest.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot s1">1</div>
+          <div class="timeline-content">
+            <h3 data-i18n="step1_title">Install and grant permission</h3>
+            <p data-i18n="step1_desc">WakeUpScreen only needs notification access to listen for incoming alerts. No other permissions required. Your data never leaves your device.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot s2">2</div>
+          <div class="timeline-content">
+            <h3 data-i18n="step2_title">Choose your apps</h3>
+            <p data-i18n="step2_desc">Select which apps should wake your screen. Let important messages through while keeping the noise out. Adjust anytime.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot s3">3</div>
+          <div class="timeline-content">
+            <h3 data-i18n="step3_title">That's it, live your life</h3>
+            <p data-i18n="step3_desc">WakeUpScreen runs silently in the background. When a notification comes in, your screen lights up. When your phone's in your pocket, it stays dark. Simple as that.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source -->
+  <section class="oss-section">
+    <div class="container fade-in">
+      <p class="section-label" data-i18n="oss_label">Open Source</p>
+      <h2 class="section-title" data-i18n="oss_title">Built in the open</h2>
+      <p class="section-desc" style="margin: 0 auto;" data-i18n="oss_desc">WakeUpScreen is fully open-source. Inspect the code, contribute features, or fork it entirely. Transparency is not optional.</p>
+      <a href="https://github.com/SymeonChen/WakeUpScreen" class="oss-badge" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <div>
+          <span data-i18n="oss_github">WakeUpScreen on GitHub</span><br>
+          <span class="oss-lang">Kotlin</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Download CTA -->
+  <section id="download" class="cta-section">
+    <div class="container fade-in">
+      <div class="cta-glow"></div>
+      <p class="section-label" data-i18n="cta_label">Get Started</p>
+      <h2 class="section-title" data-i18n="cta_title">Wake up to what matters</h2>
+      <p class="section-desc" data-i18n="cta_desc">Free, open-source, and built with care. Download WakeUpScreen on Google Play.</p>
+      <a href="https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen" class="btn-primary" style="font-size:1.05rem; padding: 16px 40px;" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 2H6.477L0 17.346l3.26 4.054h17.48L24 17.346 17.523 2zM12 17a5 5 0 110-10 5 5 0 010 10z"/></svg>
+        <span data-i18n="btn_download">Download on Google Play</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p><span data-i18n="footer_text">WakeUpScreen by</span> <a href="mailto:symeonchen@gmail.com">Riko Studio</a> &middot; <span data-i18n="footer_license">Open source under GPL v3 License</span></p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// ---- i18n translations ----
+var translations = {
+  en: {
+    nav_features: "Features",
+    nav_how: "How it works",
+    nav_download: "Download",
+    hero_subtitle: "Your screen, awake when it matters.",
+    hero_desc: "An open-source Android app that gently wakes your display the moment a notification arrives. No cloud, no clutter, no compromise.",
+    btn_google_play: "Google Play",
+    btn_source: "Source Code",
+    notif_app: "Messages",
+    notif_body: "Hey, are you free tonight?",
+    features_label: "Features",
+    features_title: "Designed with intention",
+    features_desc: "Every feature exists for a reason. Nothing more, nothing less.",
+    feat_wake_title: "Instant Wake",
+    feat_wake_desc: "Your screen lights up the moment a notification arrives. Never miss what matters while your phone sits on the desk.",
+    feat_pocket_title: "Pocket Mode",
+    feat_pocket_desc: "Intelligently detects when your phone is in a pocket or bag, and stays off. Saves battery where it counts.",
+    feat_filter_title: "App Filtering",
+    feat_filter_desc: "Choose exactly which apps can wake your screen. Full control over what deserves your attention.",
+    feat_dark_title: "Dark Mode",
+    feat_dark_desc: "A beautiful dark interface that feels at home on any AMOLED display. Easy on the eyes, easy on the battery.",
+    feat_nointernet_title: "No Internet",
+    feat_nointernet_desc: "Runs entirely on your device. Zero data collected, zero servers contacted. Your privacy is absolute.",
+    feat_light_title: "Lightweight",
+    feat_light_desc: "Minimal footprint, negligible battery impact. Built in Kotlin for native performance that just works.",
+    how_label: "How it works",
+    how_title: "Three steps to never miss a thing",
+    how_desc: "Set it once and forget it. WakeUpScreen handles the rest.",
+    step1_title: "Install and grant permission",
+    step1_desc: "WakeUpScreen only needs notification access to listen for incoming alerts. No other permissions required. Your data never leaves your device.",
+    step2_title: "Choose your apps",
+    step2_desc: "Select which apps should wake your screen. Let important messages through while keeping the noise out. Adjust anytime.",
+    step3_title: "That\u2019s it, live your life",
+    step3_desc: "WakeUpScreen runs silently in the background. When a notification comes in, your screen lights up. When your phone\u2019s in your pocket, it stays dark. Simple as that.",
+    oss_label: "Open Source",
+    oss_title: "Built in the open",
+    oss_desc: "WakeUpScreen is fully open-source. Inspect the code, contribute features, or fork it entirely. Transparency is not optional.",
+    oss_github: "WakeUpScreen on GitHub",
+    cta_label: "Get Started",
+    cta_title: "Wake up to what matters",
+    cta_desc: "Free, open-source, and built with care. Download WakeUpScreen on Google Play.",
+    btn_download: "Download on Google Play",
+    footer_text: "WakeUpScreen by",
+    footer_license: "Open source under GPL v3 License"
+  },
+  "zh-Hans": {
+    nav_features: "\u529F\u80FD",
+    nav_how: "\u4F7F\u7528\u65B9\u6CD5",
+    nav_download: "\u4E0B\u8F7D",
+    hero_subtitle: "\u5C4F\u5E55\uFF0C\u5728\u91CD\u8981\u65F6\u523B\u4E3A\u4F60\u4EAE\u8D77\u3002",
+    hero_desc: "\u4E00\u6B3E\u5F00\u6E90 Android \u5E94\u7528\uFF0C\u6536\u5230\u901A\u77E5\u65F6\u81EA\u52A8\u70B9\u4EAE\u5C4F\u5E55\u3002\u65E0\u4E91\u670D\u52A1\u3001\u65E0\u5197\u4F59\u3001\u96F6\u59A5\u534F\u3002",
+    btn_google_play: "Google Play",
+    btn_source: "\u6E90\u4EE3\u7801",
+    notif_app: "\u77ED\u4FE1",
+    notif_body: "\u563F\uFF0C\u4F60\u4ECA\u665A\u6709\u7A7A\u5417\uFF1F",
+    features_label: "\u529F\u80FD\u7279\u6027",
+    features_title: "\u6BCF\u4E00\u4E2A\u8BBE\u8BA1\u90FD\u6709\u5176\u610F\u4E49",
+    features_desc: "\u6BCF\u9879\u529F\u80FD\u90FD\u6709\u5B58\u5728\u7684\u7406\u7531\uFF0C\u4E0D\u591A\u4E0D\u5C11\u3002",
+    feat_wake_title: "\u5373\u65F6\u4EAE\u5C4F",
+    feat_wake_desc: "\u6536\u5230\u901A\u77E5\u7684\u77AC\u95F4\u5C4F\u5E55\u81EA\u52A8\u4EAE\u8D77\u3002\u624B\u673A\u653E\u5728\u684C\u4E0A\u4E5F\u4E0D\u4F1A\u9519\u8FC7\u91CD\u8981\u4FE1\u606F\u3002",
+    feat_pocket_title: "\u53E3\u888B\u6A21\u5F0F",
+    feat_pocket_desc: "\u667A\u80FD\u68C0\u6D4B\u624B\u673A\u662F\u5426\u5728\u53E3\u888B\u6216\u5305\u4E2D\uFF0C\u81EA\u52A8\u4FDD\u6301\u606F\u5C4F\u3002\u7701\u7535\u4ECE\u7EC6\u8282\u505A\u8D77\u3002",
+    feat_filter_title: "\u5E94\u7528\u7B5B\u9009",
+    feat_filter_desc: "\u7CBE\u786E\u9009\u62E9\u54EA\u4E9B\u5E94\u7528\u53EF\u4EE5\u4EAE\u5C4F\u3002\u5B8C\u5168\u638C\u63A7\u4EC0\u4E48\u503C\u5F97\u4F60\u7684\u5173\u6CE8\u3002",
+    feat_dark_title: "\u6DF1\u8272\u6A21\u5F0F",
+    feat_dark_desc: "\u7CBE\u7F8E\u7684\u6DF1\u8272\u754C\u9762\uFF0C\u5B8C\u7F8E\u9002\u914D AMOLED \u5C4F\u5E55\u3002\u62A4\u773C\u53C8\u7701\u7535\u3002",
+    feat_nointernet_title: "\u65E0\u9700\u7F51\u7EDC",
+    feat_nointernet_desc: "\u5B8C\u5168\u5728\u8BBE\u5907\u672C\u5730\u8FD0\u884C\u3002\u96F6\u6570\u636E\u91C7\u96C6\uFF0C\u96F6\u670D\u52A1\u5668\u8FDE\u63A5\u3002\u4F60\u7684\u9690\u79C1\u5F97\u5230\u7EDD\u5BF9\u4FDD\u969C\u3002",
+    feat_light_title: "\u8F7B\u91CF\u7EA7",
+    feat_light_desc: "\u6781\u5C0F\u7684\u8D44\u6E90\u5360\u7528\uFF0C\u51E0\u4E4E\u65E0\u611F\u7684\u7535\u91CF\u6D88\u8017\u3002\u57FA\u4E8E Kotlin \u5F00\u53D1\uFF0C\u539F\u751F\u6027\u80FD\u5F00\u7BB1\u5373\u7528\u3002",
+    how_label: "\u4F7F\u7528\u65B9\u6CD5",
+    how_title: "\u4E09\u6B65\u8BBE\u7F6E\uFF0C\u4E0D\u518D\u9519\u8FC7\u4EFB\u4F55\u6D88\u606F",
+    how_desc: "\u8BBE\u7F6E\u4E00\u6B21\u5C31\u597D\u3002\u5269\u4E0B\u7684\u4EA4\u7ED9 WakeUpScreen\u3002",
+    step1_title: "\u5B89\u88C5\u5E76\u6388\u6743",
+    step1_desc: "WakeUpScreen \u4EC5\u9700\u8981\u901A\u77E5\u8BBF\u95EE\u6743\u6765\u76D1\u542C\u4F20\u5165\u901A\u77E5\u3002\u65E0\u9700\u5176\u4ED6\u6743\u9650\uFF0C\u6570\u636E\u6C38\u8FDC\u4E0D\u4F1A\u79BB\u5F00\u4F60\u7684\u8BBE\u5907\u3002",
+    step2_title: "\u9009\u62E9\u5E94\u7528",
+    step2_desc: "\u9009\u62E9\u54EA\u4E9B\u5E94\u7528\u53EF\u4EE5\u5524\u9192\u5C4F\u5E55\u3002\u653E\u884C\u91CD\u8981\u6D88\u606F\uFF0C\u8FC7\u6EE4\u65E0\u5173\u5E72\u6270\u3002\u968F\u65F6\u53EF\u8C03\u6574\u3002",
+    step3_title: "\u5C31\u8FD9\u6837\uFF0C\u5C3D\u60C5\u751F\u6D3B",
+    step3_desc: "WakeUpScreen \u5728\u540E\u53F0\u9759\u9ED8\u8FD0\u884C\u3002\u6536\u5230\u901A\u77E5\u65F6\u5C4F\u5E55\u81EA\u52A8\u4EAE\u8D77\uFF0C\u624B\u673A\u5728\u53E3\u888B\u91CC\u65F6\u4FDD\u6301\u606F\u5C4F\u3002\u5C31\u8FD9\u4E48\u7B80\u5355\u3002",
+    oss_label: "\u5F00\u6E90",
+    oss_title: "\u900F\u660E\u5F00\u653E\u5730\u6784\u5EFA",
+    oss_desc: "WakeUpScreen \u5B8C\u5168\u5F00\u6E90\u3002\u67E5\u770B\u4EE3\u7801\u3001\u8D21\u732E\u529F\u80FD\u6216\u81EA\u7531\u590D\u523B\u3002\u900F\u660E\u4E0D\u662F\u53EF\u9009\u9879\u3002",
+    oss_github: "WakeUpScreen GitHub \u4ED3\u5E93",
+    cta_label: "\u5F00\u59CB\u4F7F\u7528",
+    cta_title: "\u4E0D\u518D\u9519\u8FC7\u91CD\u8981\u65F6\u523B",
+    cta_desc: "\u514D\u8D39\u3001\u5F00\u6E90\u3001\u7528\u5FC3\u6253\u9020\u3002\u5728 Google Play \u4E0B\u8F7D WakeUpScreen\u3002",
+    btn_download: "\u5728 Google Play \u4E0B\u8F7D",
+    footer_text: "WakeUpScreen by",
+    footer_license: "\u57FA\u4E8E GPLv3 \u8BB8\u53EF\u8BC1\u5F00\u6E90"
+  },
+  "zh-Hant": {
+    nav_features: "\u529F\u80FD",
+    nav_how: "\u4F7F\u7528\u65B9\u5F0F",
+    nav_download: "\u4E0B\u8F09",
+    hero_subtitle: "\u87A2\u5E55\uFF0C\u5728\u91CD\u8981\u6642\u523B\u70BA\u4F60\u4EAE\u8D77\u3002",
+    hero_desc: "\u4E00\u6B3E\u958B\u6E90 Android \u61C9\u7528\uFF0C\u6536\u5230\u901A\u77E5\u6642\u81EA\u52D5\u9EDE\u4EAE\u87A2\u5E55\u3002\u7121\u96F2\u670D\u52D9\u3001\u7121\u5197\u4F59\u3001\u96F6\u59A5\u5354\u3002",
+    btn_google_play: "Google Play",
+    btn_source: "\u539F\u59CB\u78BC",
+    notif_app: "\u8A0A\u606F",
+    notif_body: "\u563F\uFF0C\u4F60\u4ECA\u665A\u6709\u7A7A\u55CE\uFF1F",
+    features_label: "\u529F\u80FD\u7279\u8272",
+    features_title: "\u6BCF\u500B\u8A2D\u8A08\u90FD\u5225\u5177\u7528\u5FC3",
+    features_desc: "\u6BCF\u9805\u529F\u80FD\u90FD\u6709\u5176\u5B58\u5728\u7684\u7406\u7531\uFF0C\u4E0D\u591A\u4E0D\u5C11\u3002",
+    feat_wake_title: "\u5373\u6642\u4EAE\u5C4F",
+    feat_wake_desc: "\u6536\u5230\u901A\u77E5\u7684\u77AC\u9593\u87A2\u5E55\u81EA\u52D5\u4EAE\u8D77\u3002\u624B\u6A5F\u653E\u5728\u684C\u4E0A\u4E5F\u4E0D\u6703\u932F\u904E\u91CD\u8981\u8CC7\u8A0A\u3002",
+    feat_pocket_title: "\u53E3\u888B\u6A21\u5F0F",
+    feat_pocket_desc: "\u667A\u6167\u5075\u6E2C\u624B\u6A5F\u662F\u5426\u5728\u53E3\u888B\u6216\u5305\u5305\u4E2D\uFF0C\u81EA\u52D5\u4FDD\u6301\u606F\u5C4F\u3002\u7701\u96FB\u5F9E\u7D30\u7BC0\u505A\u8D77\u3002",
+    feat_filter_title: "\u61C9\u7528\u7BE9\u9078",
+    feat_filter_desc: "\u7CBE\u78BA\u9078\u64C7\u54EA\u4E9B\u61C9\u7528\u53EF\u4EE5\u4EAE\u5C4F\u3002\u5B8C\u5168\u638C\u63A7\u4EC0\u9EBC\u503C\u5F97\u4F60\u7684\u95DC\u6CE8\u3002",
+    feat_dark_title: "\u6DF1\u8272\u6A21\u5F0F",
+    feat_dark_desc: "\u7CBE\u7F8E\u7684\u6DF1\u8272\u4ECB\u9762\uFF0C\u5B8C\u7F8E\u9069\u914D AMOLED \u87A2\u5E55\u3002\u8B77\u773C\u53C8\u7701\u96FB\u3002",
+    feat_nointernet_title: "\u7121\u9700\u7DB2\u8DEF",
+    feat_nointernet_desc: "\u5B8C\u5168\u5728\u88DD\u7F6E\u672C\u5730\u904B\u884C\u3002\u96F6\u8CC7\u6599\u63A1\u96C6\uFF0C\u96F6\u4F3A\u670D\u5668\u9023\u7DDA\u3002\u4F60\u7684\u96B1\u79C1\u5F97\u5230\u7D55\u5C0D\u4FDD\u969C\u3002",
+    feat_light_title: "\u8F15\u91CF\u7D1A",
+    feat_light_desc: "\u6975\u5C0F\u7684\u8CC7\u6E90\u4F54\u7528\uFF0C\u5E7E\u4E4E\u7121\u611F\u7684\u96FB\u91CF\u6D88\u8017\u3002\u57FA\u65BC Kotlin \u958B\u767C\uFF0C\u539F\u751F\u6548\u80FD\u958B\u7BB1\u5373\u7528\u3002",
+    how_label: "\u4F7F\u7528\u65B9\u5F0F",
+    how_title: "\u4E09\u6B65\u8A2D\u5B9A\uFF0C\u4E0D\u518D\u932F\u904E\u4EFB\u4F55\u8A0A\u606F",
+    how_desc: "\u8A2D\u5B9A\u4E00\u6B21\u5C31\u597D\u3002\u5269\u4E0B\u7684\u4EA4\u7D66 WakeUpScreen\u3002",
+    step1_title: "\u5B89\u88DD\u4E26\u6388\u6B0A",
+    step1_desc: "WakeUpScreen \u50C5\u9700\u901A\u77E5\u5B58\u53D6\u6B0A\u4F86\u76E3\u807D\u50B3\u5165\u901A\u77E5\u3002\u7121\u9700\u5176\u4ED6\u6B0A\u9650\uFF0C\u8CC7\u6599\u6C38\u9060\u4E0D\u6703\u96E2\u958B\u4F60\u7684\u88DD\u7F6E\u3002",
+    step2_title: "\u9078\u64C7\u61C9\u7528",
+    step2_desc: "\u9078\u64C7\u54EA\u4E9B\u61C9\u7528\u53EF\u4EE5\u559A\u9192\u87A2\u5E55\u3002\u653E\u884C\u91CD\u8981\u8A0A\u606F\uFF0C\u904E\u6FFE\u7121\u95DC\u5E72\u64FE\u3002\u96A8\u6642\u53EF\u8ABF\u6574\u3002",
+    step3_title: "\u5C31\u9019\u6A23\uFF0C\u76E1\u60C5\u751F\u6D3B",
+    step3_desc: "WakeUpScreen \u5728\u80CC\u666F\u9759\u9ED8\u904B\u884C\u3002\u6536\u5230\u901A\u77E5\u6642\u87A2\u5E55\u81EA\u52D5\u4EAE\u8D77\uFF0C\u624B\u6A5F\u5728\u53E3\u888B\u88E1\u6642\u4FDD\u6301\u606F\u5C4F\u3002\u5C31\u9019\u9EBC\u7C21\u55AE\u3002",
+    oss_label: "\u958B\u6E90",
+    oss_title: "\u900F\u660E\u958B\u653E\u5730\u5EFA\u69CB",
+    oss_desc: "WakeUpScreen \u5B8C\u5168\u958B\u6E90\u3002\u67E5\u770B\u7A0B\u5F0F\u78BC\u3001\u8CA2\u737B\u529F\u80FD\u6216\u81EA\u7531\u8907\u88FD\u3002\u900F\u660E\u4E0D\u662F\u53EF\u9078\u9805\u3002",
+    oss_github: "WakeUpScreen GitHub \u5009\u5EAB",
+    cta_label: "\u958B\u59CB\u4F7F\u7528",
+    cta_title: "\u4E0D\u518D\u932F\u904E\u91CD\u8981\u6642\u523B",
+    cta_desc: "\u514D\u8CBB\u3001\u958B\u6E90\u3001\u7528\u5FC3\u6253\u9020\u3002\u5728 Google Play \u4E0B\u8F09 WakeUpScreen\u3002",
+    btn_download: "\u5728 Google Play \u4E0B\u8F09",
+    footer_text: "WakeUpScreen by",
+    footer_license: "\u57FA\u65BC GPLv3 \u6388\u6B0A\u958B\u6E90"
+  },
+  ja: {
+    nav_features: "\u6A5F\u80FD",
+    nav_how: "\u4F7F\u3044\u65B9",
+    nav_download: "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9",
+    hero_subtitle: "\u5927\u5207\u306A\u77AC\u9593\u306B\u3001\u753B\u9762\u304C\u76EE\u899A\u3081\u308B\u3002",
+    hero_desc: "\u901A\u77E5\u304C\u5C4A\u3044\u305F\u77AC\u9593\u306B\u30C7\u30A3\u30B9\u30D7\u30EC\u30A4\u3092\u70B9\u706F\u3059\u308B\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9\u306EAndroid\u30A2\u30D7\u30EA\u3002\u30AF\u30E9\u30A6\u30C9\u4E0D\u8981\u3001\u7121\u99C4\u306A\u3057\u3001\u59A5\u5354\u306A\u3057\u3002",
+    btn_google_play: "Google Play",
+    btn_source: "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9",
+    notif_app: "\u30E1\u30C3\u30BB\u30FC\u30B8",
+    notif_body: "\u4ECA\u591C\u7A7A\u3044\u3066\u308B\uFF1F",
+    features_label: "\u6A5F\u80FD",
+    features_title: "\u610F\u56F3\u3092\u6301\u3063\u3066\u8A2D\u8A08",
+    features_desc: "\u3059\u3079\u3066\u306E\u6A5F\u80FD\u306B\u306F\u7406\u7531\u304C\u3042\u308A\u307E\u3059\u3002\u591A\u304F\u3082\u306A\u304F\u3001\u5C11\u306A\u304F\u3082\u306A\u304F\u3002",
+    feat_wake_title: "\u5373\u6642\u70B9\u706F",
+    feat_wake_desc: "\u901A\u77E5\u304C\u5C4A\u3044\u305F\u77AC\u9593\u306B\u753B\u9762\u304C\u70B9\u706F\u3002\u30C7\u30B9\u30AF\u306B\u7F6E\u3044\u305F\u30B9\u30DE\u30DB\u306E\u5927\u4E8B\u306A\u901A\u77E5\u3092\u898B\u9003\u3057\u307E\u305B\u3093\u3002",
+    feat_pocket_title: "\u30DD\u30B1\u30C3\u30C8\u30E2\u30FC\u30C9",
+    feat_pocket_desc: "\u30DD\u30B1\u30C3\u30C8\u3084\u30D0\u30C3\u30B0\u306E\u4E2D\u306B\u3042\u308B\u3053\u3068\u3092\u30A4\u30F3\u30C6\u30EA\u30B8\u30A7\u30F3\u30C8\u306B\u691C\u77E5\u3057\u3001\u753B\u9762\u3092\u30AA\u30D5\u306E\u307E\u307E\u306B\u3002\u30D0\u30C3\u30C6\u30EA\u30FC\u3092\u8CE2\u304F\u7BC0\u7D04\u3002",
+    feat_filter_title: "\u30A2\u30D7\u30EA\u30D5\u30A3\u30EB\u30BF\u30EA\u30F3\u30B0",
+    feat_filter_desc: "\u3069\u306E\u30A2\u30D7\u30EA\u304C\u753B\u9762\u3092\u70B9\u706F\u3067\u304D\u308B\u304B\u3092\u6B63\u78BA\u306B\u9078\u629E\u3002\u4F55\u306B\u6CE8\u610F\u3092\u5411\u3051\u308B\u304B\u3092\u5B8C\u5168\u306B\u30B3\u30F3\u30C8\u30ED\u30FC\u30EB\u3002",
+    feat_dark_title: "\u30C0\u30FC\u30AF\u30E2\u30FC\u30C9",
+    feat_dark_desc: "\u3042\u3089\u3086\u308BAMOLED\u30C7\u30A3\u30B9\u30D7\u30EC\u30A4\u306B\u99B4\u67D3\u3080\u7F8E\u3057\u3044\u30C0\u30FC\u30AF\u30A4\u30F3\u30BF\u30FC\u30D5\u30A7\u30FC\u30B9\u3002\u76EE\u306B\u3082\u30D0\u30C3\u30C6\u30EA\u30FC\u306B\u3082\u512A\u3057\u3044\u3002",
+    feat_nointernet_title: "\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u4E0D\u8981",
+    feat_nointernet_desc: "\u5B8C\u5168\u306B\u30C7\u30D0\u30A4\u30B9\u4E0A\u3067\u52D5\u4F5C\u3002\u30C7\u30FC\u30BF\u53CE\u96C6\u30BC\u30ED\u3001\u30B5\u30FC\u30D0\u30FC\u63A5\u7D9A\u30BC\u30ED\u3002\u30D7\u30E9\u30A4\u30D0\u30B7\u30FC\u3092\u5B8C\u5168\u306B\u4FDD\u8B77\u3002",
+    feat_light_title: "\u8EFD\u91CF",
+    feat_light_desc: "\u6700\u5C0F\u9650\u306E\u30D5\u30C3\u30C8\u30D7\u30EA\u30F3\u30C8\u3001\u307B\u307C\u30BC\u30ED\u306E\u30D0\u30C3\u30C6\u30EA\u30FC\u5F71\u97FF\u3002Kotlin\u88FD\u306E\u30CD\u30A4\u30C6\u30A3\u30D6\u30D1\u30D5\u30A9\u30FC\u30DE\u30F3\u30B9\u3002",
+    how_label: "\u4F7F\u3044\u65B9",
+    how_title: "3\u30B9\u30C6\u30C3\u30D7\u3067\u898B\u9003\u3057\u30BC\u30ED\u306B",
+    how_desc: "\u4E00\u5EA6\u8A2D\u5B9A\u3059\u308C\u3070\u3001\u3042\u3068\u306F WakeUpScreen \u306B\u304A\u307E\u304B\u305B\u3002",
+    step1_title: "\u30A4\u30F3\u30B9\u30C8\u30FC\u30EB\u3057\u3066\u6A29\u9650\u3092\u4ED8\u4E0E",
+    step1_desc: "WakeUpScreen \u306F\u901A\u77E5\u3078\u306E\u30A2\u30AF\u30BB\u30B9\u6A29\u306E\u307F\u5FC5\u8981\u3067\u3059\u3002\u305D\u306E\u4ED6\u306E\u6A29\u9650\u306F\u4E0D\u8981\u3002\u30C7\u30FC\u30BF\u304C\u30C7\u30D0\u30A4\u30B9\u306E\u5916\u306B\u51FA\u308B\u3053\u3068\u306F\u3042\u308A\u307E\u305B\u3093\u3002",
+    step2_title: "\u30A2\u30D7\u30EA\u3092\u9078\u629E",
+    step2_desc: "\u3069\u306E\u30A2\u30D7\u30EA\u304C\u753B\u9762\u3092\u70B9\u706F\u3059\u308B\u304B\u3092\u9078\u629E\u3002\u91CD\u8981\u306A\u30E1\u30C3\u30BB\u30FC\u30B8\u306F\u901A\u3057\u3001\u30CE\u30A4\u30BA\u306F\u30D6\u30ED\u30C3\u30AF\u3002\u3044\u3064\u3067\u3082\u8ABF\u6574\u53EF\u80FD\u3002",
+    step3_title: "\u305D\u308C\u3060\u3051\u3001\u3042\u3068\u306F\u81EA\u7531\u306B",
+    step3_desc: "WakeUpScreen \u306F\u30D0\u30C3\u30AF\u30B0\u30E9\u30A6\u30F3\u30C9\u3067\u9759\u304B\u306B\u52D5\u4F5C\u3002\u901A\u77E5\u304C\u6765\u308C\u3070\u753B\u9762\u304C\u70B9\u706F\u3001\u30DD\u30B1\u30C3\u30C8\u306E\u4E2D\u306A\u3089\u6D88\u706F\u306E\u307E\u307E\u3002\u30B7\u30F3\u30D7\u30EB\u305D\u306E\u3082\u306E\u3002",
+    oss_label: "\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9",
+    oss_title: "\u30AA\u30FC\u30D7\u30F3\u306B\u69CB\u7BC9",
+    oss_desc: "WakeUpScreen \u306F\u5B8C\u5168\u306B\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9\u3002\u30B3\u30FC\u30C9\u3092\u78BA\u8A8D\u3057\u3001\u6A5F\u80FD\u3092\u8CA2\u732E\u3057\u3001\u81EA\u7531\u306B\u30D5\u30A9\u30FC\u30AF\u3067\u304D\u307E\u3059\u3002\u900F\u660E\u6027\u306F\u5FC5\u9808\u3067\u3059\u3002",
+    oss_github: "WakeUpScreen on GitHub",
+    cta_label: "\u306F\u3058\u3081\u3088\u3046",
+    cta_title: "\u5927\u5207\u306A\u3082\u306E\u306B\u76EE\u899A\u3081\u3088\u3046",
+    cta_desc: "\u7121\u6599\u3001\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9\u3001\u4E01\u5BE7\u306B\u4F5C\u3089\u308C\u3066\u3044\u307E\u3059\u3002Google Play \u3067 WakeUpScreen \u3092\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3002",
+    btn_download: "Google Play \u3067\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9",
+    footer_text: "WakeUpScreen by",
+    footer_license: "GPLv3 \u30E9\u30A4\u30BB\u30F3\u30B9\u306E\u30AA\u30FC\u30D7\u30F3\u30BD\u30FC\u30B9"
+  },
+  ko: {
+    nav_features: "\uAE30\uB2A5",
+    nav_how: "\uC0AC\uC6A9 \uBC29\uBC95",
+    nav_download: "\uB2E4\uC6B4\uB85C\uB4DC",
+    hero_subtitle: "\uC911\uC694\uD55C \uC21C\uAC04\uC5D0 \uD654\uBA74\uC774 \uAE68\uC5B4\uB0A9\uB2C8\uB2E4.",
+    hero_desc: "\uC54C\uB9BC\uC774 \uB3C4\uCC29\uD558\uB294 \uC21C\uAC04 \uD654\uBA74\uC744 \uCF1C\uC8FC\uB294 \uC624\uD508\uC18C\uC2A4 Android \uC571\uC785\uB2C8\uB2E4. \uD074\uB77C\uC6B0\uB4DC \uC5C6\uC774, \uBD88\uD544\uC694\uD55C \uAC83 \uC5C6\uC774, \uD0C0\uD611 \uC5C6\uC774.",
+    btn_google_play: "Google Play",
+    btn_source: "\uC18C\uC2A4 \uCF54\uB4DC",
+    notif_app: "\uBA54\uC2DC\uC9C0",
+    notif_body: "\uC548\uB155, \uC624\uB298 \uBC24\uC5D0 \uC2DC\uAC04 \uB3FC?",
+    features_label: "\uAE30\uB2A5",
+    features_title: "\uC758\uB3C4\uB97C \uB2F4\uC544 \uC124\uACC4\uD588\uC2B5\uB2C8\uB2E4",
+    features_desc: "\uBAA8\uB4E0 \uAE30\uB2A5\uC5D0\uB294 \uC774\uC720\uAC00 \uC788\uC2B5\uB2C8\uB2E4. \uB354\uD558\uC9C0\uB3C4, \uB35C\uD558\uC9C0\uB3C4 \uC54A\uAC8C.",
+    feat_wake_title: "\uC989\uC2DC \uD654\uBA74 \uCF1C\uAE30",
+    feat_wake_desc: "\uC54C\uB9BC\uC774 \uB3C4\uCC29\uD558\uB294 \uC21C\uAC04 \uD654\uBA74\uC774 \uCF1C\uC9D1\uB2C8\uB2E4. \uCC45\uC0C1 \uC704\uC5D0 \uB193\uC778 \uD734\uB300\uD3F0\uC758 \uC911\uC694\uD55C \uC54C\uB9BC\uC744 \uB193\uCE58\uC9C0 \uB9C8\uC138\uC694.",
+    feat_pocket_title: "\uD3EC\uCF13 \uBAA8\uB4DC",
+    feat_pocket_desc: "\uD734\uB300\uD3F0\uC774 \uC8FC\uBA38\uB2C8\uB098 \uAC00\uBC29 \uC548\uC5D0 \uC788\uC74C\uC744 \uC9C0\uB2A5\uC801\uC73C\uB85C \uAC10\uC9C0\uD558\uC5EC \uD654\uBA74\uC744 \uAEBC\uB454 \uCC44\uB85C \uC720\uC9C0\uD569\uB2C8\uB2E4. \uBC30\uD130\uB9AC\uB97C \uC544\uB08C\uB2C8\uB2E4.",
+    feat_filter_title: "\uC571 \uD544\uD130\uB9C1",
+    feat_filter_desc: "\uC5B4\uB5A4 \uC571\uC774 \uD654\uBA74\uC744 \uCF1C\uB3C4 \uB418\uB294\uC9C0 \uC815\uD655\uD788 \uC120\uD0DD\uD558\uC138\uC694. \uBB34\uC5C7\uC5D0 \uC8FC\uBAA9\uD560\uC9C0 \uC644\uBCBD\uD788 \uC81C\uC5B4\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.",
+    feat_dark_title: "\uB2E4\uD06C \uBAA8\uB4DC",
+    feat_dark_desc: "\uBAA8\uB4E0 AMOLED \uB514\uC2A4\uD50C\uB808\uC774\uC5D0 \uC5B4\uC6B8\uB9AC\uB294 \uC544\uB984\uB2E4\uC6B4 \uB2E4\uD06C \uC778\uD130\uD398\uC774\uC2A4. \uB208\uACFC \uBC30\uD130\uB9AC \uBAA8\uB450 \uD3B8\uC548\uD569\uB2C8\uB2E4.",
+    feat_nointernet_title: "\uC778\uD130\uB137 \uBD88\uD544\uC694",
+    feat_nointernet_desc: "\uAE30\uAE30\uC5D0\uC11C \uC644\uC804\uD788 \uB3D9\uC791\uD569\uB2C8\uB2E4. \uB370\uC774\uD130 \uC218\uC9D1 \uC81C\uB85C, \uC11C\uBC84 \uC811\uC18D \uC81C\uB85C. \uAC1C\uC778\uC815\uBCF4\uB97C \uC644\uBCBD\uD788 \uBCF4\uD638\uD569\uB2C8\uB2E4.",
+    feat_light_title: "\uACBD\uB7C9",
+    feat_light_desc: "\uCD5C\uC18C\uD55C\uC758 \uB9AC\uC18C\uC2A4 \uC0AC\uC6A9, \uBBF8\uBBF8\uD55C \uBC30\uD130\uB9AC \uC18C\uBAA8. Kotlin\uC73C\uB85C \uAC1C\uBC1C\uB41C \uB124\uC774\uD2F0\uBE0C \uC131\uB2A5.",
+    how_label: "\uC0AC\uC6A9 \uBC29\uBC95",
+    how_title: "\uC138 \uB2E8\uACC4\uB85C \uBAA8\uB4E0 \uAC83\uC744 \uB193\uCE58\uC9C0 \uB9C8\uC138\uC694",
+    how_desc: "\uD55C \uBC88\uB9CC \uC124\uC815\uD558\uBA74 \uB429\uB2C8\uB2E4. \uB098\uBA38\uC9C0\uB294 WakeUpScreen\uC774 \uCC98\uB9AC\uD569\uB2C8\uB2E4.",
+    step1_title: "\uC124\uCE58 \uBC0F \uAD8C\uD55C \uBD80\uC5EC",
+    step1_desc: "WakeUpScreen\uC740 \uC218\uC2E0 \uC54C\uB9BC\uC744 \uAC10\uC9C0\uD558\uAE30 \uC704\uD55C \uC54C\uB9BC \uC811\uADFC \uAD8C\uD55C\uB9CC \uD544\uC694\uD569\uB2C8\uB2E4. \uB2E4\uB978 \uAD8C\uD55C\uC740 \uD544\uC694 \uC5C6\uC73C\uBA70, \uB370\uC774\uD130\uB294 \uAE30\uAE30 \uBC16\uC73C\uB85C \uB098\uAC00\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.",
+    step2_title: "\uC571 \uC120\uD0DD",
+    step2_desc: "\uC5B4\uB5A4 \uC571\uC774 \uD654\uBA74\uC744 \uCF1C\uB3C4 \uB418\uB294\uC9C0 \uC120\uD0DD\uD558\uC138\uC694. \uC911\uC694\uD55C \uBA54\uC2DC\uC9C0\uB9CC \uD1B5\uACFC\uC2DC\uD0A4\uACE0, \uBD88\uD544\uC694\uD55C \uC54C\uB9BC\uC740 \uCC28\uB2E8\uD558\uC138\uC694. \uC5B8\uC81C\uB4E0 \uC870\uC815 \uAC00\uB2A5\uD569\uB2C8\uB2E4.",
+    step3_title: "\uB05D, \uC77C\uC0C1\uC744 \uC990\uAE30\uC138\uC694",
+    step3_desc: "WakeUpScreen\uC740 \uBC31\uADF8\uB77C\uC6B4\uB4DC\uC5D0\uC11C \uC870\uC6A9\uD788 \uB3D9\uC791\uD569\uB2C8\uB2E4. \uC54C\uB9BC\uC774 \uC624\uBA74 \uD654\uBA74\uC774 \uCF1C\uC9C0\uACE0, \uC8FC\uBA38\uB2C8 \uC548\uC5D0 \uC788\uC73C\uBA74 \uAEBC\uC838 \uC788\uC2B5\uB2C8\uB2E4. \uAC04\uB2E8\uD569\uB2C8\uB2E4.",
+    oss_label: "\uC624\uD508\uC18C\uC2A4",
+    oss_title: "\uC624\uD508\uC18C\uC2A4\uB85C \uAC1C\uBC1C",
+    oss_desc: "WakeUpScreen\uC740 \uC644\uC804\uD55C \uC624\uD508\uC18C\uC2A4\uC785\uB2C8\uB2E4. \uCF54\uB4DC\uB97C \uAC80\uD1A0\uD558\uACE0, \uAE30\uB2A5\uC744 \uAE30\uC5EC\uD558\uAC70\uB098, \uC790\uC720\uB86D\uAC8C \uD3EC\uD06C\uD558\uC138\uC694. \uD22C\uBA85\uC131\uC740 \uD544\uC218\uC785\uB2C8\uB2E4.",
+    oss_github: "WakeUpScreen on GitHub",
+    cta_label: "\uC2DC\uC791\uD558\uAE30",
+    cta_title: "\uC911\uC694\uD55C \uAC83\uC5D0 \uB208\uB5A0\uC138\uC694",
+    cta_desc: "\uBB34\uB8CC, \uC624\uD508\uC18C\uC2A4, \uC815\uC131\uC744 \uB2F4\uC544 \uB9CC\uB4E4\uC5C8\uC2B5\uB2C8\uB2E4. Google Play\uC5D0\uC11C WakeUpScreen\uC744 \uB2E4\uC6B4\uB85C\uB4DC\uD558\uC138\uC694.",
+    btn_download: "Google Play\uC5D0\uC11C \uB2E4\uC6B4\uB85C\uB4DC",
+    footer_text: "WakeUpScreen by",
+    footer_license: "GPLv3 \uB77C\uC774\uC120\uC2A4 \uC624\uD508\uC18C\uC2A4"
+  },
+  it: {
+    nav_features: "Funzioni",
+    nav_how: "Come funziona",
+    nav_download: "Scarica",
+    hero_subtitle: "Il tuo schermo, sveglio quando conta.",
+    hero_desc: "Un'app Android open-source che accende dolcemente il display nel momento in cui arriva una notifica. Nessun cloud, niente disordine, zero compromessi.",
+    btn_google_play: "Google Play",
+    btn_source: "Codice sorgente",
+    notif_app: "Messaggi",
+    notif_body: "Ehi, sei libero stasera?",
+    features_label: "Funzioni",
+    features_title: "Progettato con intenzione",
+    features_desc: "Ogni funzione esiste per un motivo. Niente di pi\u00F9, niente di meno.",
+    feat_wake_title: "Attivazione istantanea",
+    feat_wake_desc: "Lo schermo si accende nel momento in cui arriva una notifica. Non perdere mai ci\u00F2 che conta mentre il telefono \u00E8 sulla scrivania.",
+    feat_pocket_title: "Modalit\u00E0 tasca",
+    feat_pocket_desc: "Rileva intelligentemente quando il telefono \u00E8 in tasca o in borsa e resta spento. Risparmia batteria dove conta.",
+    feat_filter_title: "Filtro app",
+    feat_filter_desc: "Scegli esattamente quali app possono accendere lo schermo. Controllo totale su ci\u00F2 che merita la tua attenzione.",
+    feat_dark_title: "Modalit\u00E0 scura",
+    feat_dark_desc: "Un'interfaccia scura e raffinata, perfetta per qualsiasi display AMOLED. Delicata per gli occhi e per la batteria.",
+    feat_nointernet_title: "Nessun internet",
+    feat_nointernet_desc: "Funziona interamente sul dispositivo. Zero dati raccolti, zero server contattati. La tua privacy \u00E8 assoluta.",
+    feat_light_title: "Leggera",
+    feat_light_desc: "Impatto minimo sulle risorse e sulla batteria. Sviluppata in Kotlin per prestazioni native impeccabili.",
+    how_label: "Come funziona",
+    how_title: "Tre passaggi per non perdere nulla",
+    how_desc: "Configurala una volta e dimenticala. WakeUpScreen fa il resto.",
+    step1_title: "Installa e concedi il permesso",
+    step1_desc: "WakeUpScreen necessita solo dell'accesso alle notifiche per ascoltare gli avvisi in arrivo. Nessun altro permesso richiesto. I tuoi dati non lasciano mai il dispositivo.",
+    step2_title: "Scegli le tue app",
+    step2_desc: "Seleziona quali app possono accendere lo schermo. Lascia passare i messaggi importanti e blocca il rumore. Regola in qualsiasi momento.",
+    step3_title: "Tutto qui, vivi la tua vita",
+    step3_desc: "WakeUpScreen funziona silenziosamente in background. Quando arriva una notifica, lo schermo si accende. Quando il telefono \u00E8 in tasca, resta spento. Semplice.",
+    oss_label: "Open Source",
+    oss_title: "Costruita alla luce del sole",
+    oss_desc: "WakeUpScreen \u00E8 completamente open-source. Esamina il codice, contribuisci con nuove funzioni o fai un fork. La trasparenza non \u00E8 opzionale.",
+    oss_github: "WakeUpScreen su GitHub",
+    cta_label: "Inizia ora",
+    cta_title: "Svegliati per ci\u00F2 che conta",
+    cta_desc: "Gratuita, open-source e creata con cura. Scarica WakeUpScreen su Google Play.",
+    btn_download: "Scarica su Google Play",
+    footer_text: "WakeUpScreen by",
+    footer_license: "Open source con licenza GPLv3"
+  },
+  th: {
+    nav_features: "\u0E1F\u0E35\u0E40\u0E08\u0E2D\u0E23\u0E4C",
+    nav_how: "\u0E27\u0E34\u0E18\u0E35\u0E43\u0E0A\u0E49\u0E07\u0E32\u0E19",
+    nav_download: "\u0E14\u0E32\u0E27\u0E19\u0E4C\u0E42\u0E2B\u0E25\u0E14",
+    hero_subtitle: "\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13 \u0E15\u0E37\u0E48\u0E19\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E16\u0E36\u0E07\u0E40\u0E27\u0E25\u0E32\u0E2A\u0E33\u0E04\u0E31\u0E0D",
+    hero_desc: "\u0E41\u0E2D\u0E1B Android \u0E42\u0E2D\u0E40\u0E1E\u0E19\u0E0B\u0E2D\u0E23\u0E4C\u0E2A\u0E17\u0E35\u0E48\u0E40\u0E1B\u0E34\u0E14\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E43\u0E2B\u0E49\u0E2D\u0E31\u0E15\u0E42\u0E19\u0E21\u0E31\u0E15\u0E34\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E21\u0E35\u0E01\u0E32\u0E23\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19 \u0E44\u0E21\u0E48\u0E43\u0E0A\u0E49\u0E04\u0E25\u0E32\u0E27\u0E14\u0E4C \u0E44\u0E21\u0E48\u0E22\u0E38\u0E48\u0E07\u0E22\u0E32\u0E01 \u0E44\u0E21\u0E48\u0E1B\u0E23\u0E30\u0E19\u0E35\u0E1B\u0E23\u0E30\u0E19\u0E2D\u0E21",
+    btn_google_play: "Google Play",
+    btn_source: "\u0E0B\u0E2D\u0E23\u0E4C\u0E2A\u0E42\u0E04\u0E49\u0E14",
+    notif_app: "\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21",
+    notif_body: "\u0E40\u0E2E\u0E49\u0E22 \u0E04\u0E37\u0E19\u0E19\u0E35\u0E49\u0E27\u0E48\u0E32\u0E07\u0E44\u0E2B\u0E21?",
+    features_label: "\u0E1F\u0E35\u0E40\u0E08\u0E2D\u0E23\u0E4C",
+    features_title: "\u0E2D\u0E2D\u0E01\u0E41\u0E1A\u0E1A\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E21\u0E35\u0E08\u0E38\u0E14\u0E2B\u0E21\u0E32\u0E22",
+    features_desc: "\u0E17\u0E38\u0E01\u0E1F\u0E35\u0E40\u0E08\u0E2D\u0E23\u0E4C\u0E21\u0E35\u0E2D\u0E22\u0E39\u0E48\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E21\u0E35\u0E40\u0E2B\u0E15\u0E38\u0E1C\u0E25 \u0E44\u0E21\u0E48\u0E21\u0E32\u0E01\u0E44\u0E21\u0E48\u0E19\u0E49\u0E2D\u0E22",
+    feat_wake_title: "\u0E40\u0E1B\u0E34\u0E14\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E17\u0E31\u0E19\u0E17\u0E35",
+    feat_wake_desc: "\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E2A\u0E27\u0E48\u0E32\u0E07\u0E02\u0E36\u0E49\u0E19\u0E17\u0E31\u0E19\u0E17\u0E35\u0E17\u0E35\u0E48\u0E01\u0E32\u0E23\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E21\u0E32\u0E16\u0E36\u0E07 \u0E44\u0E21\u0E48\u0E1E\u0E25\u0E32\u0E14\u0E2A\u0E34\u0E48\u0E07\u0E2A\u0E33\u0E04\u0E31\u0E0D\u0E41\u0E21\u0E49\u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E27\u0E32\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E1A\u0E19\u0E42\u0E15\u0E4A\u0E30",
+    feat_pocket_title: "\u0E42\u0E2B\u0E21\u0E14\u0E01\u0E23\u0E30\u0E40\u0E1B\u0E4B\u0E32",
+    feat_pocket_desc: "\u0E15\u0E23\u0E27\u0E08\u0E08\u0E31\u0E1A\u0E2D\u0E31\u0E08\u0E09\u0E23\u0E34\u0E22\u0E30\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E01\u0E23\u0E30\u0E40\u0E1B\u0E4B\u0E32\u0E2B\u0E23\u0E37\u0E2D\u0E01\u0E23\u0E30\u0E40\u0E1B\u0E4B\u0E32 \u0E41\u0E25\u0E30\u0E1B\u0E34\u0E14\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E44\u0E27\u0E49 \u0E1B\u0E23\u0E30\u0E2B\u0E22\u0E31\u0E14\u0E41\u0E1A\u0E15\u0E40\u0E15\u0E2D\u0E23\u0E35\u0E48\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E0A\u0E32\u0E0D\u0E09\u0E25\u0E32\u0E14",
+    feat_filter_title: "\u0E01\u0E23\u0E2D\u0E07\u0E41\u0E2D\u0E1B",
+    feat_filter_desc: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E44\u0E14\u0E49\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E41\u0E21\u0E48\u0E19\u0E22\u0E33\u0E27\u0E48\u0E32\u0E41\u0E2D\u0E1B\u0E44\u0E2B\u0E19\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E40\u0E1B\u0E34\u0E14\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E44\u0E14\u0E49 \u0E04\u0E27\u0E1A\u0E04\u0E38\u0E21\u0E44\u0E14\u0E49\u0E40\u0E15\u0E47\u0E21\u0E17\u0E35\u0E48\u0E27\u0E48\u0E32\u0E2D\u0E30\u0E44\u0E23\u0E2A\u0E21\u0E04\u0E27\u0E23\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E19\u0E43\u0E08",
+    feat_dark_title: "\u0E42\u0E2B\u0E21\u0E14\u0E21\u0E37\u0E14",
+    feat_dark_desc: "\u0E2D\u0E34\u0E19\u0E40\u0E17\u0E2D\u0E23\u0E4C\u0E40\u0E1F\u0E0B\u0E21\u0E37\u0E14\u0E2A\u0E27\u0E22\u0E07\u0E32\u0E21\u0E17\u0E35\u0E48\u0E40\u0E02\u0E49\u0E32\u0E01\u0E31\u0E1A\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D AMOLED \u0E17\u0E38\u0E01\u0E23\u0E38\u0E48\u0E19 \u0E2A\u0E1A\u0E32\u0E22\u0E15\u0E32\u0E41\u0E25\u0E30\u0E1B\u0E23\u0E30\u0E2B\u0E22\u0E31\u0E14\u0E41\u0E1A\u0E15\u0E40\u0E15\u0E2D\u0E23\u0E35\u0E48",
+    feat_nointernet_title: "\u0E44\u0E21\u0E48\u0E15\u0E49\u0E2D\u0E07\u0E43\u0E0A\u0E49\u0E2D\u0E34\u0E19\u0E40\u0E17\u0E2D\u0E23\u0E4C\u0E40\u0E19\u0E47\u0E15",
+    feat_nointernet_desc: "\u0E17\u0E33\u0E07\u0E32\u0E19\u0E1A\u0E19\u0E2D\u0E38\u0E1B\u0E01\u0E23\u0E13\u0E4C\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14 \u0E44\u0E21\u0E48\u0E40\u0E01\u0E47\u0E1A\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25 \u0E44\u0E21\u0E48\u0E15\u0E34\u0E14\u0E15\u0E48\u0E2D\u0E40\u0E0B\u0E34\u0E23\u0E4C\u0E1F\u0E40\u0E27\u0E2D\u0E23\u0E4C \u0E04\u0E27\u0E32\u0E21\u0E40\u0E1B\u0E47\u0E19\u0E2A\u0E48\u0E27\u0E19\u0E15\u0E31\u0E27\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A\u0E01\u0E32\u0E23\u0E1B\u0E01\u0E1B\u0E49\u0E2D\u0E07\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E2A\u0E21\u0E1A\u0E39\u0E23\u0E13\u0E4C",
+    feat_light_title: "\u0E40\u0E1A\u0E32\u0E41\u0E25\u0E30\u0E40\u0E23\u0E47\u0E27",
+    feat_light_desc: "\u0E43\u0E0A\u0E49\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E19\u0E49\u0E2D\u0E22\u0E17\u0E35\u0E48\u0E2A\u0E38\u0E14 \u0E41\u0E17\u0E1A\u0E44\u0E21\u0E48\u0E01\u0E34\u0E19\u0E41\u0E1A\u0E15\u0E40\u0E15\u0E2D\u0E23\u0E35\u0E48 \u0E1E\u0E31\u0E12\u0E19\u0E32\u0E14\u0E49\u0E27\u0E22 Kotlin \u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E1B\u0E23\u0E30\u0E2A\u0E34\u0E17\u0E18\u0E34\u0E20\u0E32\u0E1E\u0E40\u0E19\u0E17\u0E35\u0E1F",
+    how_label: "\u0E27\u0E34\u0E18\u0E35\u0E43\u0E0A\u0E49\u0E07\u0E32\u0E19",
+    how_title: "\u0E2A\u0E32\u0E21\u0E02\u0E31\u0E49\u0E19\u0E15\u0E2D\u0E19 \u0E44\u0E21\u0E48\u0E1E\u0E25\u0E32\u0E14\u0E2A\u0E34\u0E48\u0E07\u0E43\u0E14\u0E2D\u0E35\u0E01\u0E40\u0E25\u0E22",
+    how_desc: "\u0E15\u0E31\u0E49\u0E07\u0E04\u0E48\u0E32\u0E04\u0E23\u0E31\u0E49\u0E07\u0E40\u0E14\u0E35\u0E22\u0E27\u0E41\u0E25\u0E49\u0E27\u0E25\u0E37\u0E21\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22 WakeUpScreen \u0E08\u0E31\u0E14\u0E01\u0E32\u0E23\u0E17\u0E38\u0E01\u0E2D\u0E22\u0E48\u0E32\u0E07",
+    step1_title: "\u0E15\u0E34\u0E14\u0E15\u0E31\u0E49\u0E07\u0E41\u0E25\u0E30\u0E43\u0E2B\u0E49\u0E2A\u0E34\u0E17\u0E18\u0E34\u0E4C",
+    step1_desc: "WakeUpScreen \u0E15\u0E49\u0E2D\u0E07\u0E01\u0E32\u0E23\u0E40\u0E1E\u0E35\u0E22\u0E07\u0E2A\u0E34\u0E17\u0E18\u0E34\u0E4C\u0E40\u0E02\u0E49\u0E32\u0E16\u0E36\u0E07\u0E01\u0E32\u0E23\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E40\u0E17\u0E48\u0E32\u0E19\u0E31\u0E49\u0E19 \u0E44\u0E21\u0E48\u0E15\u0E49\u0E2D\u0E07\u0E43\u0E0A\u0E49\u0E2A\u0E34\u0E17\u0E18\u0E34\u0E4C\u0E2D\u0E37\u0E48\u0E19 \u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13\u0E44\u0E21\u0E48\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E2D\u0E38\u0E1B\u0E01\u0E23\u0E13\u0E4C",
+    step2_title: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E41\u0E2D\u0E1B",
+    step2_desc: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E27\u0E48\u0E32\u0E41\u0E2D\u0E1B\u0E44\u0E2B\u0E19\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E40\u0E1B\u0E34\u0E14\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E44\u0E14\u0E49 \u0E1B\u0E25\u0E48\u0E2D\u0E22\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E33\u0E04\u0E31\u0E0D\u0E1C\u0E48\u0E32\u0E19\u0E41\u0E25\u0E30\u0E01\u0E23\u0E2D\u0E07\u0E40\u0E2A\u0E35\u0E22\u0E07\u0E23\u0E1A\u0E01\u0E27\u0E19 \u0E1B\u0E23\u0E31\u0E1A\u0E44\u0E14\u0E49\u0E15\u0E25\u0E2D\u0E14\u0E40\u0E27\u0E25\u0E32",
+    step3_title: "\u0E40\u0E17\u0E48\u0E32\u0E19\u0E31\u0E49\u0E19\u0E40\u0E2D\u0E07 \u0E43\u0E0A\u0E49\u0E0A\u0E35\u0E27\u0E34\u0E15\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22",
+    step3_desc: "WakeUpScreen \u0E17\u0E33\u0E07\u0E32\u0E19\u0E40\u0E07\u0E35\u0E22\u0E1A\u0E46 \u0E43\u0E19\u0E1E\u0E37\u0E49\u0E19\u0E2B\u0E25\u0E31\u0E07 \u0E40\u0E21\u0E37\u0E48\u0E2D\u0E21\u0E35\u0E01\u0E32\u0E23\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E08\u0E30\u0E2A\u0E27\u0E48\u0E32\u0E07\u0E02\u0E36\u0E49\u0E19 \u0E40\u0E21\u0E37\u0E48\u0E2D\u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E01\u0E23\u0E30\u0E40\u0E1B\u0E4B\u0E32\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E08\u0E30\u0E14\u0E31\u0E1A\u0E44\u0E1B \u0E07\u0E48\u0E32\u0E22\u0E46 \u0E41\u0E04\u0E48\u0E19\u0E31\u0E49\u0E19",
+    oss_label: "\u0E42\u0E2D\u0E40\u0E1E\u0E19\u0E0B\u0E2D\u0E23\u0E4C\u0E2A",
+    oss_title: "\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E42\u0E1B\u0E23\u0E48\u0E07\u0E43\u0E2A",
+    oss_desc: "WakeUpScreen \u0E40\u0E1B\u0E47\u0E19\u0E42\u0E2D\u0E40\u0E1E\u0E19\u0E0B\u0E2D\u0E23\u0E4C\u0E2A\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14 \u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E42\u0E04\u0E49\u0E14 \u0E21\u0E35\u0E2A\u0E48\u0E27\u0E19\u0E23\u0E48\u0E27\u0E21 \u0E2B\u0E23\u0E37\u0E2D\u0E1F\u0E2D\u0E23\u0E4C\u0E01\u0E44\u0E14\u0E49\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E2D\u0E34\u0E2A\u0E23\u0E30 \u0E04\u0E27\u0E32\u0E21\u0E42\u0E1B\u0E23\u0E48\u0E07\u0E43\u0E2A\u0E44\u0E21\u0E48\u0E43\u0E0A\u0E48\u0E17\u0E32\u0E07\u0E40\u0E25\u0E37\u0E2D\u0E01",
+    oss_github: "WakeUpScreen \u0E1A\u0E19 GitHub",
+    cta_label: "\u0E40\u0E23\u0E34\u0E48\u0E21\u0E43\u0E0A\u0E49\u0E07\u0E32\u0E19",
+    cta_title: "\u0E15\u0E37\u0E48\u0E19\u0E02\u0E36\u0E49\u0E19\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2A\u0E34\u0E48\u0E07\u0E17\u0E35\u0E48\u0E2A\u0E33\u0E04\u0E31\u0E0D",
+    cta_desc: "\u0E1F\u0E23\u0E35 \u0E42\u0E2D\u0E40\u0E1E\u0E19\u0E0B\u0E2D\u0E23\u0E4C\u0E2A \u0E41\u0E25\u0E30\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E1E\u0E34\u0E16\u0E35\u0E1E\u0E34\u0E16\u0E31\u0E19 \u0E14\u0E32\u0E27\u0E19\u0E4C\u0E42\u0E2B\u0E25\u0E14 WakeUpScreen \u0E1A\u0E19 Google Play",
+    btn_download: "\u0E14\u0E32\u0E27\u0E19\u0E4C\u0E42\u0E2B\u0E25\u0E14\u0E1A\u0E19 Google Play",
+    footer_text: "WakeUpScreen by",
+    footer_license: "\u0E42\u0E2D\u0E40\u0E1E\u0E19\u0E0B\u0E2D\u0E23\u0E4C\u0E2A\u0E20\u0E32\u0E22\u0E43\u0E15\u0E49\u0E25\u0E34\u0E02\u0E2A\u0E34\u0E17\u0E18\u0E34\u0E4C GPLv3"
+  }
+};
+
+var langLabels = {
+  en: "EN",
+  "zh-Hans": "\u7B80",
+  "zh-Hant": "\u7E41",
+  ja: "JA",
+  ko: "KO",
+  it: "IT",
+  th: "TH"
+};
+
+// Map browser language codes to our supported languages
+function detectBrowserLanguage() {
+  var langs = navigator.languages || [navigator.language || navigator.userLanguage || "en"];
+  for (var i = 0; i < langs.length; i++) {
+    var lang = langs[i].toLowerCase();
+    // Exact match
+    if (translations[lang]) return lang;
+    // Chinese variants
+    if (lang === "zh-cn" || lang === "zh-sg" || lang.startsWith("zh-hans")) return "zh-Hans";
+    if (lang === "zh-tw" || lang === "zh-hk" || lang === "zh-mo" || lang.startsWith("zh-hant")) return "zh-Hant";
+    if (lang === "zh") return "zh-Hans";
+    // Base language match
+    var base = lang.split("-")[0];
+    if (translations[base]) return base;
+  }
+  return "en";
+}
+
+function setLanguage(lang) {
+  if (!translations[lang]) lang = "en";
+  var t = translations[lang];
+  document.querySelectorAll("[data-i18n]").forEach(function(el) {
+    var key = el.getAttribute("data-i18n");
+    if (t[key] !== undefined) {
+      el.textContent = t[key];
+    }
+  });
+  document.documentElement.lang = lang;
+  document.getElementById("langLabel").textContent = langLabels[lang] || lang.toUpperCase();
+
+  // Update active state in dropdown
+  document.querySelectorAll(".lang-option").forEach(function(opt) {
+    opt.classList.toggle("active", opt.getAttribute("data-lang") === lang);
+  });
+
+  // Save preference
+  try { localStorage.setItem("wakeupscreen-lang", lang); } catch(e) {}
+}
+
+// Language switcher toggle
+(function() {
+  var switcher = document.getElementById("langSwitcher");
+  var btn = document.getElementById("langBtn");
+
+  btn.addEventListener("click", function(e) {
+    e.stopPropagation();
+    switcher.classList.toggle("open");
+  });
+
+  document.getElementById("langDropdown").addEventListener("click", function(e) {
+    var option = e.target.closest(".lang-option");
+    if (!option) return;
+    var lang = option.getAttribute("data-lang");
+    setLanguage(lang);
+    switcher.classList.remove("open");
+  });
+
+  document.addEventListener("click", function(e) {
+    if (!switcher.contains(e.target)) {
+      switcher.classList.remove("open");
+    }
+  });
+})();
+
+// Apply language on load: saved preference > browser detection > English
+(function() {
+  var saved = null;
+  try { saved = localStorage.getItem("wakeupscreen-lang"); } catch(e) {}
+  if (saved && translations[saved]) {
+    setLanguage(saved);
+  } else {
+    setLanguage(detectBrowserLanguage());
+  }
+})();
+
+// ---- Stars canvas ----
+(function() {
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let w, h;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  function createStars() {
+    stars = [];
+    const count = Math.floor((w * h) / 8000);
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.2 + 0.3,
+        alpha: Math.random() * 0.6 + 0.2,
+        drift: (Math.random() - 0.5) * 0.15,
+        phase: Math.random() * Math.PI * 2,
+        twinkleSpeed: Math.random() * 0.01 + 0.005
+      });
+    }
+  }
+
+  let time = 0;
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    time++;
+    for (const s of stars) {
+      const flicker = Math.sin(time * s.twinkleSpeed + s.phase) * 0.3 + 0.7;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200, 220, 255, ${s.alpha * flicker})`;
+      ctx.fill();
+      s.y += s.drift * 0.3;
+      s.x += s.drift * 0.1;
+      if (s.y > h + 5) { s.y = -5; s.x = Math.random() * w; }
+      if (s.y < -5) { s.y = h + 5; s.x = Math.random() * w; }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  createStars();
+  draw();
+
+  window.addEventListener('resize', function() {
+    resize();
+    createStars();
+  });
+})();
+
+// ---- Scroll fade-in ----
+(function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in, .timeline-item').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+
+// ---- Replay phone animation on scroll into view ----
+(function() {
+  const phone = document.querySelector('.phone');
+  if (!phone) return;
+  const overlay = phone.querySelector('.phone-screen-overlay');
+  const timeEl = phone.querySelector('.phone-time');
+  const dateEl = phone.querySelector('.phone-date');
+  const notif = phone.querySelector('.phone-notification');
+  const aurora = phone.querySelector('.phone-screen-aurora');
+
+  const animatedEls = [overlay, timeEl, dateEl, notif, aurora];
+
+  function restartAnimations() {
+    animatedEls.forEach(function(el) {
+      if (!el) return;
+      var anim = el.style.animation || getComputedStyle(el).animation;
+      el.style.animation = 'none';
+      el.offsetHeight; // trigger reflow
+      el.style.animation = '';
+    });
+  }
+
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        restartAnimations();
+      }
+    });
+  }, { threshold: 0.4 });
+
+  obs.observe(phone);
+})();
+</script>
+
+</body>
+</html>
