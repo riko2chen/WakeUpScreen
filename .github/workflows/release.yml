@@ -77,6 +77,19 @@ jobs:
           mv app/build/outputs/apk/release/app-release.apk \
              app/build/outputs/apk/release/WakeUpScreen-v${{ steps.version.outputs.name }}.apk
 
+      - name: Extract changelog for this version
+        id: changelog
+        run: |
+          VERSION="${{ steps.version.outputs.name }}"
+          NOTES_EN=$(sed -n "/^## \[$VERSION\]/,/^## \[/{/^## \[/d;p;}" CHANGELOG.md)
+          NOTES_ZH=$(sed -n "/^## \[$VERSION\]/,/^## \[/{/^## \[/d;p;}" CHANGELOG-zh.md)
+          echo "notes_en<<EOF_EN" >> "$GITHUB_OUTPUT"
+          echo "$NOTES_EN" >> "$GITHUB_OUTPUT"
+          echo "EOF_EN" >> "$GITHUB_OUTPUT"
+          echo "notes_zh<<EOF_ZH" >> "$GITHUB_OUTPUT"
+          echo "$NOTES_ZH" >> "$GITHUB_OUTPUT"
+          echo "EOF_ZH" >> "$GITHUB_OUTPUT"
+
       - name: Create Tag and Release
         uses: softprops/action-gh-release@v2
         with:
@@ -85,6 +98,12 @@ jobs:
           body: |
             **WakeUpScreen v${{ steps.version.outputs.name }}** (versionCode: ${{ steps.version.outputs.code }})
 
-            Built from commit ${{ github.sha }}
+            ${{ steps.changelog.outputs.notes_en }}
+
+            ---
+
+            ## 中文更新日志
+
+            ${{ steps.changelog.outputs.notes_zh }}
           files: app/build/outputs/apk/release/WakeUpScreen-v${{ steps.version.outputs.name }}.apk
           make_latest: true
