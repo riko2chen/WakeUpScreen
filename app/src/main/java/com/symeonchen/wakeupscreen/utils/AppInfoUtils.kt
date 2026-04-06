@@ -23,7 +23,7 @@ class AppInfoUtils {
         private fun getVersionName(context: Context): String {
             val appContext = context.applicationContext
             val packageInfo = appContext.packageManager.getPackageInfo(appContext.packageName, 0)
-            return packageInfo.versionName
+            return packageInfo.versionName ?: ""
         }
 
         private fun getVersionCode(context: Context): String {

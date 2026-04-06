@@ -5,4 +5,13 @@
 
     <color name="divider">#F6F6F6</color>
     <color name="background">#F6F6F6</color>
+
+    <color name="green">#45CE73</color>
+    <color name="red">#A52844</color>
+    <color name="blue">#1768DD</color>
+    <color name="gray">#5C5C5C</color>
+    <color name="lite_gray">#ACACAC</color>
+    <color name="deep_gray">#2B2B2B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

@@ -5,4 +5,13 @@
 
     <color name="divider">#C1BEBE</color>
     <color name="background">#534E4E</color>
+
+    <color name="green">#45CE73</color>
+    <color name="red">#A52844</color>
+    <color name="blue">#1768DD</color>
+    <color name="gray">#5C5C5C</color>
+    <color name="lite_gray">#ACACAC</color>
+    <color name="deep_gray">#2B2B2B</color>
+    <color name="white">#353535</color>
+    <color name="black">#E6E6E6</color>
 </resources>
