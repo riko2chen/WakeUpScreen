@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import android.app.NotificationManager
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
 import com.symeonchen.wakeupscreen.data.LogStatus
@@ -143,6 +144,20 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
         LogStatus.BLOCKED -> blockReasonToString(entry.blockReason)
     }
 
+    val importanceText = importanceToString(entry.importance)
+
+    val soundText = when (entry.hasSound) {
+        true -> stringResource(R.string.log_yes)
+        false -> stringResource(R.string.log_no)
+        null -> stringResource(R.string.log_channel_unknown)
+    }
+
+    val vibrationText = when (entry.hasVibration) {
+        true -> stringResource(R.string.log_yes)
+        false -> stringResource(R.string.log_no)
+        null -> stringResource(R.string.log_channel_unknown)
+    }
+
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
@@ -165,6 +180,18 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
                 DetailRow(
                     label = stringResource(R.string.log_detail_reason),
                     value = description,
+                )
+                DetailRow(
+                    label = stringResource(R.string.log_detail_importance),
+                    value = importanceText,
+                )
+                DetailRow(
+                    label = stringResource(R.string.log_detail_sound),
+                    value = soundText,
+                )
+                DetailRow(
+                    label = stringResource(R.string.log_detail_vibration),
+                    value = vibrationText,
                 )
             }
         },
@@ -194,6 +221,18 @@ private fun DetailRow(label: String, value: String) {
 }
 
 @Composable
+private fun importanceToString(importance: Int): String {
+    return when (importance) {
+        NotificationManager.IMPORTANCE_NONE -> stringResource(R.string.log_importance_none)
+        NotificationManager.IMPORTANCE_MIN -> stringResource(R.string.log_importance_min)
+        NotificationManager.IMPORTANCE_LOW -> stringResource(R.string.log_importance_low)
+        NotificationManager.IMPORTANCE_DEFAULT -> stringResource(R.string.log_importance_default)
+        NotificationManager.IMPORTANCE_HIGH -> stringResource(R.string.log_importance_high)
+        else -> stringResource(R.string.log_importance_unknown)
+    }
+}
+
+@Composable
 private fun blockReasonToString(reason: String): String {
     return when (reason) {
         "app_switch_off" -> stringResource(R.string.log_reason_app_switch_off)
@@ -202,6 +241,7 @@ private fun blockReasonToString(reason: String): String {
         "OnGoingNotificationCondition" -> stringResource(R.string.log_reason_ongoing)
         "SleepModeCondition" -> stringResource(R.string.log_reason_sleep_mode)
         "DndCondition" -> stringResource(R.string.log_reason_dnd)
+        "ChargingCondition" -> stringResource(R.string.log_reason_charging)
         else -> stringResource(R.string.log_reason_unknown)
     }
 }

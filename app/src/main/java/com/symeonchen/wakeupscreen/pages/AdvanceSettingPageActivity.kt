@@ -31,6 +31,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 val radicalOngoing by settingModel.radicalOngoingOptimize.observeAsState(false)
                 val persistent by settingModel.persistentSwitch.observeAsState(false)
                 val dnd by settingModel.dndDetectBoolean.observeAsState(false)
+                val chargingOnly by settingModel.chargingOnlySwitch.observeAsState(false)
                 val sleep by settingModel.sleepModeBoolean.observeAsState(false)
                 val sleepRange by settingModel.sleepModeTimeRange.observeAsState(Pair(2, 4))
 
@@ -60,6 +61,9 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     onPersistentToggle = { settingModel.persistentSwitch.postValue(!persistent) },
                     dndChecked = dnd,
                     onDndToggle = { settingModel.dndDetectBoolean.postValue(!dnd) },
+                    chargingOnlyChecked = chargingOnly,
+                    chargingOnlySubtitle = statusText(chargingOnly),
+                    onChargingOnlyToggle = { settingModel.chargingOnlySwitch.postValue(!chargingOnly) },
                     sleepChecked = sleep,
                     sleepSubtitle = statusText(sleep),
                     onSleepToggle = { settingModel.sleepModeBoolean.postValue(!sleep) },
