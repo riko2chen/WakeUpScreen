@@ -3,7 +3,6 @@ package com.symeonchen.wakeupscreen.pages
 import android.app.ActivityManager
 import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -304,7 +303,7 @@ class ScMainFragment : ScBaseFragment() {
 
         var btnVisibility = View.VISIBLE
         var tvStatusText = resources.getString(R.string.already_open)
-        var headerBackgroundColor = context?.getColor(R.color.colorPrimary)
+        var isError = false
         var visibilityOfResetNotice = View.VISIBLE
 
         if (permissionStatus != true) {
@@ -313,25 +312,27 @@ class ScMainFragment : ScBaseFragment() {
                     R.string.not_open
                 )
             btnVisibility = View.INVISIBLE
-            headerBackgroundColor = context?.getColor(R.color.red)
+            isError = true
             visibilityOfResetNotice = View.INVISIBLE
         }
         if (serviceStatus != true) {
             tvStatusText =
                 resources.getString(R.string.service_of_background) + " " + resources.getString(R.string.not_open)
             btnVisibility = View.INVISIBLE
-            headerBackgroundColor = context?.getColor(R.color.red)
+            isError = true
             visibilityOfResetNotice = View.INVISIBLE
         }
         if (customStatus != true) {
             tvStatusText = resources.getString(R.string.already_close)
-            headerBackgroundColor = context?.getColor(R.color.red)
+            isError = true
             visibilityOfResetNotice = View.INVISIBLE
         }
 
         binding.btnControl.visibility = btnVisibility
         binding.tvStatus.text = tvStatusText
-        binding.clHeader.setBackgroundColor(headerBackgroundColor ?: Color.WHITE)
+        binding.clHeader.setBackgroundResource(
+            if (isError) R.drawable.bg_hero_gradient_error else R.drawable.bg_hero_gradient
+        )
         binding.tvResetApplication.visibility = visibilityOfResetNotice
     }
 

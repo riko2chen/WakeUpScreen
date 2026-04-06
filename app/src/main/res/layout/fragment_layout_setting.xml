@@ -1,72 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/background">
 
-    <TextView
-        android:id="@+id/btn_top"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="@string/setting"
-        android:textColor="#fff"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_top">
-
-        <LinearLayout
+        <!-- Settings header -->
+        <FrameLayout
+            android:id="@+id/btn_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background"
-            android:divider="@drawable/shape_divider"
-            android:orientation="vertical"
-            android:showDividers="middle">
+            android:layout_height="100dp"
+            android:background="@drawable/bg_toolbar_gradient">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="@string/custom"
-                android:textColor="@color/colorPrimary" />
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="20dp"
+                android:text="@string/setting"
+                style="@style/TextAppearance.Hero.Title" />
+        </FrameLayout>
+
+        <!-- Custom section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_section_header"
+            android:text="@string/custom"
+            style="@style/TextAppearance.Section.Header" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_card"
+            android:divider="@drawable/shape_divider"
+            android:elevation="2dp"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_language"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:visibility="visible"
+                android:layout_height="64dp"
                 app:sc_setting_item_title_main="@string/language"
-                app:sc_setting_item_title_second="@string/language_zh_cn"
-                tools:visibility="visible" />
+                app:sc_setting_item_title_second="@string/language_zh_cn" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_wake_screen_time"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 app:sc_setting_item_title_main="@string/time_of_wake_up_screen"
                 app:sc_setting_single_line="true" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_current_mode"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 app:sc_setting_item_title_main="@string/current_mode"
                 app:sc_setting_item_title_second="@string/white_list" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_white_list_entry"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 android:visibility="gone"
                 app:sc_setting_item_title_main="@string/white_list"
                 app:sc_setting_item_title_second="@string/click_to_enter_white_list_page"
@@ -75,7 +84,7 @@
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_black_list_entry"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 android:visibility="gone"
                 app:sc_setting_item_title_main="@string/black_list"
                 app:sc_setting_item_title_second="@string/click_to_enter_black_list_page"
@@ -84,49 +93,63 @@
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_advanced_setting"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 app:sc_setting_item_title_main="@string/advanced_setting"
                 app:sc_setting_single_line="true" />
 
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="24dp"
-                android:paddingEnd="0dp"
-                android:text="@string/about"
-                android:textColor="@color/colorPrimary" />
+        <!-- About section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_section_header"
+            android:text="@string/about"
+            style="@style/TextAppearance.Section.Header" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_card"
+            android:divider="@drawable/shape_divider"
+            android:elevation="2dp"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_about_this"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 app:sc_setting_item_title_main="@string/app_info"
                 app:sc_setting_single_line="true" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_address"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 app:sc_setting_item_title_main="@string/project_address"
                 app:sc_setting_item_title_second="https://github.com/SymeonChen/WakeUpScreen" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_question"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 app:sc_setting_item_title_main="@string/feedback"
                 app:sc_setting_item_title_second="symeonchen@gmail.com" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_give_star"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="64dp"
                 app:sc_setting_item_title_main="@string/give_star"
                 app:sc_setting_item_title_second="@string/click_here_to_open_google_play_store" />
 
         </LinearLayout>
-    </ScrollView>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

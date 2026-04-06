@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="72dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_card"
+    android:elevation="1dp">
 
     <ImageView
         android:id="@+id/iv_app_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="14dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/app_info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,35 +24,38 @@
         android:id="@+id/tv_app_simple_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:ellipsize="start"
-        android:singleLine="true"
-        android:textSize="18dp"
+        android:layout_marginStart="14dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_primary"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/cb_app_select"
-        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/iv_app_icon"
         app:layout_constraintTop_toTopOf="@id/iv_app_icon"
-        tools:text="微信" />
+        tools:text="WeChat" />
 
     <TextView
         android:id="@+id/tv_app_package_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:ellipsize="start"
-        android:singleLine="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_app_icon"
         app:layout_constraintEnd_toStartOf="@id/cb_app_select"
-        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/iv_app_icon"
-        tools:text="com.symeonchen.package.name" />
+        app:layout_constraintTop_toBottomOf="@id/tv_app_simple_name"
+        tools:text="com.tencent.mm" />
 
     <CheckBox
         android:id="@+id/cb_app_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="14dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

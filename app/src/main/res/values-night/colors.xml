@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#046E61</color>
-    <color name="colorAccent">#536dfe</color>
+    <!-- Primary palette -->
+    <color name="colorPrimary">#4DB6A0</color>
+    <color name="colorPrimaryDark">#00897B</color>
+    <color name="colorPrimaryLight">#80CBC4</color>
+    <color name="colorAccent">#FFD54F</color>
 
-    <color name="divider">#C1BEBE</color>
-    <color name="background">#534E4E</color>
+    <!-- Gradient endpoints -->
+    <color name="gradient_start">#0A0E1A</color>
+    <color name="gradient_mid">#12233A</color>
+    <color name="gradient_end">#1B4332</color>
 
-    <color name="green">#45CE73</color>
-    <color name="red">#A52844</color>
-    <color name="blue">#1768DD</color>
-    <color name="gray">#5C5C5C</color>
-    <color name="lite_gray">#ACACAC</color>
-    <color name="deep_gray">#2B2B2B</color>
-    <color name="white">#353535</color>
-    <color name="black">#E6E6E6</color>
+    <!-- Surfaces -->
+    <color name="background">#121218</color>
+    <color name="surface">#1E1E2A</color>
+    <color name="surface_variant">#252536</color>
+    <color name="divider">#2A2A3C</color>
+
+    <!-- Status colors -->
+    <color name="green">#4ADE80</color>
+    <color name="green_soft">#1A2E23</color>
+    <color name="red">#F87171</color>
+    <color name="red_soft">#2E1A1E</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#E8E4DC</color>
+    <color name="text_secondary">#8E99A4</color>
+    <color name="text_on_dark">#F5F2EB</color>
+    <color name="text_on_dark_secondary">#B8C5D0</color>
+
+    <!-- Utility colors -->
+    <color name="blue">#64B5F6</color>
+    <color name="gray">#8E99A4</color>
+    <color name="lite_gray">#4A4A5C</color>
+    <color name="deep_gray">#B8C5D0</color>
+    <color name="white">#1E1E2A</color>
+    <color name="black">#E8E4DC</color>
+
+    <!-- Card shadow tint -->
+    <color name="card_shadow">#20000000</color>
+
+    <!-- Accent variants -->
+    <color name="accent_amber">#FFD54F</color>
+    <color name="accent_amber_soft">#2A2518</color>
+
+    <!-- Bottom nav -->
+    <color name="nav_inactive">#6B7B8D</color>
+    <color name="nav_active">#4DB6A0</color>
 </resources>
