@@ -8,14 +8,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.symeonchen.uicomponent.views.StatusItem
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
-import com.symeonchen.wakeupscreen.databinding.FragmentLayoutMainBinding
+import com.symeonchen.wakeupscreen.compose.MainScreen
+import com.symeonchen.wakeupscreen.compose.StatusDisplayState
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.StatusViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
@@ -28,26 +33,20 @@ import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.coroutines.launch
 
-/**
- * Created by SymeonChen on 2019-10-27.
- */
 class ScMainFragment : ScBaseFragment() {
 
     private lateinit var statusModel: StatusViewModel
     private lateinit var settingModel: SettingViewModel
     private var alertDialog: AlertDialog? = null
 
-    private var _binding: FragmentLayoutMainBinding? = null
-    private val binding get() = _binding!!
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLayoutMainBinding.inflate(inflater, container, false)
-        return binding.root
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,139 +56,114 @@ class ScMainFragment : ScBaseFragment() {
         statusModel = ViewModelProvider(this, statusFactory).get(StatusViewModel::class.java)
         settingModel = ViewModelProvider(this, settingFactory).get(SettingViewModel::class.java)
 
-        initView()
-        setDataListener()
-        setViewListener()
         getData()
+
+        (view as ComposeView).setContent {
+            WakeUpScreenTheme {
+                val permissionOk by statusModel.permissionOfReadNotification.observeAsState(false)
+                val serviceOk by statusModel.statusOfService.observeAsState(false)
+                val appSwitch by settingModel.switchOfApp.observeAsState(false)
+                val batteryOk by settingModel.fakeSwitchOfBatterySaver.observeAsState(false)
+                val notifPermOk by settingModel.permissionOfSendNotification.observeAsState(false)
+
+                val statusDisplay = deriveStatusDisplay(permissionOk, serviceOk, appSwitch)
+
+                MainScreen(
+                    statusDisplay = statusDisplay,
+                    tipsText = getString(R.string.tip_desc_time_cost),
+                    isToggleChecked = appSwitch,
+                    onToggleClick = ::handleToggle,
+
+                    serviceName = getString(R.string.service_of_background),
+                    serviceOk = serviceOk,
+                    serviceBtn = getString(if (serviceOk) R.string.click_to_close else R.string.click_to_open),
+                    onServiceItemClick = {},
+                    onServiceBtnClick = ::handleServiceToggle,
+
+                    permissionName = getString(R.string.permission_of_read_notification),
+                    permissionOk = permissionOk,
+                    permissionBtn = getString(R.string.to_setting),
+                    onPermissionItemClick = { openNotificationService(context) },
+                    onPermissionBtnClick = {
+                        openNotificationService(context)
+                        PermissionState.openReadNotificationSetting(context)
+                    },
+
+                    batteryName = getString(R.string.optimize_of_battery_saver),
+                    batteryOk = batteryOk,
+                    batteryBtn = getString(R.string.how_to_set),
+                    onBatteryItemClick = ::onBatterySaverClick,
+                    onBatteryBtnClick = ::onBatterySaverClick,
+
+                    notifPermName = getString(R.string.send_notification_permission),
+                    notifPermOk = notifPermOk,
+                    notifPermBtn = getString(R.string.click_to_open),
+                    onNotifPermItemClick = {
+                        openNotificationService(context)
+                        PermissionState.openSendNotificationSetting(context, settingModel)
+                    },
+                    onNotifPermBtnClick = {
+                        openNotificationService(context)
+                        PermissionState.openSendNotificationSetting(context, settingModel)
+                    },
+
+                    noticeText = getString(R.string.still_have_problem),
+                    onNoticeClick = ::jumpToAdvanceSettingPage,
+                )
+            }
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun deriveStatusDisplay(
+        permissionOk: Boolean,
+        serviceOk: Boolean,
+        appSwitch: Boolean,
+    ): StatusDisplayState {
+        var statusText = getString(R.string.already_open)
+        var isError = false
+        var isToggleVisible = true
+        var isNoticeVisible = true
+
+        if (permissionOk != true) {
+            statusText = getString(R.string.permission_of_read_notification) + " " + getString(R.string.not_open)
+            isToggleVisible = false
+            isError = true
+            isNoticeVisible = false
+        }
+        if (serviceOk != true) {
+            statusText = getString(R.string.service_of_background) + " " + getString(R.string.not_open)
+            isToggleVisible = false
+            isError = true
+            isNoticeVisible = false
+        }
+        if (appSwitch != true) {
+            statusText = getString(R.string.already_close)
+            isError = true
+            isNoticeVisible = false
+        }
+
+        return StatusDisplayState(statusText, isError, isToggleVisible, isNoticeVisible)
     }
 
-    private fun initView() {
-
-        binding.mainItemPermissionNotification.bindData(
-            resources.getString(R.string.permission_of_read_notification),
-            statusModel.permissionOfReadNotification.value ?: false,
-            resources.getString(R.string.to_setting)
-        )
-
-        binding.mainItemService.bindData(
-            resources.getString(R.string.service_of_background),
-            statusModel.statusOfService.value ?: false,
-            resources.getString(R.string.click_to_open)
-        )
-
-        binding.mainItemBatterySaver.bindData(
-            resources.getString(R.string.optimize_of_battery_saver),
-            settingModel.fakeSwitchOfBatterySaver.value ?: false,
-            resources.getString(R.string.how_to_set)
-        )
-
-        binding.mainItemSendNotification.bindData(
-            resources.getString(R.string.send_notification_permission),
-            settingModel.permissionOfSendNotification.value ?: false,
-            resources.getString(R.string.click_to_open)
-        )
-
+    private fun handleToggle() {
+        val status = settingModel.switchOfApp.value ?: false
+        settingModel.switchOfApp.postValue(!status)
+        if (status) {
+            closeNotificationService(context)
+            statusModel.statusOfService.postValue(false)
+        } else {
+            openNotificationService(context)
+            statusModel.statusOfService.postValue(true)
+        }
     }
 
-    private fun setDataListener() {
-        statusModel.statusOfService.observe(viewLifecycleOwner) {
-            binding.mainItemService.setState(it)
-            binding.mainItemService.setBtnText(resources.getString(if (it) R.string.click_to_close else R.string.click_to_open))
-            refresh()
-        }
-
-        statusModel.permissionOfReadNotification.observe(viewLifecycleOwner) {
-            binding.mainItemPermissionNotification.setState(it)
-            refresh()
-        }
-
-        settingModel.switchOfApp.observe(viewLifecycleOwner) {
-            binding.btnControl.isChecked = it
-            refresh()
-        }
-
-        settingModel.fakeSwitchOfBatterySaver.observe(viewLifecycleOwner) {
-            binding.mainItemBatterySaver.setState(it)
-        }
-
-        settingModel.permissionOfSendNotification.observe(viewLifecycleOwner) {
-            binding.mainItemSendNotification.setState(it)
-        }
-
-    }
-
-    private fun setViewListener() {
-        binding.btnControl.setOnClickListener {
-            val status = settingModel.switchOfApp.value ?: false
-            settingModel.switchOfApp.postValue(!status)
-            if (status) {
-                closeNotificationService(context)
-                statusModel.statusOfService.postValue(false)
-            } else {
-                openNotificationService(context)
-                statusModel.statusOfService.postValue(true)
-            }
-        }
-
-        binding.mainItemPermissionNotification.listener = object : StatusItem.OnItemClickListener {
-            override fun onBtnClick() {
-                openNotificationService(context)
-                PermissionState.openReadNotificationSetting(context)
-            }
-
-            override fun onItemClick() {
-                openNotificationService(context)
-            }
-        }
-
-        binding.mainItemService.listener = object : StatusItem.OnItemClickListener {
-            override fun onItemClick() {
-            }
-
-            override fun onBtnClick() {
-                if (statusModel.statusOfService.value == true) {
-                    closeNotificationService(context)
-                    statusModel.statusOfService.postValue(false)
-                } else {
-                    openNotificationService(context)
-                    statusModel.statusOfService.postValue(true)
-                }
-                refresh()
-            }
-        }
-
-        binding.mainItemBatterySaver.listener = object : StatusItem.OnItemClickListener {
-            override fun onItemClick() {
-                onBatterySaverClick()
-            }
-
-            override fun onBtnClick() {
-                onBatterySaverClick()
-            }
-        }
-
-        binding.mainItemSendNotification.listener = object : StatusItem.OnItemClickListener {
-            override fun onItemClick() {
-                openNotificationService(context)
-                PermissionState.openSendNotificationSetting(context, settingModel)
-            }
-
-            override fun onBtnClick() {
-                openNotificationService(context)
-                PermissionState.openSendNotificationSetting(context, settingModel)
-            }
-        }
-
-        binding.tvResetApplication.setOnClickListener {
-            if (binding.tvResetApplication.visibility != View.VISIBLE) {
-                return@setOnClickListener
-            }
-            jumpToAdvanceSettingPage()
+    private fun handleServiceToggle() {
+        if (statusModel.statusOfService.value == true) {
+            closeNotificationService(context)
+            statusModel.statusOfService.postValue(false)
+        } else {
+            openNotificationService(context)
+            statusModel.statusOfService.postValue(true)
         }
     }
 
@@ -200,9 +174,7 @@ class ScMainFragment : ScBaseFragment() {
 
     @Synchronized
     private fun resetApp() {
-        lifecycleScope.launch {
-            clearData()
-        }
+        lifecycleScope.launch { clearData() }
     }
 
     private fun clearData() {
@@ -216,8 +188,7 @@ class ScMainFragment : ScBaseFragment() {
         } else {
             try {
                 val packageName = requireContext().applicationContext.packageName
-                val runtime = Runtime.getRuntime()
-                runtime.exec("pm clear $packageName")
+                Runtime.getRuntime().exec("pm clear $packageName")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -228,8 +199,8 @@ class ScMainFragment : ScBaseFragment() {
         alertDialog?.dismiss()
         val builder = AlertDialog.Builder(requireContext())
         alertDialog = builder.setMessage(
-            resources.getString(R.string.battery_saver_tips)
-        ).setPositiveButton(resources.getString(R.string.to_setting)) { _, _ ->
+            getString(R.string.battery_saver_tips)
+        ).setPositiveButton(getString(R.string.to_setting)) { _, _ ->
             if (!BatteryOptimizationState.hasIgnoreBatteryOptimization(context)) {
                 BatteryOptimizationState.openBatteryOptimization(context)
                 settingModel.fakeSwitchOfBatterySaver.postValue(true)
@@ -258,34 +229,31 @@ class ScMainFragment : ScBaseFragment() {
     }
 
     private fun checkPermission(): Boolean {
-        val isPermissionOpen =
-            PermissionState.hasNotificationListenerServiceEnabled(requireContext())
-        statusModel.permissionOfReadNotification.postValue(isPermissionOpen)
-        LogUtils.d("isPermissionOpen is $isPermissionOpen")
-        return isPermissionOpen
+        val v = PermissionState.hasNotificationListenerServiceEnabled(requireContext())
+        statusModel.permissionOfReadNotification.postValue(v)
+        LogUtils.d("isPermissionOpen is $v")
+        return v
     }
 
     private fun checkStatus(): Boolean {
-        val isServiceOpen = NotificationState.isNotificationServiceOpen(context)
-        statusModel.statusOfService.postValue(isServiceOpen)
-        LogUtils.d("isServiceOpen is $isServiceOpen")
-        return isServiceOpen
+        val v = NotificationState.isNotificationServiceOpen(context)
+        statusModel.statusOfService.postValue(v)
+        LogUtils.d("isServiceOpen is $v")
+        return v
     }
 
     private fun checkBatteryOptimization(): Boolean {
-        val isIgnoreBatteryOptimization =
-            BatteryOptimizationState.hasIgnoreBatteryOptimization(context)
-        settingModel.fakeSwitchOfBatterySaver.postValue(isIgnoreBatteryOptimization)
-        LogUtils.d("isIgnoreBatteryOptimization is $isIgnoreBatteryOptimization")
-        return isIgnoreBatteryOptimization
+        val v = BatteryOptimizationState.hasIgnoreBatteryOptimization(context)
+        settingModel.fakeSwitchOfBatterySaver.postValue(v)
+        LogUtils.d("isIgnoreBatteryOptimization is $v")
+        return v
     }
 
     private fun checkNotificationPermission(): Boolean {
-        val isNotificationPermissionOpen =
-            PermissionState.hasSendNotificationPermission(context)
-        settingModel.permissionOfSendNotification.postValue(isNotificationPermissionOpen)
-        LogUtils.d("isNotificationPermissionOpen is $isNotificationPermissionOpen")
-        return isNotificationPermissionOpen
+        val v = PermissionState.hasSendNotificationPermission(context)
+        settingModel.permissionOfSendNotification.postValue(v)
+        LogUtils.d("isNotificationPermissionOpen is $v")
+        return v
     }
 
     private fun registerProximitySensor() {
@@ -293,55 +261,4 @@ class ScMainFragment : ScBaseFragment() {
             ProximitySensorState.registerListener(context)
         }
     }
-
-    private fun refreshState(
-        permissionStatus: Boolean?,
-        serviceStatus: Boolean?,
-        customStatus: Boolean?
-    ) {
-        binding.btnControl.visibility = View.INVISIBLE
-
-        var btnVisibility = View.VISIBLE
-        var tvStatusText = resources.getString(R.string.already_open)
-        var isError = false
-        var visibilityOfResetNotice = View.VISIBLE
-
-        if (permissionStatus != true) {
-            tvStatusText =
-                resources.getString(R.string.permission_of_read_notification) + " " + resources.getString(
-                    R.string.not_open
-                )
-            btnVisibility = View.INVISIBLE
-            isError = true
-            visibilityOfResetNotice = View.INVISIBLE
-        }
-        if (serviceStatus != true) {
-            tvStatusText =
-                resources.getString(R.string.service_of_background) + " " + resources.getString(R.string.not_open)
-            btnVisibility = View.INVISIBLE
-            isError = true
-            visibilityOfResetNotice = View.INVISIBLE
-        }
-        if (customStatus != true) {
-            tvStatusText = resources.getString(R.string.already_close)
-            isError = true
-            visibilityOfResetNotice = View.INVISIBLE
-        }
-
-        binding.btnControl.visibility = btnVisibility
-        binding.tvStatus.text = tvStatusText
-        binding.clHeader.setBackgroundResource(
-            if (isError) R.drawable.bg_hero_gradient_error else R.drawable.bg_hero_gradient
-        )
-        binding.tvResetApplication.visibility = visibilityOfResetNotice
-    }
-
-    private fun refresh() {
-        refreshState(
-            statusModel.permissionOfReadNotification.value,
-            statusModel.statusOfService.value,
-            settingModel.switchOfApp.value
-        )
-    }
-
 }
