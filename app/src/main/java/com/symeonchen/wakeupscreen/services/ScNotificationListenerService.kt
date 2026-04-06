@@ -1,6 +1,7 @@
 package com.symeonchen.wakeupscreen.services
 
 import android.content.ComponentName
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.PowerManager
 import android.service.notification.NotificationListenerService
@@ -34,7 +35,11 @@ class ScNotificationListenerService : NotificationListenerService() {
             resources.getString(R.string.app_name),
             resources.getString(R.string.running_to_prevent_kill_app)
         )
-        startForeground(1, notificationBuilder.build())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startForeground(1, notificationBuilder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
+        } else {
+            startForeground(1, notificationBuilder.build())
+        }
     }
 
     override fun onDestroy() {
