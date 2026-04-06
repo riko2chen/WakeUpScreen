@@ -1,25 +1,26 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/ScActivityAnimation</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
-    <style name="BottomNavigationTheme" parent="Widget.Design.BottomNavigationView">
+    <style name="BottomNavigationTheme" parent="Widget.Material3.BottomNavigationView">
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
     <style name="BottomNavigationViewTextAppearance" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10dp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
 
     <style name="BottomNavigationViewTextAppearance.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10dp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
@@ -39,6 +40,18 @@
         <item name="android:activityOpenExitAnimation">@anim/page_slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/page_slide_in_left</item>
         <item name="android:activityCloseExitAnimation">@anim/page_slide_out_right</item>
+    </style>
+
+    <style name="Widget.App.Toolbar" parent="">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:minHeight">56dp</item>
+    </style>
+
+    <style name="Widget.App.TimeButton" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="cornerRadius">12dp</item>
     </style>
 
 </resources>

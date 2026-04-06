@@ -9,12 +9,14 @@
     <TextView
         android:id="@+id/btn_top"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:background="@color/colorPrimary"
+        android:elevation="4dp"
         android:gravity="center"
         android:text="@string/setting"
         android:textColor="#fff"
-        android:textSize="18dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,8 +39,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/custom"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="13sp" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_language"
@@ -92,10 +96,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:paddingStart="24dp"
                 android:paddingEnd="0dp"
                 android:text="@string/about"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="13sp" />
 
             <com.symeonchen.uicomponent.views.SCSettingItem
                 android:id="@+id/item_setting_about_this"
@@ -127,6 +133,5 @@
 
         </LinearLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

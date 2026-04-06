@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">WakeUpScreen</string>
+    <string name="back">Back</string>
     <string name="home">Home</string>
     <string name="setting">Settings</string>
     <string name="open">open</string>
@@ -17,7 +18,7 @@
     <string name="click_to_close">Click to close</string>
     <string name="click_to_open">Click to open</string>
     <string name="to_setting">To setting</string>
-    <string name="how_to_set">How to set</string>ß
+    <string name="how_to_set">How to set</string>
     <string name="already_open">Already open</string>
     <string name="already_close">Already close</string>
     <string name="i_already_close">Already close</string>
