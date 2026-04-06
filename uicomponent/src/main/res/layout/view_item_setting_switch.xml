@@ -5,45 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="70dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <TextView
-        android:layout_marginStart="24dp"
         android:id="@+id/tv_title_main"
-        tools:text="Title Main"
-        android:textSize="18sp"
-        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="60dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_title_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="70dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_title_second" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Pocket Mode" />
 
     <TextView
-        app:layout_constraintStart_toStartOf="@id/tv_title_main"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_main"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/tv_title_second"
-        tools:text="Title second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="60dp"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/tv_title_main"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_main"
+        tools:text="Already open" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/switch_status"
-        android:checked="false"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:checked="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </merge>

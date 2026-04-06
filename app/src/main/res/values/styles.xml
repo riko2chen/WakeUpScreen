@@ -1,38 +1,35 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryContainer">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/text_on_dark</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryLight</item>
         <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@style/ScActivityAnimation</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="BottomNavigationTheme" parent="Widget.Material3.BottomNavigationView">
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="itemIconTint">@color/bottom_nav_color</item>
+        <item name="itemTextColor">@color/bottom_nav_color</item>
     </style>
 
     <style name="BottomNavigationViewTextAppearance" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <style name="BottomNavigationViewTextAppearance.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">11sp</item>
+        <item name="fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="SwitchTheme" parent="Theme.AppCompat.Light">
-        <!-- active thumb & track color (30% transparency) -->
-        <item name="colorControlActivated">#FFEB3B</item>
-
-        <!-- inactive thumb color -->
-        <item name="colorSwitchThumbNormal">#f1f1f1</item>
-
-        <!-- inactive track color (30% transparency) -->
-        <item name="android:colorForeground">#221f1f</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorSwitchThumbNormal">#E0E0E0</item>
+        <item name="android:colorForeground">#3A3A3A</item>
     </style>
 
     <style name="ScActivityAnimation" parent="@android:style/Animation.Activity">
@@ -42,16 +39,31 @@
         <item name="android:activityCloseExitAnimation">@anim/page_slide_out_right</item>
     </style>
 
-    <style name="Widget.App.Toolbar" parent="">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:elevation">4dp</item>
-        <item name="android:minHeight">56dp</item>
+    <!-- Typography -->
+    <style name="TextAppearance.Hero.Title" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">22sp</item>
+        <item name="fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="Widget.App.TimeButton" parent="Widget.Material3.Button.TonalButton">
-        <item name="android:minWidth">48dp</item>
-        <item name="android:minHeight">48dp</item>
-        <item name="cornerRadius">12dp</item>
+    <style name="TextAppearance.Hero.Subtitle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_on_dark_secondary</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+    </style>
+
+    <style name="TextAppearance.Section.Header" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.Toolbar.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">sans-serif-medium</item>
     </style>
 
 </resources>

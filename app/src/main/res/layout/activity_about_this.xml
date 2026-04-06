@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/ll_header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_toolbar_gradient"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="center"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="4dp"
             android:contentDescription="@string/back"
-            android:src="@drawable/ic_arrow_back_white_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:padding="12dp"
+            android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/about"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            style="@style/TextAppearance.Toolbar.Title" />
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,42 +41,56 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background"
-            android:divider="@drawable/shape_divider"
             android:orientation="vertical"
-            android:showDividers="middle">
+            android:padding="16dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="24dp"
-                android:text="@string/info"
-                android:textColor="@color/colorPrimary" />
+                android:background="@drawable/bg_card"
+                android:divider="@drawable/shape_divider"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:showDividers="middle">
 
-            <com.symeonchen.uicomponent.views.SCSettingItem
-                android:id="@+id/item_setting_app_introduce"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_item_title_main="@string/app_introduce"
-                app:sc_setting_single_line="true" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="24dp"
+                    android:background="@drawable/bg_section_header"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/info"
+                    style="@style/TextAppearance.Section.Header" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="24dp"
-                android:text="@string/debug"
-                android:textColor="@color/colorPrimary" />
+                <com.symeonchen.uicomponent.views.SCSettingItem
+                    android:id="@+id/item_setting_app_introduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:sc_setting_item_title_main="@string/app_introduce"
+                    app:sc_setting_single_line="true" />
 
-            <com.symeonchen.uicomponent.views.SCSettingItem
-                android:id="@+id/item_setting_debug_delay_to_wake"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:visibility="visible"
-                app:sc_setting_item_title_main="@string/delay_to_wakeup"
-                app:sc_setting_item_title_second="@string/click_here_and_press_power_button_within_10_sec"
-                tools:visibility="visible" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_section_header"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/debug"
+                    style="@style/TextAppearance.Section.Header" />
 
+                <com.symeonchen.uicomponent.views.SCSettingItem
+                    android:id="@+id/item_setting_debug_delay_to_wake"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    app:sc_setting_item_title_main="@string/delay_to_wakeup"
+                    app:sc_setting_item_title_second="@string/click_here_and_press_power_button_within_10_sec" />
 
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

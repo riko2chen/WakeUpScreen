@@ -1,40 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/ll_header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_toolbar_gradient"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="center"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="4dp"
             android:contentDescription="@string/back"
-            android:src="@drawable/ic_arrow_back_white_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:padding="12dp"
+            android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/advanced_setting"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            style="@style/TextAppearance.Toolbar.Title" />
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,69 +42,74 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background"
-            android:divider="@drawable/shape_divider"
             android:orientation="vertical"
-            android:showDividers="middle">
+            android:padding="16dp">
 
-            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
-                android:id="@+id/item_setting_proximity_detect"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_switch_item_checked="true"
-                app:sc_setting_switch_item_title_main="@string/pocket_mode"
-                app:sc_setting_switch_item_title_second="@string/already_open" />
-
-            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
-                android:id="@+id/item_setting_ongoing_detect"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_switch_item_checked="true"
-                app:sc_setting_switch_item_title_main="@string/ongoing_status"
-                app:sc_setting_switch_item_title_second="@string/already_open" />
-
-            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
-                android:id="@+id/item_setting_radical_ongoing_detect"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_switch_item_checked="true"
-                app:sc_setting_switch_item_title_main="@string/radical_ongoing_detact"
-                app:sc_setting_switch_item_title_second="@string/already_open" />
-
-            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
-                android:id="@+id/item_show_persistent_notification"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:sc_setting_item_title_main="@string/show_notification_when_service_start"
-                tools:visibility="visible" />
+                android:background="@drawable/bg_card"
+                android:divider="@drawable/shape_divider"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:showDividers="middle">
 
-            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
-                android:id="@+id/item_setting_dnd_detect"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_switch_item_checked="true"
-                app:sc_setting_switch_item_title_main="@string/dnd_detect_title"
-                app:sc_setting_switch_item_title_second="@string/dnd_detect_desc" />
+                <com.symeonchen.uicomponent.views.SCSettingSwitchItem
+                    android:id="@+id/item_setting_proximity_detect"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:sc_setting_switch_item_checked="true"
+                    app:sc_setting_switch_item_title_main="@string/pocket_mode"
+                    app:sc_setting_switch_item_title_second="@string/already_open" />
 
-            <com.symeonchen.uicomponent.views.SCSettingSwitchItem
-                android:id="@+id/item_setting_sleep_ignore"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:sc_setting_switch_item_checked="true"
-                app:sc_setting_switch_item_title_main="@string/sleep_mode"
-                app:sc_setting_switch_item_title_second="@string/already_close" />
+                <com.symeonchen.uicomponent.views.SCSettingSwitchItem
+                    android:id="@+id/item_setting_ongoing_detect"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:sc_setting_switch_item_checked="true"
+                    app:sc_setting_switch_item_title_main="@string/ongoing_status"
+                    app:sc_setting_switch_item_title_second="@string/already_open" />
 
-            <com.symeonchen.uicomponent.views.SCSettingItem
-                android:id="@+id/item_setting_sleep_ignore_detail_time"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:visibility="gone"
-                app:sc_setting_item_title_main="@string/sleep_time"
-                app:sc_setting_item_title_second="@string/sleep_mode_open_desc"
-                tools:visibility="visible" />
+                <com.symeonchen.uicomponent.views.SCSettingSwitchItem
+                    android:id="@+id/item_setting_radical_ongoing_detect"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:sc_setting_switch_item_checked="true"
+                    app:sc_setting_switch_item_title_main="@string/radical_ongoing_detact"
+                    app:sc_setting_switch_item_title_second="@string/already_open" />
 
+                <com.symeonchen.uicomponent.views.SCSettingSwitchItem
+                    android:id="@+id/item_show_persistent_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:sc_setting_item_title_main="@string/show_notification_when_service_start" />
 
+                <com.symeonchen.uicomponent.views.SCSettingSwitchItem
+                    android:id="@+id/item_setting_dnd_detect"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:sc_setting_switch_item_checked="true"
+                    app:sc_setting_switch_item_title_main="@string/dnd_detect_title"
+                    app:sc_setting_switch_item_title_second="@string/dnd_detect_desc" />
+
+                <com.symeonchen.uicomponent.views.SCSettingSwitchItem
+                    android:id="@+id/item_setting_sleep_ignore"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:sc_setting_switch_item_checked="true"
+                    app:sc_setting_switch_item_title_main="@string/sleep_mode"
+                    app:sc_setting_switch_item_title_second="@string/already_close" />
+
+                <com.symeonchen.uicomponent.views.SCSettingItem
+                    android:id="@+id/item_setting_sleep_ignore_detail_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:visibility="gone"
+                    app:sc_setting_item_title_main="@string/sleep_time"
+                    app:sc_setting_item_title_second="@string/sleep_mode_open_desc"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

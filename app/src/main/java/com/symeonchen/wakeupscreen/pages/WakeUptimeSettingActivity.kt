@@ -76,18 +76,17 @@ class WakeUptimeSettingActivity : ScBaseActivity() {
     }
 
     private fun refreshBtnView(second: Long) {
-        binding.btnTimeSecond1.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        binding.btnTimeSecond2.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        binding.btnTimeSecond3.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        binding.btnTimeSecond4.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        binding.btnTimeSecond5.setBackgroundColor(ContextCompat.getColor(this, R.color.lite_gray))
-        when (second) {
-            1L -> binding.btnTimeSecond1.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-            2L -> binding.btnTimeSecond2.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-            3L -> binding.btnTimeSecond3.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-            4L -> binding.btnTimeSecond4.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-            5L -> binding.btnTimeSecond5.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-            else -> {
+        val buttons = listOf(
+            binding.btnTimeSecond1, binding.btnTimeSecond2, binding.btnTimeSecond3,
+            binding.btnTimeSecond4, binding.btnTimeSecond5
+        )
+        buttons.forEach { it.setBackgroundResource(R.drawable.bg_time_button) }
+        buttons.forEachIndexed { index, button ->
+            if (second == (index + 1).toLong()) {
+                button.setBackgroundResource(R.drawable.bg_time_button_selected)
+                button.setTextColor(ContextCompat.getColor(this, R.color.white))
+            } else {
+                button.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
             }
         }
     }

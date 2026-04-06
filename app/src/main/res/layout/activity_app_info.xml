@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/ll_header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_toolbar_gradient"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="center"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="4dp"
             android:contentDescription="@string/back"
-            android:src="@drawable/ic_arrow_back_white_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:padding="12dp"
+            android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            style="@style/TextAppearance.Toolbar.Title" />
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,28 +41,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginTop="32dp"
+                android:contentDescription="@string/app_name"
                 android:src="@mipmap/ic_launcher" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:lineSpacingExtra="3dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="@string/app_intro_full"
-                android:textSize="18sp" />
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_card"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:text="@string/app_intro_full"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
         </LinearLayout>
-
-
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

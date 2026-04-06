@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009688</color>
-    <color name="colorAccent">#536dfe</color>
+    <!-- Primary palette -->
+    <color name="colorPrimary">#1B5E4B</color>
+    <color name="colorPrimaryDark">#0D3B30</color>
+    <color name="colorPrimaryLight">#2E7D67</color>
+    <color name="colorAccent">#F5A623</color>
 
-    <color name="divider">#F6F6F6</color>
-    <color name="background">#F6F6F6</color>
+    <!-- Gradient endpoints -->
+    <color name="gradient_start">#0F2027</color>
+    <color name="gradient_mid">#1B4332</color>
+    <color name="gradient_end">#2D6A4F</color>
 
-    <color name="green">#45CE73</color>
-    <color name="red">#A52844</color>
-    <color name="blue">#1768DD</color>
-    <color name="gray">#5C5C5C</color>
-    <color name="lite_gray">#ACACAC</color>
+    <!-- Surfaces -->
+    <color name="background">#F5F2EB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F0EDE6</color>
+    <color name="divider">#E8E4DC</color>
+
+    <!-- Status colors -->
+    <color name="green">#2ECC71</color>
+    <color name="green_soft">#E8F8EF</color>
+    <color name="red">#E74C5C</color>
+    <color name="red_soft">#FDEDEF</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#1A1A2E</color>
+    <color name="text_secondary">#6B7B8D</color>
+    <color name="text_on_dark">#F5F2EB</color>
+    <color name="text_on_dark_secondary">#B8C5D0</color>
+
+    <!-- Utility colors -->
+    <color name="blue">#4A90D9</color>
+    <color name="gray">#8E99A4</color>
+    <color name="lite_gray">#C5CDD5</color>
     <color name="deep_gray">#2B2B2B</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="black">#1A1A2E</color>
+
+    <!-- Card shadow tint -->
+    <color name="card_shadow">#0A000000</color>
+
+    <!-- Accent variants -->
+    <color name="accent_amber">#F5A623</color>
+    <color name="accent_amber_soft">#FFF5E0</color>
+
+    <!-- Bottom nav -->
+    <color name="nav_inactive">#8E99A4</color>
+    <color name="nav_active">#1B5E4B</color>
 </resources>
