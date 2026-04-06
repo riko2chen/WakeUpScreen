@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/lite_gray" android:state_pressed="true"/>
-    <item android:drawable="@color/lite_gray" android:state_focused="true"/>
-    <item android:drawable="@color/white"/>
-</selector>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?colorControlHighlight">
+    <item android:id="@android:id/mask">
+        <shape>
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+</ripple>

@@ -77,6 +77,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.dndDetectSwitch)
         }
 
+    var chargingOnlySwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.chargingOnlySwitch)
+        }
+
     var persistentSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.persistentNotification)
@@ -151,6 +156,12 @@ class SettingViewModel : ViewModel() {
         dndDetectBoolean.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.dndDetectSwitch = value
+            }
+        }
+
+        chargingOnlySwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.chargingOnlySwitch = value
             }
         }
 

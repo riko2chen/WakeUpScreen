@@ -49,9 +49,14 @@ class StatusItem @JvmOverloads constructor(
 
     private fun refresh() {
         binding.mainTvItemName.text = name
-        binding.mainIvItemStatus.setImageResource(if (status) R.drawable.ic_check_green_24dp else R.drawable.ic_close_red_24dp)
+        binding.mainIvItemStatus.setImageResource(
+            if (status) R.drawable.ic_check_green_24dp else R.drawable.ic_close_red_24dp
+        )
         binding.mainMbItemNav.text = btnStr
         binding.mainMbItemNav.visibility = if (status) View.INVISIBLE else View.VISIBLE
+        binding.flStatusDot.setBackgroundResource(
+            if (status) R.drawable.bg_status_dot_ok else R.drawable.bg_status_dot_error
+        )
     }
 
     fun bindData(name: String?, status: Boolean = false, btnStr: String?) {
@@ -76,6 +81,3 @@ class StatusItem @JvmOverloads constructor(
         fun onBtnClick()
     }
 }
-
-
-

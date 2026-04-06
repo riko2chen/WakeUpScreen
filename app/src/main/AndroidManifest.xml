@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.symeonchen.wakeupscreen">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".ScApplication"
         android:allowBackup="false"
+        android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".pages.AdvanceSettingPageActivity" />
+        <activity android:name=".pages.FeedbackPageActivity" />
+        <activity android:name=".pages.FunctionTestPageActivity" />
+        <activity android:name=".pages.NotificationLogPageActivity" />
         <activity android:name=".pages.AboutThisPageActivity" />
         <activity android:name=".pages.FilterListActivity" />
         <activity android:name=".pages.AppInfoPageActivity" />
@@ -35,10 +39,14 @@
         <service
             android:name=".services.ScNotificationListenerService"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:foregroundServiceType="specialUse"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Wake up screen when notification received" />
         </service>
 
         <receiver android:name=".receiver.PackageReplacedReceiver"

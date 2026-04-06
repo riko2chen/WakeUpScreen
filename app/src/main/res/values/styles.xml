@@ -1,37 +1,41 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryLight</item>
+        <item name="colorOnPrimaryContainer">@color/colorPrimaryDark</item>
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorTertiary">@color/status_ok</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/gradient_start</item>
         <item name="android:windowAnimationStyle">@style/ScActivityAnimation</item>
     </style>
 
-    <style name="BottomNavigationTheme" parent="Widget.Design.BottomNavigationView">
-        <item name="colorPrimary">@color/colorPrimary</item>
+    <style name="BottomNavigationTheme" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_color</item>
+        <item name="itemTextColor">@color/bottom_nav_color</item>
+        <item name="android:background">@color/surface</item>
     </style>
 
-    <style name="BottomNavigationViewTextAppearance" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10dp</item>
-        <item name="android:textColor">@color/gray</item>
+    <style name="BottomNavigationViewTextAppearance" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">11sp</item>
     </style>
 
-    <style name="BottomNavigationViewTextAppearance.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10dp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+    <style name="BottomNavigationViewTextAppearance.Active" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">11sp</item>
+        <item name="fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
-        <!-- active thumb & track color (30% transparency) -->
-        <item name="colorControlActivated">#FFEB3B</item>
-
-        <!-- inactive thumb color -->
-        <item name="colorSwitchThumbNormal">#f1f1f1</item>
-
-        <!-- inactive track color (30% transparency) -->
-        <item name="android:colorForeground">#221f1f</item>
+    <!-- Pink accent on toggle track when ON -->
+    <style name="SwitchTheme" parent="Theme.MaterialComponents.Light">
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorSwitchThumbNormal">#E8E8F0</item>
+        <item name="android:colorForeground">#44444A</item>
     </style>
 
     <style name="ScActivityAnimation" parent="@android:style/Animation.Activity">

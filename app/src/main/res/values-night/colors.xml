@@ -1,8 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#046E61</color>
-    <color name="colorAccent">#536dfe</color>
+    <!-- Brand palette -->
+    <color name="colorPrimary">#9FA8DA</color>
+    <color name="colorPrimaryDark">#7986CB</color>
+    <color name="colorPrimaryLight">#283593</color>
+    <color name="colorAccent">#F48FB1</color>
 
-    <color name="divider">#C1BEBE</color>
-    <color name="background">#534E4E</color>
+    <!-- Hero gradient stops (same in dark - it's a fixed dramatic bg) -->
+    <color name="gradient_start">#0D1332</color>
+    <color name="gradient_mid">#1A237E</color>
+    <color name="gradient_end">#283593</color>
+
+    <!-- Surfaces -->
+    <color name="background">#0F0F1C</color>
+    <color name="surface">#1C1C2E</color>
+    <color name="surface_variant">#26263E</color>
+    <color name="divider">#26263E</color>
+
+    <!-- Status -->
+    <color name="status_ok">#81C784</color>
+    <color name="status_ok_bg">#1A3320</color>
+    <color name="status_error">#EF9A9A</color>
+    <color name="status_error_bg">#3B1515</color>
+
+    <!-- Text -->
+    <color name="text_primary">#E8E8FF</color>
+    <color name="text_secondary">#9898BB</color>
+    <color name="text_on_dark">#FFFFFF</color>
+
+    <!-- Amber / notice -->
+    <color name="amber">#FFB74D</color>
+    <color name="amber_soft">#2A1F08</color>
+    <color name="amber_stroke">#FF9800</color>
+
+    <!-- Util -->
+    <color name="green">#81C784</color>
+    <color name="red">#EF9A9A</color>
+    <color name="blue">#9FA8DA</color>
+    <color name="gray">#9898BB</color>
+    <color name="lite_gray">#3C3C5A</color>
+    <color name="deep_gray">#C5C5E8</color>
+    <color name="white">#1C1C2E</color>
+    <color name="black">#E8E8FF</color>
+
+    <!-- Nav -->
+    <color name="nav_active">#9FA8DA</color>
+    <color name="nav_inactive">#6B6B8A</color>
 </resources>

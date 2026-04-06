@@ -1,33 +1,86 @@
-* [English Version](https://github.com/SymeonChen/WakeUpScreen/blob/master/README.md)
-* [Italian Version](https://github.com/SymeonChen/WakeUpScreen/blob/master/README-it.md)
-* [中文版](https://github.com/SymeonChen/WakeUpScreen/blob/master/README-zh.md)
+<div align="center">
+
+<img src="app/src/main/ic_launcher-web.png" width="120" />
 
 # WakeUpScreen
 
-![](screenshots/introduction_en.png)
+**Il tuo schermo, sveglio quando conta.**
 
-<img src="app/src/main/ic_launcher-web.png" align="left" width="200" hspace="10" vspace="10">
-</br>
-Questa è un applicazione Android che permette al telefono di risvegliarsi quando riceve una notifica.
-Ottimizzato specialmente per il Samsung S10. Compatibile con altri dispositivi.
-</br>
-<div style="display:flex;" >
-<a href="https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen">
-    <img alt="Get it on Google Play"
-        height="80"
-        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
-</a>
+Un'app Android open-source che accende delicatamente il display nel momento in cui arriva una notifica.
+Nessun cloud, nessun disordine, nessun compromesso.
+
+[![Google Play](https://img.shields.io/badge/Google%20Play-Scarica-2dd4a8?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen)
+[![GitHub](https://img.shields.io/badge/Codice-GitHub-6366f1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SymeonChen/WakeUpScreen)
+[![License](https://img.shields.io/badge/Licenza-GPLv3-a855f7?style=for-the-badge)](LICENSE)
+
+[English](README.md) · [中文](README-zh.md) · [Italiano](README-it.md)
+
 </div>
-</br></br>
 
-## Screenshots
+---
 
-![](screenshots/main-en.jpg)
+## Funzionalità
 
-## Caratteristiche
+| | Funzione | Descrizione |
+|---|---|---|
+| :bell: | **Attivazione Istantanea** | Lo schermo si illumina nel momento in cui arriva una notifica. Non perdere mai ciò che conta mentre il telefono è sulla scrivania. |
+| :sun_with_face: | **Modalità Tasca** | Rileva intelligentemente quando il telefono è in tasca o in borsa e resta spento. Risparmia batteria dove serve. |
+| :mag: | **Filtro App** | Scegli esattamente quali app possono attivare lo schermo. Controllo totale su ciò che merita la tua attenzione. |
+| :new_moon: | **Modalità Scura** | Un'interfaccia scura e raffinata, perfetta per qualsiasi display AMOLED. Delicata per gli occhi, leggera per la batteria. |
+| :closed_lock_with_key: | **Nessun Internet** | Funziona interamente sul tuo dispositivo. Zero dati raccolti, zero server contattati. La tua privacy è assoluta. |
+| :zap: | **Leggera** | Impatto minimo, consumo di batteria trascurabile. Sviluppata in Kotlin per prestazioni native che funzionano e basta. |
 
-1. Open source.
-2. Nessun accesso a internet.
-3. Supporto al Pocket Mode.
-4. Supporto agli elenchi di APP usati.
-5. Supporto agli orari personalizzati.
+## Come Funziona
+
+```
+1. Installa e concedi il permesso
+   └─ Serve solo l'accesso alle notifiche. Nessun altro permesso necessario.
+      I tuoi dati non lasciano mai il dispositivo.
+
+2. Scegli le tue app
+   └─ Seleziona quali app possono attivare lo schermo. Lascia passare i messaggi
+      importanti, filtra il rumore. Regola in qualsiasi momento.
+
+3. Ecco fatto — vivi la tua vita
+   └─ WakeUpScreen funziona silenziosamente in background. Quando arriva una notifica,
+      lo schermo si accende. Quando il telefono è in tasca, resta spento. Semplice.
+```
+
+## Screenshot
+
+<div align="center">
+<img src="screenshots/main-en.png" width="720" />
+</div>
+
+## Stack Tecnologico
+
+- **Linguaggio**: Kotlin
+- **UI**: Jetpack Compose
+- **SDK Minimo**: Android 7.0 (API 24)
+- **Architettura**: MVVM
+
+## Compilazione
+
+```bash
+git clone https://github.com/SymeonChen/WakeUpScreen.git
+cd WakeUpScreen
+./gradlew assembleDebug
+```
+
+## Contribuire
+
+I contributi sono benvenuti! Sentiti libero di aprire issue o inviare pull request.
+
+## Licenza
+
+Questo progetto è rilasciato sotto la [GNU General Public License v3.0](LICENSE).
+
+---
+
+<div align="center">
+
+**WakeUpScreen** di [Riko Studio](mailto:symeonchen@gmail.com)
+
+*Costruito apertamente. La trasparenza non è opzionale.*
+
+</div>

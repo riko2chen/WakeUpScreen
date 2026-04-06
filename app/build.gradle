@@ -1,22 +1,28 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'kotlin-kapt'
+}
 
 android {
-    compileSdkVersion 33
+    namespace 'com.symeonchen.wakeupscreen'
+    compileSdk 35
+
     defaultConfig {
         applicationId "com.symeonchen.wakeupscreen"
-        minSdkVersion 23
-        targetSdkVersion 33
+        minSdk 23
+        targetSdk 35
         versionCode project.AppVersionCode as int
         versionName project.AppVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
     }
     bundle {
         language {
@@ -29,6 +35,17 @@ android {
             enableSplit = true
         }
     }
+    signingConfigs {
+        release {
+            def keystoreFile = System.getenv("KEYSTORE_FILE")
+            if (keystoreFile) {
+                storeFile file(keystoreFile)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
@@ -39,48 +56,64 @@ android {
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a"
             }
+            def keystoreFile = System.getenv("KEYSTORE_FILE")
+            if (keystoreFile) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
         }
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
+        compose true
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     //kotlin-related
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
 
     //androidx-related
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'androidx.preference:preference-ktx:1.2.0'
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.collection:collection-ktx:1.2.0'
-    implementation 'androidx.fragment:fragment-ktx:1.5.5'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.7'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.collection:collection-ktx:1.4.4'
+    implementation 'androidx.fragment:fragment-ktx:1.8.5'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.viewpager2:viewpager2:1.1.0'
 
     //useful-library
     implementation 'com.blankj:utilcodex:1.31.1'
-    implementation 'com.tencent:mmkv:1.2.14'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation 'com.tencent:mmkv:2.4.0'
 
     //glide-related
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    kapt 'com.github.bumptech.glide:compiler:4.16.0'
+
+    //compose
+    def composeBom = platform('androidx.compose:compose-bom:2024.12.01')
+    implementation composeBom
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.runtime:runtime-livedata'
+    implementation 'androidx.compose.foundation:foundation'
+    implementation 'androidx.activity:activity-compose:1.9.3'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
 
     implementation project(':uicomponent')
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.5.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
