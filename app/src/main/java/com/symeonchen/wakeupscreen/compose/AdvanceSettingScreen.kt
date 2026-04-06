@@ -31,6 +31,9 @@ fun AdvanceSettingScreen(
     onPersistentToggle: () -> Unit,
     dndChecked: Boolean,
     onDndToggle: () -> Unit,
+    chargingOnlyChecked: Boolean,
+    chargingOnlySubtitle: String,
+    onChargingOnlyToggle: () -> Unit,
     sleepChecked: Boolean,
     sleepSubtitle: String,
     onSleepToggle: () -> Unit,
@@ -90,6 +93,13 @@ fun AdvanceSettingScreen(
                         subtitle = stringResource(R.string.dnd_detect_desc),
                         checked = dndChecked,
                         onCheckedChange = onDndToggle,
+                    )
+                    FlatDivider()
+                    SettingSwitchRow(
+                        title = stringResource(R.string.charging_only_title),
+                        subtitle = chargingOnlySubtitle,
+                        checked = chargingOnlyChecked,
+                        onCheckedChange = onChargingOnlyToggle,
                     )
                     FlatDivider()
                     SettingSwitchRow(

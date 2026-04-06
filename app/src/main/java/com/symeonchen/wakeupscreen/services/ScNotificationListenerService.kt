@@ -1,10 +1,12 @@
 package com.symeonchen.wakeupscreen.services
 
+import android.app.NotificationChannel
 import android.content.ComponentName
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.PowerManager
 import android.service.notification.NotificationListenerService
+import android.service.notification.NotificationListenerService.Ranking
 import android.service.notification.StatusBarNotification
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
@@ -58,6 +60,7 @@ class ScNotificationListenerService : NotificationListenerService() {
             .register(OnGoingNotificationCondition())
             .register(SleepModeCondition())
             .register(DndCondition())
+            .register(ChargingCondition())
     }
 
     override fun onListenerDisconnected() {
@@ -80,9 +83,11 @@ class ScNotificationListenerService : NotificationListenerService() {
         super.onNotificationPosted(sbn)
         sbn ?: return
 
+        val channel = getNotificationChannel(sbn)
+
         //Pre check for better performance
         if (ConditionState.BLOCK == preCheckStatusOpen()) {
-            logNotification(sbn.packageName, LogStatus.BLOCKED, "app_switch_off")
+            logNotification(sbn.packageName, LogStatus.BLOCKED, "app_switch_off", channel)
             return
         }
 
@@ -95,9 +100,9 @@ class ScNotificationListenerService : NotificationListenerService() {
         if (result.state == ConditionState.BLOCK) {
             val conditionName = result.blockingCondition ?: ""
             if (conditionName == InteractiveCondition::class.java.simpleName) {
-                logNotification(sbn.packageName, LogStatus.SCREEN_ALREADY_ON, conditionName)
+                logNotification(sbn.packageName, LogStatus.SCREEN_ALREADY_ON, conditionName, channel)
             } else {
-                logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName)
+                logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName, channel)
             }
             return
         }
@@ -111,17 +116,51 @@ class ScNotificationListenerService : NotificationListenerService() {
         wl.acquire(sec)
         wl.release()
 
-        logNotification(sbn.packageName, LogStatus.WAKED_UP, "")
+        logNotification(sbn.packageName, LogStatus.WAKED_UP, "", channel)
     }
 
-    private fun logNotification(packageName: String, status: LogStatus, blockReason: String) {
+    private fun getNotificationChannel(sbn: StatusBarNotification): NotificationChannel? {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return null
+        return try {
+            val ranking = Ranking()
+            currentRanking.getRanking(sbn.key, ranking)
+            ranking.channel
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun logNotification(
+        packageName: String,
+        status: LogStatus,
+        blockReason: String,
+        channel: NotificationChannel?,
+    ) {
         try {
+            val importance = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && channel != null) {
+                channel.importance
+            } else {
+                -1
+            }
+            val hasSound = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && channel != null) {
+                channel.sound != null && channel.sound.toString().isNotEmpty()
+            } else {
+                null
+            }
+            val hasVibration = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && channel != null) {
+                channel.shouldVibrate()
+            } else {
+                null
+            }
             NotificationLogStore.addLog(
                 NotificationLogEntry(
                     timestamp = System.currentTimeMillis(),
                     packageName = packageName,
                     status = status,
                     blockReason = blockReason,
+                    importance = importance,
+                    hasSound = hasSound,
+                    hasVibration = hasVibration,
                 )
             )
         } catch (_: Exception) {
