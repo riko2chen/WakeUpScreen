@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="green">#2ECC71</color>
-    <color name="red">#E74C5C</color>
-    <color name="blue">#4A90D9</color>
-    <color name="gray">#8E99A4</color>
-    <color name="lite_gray">#C5CDD5</color>
-    <color name="deep_gray">#2B2B2B</color>
+    <!-- Shared with app module -->
+    <color name="status_ok">#4CAF50</color>
+    <color name="status_ok_bg">#E8F5E9</color>
+    <color name="status_error">#EF5350</color>
+    <color name="status_error_bg">#FFEBEE</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#EF5350</color>
+    <color name="blue">#5C6BC0</color>
+    <color name="gray">#6E6D8A</color>
+    <color name="lite_gray">#C5CAE9</color>
+    <color name="deep_gray">#3C3B5A</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#1A1A2E</color>
+    <color name="black">#1C1B3E</color>
 </resources>

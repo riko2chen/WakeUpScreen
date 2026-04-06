@@ -3,48 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="72dp"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
+    <!-- Colored status dot with icon inside -->
+    <FrameLayout
+        android:id="@+id/fl_status_dot"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_status_dot_ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/main_iv_item_status"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_check_green_24dp" />
+    </FrameLayout>
+
+    <!-- Name label -->
     <TextView
         android:id="@+id/main_tv_item_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="14dp"
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/main_iv_item_status"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/main_mb_item_nav"
+        app:layout_constraintStart_toEndOf="@id/fl_status_dot"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Background Services" />
 
-    <ImageView
-        android:id="@+id/main_iv_item_status"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_check_green_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/main_mb_item_nav"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <!-- Action button (visible only when status = false) -->
     <Button
         android:id="@+id/main_mb_item_nav"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textAllCaps="false"
-        android:textColor="#fff"
         android:textSize="12sp"
+        style="@style/Widget.Material3.Button.TonalButton"
         app:cornerRadius="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="To setting" />
+        tools:text="Enable" />
 
 </merge>

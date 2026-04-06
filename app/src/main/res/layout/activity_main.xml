@@ -12,20 +12,19 @@
         android:id="@+id/vp_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bnv_main" />
+        app:layout_constraintBottom_toTopOf="@id/bnv_main"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_main"
+        style="@style/BottomNavigationTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/surface"
-        app:elevation="12dp"
+        app:elevation="8dp"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_main_nav"
         app:itemTextAppearanceActive="@style/BottomNavigationViewTextAppearance.Active"
         app:itemTextAppearanceInactive="@style/BottomNavigationViewTextAppearance"
-        app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/BottomNavigationTheme" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

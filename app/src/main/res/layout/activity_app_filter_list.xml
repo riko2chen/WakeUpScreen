@@ -31,13 +31,12 @@
             android:layout_height="48dp"
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="12dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingHorizontal="16dp"
             android:text="@string/save"
             android:textColor="@color/colorAccent"
-            android:textSize="15sp"
-            android:fontFamily="sans-serif-medium" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -45,7 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/white_list"
-            style="@style/TextAppearance.Toolbar.Title" />
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium" />
     </FrameLayout>
 
     <TextView
@@ -63,7 +64,7 @@
         android:id="@+id/cb_search_switch_system_app"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:text="@string/include_system_app"
         android:textColor="@color/colorPrimary"
         android:textSize="13sp"
@@ -74,13 +75,13 @@
         android:id="@+id/et_search_filter"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bg_search_field"
         android:drawableStart="@drawable/ic_search_green_24dp"
         android:drawablePadding="8dp"
         android:maxLines="1"
+        android:paddingHorizontal="14dp"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/cb_search_switch_system_app" />
 
@@ -90,8 +91,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingHorizontal="12dp"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_search_filter"
         tools:layoutManager="LinearLayoutManager"

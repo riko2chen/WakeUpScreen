@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary palette -->
-    <color name="colorPrimary">#1B5E4B</color>
-    <color name="colorPrimaryDark">#0D3B30</color>
-    <color name="colorPrimaryLight">#2E7D67</color>
-    <color name="colorAccent">#F5A623</color>
+    <!-- Brand palette -->
+    <color name="colorPrimary">#5C6BC0</color>
+    <color name="colorPrimaryDark">#3949AB</color>
+    <color name="colorPrimaryLight">#E8EAF6</color>
+    <color name="colorAccent">#EC407A</color>
 
-    <!-- Gradient endpoints -->
-    <color name="gradient_start">#0F2027</color>
-    <color name="gradient_mid">#1B4332</color>
-    <color name="gradient_end">#2D6A4F</color>
+    <!-- Hero gradient stops -->
+    <color name="gradient_start">#1A237E</color>
+    <color name="gradient_mid">#3949AB</color>
+    <color name="gradient_end">#5C6BC0</color>
 
     <!-- Surfaces -->
-    <color name="background">#F5F2EB</color>
+    <color name="background">#F4F5FF</color>
     <color name="surface">#FFFFFF</color>
-    <color name="surface_variant">#F0EDE6</color>
-    <color name="divider">#E8E4DC</color>
+    <color name="surface_variant">#E8EAF6</color>
+    <color name="divider">#EBEBF5</color>
 
-    <!-- Status colors -->
-    <color name="green">#2ECC71</color>
-    <color name="green_soft">#E8F8EF</color>
-    <color name="red">#E74C5C</color>
-    <color name="red_soft">#FDEDEF</color>
+    <!-- Status -->
+    <color name="status_ok">#4CAF50</color>
+    <color name="status_ok_bg">#E8F5E9</color>
+    <color name="status_error">#EF5350</color>
+    <color name="status_error_bg">#FFEBEE</color>
 
-    <!-- Text colors -->
-    <color name="text_primary">#1A1A2E</color>
-    <color name="text_secondary">#6B7B8D</color>
-    <color name="text_on_dark">#F5F2EB</color>
-    <color name="text_on_dark_secondary">#B8C5D0</color>
+    <!-- Text -->
+    <color name="text_primary">#1C1B3E</color>
+    <color name="text_secondary">#6E6D8A</color>
+    <color name="text_on_dark">#FFFFFF</color>
 
-    <!-- Utility colors -->
-    <color name="blue">#4A90D9</color>
-    <color name="gray">#8E99A4</color>
-    <color name="lite_gray">#C5CDD5</color>
-    <color name="deep_gray">#2B2B2B</color>
+    <!-- Amber / notice -->
+    <color name="amber">#FF9800</color>
+    <color name="amber_soft">#FFF8E1</color>
+    <color name="amber_stroke">#FFB300</color>
+
+    <!-- Util -->
+    <color name="green">#4CAF50</color>
+    <color name="red">#EF5350</color>
+    <color name="blue">#5C6BC0</color>
+    <color name="gray">#6E6D8A</color>
+    <color name="lite_gray">#C5CAE9</color>
+    <color name="deep_gray">#3C3B5A</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#1A1A2E</color>
+    <color name="black">#1C1B3E</color>
 
-    <!-- Card shadow tint -->
-    <color name="card_shadow">#0A000000</color>
-
-    <!-- Accent variants -->
-    <color name="accent_amber">#F5A623</color>
-    <color name="accent_amber_soft">#FFF5E0</color>
-
-    <!-- Bottom nav -->
-    <color name="nav_inactive">#8E99A4</color>
-    <color name="nav_active">#1B5E4B</color>
+    <!-- Nav -->
+    <color name="nav_active">#5C6BC0</color>
+    <color name="nav_inactive">#9E9EBE</color>
 </resources>
