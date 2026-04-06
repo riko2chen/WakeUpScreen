@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.compose
 
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -9,9 +10,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -38,8 +41,13 @@ fun AppInfoScreen(
         ) {
             Spacer(Modifier.height(32.dp))
 
+            val context = LocalContext.current
+            val bitmap = remember {
+                BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher)
+                    .asImageBitmap()
+            }
             Image(
-                painter = painterResource(R.mipmap.ic_launcher),
+                bitmap = bitmap,
                 contentDescription = stringResource(R.string.app_name),
                 modifier = Modifier.size(96.dp),
             )

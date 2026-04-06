@@ -1,19 +1,27 @@
 package com.symeonchen.wakeupscreen.compose
 
+import android.graphics.BitmapFactory
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.R
@@ -35,11 +43,13 @@ fun SettingScreen(
     onWhiteListClick: () -> Unit,
     onBlackListClick: () -> Unit,
     onAdvancedSettingClick: () -> Unit,
-    onAboutClick: () -> Unit,
+    onFunctionTestClick: () -> Unit,
     onAddressClick: () -> Unit,
     onFeedbackClick: () -> Unit,
     onGiveStarClick: () -> Unit,
 ) {
+    var appInfoExpanded by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -119,6 +129,11 @@ fun SettingScreen(
                     title = stringResource(R.string.advanced_setting),
                     onClick = onAdvancedSettingClick,
                 )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.function_test),
+                    onClick = onFunctionTestClick,
+                )
             }
         }
 
@@ -139,18 +154,49 @@ fun SettingScreen(
             Column {
                 SettingRow(
                     title = stringResource(R.string.app_info),
-                    onClick = onAboutClick,
+                    onClick = { appInfoExpanded = !appInfoExpanded },
                 )
+                AnimatedVisibility(
+                    visible = appInfoExpanded,
+                    enter = expandVertically(),
+                    exit = shrinkVertically(),
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 12.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        val context = LocalContext.current
+                        val bitmap = remember {
+                            BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher)
+                                .asImageBitmap()
+                        }
+                        Image(
+                            bitmap = bitmap,
+                            contentDescription = stringResource(R.string.app_name),
+                            modifier = Modifier.size(72.dp),
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        Text(
+                            text = stringResource(R.string.app_intro_full),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center,
+                            lineHeight = 20.sp,
+                        )
+                    }
+                }
                 FlatDivider()
                 SettingRow(
                     title = stringResource(R.string.project_address),
-                    subtitle = "github.com/SymeonChen",
+                    subtitle = "github.com/symeonchen/WakeUpScreen",
                     onClick = onAddressClick,
                 )
                 FlatDivider()
                 SettingRow(
                     title = stringResource(R.string.feedback),
-                    subtitle = "symeonchen@gmail.com",
+                    subtitle = stringResource(R.string.feedback_subtitle),
                     onClick = onFeedbackClick,
                 )
                 FlatDivider()

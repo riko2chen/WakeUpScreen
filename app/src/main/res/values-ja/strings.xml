@@ -1,0 +1,124 @@
+<resources>
+    <!--common-->
+    <string name="app_name">通知画面点灯</string>
+    <string name="back">戻る</string>
+    <string name="home">ホーム</string>
+    <string name="setting">設定</string>
+    <string name="open">オン</string>
+    <string name="close">オフ</string>
+    <string name="ok">OK</string>
+    <string name="language">言語</string>
+    <string name="language_zh_cn">簡体字中国語</string>
+    <string name="language_en">英語</string>
+    <string name="language_it">イタリア語</string>
+    <string name="language_ja">日本語</string>
+    <string name="language_ko">韓国語</string>
+    <string name="language_th">タイ語</string>
+    <string name="language_zh_tw">繁体字中国語</string>
+    <string name="clear_all">クリア</string>
+    <string name="save">保存</string>
+    <string name="mail_title">[質問] [Wake Up Screen] タイトルを入力してください</string>
+
+    <!--action-->
+    <string name="click_to_close">タップしてオフにする</string>
+    <string name="click_to_open">タップしてオンにする</string>
+    <string name="to_setting">設定へ</string>
+    <string name="how_to_set">設定方法</string>
+    <string name="already_open">オン済み</string>
+    <string name="already_close">オフ済み</string>
+    <string name="i_already_close">オフ済み</string>
+    <string name="not_open">未オン</string>
+    <string name="not_close">未オフ</string>
+    <string name="wanna_close">オフにする</string>
+    <string name="wanna_open">オンにする</string>
+    <string name="set_up_successfully">設定が完了しました！</string>
+
+    <!--other-->
+    <string name="battery_saver_tips">このアプリの電力最適化をオフにすると、端末再起動前まで通知による画面点灯が有効になります。\nSamsungの場合の手順：\n1. 設定を開く\n2.「バッテリー使用量の最適化」を検索\n3.「バッテリー使用量の最適化」をタップ\n4.「通知画面点灯」を検索\n5. ボタンを「未チェック」に設定\n\n注：Samsungの場合は「画面オフ時の通知」をオフにするか、「タップして表示」に設定してください</string>
+    <string name="tip_desc_time_cost">通知のオン・オフの反映には1〜10秒かかります。\nしばらくお待ちください。</string>
+    <string name="developing">開発中</string>
+    <string name="permission_of_read_notification">通知読み取り権限</string>
+    <string name="service_of_background">バックグラウンドサービス</string>
+    <string name="time_of_wake_up_screen">画面点灯時間</string>
+    <string name="optimize_of_battery_saver">電力最適化をオフにする</string>
+    <string name="pocket_mode">ポケットモード</string>
+    <string name="ongoing_status">継続通知の最適化</string>
+    <string name="current_mode">現在のモード</string>
+    <string name="all_pass">すべての通知</string>
+    <string name="white_list">ホワイトリストモード</string>
+    <string name="white_list_page">ホワイトリスト設定ページ</string>
+    <string name="black_list">ブラックリストモード</string>
+    <string name="black_list_page">ブラックリスト設定ページ</string>
+    <string name="project_address">オープンソースプロジェクト</string>
+    <string name="feedback">フィードバック</string>
+    <string name="debug_mode">デバッグモード</string>
+    <string name="debug_mode_entry">デバッグページ</string>
+    <string name="click_to_enter_debug_page">タップしてデバッグページに入る</string>
+    <string name="click_to_enter_white_list_page">タップしてホワイトリストページに入る</string>
+    <string name="click_to_enter_black_list_page">タップしてブラックリストページに入る</string>
+    <string name="debug_page_hints">デバッグモードをオンにすると\n受信したすべての通知に対応するアプリのパッケージ名が表示されます。\n画面が異常に点灯するなどの問題が発生した場合\nこのページのスクリーンショットを撮って作者に連絡してください。\n</string>
+    <string name="white_list_hints">選択したアプリからの通知を受信した場合のみ画面が点灯します。</string>
+    <string name="black_list_hints">選択したアプリからの通知を受信しても画面は点灯しません。</string>
+
+    <string name="custom">カスタム</string>
+    <string name="about">概要</string>
+    <string name="debug">デバッグ</string>
+    <string name="advanced_setting">詳細設定</string>
+    <string name="about_this_app">Wake Up Screenについて</string>
+    <string name="app_info">アプリ情報</string>
+    <string name="info">情報</string>
+    <string name="app_introduce">アプリ紹介</string>
+    <string name="give_star">五つ星評価</string>
+    <string name="click_here_to_open_google_play_store">タップしてGoogle Playストアを開く</string>
+
+    <string name="app_intro_full">通知を受信した際に画面を点灯させるAndroidアプリです。\nSamsung S10向けに最適化されており、他のデバイスにも対応しています。\nオープンソース、インターネット接続不要、無料です。</string>
+    <string name="sleep_mode_open_desc">この時間帯は画面が点灯しません：</string>
+    <string name="sleep_mode">スリープモード</string>
+    <string name="delay_to_wakeup">タップして画面点灯テストを開始</string>
+    <string name="click_here_and_press_power_button_within_10_sec">タップした後、10秒以内に電源ボタンを押してください</string>
+    <string name="sleep_time">スリープ時間</string>
+    <string name="dnd_detect_title">おやすみモード検出</string>
+    <string name="dnd_detect_desc">おやすみモード中も画面を点灯させたい場合はオフにしてください。</string>
+    <string name="wake_hint_before">画面が点灯します</string>
+    <string name="seconds">秒</string>
+    <string name="wake_up_time_limitaon_desc">注意：\n多くのデバイスでは、この設定が正常に動作しない場合があります。\nこれはシステムの制限です。</string>
+    <string name="invalid_number">無効な数値</string>
+    <string name="saved_successfully">保存しました</string>
+    <string name="still_have_problem">まだ問題がありますか？タップして設定を開く</string>
+    <string name="close_app_notice">この操作によりアプリが終了します。終了後にアプリを再度開いてください。</string>
+    <string name="include_system_app">システムアプリを含む</string>
+    <string name="radical_ongoing_detact">厳格な継続通知フィルタリング（実験的機能）</string>
+    <string name="running_to_prevent_kill_app">サービスは正常に動作中</string>
+    <string name="show_notification_when_service_start">サービス開始後に通知を表示（端末再起動後に有効）</string>
+    <string name="send_notification_permission">通知送信の権限</string>
+
+    <string name="function_test">機能テスト</string>
+    <string name="view_logs">ログを表示</string>
+    <string name="view_logs_subtitle">通知記録と画面点灯履歴</string>
+    <string name="log_empty">ログはまだありません</string>
+    <string name="log_screen_already_on">画面は点灯中</string>
+    <string name="log_screen_waked_up">点灯済み</string>
+    <string name="log_screen_blocked">ブロック済み</string>
+    <string name="wake_test_toast">10秒以内に画面をオフにしてください</string>
+    <string name="log_detail_title">詳細</string>
+    <string name="log_detail_source_app">通知元アプリ</string>
+    <string name="log_detail_time">時刻</string>
+    <string name="log_detail_status">状態</string>
+    <string name="log_detail_reason">理由</string>
+    <string name="log_status_already_on_desc">この通知を受信した時、画面は既に点灯していたため操作不要です。</string>
+    <string name="log_status_waked_up_desc">このアプリにより画面が正常に点灯しました。</string>
+    <string name="log_reason_app_switch_off">アプリのメインスイッチがオフです。</string>
+    <string name="log_reason_pocket_mode">ポケットモードが有効です — 近接センサーがデバイスがポケット内にあることを検出しました。</string>
+    <string name="log_reason_filter_list">このアプリはホワイトリスト/ブラックリストのルールによりフィルタリングされました。</string>
+    <string name="log_reason_ongoing">継続通知がフィルタリングされました。</string>
+    <string name="log_reason_sleep_mode">現在スリープモードの時間帯です。</string>
+    <string name="log_reason_dnd">おやすみモードが有効です。</string>
+    <string name="log_reason_unknown">不明な理由。</string>
+    <string name="feedback_subtitle">作者に連絡</string>
+    <string name="feedback_send_email">メール</string>
+    <string name="feedback_copy_email">メールをコピー</string>
+    <string name="feedback_email_copied">メールをコピーしました</string>
+    <string name="feedback_contact_x">X（Twitter）</string>
+    <string name="feedback_contact_xiaohongshu">小紅書</string>
+
+</resources>

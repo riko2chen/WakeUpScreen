@@ -8,8 +8,11 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
-import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.ListenerManager
+import com.symeonchen.wakeupscreen.data.LogStatus
+import com.symeonchen.wakeupscreen.data.NotificationLogEntry
+import com.symeonchen.wakeupscreen.data.NotificationLogStore
+import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.conditions.*
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.NotificationUtils
@@ -78,19 +81,26 @@ class ScNotificationListenerService : NotificationListenerService() {
         sbn ?: return
 
         //Pre check for better performance
-        if (ConditionState.BLOCK == preCheckStatusOpen()) return
+        if (ConditionState.BLOCK == preCheckStatusOpen()) {
+            logNotification(sbn.packageName, LogStatus.BLOCKED, "app_switch_off")
+            return
+        }
 
         val pm = getSystemService(POWER_SERVICE) as PowerManager
 
+        val result = ListenerManager.provideState(
+            ConditionParam(sbn, pm, application)
+        )
 
-        if (ConditionState.BLOCK == ListenerManager.provideState(
-                ConditionParam(
-                    sbn,
-                    pm,
-                    application
-                )
-            )
-        ) return
+        if (result.state == ConditionState.BLOCK) {
+            val conditionName = result.blockingCondition ?: ""
+            if (conditionName == InteractiveCondition::class.java.simpleName) {
+                logNotification(sbn.packageName, LogStatus.SCREEN_ALREADY_ON, conditionName)
+            } else {
+                logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName)
+            }
+            return
+        }
 
         val wl = pm.newWakeLock(
             PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
@@ -101,6 +111,21 @@ class ScNotificationListenerService : NotificationListenerService() {
         wl.acquire(sec)
         wl.release()
 
+        logNotification(sbn.packageName, LogStatus.WAKED_UP, "")
+    }
+
+    private fun logNotification(packageName: String, status: LogStatus, blockReason: String) {
+        try {
+            NotificationLogStore.addLog(
+                NotificationLogEntry(
+                    timestamp = System.currentTimeMillis(),
+                    packageName = packageName,
+                    status = status,
+                    blockReason = blockReason,
+                )
+            )
+        } catch (_: Exception) {
+        }
     }
 
     /**

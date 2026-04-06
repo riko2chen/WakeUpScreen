@@ -10,12 +10,16 @@
     <application
         android:name=".ScApplication"
         android:allowBackup="false"
+        android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".pages.AdvanceSettingPageActivity" />
+        <activity android:name=".pages.FeedbackPageActivity" />
+        <activity android:name=".pages.FunctionTestPageActivity" />
+        <activity android:name=".pages.NotificationLogPageActivity" />
         <activity android:name=".pages.AboutThisPageActivity" />
         <activity android:name=".pages.FilterListActivity" />
         <activity android:name=".pages.AppInfoPageActivity" />

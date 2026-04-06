@@ -102,4 +102,37 @@
     <string name="show_notification_when_service_start">Mostra notifica dopo l\'inizio del servizio(Esso avrà effetto dopo che il telefono sarà riavviato)</string>
     <string name="send_notification_permission">Permesso di inviare notifiche</string>
 
+    <string name="function_test">Test funzionale</string>
+    <string name="view_logs">Visualizza log</string>
+    <string name="view_logs_subtitle">Registrazioni delle notifiche e cronologia accensione schermo</string>
+    <string name="log_empty">Nessun log</string>
+    <string name="log_screen_already_on">Schermo già acceso</string>
+    <string name="log_screen_waked_up">Acceso</string>
+    <string name="log_screen_blocked">Bloccato</string>
+    <string name="wake_test_toast">Spegnere lo schermo entro 10 secondi</string>
+    <string name="log_detail_title">Dettaglio</string>
+    <string name="log_detail_source_app">App sorgente</string>
+    <string name="log_detail_time">Ora</string>
+    <string name="log_detail_status">Stato</string>
+    <string name="log_detail_reason">Motivo</string>
+    <string name="log_status_already_on_desc">Lo schermo era già acceso quando è arrivata questa notifica, nessuna azione necessaria.</string>
+    <string name="log_status_waked_up_desc">Lo schermo è stato acceso con successo da questa app.</string>
+    <string name="log_reason_app_switch_off">L\'interruttore principale dell\'app è spento.</string>
+    <string name="log_reason_pocket_mode">Modalità tasca attiva — il sensore di prossimità ha rilevato che il dispositivo è in tasca.</string>
+    <string name="log_reason_filter_list">L\'app è stata filtrata dalle regole whitelist/blacklist.</string>
+    <string name="log_reason_ongoing">La notifica continua è stata filtrata.</string>
+    <string name="log_reason_sleep_mode">Attualmente nel periodo della modalità sonno.</string>
+    <string name="log_reason_dnd">La modalità Non Disturbare è attiva.</string>
+    <string name="log_reason_unknown">Motivo sconosciuto.</string>
+    <string name="feedback_subtitle">Contatta l\'autore</string>
+    <string name="feedback_send_email">Email</string>
+    <string name="feedback_copy_email">Copia email</string>
+    <string name="feedback_email_copied">Email copiato</string>
+    <string name="feedback_contact_x">X (Twitter)</string>
+    <string name="feedback_contact_xiaohongshu">Xiaohongshu</string>
+    <string name="language_ja">Giapponese</string>
+    <string name="language_ko">Coreano</string>
+    <string name="language_th">Tailandese</string>
+    <string name="language_zh_tw">Cinese Tradizionale</string>
+
 </resources>
