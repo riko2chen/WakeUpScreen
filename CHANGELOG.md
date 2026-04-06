@@ -4,7 +4,7 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
-## [3.0.0]
+## [3.0.2]
 
 ### Major Changes
 - Complete UI overhaul rebuilt with Jetpack Compose
