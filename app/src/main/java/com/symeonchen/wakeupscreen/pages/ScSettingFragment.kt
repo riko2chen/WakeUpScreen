@@ -1,20 +1,21 @@
 package com.symeonchen.wakeupscreen.pages
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.compose.SettingScreen
+import com.symeonchen.wakeupscreen.compose.components.SelectionDialog
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.LanguageInfo
@@ -27,7 +28,6 @@ import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
 class ScSettingFragment : ScBaseFragment() {
 
-    private var alertDialog: AlertDialog? = null
     private lateinit var settingModel: SettingViewModel
 
     override fun onCreateView(
@@ -50,7 +50,10 @@ class ScSettingFragment : ScBaseFragment() {
                 val currentMode by settingModel.modeOfCurrent.observeAsState(CurrentMode.MODE_ALL_NOTIFY)
                 val language by settingModel.languageSelected.observeAsState(LanguageInfo.FOLLOW_SYSTEM)
 
-                val currentModeText = getString(
+                var showLanguageDialog by remember { mutableStateOf(false) }
+                var showModeDialog by remember { mutableStateOf(false) }
+
+                val currentModeText = stringResource(
                     when (currentMode) {
                         CurrentMode.MODE_BLACK_LIST -> R.string.black_list
                         CurrentMode.MODE_WHITE_LIST -> R.string.white_list
@@ -63,9 +66,9 @@ class ScSettingFragment : ScBaseFragment() {
                     languageText = language.desc,
                     showWhiteListEntry = currentMode == CurrentMode.MODE_WHITE_LIST,
                     showBlackListEntry = currentMode == CurrentMode.MODE_BLACK_LIST,
-                    onLanguageClick = ::initLanguageSettingDialog,
+                    onLanguageClick = { showLanguageDialog = true },
                     onWakeTimeClick = { context?.quickStartActivity<WakeUptimeSettingActivity>() },
-                    onCurrentModeClick = ::initCurrentModeDialog,
+                    onCurrentModeClick = { showModeDialog = true },
                     onWhiteListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_WHITE_LIST) },
                     onBlackListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_BLACK_LIST) },
                     onAdvancedSettingClick = { context?.quickStartActivity<AdvanceSettingPageActivity>() },
@@ -76,6 +79,52 @@ class ScSettingFragment : ScBaseFragment() {
                     onFeedbackClick = ::openFeedbackEmail,
                     onGiveStarClick = { PlayStoreTools.openPlayStoreWithUrl(context) },
                 )
+
+                // Language dialog
+                if (showLanguageDialog) {
+                    val languageArray = LanguageInfo.values()
+                    val currentIdx = languageArray.indexOfFirst { it.referenceNum == language.referenceNum }
+                    SelectionDialog(
+                        title = stringResource(R.string.language),
+                        options = languageArray.map { it.desc },
+                        selectedIndex = if (currentIdx >= 0) currentIdx else 0,
+                        confirmText = stringResource(R.string.ok),
+                        onSelect = { idx ->
+                            showLanguageDialog = false
+                            val selected = languageArray[idx]
+                            settingModel.languageSelected.postValue(selected)
+                            selected.applyLanguage()
+                        },
+                        onDismiss = { showLanguageDialog = false },
+                    )
+                }
+
+                // Mode dialog
+                if (showModeDialog) {
+                    val modeLabels = listOf(
+                        stringResource(R.string.all_pass),
+                        stringResource(R.string.white_list),
+                        stringResource(R.string.black_list),
+                    )
+                    val currentIdx = when (currentMode) {
+                        CurrentMode.MODE_ALL_NOTIFY -> 0
+                        CurrentMode.MODE_WHITE_LIST -> 1
+                        else -> 2
+                    }
+                    SelectionDialog(
+                        title = stringResource(R.string.current_mode),
+                        options = modeLabels,
+                        selectedIndex = currentIdx,
+                        confirmText = stringResource(R.string.ok),
+                        onSelect = { idx ->
+                            showModeDialog = false
+                            settingModel.modeOfCurrent.postValue(
+                                CurrentMode.getModeFromValue(idx)
+                            )
+                        },
+                        onDismiss = { showModeDialog = false },
+                    )
+                }
             }
         }
     }
@@ -96,63 +145,5 @@ class ScSettingFragment : ScBaseFragment() {
             putExtra(Intent.EXTRA_TEXT, mailBody)
         }
         startActivity(Intent.createChooser(intent, "Choose your mail app"))
-    }
-
-    private fun initLanguageSettingDialog() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(requireContext())
-        val languageArray = LanguageInfo.values()
-        val languageNameArray = languageArray.map { it.desc }.toTypedArray()
-        val refNum = settingModel.languageSelected.value!!.referenceNum
-        val checkedItem = languageArray.map { it.referenceNum }.indexOf(refNum)
-        var selectedItem: LanguageInfo? = null
-
-        alertDialog = builder.setSingleChoiceItems(
-            languageNameArray, checkedItem
-        ) { _, which -> selectedItem = languageArray[which] }
-            .setPositiveButton(getString(R.string.ok)) { _, _ ->
-                selectedItem?.run {
-                    settingModel.languageSelected.postValue(this)
-                    this.applyLanguage()
-                }
-            }
-            .create().apply { show() }
-    }
-
-    private fun initCurrentModeDialog() {
-        alertDialog?.dismiss()
-        val builder = AlertDialog.Builder(requireContext())
-        val secList = arrayOf(
-            getString(R.string.all_pass),
-            getString(R.string.white_list),
-            getString(R.string.black_list)
-        )
-        var switch = settingModel.modeOfCurrent.value!!
-        val checkedItem = when (switch) {
-            CurrentMode.MODE_ALL_NOTIFY -> 0
-            CurrentMode.MODE_WHITE_LIST -> 1
-            else -> 2
-        }
-
-        alertDialog = builder
-            .setSingleChoiceItems(secList, checkedItem) { _, which ->
-                switch = when (which) {
-                    0 -> CurrentMode.MODE_ALL_NOTIFY
-                    1 -> CurrentMode.MODE_WHITE_LIST
-                    else -> CurrentMode.MODE_BLACK_LIST
-                }
-            }
-            .setPositiveButton(getString(R.string.ok)) { _, _ ->
-                settingModel.modeOfCurrent.postValue(
-                    CurrentMode.getModeFromValue(
-                        when (switch) {
-                            CurrentMode.MODE_ALL_NOTIFY -> 0
-                            CurrentMode.MODE_WHITE_LIST -> 1
-                            else -> 2
-                        }
-                    )
-                )
-            }
-            .create().apply { show() }
     }
 }
