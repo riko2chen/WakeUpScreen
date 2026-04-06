@@ -1,10 +1,12 @@
 package com.symeonchen.wakeupscreen.compose
 
-import android.graphics.BitmapFactory
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.KeyboardArrowDown
+import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,7 +16,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -155,6 +156,7 @@ fun SettingScreen(
                 SettingRow(
                     title = stringResource(R.string.app_info),
                     onClick = { appInfoExpanded = !appInfoExpanded },
+                    trailingIcon = if (appInfoExpanded) Icons.Rounded.KeyboardArrowUp else Icons.Rounded.KeyboardArrowDown,
                 )
                 AnimatedVisibility(
                     visible = appInfoExpanded,
@@ -168,12 +170,17 @@ fun SettingScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         val context = LocalContext.current
-                        val bitmap = remember {
-                            BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher)
-                                .asImageBitmap()
+                        val iconBitmap = remember {
+                            val drawable = context.packageManager.getApplicationIcon(context.packageName)
+                            val size = (72 * context.resources.displayMetrics.density).toInt()
+                            val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
+                            val canvas = android.graphics.Canvas(bitmap)
+                            drawable.setBounds(0, 0, size, size)
+                            drawable.draw(canvas)
+                            bitmap.asImageBitmap()
                         }
                         Image(
-                            bitmap = bitmap,
+                            bitmap = iconBitmap,
                             contentDescription = stringResource(R.string.app_name),
                             modifier = Modifier.size(72.dp),
                         )
