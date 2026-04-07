@@ -10,7 +10,7 @@ An open-source Android app that gently wakes your display the moment a notificat
 No cloud, no clutter, no compromise.
 
 [![Google Play](https://img.shields.io/badge/Google%20Play-Download-2dd4a8?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen)
-[![GitHub](https://img.shields.io/badge/Source-GitHub-6366f1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SymeonChen/WakeUpScreen)
+[![GitHub](https://img.shields.io/badge/Source-GitHub-6366f1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/riko2chen/WakeUpScreen)
 [![Website](https://img.shields.io/badge/Website-Visit-0ea5e9?style=for-the-badge&logo=googlechrome&logoColor=white)](https://riko2chen.github.io/WakeUpScreen/)
 [![Changelog](https://img.shields.io/badge/Changelog-View-a855f7?style=for-the-badge)](docs/CHANGELOG.md)
 [![License](https://img.shields.io/badge/License-GPLv3-a855f7?style=for-the-badge)](LICENSE)
@@ -62,7 +62,7 @@ No cloud, no clutter, no compromise.
 ## Building
 
 ```bash
-git clone https://github.com/SymeonChen/WakeUpScreen.git
+git clone https://github.com/riko2chen/WakeUpScreen.git
 cd WakeUpScreen
 ./gradlew assembleDebug
 ```
@@ -82,5 +82,7 @@ This project is licensed under the [GNU General Public License v3.0](LICENSE).
 **WakeUpScreen** by [Riko Studio](mailto:symeonchen@gmail.com)
 
 *Built in the open. Transparency is not optional.*
+
+<sub>Previously hosted at <https://github.com/SymeonChen/WakeUpScreen> — that URL still redirects here. Same account, former username.</sub>
 
 </div>
