@@ -72,7 +72,7 @@
 
 - **语言**: Kotlin
 - **界面**: Jetpack Compose
-- **最低版本**: Android 7.0 (API 24)
+- **最低版本**: Android 6.0 (API 23)
 - **架构**: MVVM
 
 ## 构建

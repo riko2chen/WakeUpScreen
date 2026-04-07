@@ -56,7 +56,7 @@ Nessun cloud, nessun disordine, nessun compromesso.
 
 - **Linguaggio**: Kotlin
 - **UI**: Jetpack Compose
-- **SDK Minimo**: Android 7.0 (API 24)
+- **SDK Minimo**: Android 6.0 (API 23)
 - **Architettura**: MVVM
 
 ## Compilazione
