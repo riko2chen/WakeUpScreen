@@ -29,11 +29,24 @@ class ScNotificationListenerService : NotificationListenerService() {
     companion object {
         private const val TAG_WAKE = "symeonchen:wakeupscreen"
         private val TAG = this::class.java.simpleName
+        @Volatile var instance: ScNotificationListenerService? = null
     }
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
+        updateForegroundState()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        instance = null
+        stopForeground(STOP_FOREGROUND_REMOVE)
+    }
+
+    fun updateForegroundState() {
         if (!DataInjection.persistentNotification) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
             return
         }
         val notificationBuilder = NotificationUtils(this).getNotification(
@@ -45,11 +58,6 @@ class ScNotificationListenerService : NotificationListenerService() {
         } else {
             startForeground(1, notificationBuilder.build())
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        stopForeground(STOP_FOREGROUND_REMOVE)
     }
 
 

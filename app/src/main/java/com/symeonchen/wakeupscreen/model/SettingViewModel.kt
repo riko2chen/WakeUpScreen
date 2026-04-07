@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.symeonchen.wakeupscreen.ScLiveData
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.LanguageInfo
+import com.symeonchen.wakeupscreen.services.ScNotificationListenerService
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 /**
@@ -168,6 +169,7 @@ class SettingViewModel : ViewModel() {
         persistentSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.persistentNotification = value
+                ScNotificationListenerService.instance?.updateForegroundState()
             }
         }
     }
