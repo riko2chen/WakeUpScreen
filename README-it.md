@@ -11,6 +11,8 @@ Nessun cloud, nessun disordine, nessun compromesso.
 
 [![Google Play](https://img.shields.io/badge/Google%20Play-Scarica-2dd4a8?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen)
 [![GitHub](https://img.shields.io/badge/Codice-GitHub-6366f1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SymeonChen/WakeUpScreen)
+[![Website](https://img.shields.io/badge/Sito-Visita-0ea5e9?style=for-the-badge&logo=googlechrome&logoColor=white)](https://riko2chen.github.io/WakeUpScreen/)
+[![Changelog](https://img.shields.io/badge/Changelog-Vedi-a855f7?style=for-the-badge)](docs/CHANGELOG.md)
 [![License](https://img.shields.io/badge/Licenza-GPLv3-a855f7?style=for-the-badge)](LICENSE)
 
 [English](README.md) · [中文](README-zh.md) · [Italiano](README-it.md)
