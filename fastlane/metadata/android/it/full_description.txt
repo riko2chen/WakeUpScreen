@@ -1,0 +1,33 @@
+WakeUpScreen è un'app Android open-source che accende delicatamente il display nel momento in cui arriva una notifica. Nessun cloud, nessun disordine, nessun compromesso.
+
+Funzionalità:
+
+• Attivazione Istantanea — Lo schermo si illumina nel momento in cui arriva una notifica. Non perdere mai ciò che conta mentre il telefono è sulla scrivania.
+
+• Modalità Tasca — Rileva intelligentemente quando il telefono è in tasca o in borsa e resta spento. Risparmia batteria dove serve.
+
+• Filtro App — Scegli esattamente quali app possono attivare lo schermo. Controllo totale su ciò che merita la tua attenzione.
+
+• Modalità Scura — Un'interfaccia scura e raffinata, perfetta per qualsiasi display AMOLED. Delicata per gli occhi, leggera per la batteria.
+
+• Nessun Internet — Funziona interamente sul tuo dispositivo. Zero dati raccolti, zero server contattati. La tua privacy è assoluta.
+
+• Leggera — Impatto minimo, consumo di batteria trascurabile. Sviluppata in Kotlin per prestazioni native che funzionano e basta.
+
+Come Funziona:
+
+1. Installa e concedi l'accesso alle notifiche. Serve solo questo permesso — i tuoi dati non lasciano mai il dispositivo.
+2. Scegli quali app possono attivare lo schermo. Lascia passare i messaggi importanti, filtra il rumore.
+3. Vivi la tua vita. WakeUpScreen funziona silenziosamente in background.
+
+Funzionalità aggiuntive (tutte attivabili/disattivabili):
+
+• Durata attivazione personalizzabile
+• Rilevamento Non Disturbare — mette in pausa l'attivazione quando NDD è attivo
+• Modalità Sonno con orari personalizzabili
+• Filtro notifiche persistenti — ignora notifiche di musica, navigazione, ecc.
+• Filtro solo-in-carica — attiva solo durante la ricarica
+• Registro notifiche con informazioni sul canale (importanza, suono, vibrazione)
+• Pagina di test funzionalità per diagnosticare gli eventi di notifica
+
+Sviluppata con Jetpack Compose e Material 3. Licenza GPLv3. Nessuna pubblicità, nessun tracciamento, nessun permesso di rete.

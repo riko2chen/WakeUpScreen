@@ -1,0 +1,33 @@
+WakeUpScreen is an open-source Android app that gently wakes your display the moment a notification arrives. No cloud, no clutter, no compromise.
+
+Features:
+
+• Instant Wake — Your screen lights up the moment a notification arrives. Never miss what matters while your phone sits on the desk.
+
+• Pocket Mode — Intelligently detects when your phone is in a pocket or bag, and stays off. Saves battery where it counts.
+
+• App Filtering — Choose exactly which apps can wake your screen. Full control over what deserves your attention.
+
+• Dark Mode — A beautiful dark interface that feels at home on any AMOLED display. Easy on the eyes, easy on the battery.
+
+• No Internet — Runs entirely on your device. Zero data collected, zero servers contacted. Your privacy is absolute.
+
+• Lightweight — Minimal footprint, negligible battery impact. Built in Kotlin for native performance that just works.
+
+How It Works:
+
+1. Install and grant notification access. Only this single permission is required — your data never leaves your device.
+2. Choose which apps can wake your screen. Let important messages through, filter the noise.
+3. Live your life. WakeUpScreen runs silently in the background, lighting up on notification and staying dark in your pocket.
+
+Additional features (all toggleable):
+
+• Custom wake duration
+• Do Not Disturb awareness — pauses wake-up while DND is enabled
+• Sleep mode with custom quiet hours
+• Persistent notification filtering — skips long-running notifications like music and navigation
+• Charging-only filter — only wake when the device is charging
+• Notification log with channel info (importance, sound, vibration)
+• Function test page for diagnosing notification events
+
+Built with Jetpack Compose and Material 3. Licensed under GPLv3. No ads, no tracking, no network permission.

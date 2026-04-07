@@ -4,6 +4,16 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [3.0.3]
+
+### Changes
+- Added F-Droid fastlane metadata (descriptions, screenshots, changelogs in English, Chinese, Italian)
+- Moved CHANGELOG files into `docs/` directory
+- Added changelog viewer page on the website
+- Fixed README: Min SDK corrected to Android 6.0 (API 23) to match the code
+
+---
+
 ## [3.0.2]
 
 ### Major Changes

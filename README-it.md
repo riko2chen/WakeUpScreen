@@ -10,7 +10,9 @@ Un'app Android open-source che accende delicatamente il display nel momento in c
 Nessun cloud, nessun disordine, nessun compromesso.
 
 [![Google Play](https://img.shields.io/badge/Google%20Play-Scarica-2dd4a8?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen)
-[![GitHub](https://img.shields.io/badge/Codice-GitHub-6366f1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SymeonChen/WakeUpScreen)
+[![GitHub](https://img.shields.io/badge/Codice-GitHub-6366f1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/riko2chen/WakeUpScreen)
+[![Website](https://img.shields.io/badge/Sito-Visita-0ea5e9?style=for-the-badge&logo=googlechrome&logoColor=white)](https://riko2chen.github.io/WakeUpScreen/)
+[![Changelog](https://img.shields.io/badge/Changelog-Vedi-a855f7?style=for-the-badge)](docs/CHANGELOG.md)
 [![License](https://img.shields.io/badge/Licenza-GPLv3-a855f7?style=for-the-badge)](LICENSE)
 
 [English](README.md) · [中文](README-zh.md) · [Italiano](README-it.md)
@@ -56,13 +58,13 @@ Nessun cloud, nessun disordine, nessun compromesso.
 
 - **Linguaggio**: Kotlin
 - **UI**: Jetpack Compose
-- **SDK Minimo**: Android 7.0 (API 24)
+- **SDK Minimo**: Android 6.0 (API 23)
 - **Architettura**: MVVM
 
 ## Compilazione
 
 ```bash
-git clone https://github.com/SymeonChen/WakeUpScreen.git
+git clone https://github.com/riko2chen/WakeUpScreen.git
 cd WakeUpScreen
 ./gradlew assembleDebug
 ```
@@ -82,5 +84,7 @@ Questo progetto è rilasciato sotto la [GNU General Public License v3.0](LICENSE
 **WakeUpScreen** di [Riko Studio](mailto:symeonchen@gmail.com)
 
 *Costruito apertamente. La trasparenza non è opzionale.*
+
+<sub>Precedentemente ospitata su <https://github.com/SymeonChen/WakeUpScreen> — quell'URL reindirizza ancora qui. Stesso account, username precedente.</sub>
 
 </div>

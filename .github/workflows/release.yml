@@ -81,8 +81,8 @@ jobs:
         id: changelog
         run: |
           VERSION="${{ steps.version.outputs.name }}"
-          NOTES_EN=$(sed -n "/^## \[$VERSION\]/,/^## \[/{/^## \[/d;p;}" CHANGELOG.md)
-          NOTES_ZH=$(sed -n "/^## \[$VERSION\]/,/^## \[/{/^## \[/d;p;}" CHANGELOG-zh.md)
+          NOTES_EN=$(sed -n "/^## \[$VERSION\]/,/^## \[/{/^## \[/d;p;}" docs/CHANGELOG.md)
+          NOTES_ZH=$(sed -n "/^## \[$VERSION\]/,/^## \[/{/^## \[/d;p;}" docs/CHANGELOG-zh.md)
           echo "notes_en<<EOF_EN" >> "$GITHUB_OUTPUT"
           echo "$NOTES_EN" >> "$GITHUB_OUTPUT"
           echo "EOF_EN" >> "$GITHUB_OUTPUT"

@@ -10,7 +10,9 @@
 无云服务、无冗余、零妥协。
 
 [![Google Play](https://img.shields.io/badge/Google%20Play-下载-2dd4a8?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.symeonchen.wakeupscreen)
-[![GitHub](https://img.shields.io/badge/源码-GitHub-6366f1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SymeonChen/WakeUpScreen)
+[![GitHub](https://img.shields.io/badge/源码-GitHub-6366f1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/riko2chen/WakeUpScreen)
+[![Website](https://img.shields.io/badge/官网-访问-0ea5e9?style=for-the-badge&logo=googlechrome&logoColor=white)](https://riko2chen.github.io/WakeUpScreen/)
+[![Changelog](https://img.shields.io/badge/更新日志-查看-a855f7?style=for-the-badge)](docs/CHANGELOG-zh.md)
 [![License](https://img.shields.io/badge/许可证-GPLv3-a855f7?style=for-the-badge)](LICENSE)
 
 [English](README.md) · [中文](README-zh.md) · [Italiano](README-it.md)
@@ -72,13 +74,13 @@
 
 - **语言**: Kotlin
 - **界面**: Jetpack Compose
-- **最低版本**: Android 7.0 (API 24)
+- **最低版本**: Android 6.0 (API 23)
 - **架构**: MVVM
 
 ## 构建
 
 ```bash
-git clone https://github.com/SymeonChen/WakeUpScreen.git
+git clone https://github.com/riko2chen/WakeUpScreen.git
 cd WakeUpScreen
 ./gradlew assembleDebug
 ```
@@ -98,5 +100,7 @@ cd WakeUpScreen
 **WakeUpScreen** by [Riko Studio](mailto:symeonchen@gmail.com)
 
 *透明开放地构建。透明不是可选项。*
+
+<sub>原仓库地址：<https://github.com/SymeonChen/WakeUpScreen> —— 该链接仍可访问并自动跳转至当前地址。同一账号，仅为曾用名。</sub>
 
 </div>

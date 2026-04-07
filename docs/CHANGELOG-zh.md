@@ -4,6 +4,16 @@ WakeUpScreen 各版本的主要变更记录。
 
 ---
 
+## [3.0.3]
+
+### 变更
+- 新增 F-Droid fastlane metadata（英文、中文、意大利语的描述、截图、changelog）
+- 将 CHANGELOG 文件迁移至 `docs/` 目录
+- 官网新增 changelog 查看页面
+- 修正 README：最低支持版本更正为 Android 6.0 (API 23)，与代码保持一致
+
+---
+
 ## [3.0.2]
 
 ### 主要变更

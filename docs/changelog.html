@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WakeUpScreen - Changelog</title>
+<meta name="description" content="Version history and release notes for WakeUpScreen, the open-source notification wake-up screen app.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a1a;
+  --aurora-green: #2dd4a8;
+  --aurora-teal: #0ea5e9;
+  --aurora-purple: #a855f7;
+  --aurora-blue: #6366f1;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-faint: #64748b;
+  --card-bg: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.08);
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ---- Aurora background (same as index) ---- */
+.aurora {
+  position: fixed;
+  top: -40%;
+  left: -20%;
+  width: 140%;
+  height: 70%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  filter: blur(80px);
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(45,212,168,0.5), transparent),
+    radial-gradient(ellipse 50% 60% at 60% 30%, rgba(14,165,233,0.4), transparent),
+    radial-gradient(ellipse 40% 50% at 80% 50%, rgba(168,85,247,0.45), transparent);
+  animation: auroraShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes auroraShift {
+  0% { transform: translateX(0) translateY(0) scale(1); opacity: 0.4; }
+  33% { transform: translateX(40px) translateY(-20px) scale(1.05); opacity: 0.55; }
+  66% { transform: translateX(-30px) translateY(10px) scale(1.02); opacity: 0.45; }
+  100% { transform: translateX(20px) translateY(-30px) scale(1.07); opacity: 0.5; }
+}
+
+.aurora-secondary {
+  position: fixed;
+  top: -30%;
+  left: -10%;
+  width: 120%;
+  height: 60%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.25;
+  filter: blur(100px);
+  background:
+    radial-gradient(ellipse 50% 40% at 40% 50%, rgba(99,102,241,0.5), transparent),
+    radial-gradient(ellipse 60% 50% at 70% 40%, rgba(45,212,168,0.3), transparent);
+  animation: auroraShift2 16s ease-in-out infinite alternate;
+}
+
+@keyframes auroraShift2 {
+  0% { transform: translateX(0) translateY(0) rotate(0deg); }
+  100% { transform: translateX(-50px) translateY(20px) rotate(3deg); }
+}
+
+/* ---- Layout ---- */
+.content { position: relative; z-index: 1; }
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---- Nav ---- */
+.nav {
+  padding: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-links { display: flex; gap: 28px; align-items: center; }
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 400;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-links a.active { color: var(--aurora-green); }
+
+/* ---- Language Switcher (copied from index) ---- */
+.lang-switcher { position: relative; margin-left: 8px; }
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
+  white-space: nowrap;
+}
+
+.lang-btn:hover {
+  border-color: rgba(45,212,168,0.25);
+  color: var(--text);
+  box-shadow: 0 0 20px rgba(45,212,168,0.06);
+}
+
+.lang-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.lang-btn .lang-arrow {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.25s;
+}
+
+.lang-switcher.open .lang-btn .lang-arrow {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: rgba(15,15,35,0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+  z-index: 100;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 30px rgba(45,212,168,0.04);
+}
+
+.lang-switcher.open .lang-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.lang-option:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+.lang-option.active { color: var(--aurora-green); background: rgba(45,212,168,0.08); }
+
+.lang-option .lang-code {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  margin-left: auto;
+  font-weight: 300;
+}
+
+/* ---- Header ---- */
+.page-header {
+  padding: 80px 0 50px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1.1;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+.page-header h1 .gradient-text {
+  background: linear-gradient(135deg, var(--aurora-green), var(--aurora-teal), var(--aurora-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientFlow 6s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.page-header p {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
+/* ---- Changelog content ---- */
+.changelog {
+  padding: 20px 0 100px;
+}
+
+.changelog-loading,
+.changelog-error {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--text-faint);
+  font-size: 0.95rem;
+}
+
+.changelog-error { color: #f87171; }
+
+/* Rendered markdown styling */
+.md-content h1 { display: none; } /* The file's top "# Changelog" — we already have a page header */
+
+.md-content h2 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin: 48px 0 18px;
+  padding: 22px 28px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--aurora-green);
+  border-radius: 12px;
+  color: var(--text);
+  backdrop-filter: blur(10px);
+}
+
+.md-content h2:first-of-type { margin-top: 0; }
+
+.md-content h3 {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--aurora-teal);
+  margin: 28px 0 12px;
+  padding-left: 28px;
+}
+
+.md-content ul {
+  list-style: none;
+  padding: 0 28px;
+  margin-bottom: 10px;
+}
+
+.md-content li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.md-content li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 17px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--aurora-green);
+  opacity: 0.5;
+}
+
+.md-content p {
+  padding: 0 28px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+
+.md-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+  margin: 32px 0;
+}
+
+.md-content code {
+  background: rgba(45,212,168,0.08);
+  border: 1px solid rgba(45,212,168,0.15);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.85em;
+  color: var(--aurora-green);
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* ---- Footer ---- */
+.footer {
+  padding: 40px 0 60px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+
+.footer a:hover { color: var(--aurora-green); }
+
+/* ---- Mobile ---- */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .nav-links { gap: 16px; }
+  .page-header { padding: 60px 0 30px; }
+  .md-content h2 { font-size: 1.4rem; padding: 18px 20px; }
+  .md-content h3 { padding-left: 20px; }
+  .md-content ul { padding: 0 20px; }
+  .md-content li { padding-left: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="aurora"></div>
+<div class="aurora-secondary"></div>
+
+<div class="content">
+
+  <!-- Nav -->
+  <header class="container">
+    <nav class="nav">
+      <div class="nav-links">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="changelog.html" class="active" data-i18n="nav_changelog">Changelog</a>
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn" id="langBtn" aria-label="Select language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+            <span id="langLabel">EN</span>
+            <svg class="lang-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button class="lang-option active" data-lang="en">English <span class="lang-code">EN</span></button>
+            <button class="lang-option" data-lang="zh">简体中文 <span class="lang-code">ZH</span></button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Header -->
+  <section class="container page-header">
+    <h1><span class="gradient-text" data-i18n="page_title">Changelog</span></h1>
+    <p data-i18n="page_subtitle">Every version, every change, in the open.</p>
+  </section>
+
+  <!-- Changelog content -->
+  <main class="container changelog">
+    <div id="changelogContent" class="md-content">
+      <div class="changelog-loading" data-i18n="loading">Loading…</div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="container footer">
+    <a href="index.html" data-i18n="back_home">← Back to home</a>
+  </footer>
+
+</div>
+
+<script>
+// ---- i18n ----
+var translations = {
+  en: {
+    nav_home: "Home",
+    nav_changelog: "Changelog",
+    page_title: "Changelog",
+    page_subtitle: "Every version, every change, in the open.",
+    loading: "Loading…",
+    error: "Failed to load changelog.",
+    back_home: "← Back to home"
+  },
+  zh: {
+    nav_home: "\u9996\u9875",
+    nav_changelog: "\u66f4\u65b0\u65e5\u5fd7",
+    page_title: "\u66f4\u65b0\u65e5\u5fd7",
+    page_subtitle: "\u6bcf\u4e00\u4e2a\u7248\u672c\uff0c\u6bcf\u4e00\u6b21\u53d8\u5316\uff0c\u5b8c\u5168\u900f\u660e\u3002",
+    loading: "\u52a0\u8f7d\u4e2d\u2026",
+    error: "\u66f4\u65b0\u65e5\u5fd7\u52a0\u8f7d\u5931\u8d25\u3002",
+    back_home: "\u2190 \u8fd4\u56de\u9996\u9875"
+  }
+};
+
+var langLabels = { en: "EN", zh: "ZH" };
+var changelogFiles = { en: "CHANGELOG.md", zh: "CHANGELOG-zh.md" };
+
+// ---- Minimal markdown renderer (headers, lists, hr, paragraphs, inline code) ----
+function escapeHtml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function renderInline(s) {
+  // Inline code: `foo`
+  return escapeHtml(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+function renderMarkdown(md) {
+  var lines = md.split(/\r?\n/);
+  var html = "";
+  var i = 0;
+  var inList = false;
+
+  function closeList() {
+    if (inList) { html += "</ul>\n"; inList = false; }
+  }
+
+  while (i < lines.length) {
+    var line = lines[i];
+    var trimmed = line.trim();
+
+    if (trimmed === "") {
+      closeList();
+      i++;
+      continue;
+    }
+
+    // Horizontal rule
+    if (/^-{3,}$/.test(trimmed)) {
+      closeList();
+      html += "<hr>\n";
+      i++;
+      continue;
+    }
+
+    // Headers
+    var hMatch = /^(#{1,6})\s+(.*)$/.exec(trimmed);
+    if (hMatch) {
+      closeList();
+      var level = hMatch[1].length;
+      html += "<h" + level + ">" + renderInline(hMatch[2]) + "</h" + level + ">\n";
+      i++;
+      continue;
+    }
+
+    // List item
+    var liMatch = /^[-*]\s+(.*)$/.exec(trimmed);
+    if (liMatch) {
+      if (!inList) { html += "<ul>\n"; inList = true; }
+      html += "  <li>" + renderInline(liMatch[1]) + "</li>\n";
+      i++;
+      continue;
+    }
+
+    // Paragraph
+    closeList();
+    html += "<p>" + renderInline(trimmed) + "</p>\n";
+    i++;
+  }
+  closeList();
+  return html;
+}
+
+// ---- Load & render changelog ----
+var contentEl = document.getElementById("changelogContent");
+var cache = {};
+
+function loadChangelog(lang) {
+  var file = changelogFiles[lang] || changelogFiles.en;
+  var t = translations[lang] || translations.en;
+
+  if (cache[lang]) {
+    contentEl.innerHTML = cache[lang];
+    return;
+  }
+
+  contentEl.innerHTML = '<div class="changelog-loading">' + t.loading + "</div>";
+
+  fetch(file, { cache: "no-cache" })
+    .then(function(resp) {
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      return resp.text();
+    })
+    .then(function(md) {
+      var html = renderMarkdown(md);
+      cache[lang] = html;
+      contentEl.innerHTML = html;
+    })
+    .catch(function(err) {
+      contentEl.innerHTML = '<div class="changelog-error">' + t.error + "</div>";
+      console.error("Changelog load failed:", err);
+    });
+}
+
+// ---- Language switcher ----
+function detectLanguage() {
+  var langs = navigator.languages || [navigator.language || navigator.userLanguage || "en"];
+  for (var i = 0; i < langs.length; i++) {
+    var lang = langs[i].toLowerCase();
+    if (lang.indexOf("zh") === 0) return "zh";
+    if (lang.indexOf("en") === 0) return "en";
+  }
+  return "en";
+}
+
+// Apply a language to the UI. `persist` = save to localStorage (only when user clicks).
+function setLanguage(lang, persist) {
+  if (!translations[lang]) lang = "en";
+  var t = translations[lang];
+
+  document.querySelectorAll("[data-i18n]").forEach(function(el) {
+    var key = el.getAttribute("data-i18n");
+    if (t[key]) el.textContent = t[key];
+  });
+
+  document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
+  document.getElementById("langLabel").textContent = langLabels[lang] || lang.toUpperCase();
+
+  document.querySelectorAll(".lang-option").forEach(function(opt) {
+    opt.classList.toggle("active", opt.getAttribute("data-lang") === lang);
+  });
+
+  if (persist) {
+    // Persist using zh-Hans form so index.html picks it up correctly.
+    var stored = lang === "zh" ? "zh-Hans" : lang;
+    try { localStorage.setItem("wakeupscreen-lang", stored); } catch(e) {}
+  }
+
+  loadChangelog(lang);
+}
+
+// ---- Init ----
+(function() {
+  var switcher = document.getElementById("langSwitcher");
+  var btn = document.getElementById("langBtn");
+
+  btn.addEventListener("click", function(e) {
+    e.stopPropagation();
+    switcher.classList.toggle("open");
+  });
+
+  document.getElementById("langDropdown").addEventListener("click", function(e) {
+    var option = e.target.closest(".lang-option");
+    if (!option) return;
+    var lang = option.getAttribute("data-lang");
+    setLanguage(lang, true);
+    switcher.classList.remove("open");
+  });
+
+  document.addEventListener("click", function() {
+    switcher.classList.remove("open");
+  });
+
+  // Apply language on load: saved > browser detect > English.
+  // The saved key is shared with index.html and may be any of its 7 locales
+  // (en, zh-Hans, zh-Hant, ja, ko, it, th). This page only supports en/zh, so
+  // we resolve to the closest match WITHOUT overwriting the saved value —
+  // otherwise a Japanese index.html visitor would lose their preference.
+  var saved = null;
+  try { saved = localStorage.getItem("wakeupscreen-lang"); } catch(e) {}
+  var initial = "en";
+  if (saved) {
+    if (saved.indexOf("zh") === 0) initial = "zh";
+    else initial = "en";
+  } else {
+    initial = detectLanguage();
+  }
+  setLanguage(initial, false);
+})();
+</script>
+
+</body>
+</html>

@@ -72,7 +72,7 @@ class ScSettingFragment : ScBaseFragment() {
                     onAdvancedSettingClick = { context?.quickStartActivity<AdvanceSettingPageActivity>() },
                     onFunctionTestClick = { context?.quickStartActivity<FunctionTestPageActivity>() },
                     onAddressClick = {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SymeonChen/WakeUpScreen")))
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/riko2chen/WakeUpScreen")))
                     },
                     onFeedbackClick = { context?.quickStartActivity<FeedbackPageActivity>() },
                     onGiveStarClick = { PlayStoreTools.openPlayStoreWithUrl(context) },

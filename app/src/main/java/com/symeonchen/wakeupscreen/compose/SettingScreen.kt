@@ -197,7 +197,7 @@ fun SettingScreen(
                 FlatDivider()
                 SettingRow(
                     title = stringResource(R.string.project_address),
-                    subtitle = "github.com/symeonchen/WakeUpScreen",
+                    subtitle = "github.com/riko2chen/WakeUpScreen",
                     onClick = onAddressClick,
                 )
                 FlatDivider()
