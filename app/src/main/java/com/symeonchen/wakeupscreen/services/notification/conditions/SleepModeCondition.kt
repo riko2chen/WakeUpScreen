@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.services.notification.conditions
 
+import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
 import com.symeonchen.wakeupscreen.utils.DataInjection
@@ -11,6 +12,9 @@ import java.util.*
  * Created by SymeonChen on 2020/6/25.
  */
 class SleepModeCondition : LimitedCondition.NoParamCondition() {
+
+    override val key = BlockReason.SLEEP_MODE
+
     override fun provideResult(): ConditionState {
         if (DataInjection.sleepModeBoolean) {
             val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)

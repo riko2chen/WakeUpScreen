@@ -9,6 +9,9 @@ import android.service.notification.StatusBarNotification
  * Created by SymeonChen on 2020/6/25.
  */
 sealed class LimitedCondition {
+    /** Stable identifier ([BlockReason]) reported when this condition blocks. */
+    abstract val key: String
+
     abstract class AbstractPmCondition : LimitedCondition() {
         abstract fun provideResult(pm: PowerManager?): ConditionState
     }

@@ -4,6 +4,17 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [3.0.4]
+
+### Fixes
+- Fixed notification log always showing "Unknown reason" in release builds — the block reason is now resolved from a stable identifier instead of the obfuscated class name, so the real reason (DND, charging, sleep mode, etc.) is displayed correctly
+- Persistent notification toggle now takes effect immediately, without needing to restart the app or service
+
+### Improvements
+- Any unrecognized block reason is now shown as-is in the log instead of collapsing into "Unknown reason", so no information is lost when diagnosing issues
+
+---
+
 ## [3.0.3]
 
 ### Changes

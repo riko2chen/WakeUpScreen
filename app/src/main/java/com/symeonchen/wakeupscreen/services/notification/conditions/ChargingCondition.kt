@@ -4,12 +4,15 @@ import android.app.Application
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 
 class ChargingCondition : LimitedCondition.AppContextCondition() {
+
+    override val key = BlockReason.CHARGING
 
     override fun provideResult(application: Application?): ConditionState {
         if (!DataInjection.chargingOnlySwitch) {

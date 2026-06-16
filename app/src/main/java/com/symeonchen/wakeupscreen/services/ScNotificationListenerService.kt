@@ -9,6 +9,7 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.NotificationListenerService.Ranking
 import android.service.notification.StatusBarNotification
 import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
 import com.symeonchen.wakeupscreen.services.notification.ListenerManager
 import com.symeonchen.wakeupscreen.data.LogStatus
@@ -29,11 +30,24 @@ class ScNotificationListenerService : NotificationListenerService() {
     companion object {
         private const val TAG_WAKE = "symeonchen:wakeupscreen"
         private val TAG = this::class.java.simpleName
+        @Volatile var instance: ScNotificationListenerService? = null
     }
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
+        updateForegroundState()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        instance = null
+        stopForeground(STOP_FOREGROUND_REMOVE)
+    }
+
+    fun updateForegroundState() {
         if (!DataInjection.persistentNotification) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
             return
         }
         val notificationBuilder = NotificationUtils(this).getNotification(
@@ -45,11 +59,6 @@ class ScNotificationListenerService : NotificationListenerService() {
         } else {
             startForeground(1, notificationBuilder.build())
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        stopForeground(STOP_FOREGROUND_REMOVE)
     }
 
 
@@ -87,7 +96,7 @@ class ScNotificationListenerService : NotificationListenerService() {
 
         //Pre check for better performance
         if (ConditionState.BLOCK == preCheckStatusOpen()) {
-            logNotification(sbn.packageName, LogStatus.BLOCKED, "app_switch_off", channel)
+            logNotification(sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, channel)
             return
         }
 
@@ -99,7 +108,7 @@ class ScNotificationListenerService : NotificationListenerService() {
 
         if (result.state == ConditionState.BLOCK) {
             val conditionName = result.blockingCondition ?: ""
-            if (conditionName == InteractiveCondition::class.java.simpleName) {
+            if (conditionName == BlockReason.INTERACTIVE) {
                 logNotification(sbn.packageName, LogStatus.SCREEN_ALREADY_ON, conditionName, channel)
             } else {
                 logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName, channel)

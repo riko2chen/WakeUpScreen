@@ -17,6 +17,7 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
 import com.symeonchen.wakeupscreen.data.LogStatus
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
+import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -235,13 +236,15 @@ private fun importanceToString(importance: Int): String {
 @Composable
 private fun blockReasonToString(reason: String): String {
     return when (reason) {
-        "app_switch_off" -> stringResource(R.string.log_reason_app_switch_off)
-        "PocketModeCondition" -> stringResource(R.string.log_reason_pocket_mode)
-        "FilterListCondition" -> stringResource(R.string.log_reason_filter_list)
-        "OnGoingNotificationCondition" -> stringResource(R.string.log_reason_ongoing)
-        "SleepModeCondition" -> stringResource(R.string.log_reason_sleep_mode)
-        "DndCondition" -> stringResource(R.string.log_reason_dnd)
-        "ChargingCondition" -> stringResource(R.string.log_reason_charging)
-        else -> stringResource(R.string.log_reason_unknown)
+        BlockReason.APP_SWITCH_OFF -> stringResource(R.string.log_reason_app_switch_off)
+        BlockReason.POCKET_MODE -> stringResource(R.string.log_reason_pocket_mode)
+        BlockReason.FILTER_LIST -> stringResource(R.string.log_reason_filter_list)
+        BlockReason.ONGOING -> stringResource(R.string.log_reason_ongoing)
+        BlockReason.SLEEP_MODE -> stringResource(R.string.log_reason_sleep_mode)
+        BlockReason.DND -> stringResource(R.string.log_reason_dnd)
+        BlockReason.CHARGING -> stringResource(R.string.log_reason_charging)
+        // For any unmapped reason, show the raw value as-is so no information
+        // is lost when something unexpected blocks a notification.
+        else -> reason
     }
 }
