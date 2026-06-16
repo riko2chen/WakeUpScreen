@@ -64,18 +64,20 @@ jobs:
         run: |
           echo "$KEYSTORE_BASE64" | base64 -d > ${{ github.workspace }}/release.keystore
 
-      - name: Build Release APK
+      - name: Build Release APK and AAB
         env:
           KEYSTORE_FILE: ${{ github.workspace }}/release.keystore
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease bundleRelease
 
-      - name: Rename APK
+      - name: Rename APK and AAB
         run: |
           mv app/build/outputs/apk/release/app-release.apk \
              app/build/outputs/apk/release/WakeUpScreen-v${{ steps.version.outputs.name }}.apk
+          mv app/build/outputs/bundle/release/app-release.aab \
+             app/build/outputs/bundle/release/WakeUpScreen-v${{ steps.version.outputs.name }}.aab
 
       - name: Extract changelog for this version
         id: changelog
@@ -105,5 +107,7 @@ jobs:
             ## 中文更新日志
 
             ${{ steps.changelog.outputs.notes_zh }}
-          files: app/build/outputs/apk/release/WakeUpScreen-v${{ steps.version.outputs.name }}.apk
+          files: |
+            app/build/outputs/apk/release/WakeUpScreen-v${{ steps.version.outputs.name }}.apk
+            app/build/outputs/bundle/release/WakeUpScreen-v${{ steps.version.outputs.name }}.aab
           make_latest: true
