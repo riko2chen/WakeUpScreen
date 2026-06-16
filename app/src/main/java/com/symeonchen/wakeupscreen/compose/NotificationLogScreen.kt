@@ -243,11 +243,8 @@ private fun blockReasonToString(reason: String): String {
         BlockReason.SLEEP_MODE -> stringResource(R.string.log_reason_sleep_mode)
         BlockReason.DND -> stringResource(R.string.log_reason_dnd)
         BlockReason.CHARGING -> stringResource(R.string.log_reason_charging)
-        else -> {
-            // Keep the raw key visible so an unmapped reason can still be
-            // diagnosed from user feedback instead of vanishing into "unknown".
-            val unknown = stringResource(R.string.log_reason_unknown)
-            if (reason.isBlank()) unknown else "$unknown ($reason)"
-        }
+        // For any unmapped reason, show the raw value as-is so no information
+        // is lost when something unexpected blocks a notification.
+        else -> reason
     }
 }
