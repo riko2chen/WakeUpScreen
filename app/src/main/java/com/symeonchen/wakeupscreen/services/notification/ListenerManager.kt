@@ -28,7 +28,7 @@ object ListenerManager {
             if (calculateCondition(condition, param) == ConditionState.BLOCK) {
                 return ConditionCheckResult(
                     ConditionState.BLOCK,
-                    condition::class.java.simpleName,
+                    condition.key,
                 )
             }
         }

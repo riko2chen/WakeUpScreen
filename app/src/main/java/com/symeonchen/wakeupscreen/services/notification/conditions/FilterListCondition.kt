@@ -2,6 +2,7 @@ package com.symeonchen.wakeupscreen.services.notification.conditions
 
 import android.service.notification.StatusBarNotification
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
 import com.symeonchen.wakeupscreen.utils.DataInjection
@@ -12,6 +13,8 @@ import com.symeonchen.wakeupscreen.utils.FilterListUtils
  * Created by SymeonChen on 2020/6/25.
  */
 class FilterListCondition : LimitedCondition.AbstractSbnCondition() {
+
+    override val key = BlockReason.FILTER_LIST
 
     override fun provideResult(sbn: StatusBarNotification?): ConditionState {
         sbn ?: return ConditionState.BLOCK

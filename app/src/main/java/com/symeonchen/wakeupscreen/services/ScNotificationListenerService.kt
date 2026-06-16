@@ -9,6 +9,7 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.NotificationListenerService.Ranking
 import android.service.notification.StatusBarNotification
 import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
 import com.symeonchen.wakeupscreen.services.notification.ListenerManager
 import com.symeonchen.wakeupscreen.data.LogStatus
@@ -87,7 +88,7 @@ class ScNotificationListenerService : NotificationListenerService() {
 
         //Pre check for better performance
         if (ConditionState.BLOCK == preCheckStatusOpen()) {
-            logNotification(sbn.packageName, LogStatus.BLOCKED, "app_switch_off", channel)
+            logNotification(sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, channel)
             return
         }
 
@@ -99,7 +100,7 @@ class ScNotificationListenerService : NotificationListenerService() {
 
         if (result.state == ConditionState.BLOCK) {
             val conditionName = result.blockingCondition ?: ""
-            if (conditionName == InteractiveCondition::class.java.simpleName) {
+            if (conditionName == BlockReason.INTERACTIVE) {
                 logNotification(sbn.packageName, LogStatus.SCREEN_ALREADY_ON, conditionName, channel)
             } else {
                 logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName, channel)
