@@ -150,4 +150,13 @@
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">Xiaohongshu</string>
 
+    <string name="check_update">Check for updates</string>
+    <string name="check_update_subtitle">Check via Play, F-Droid or GitHub</string>
+    <string name="check_update_hint">These options open an external app or page to check for updates. The app itself never connects to the internet.</string>
+    <string name="update_via_play">Google Play</string>
+    <string name="update_via_play_subtitle">Open the Play Store app page</string>
+    <string name="update_via_fdroid">F-Droid</string>
+    <string name="update_via_fdroid_subtitle">Open the F-Droid page (version may be slightly behind)</string>
+    <string name="update_via_github">GitHub Releases</string>
+    <string name="update_via_github_subtitle">Open the latest release page</string>
 </resources>

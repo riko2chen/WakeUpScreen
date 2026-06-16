@@ -76,6 +76,7 @@ class ScSettingFragment : ScBaseFragment() {
                     },
                     onFeedbackClick = { context?.quickStartActivity<FeedbackPageActivity>() },
                     onGiveStarClick = { PlayStoreTools.openPlayStoreWithUrl(context) },
+                    onCheckUpdateClick = { context?.quickStartActivity<CheckUpdatePageActivity>() },
                 )
 
                 // Language dialog

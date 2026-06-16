@@ -48,6 +48,7 @@ fun SettingScreen(
     onAddressClick: () -> Unit,
     onFeedbackClick: () -> Unit,
     onGiveStarClick: () -> Unit,
+    onCheckUpdateClick: () -> Unit,
 ) {
     var appInfoExpanded by remember { mutableStateOf(false) }
 
@@ -205,6 +206,12 @@ fun SettingScreen(
                     title = stringResource(R.string.feedback),
                     subtitle = stringResource(R.string.feedback_subtitle),
                     onClick = onFeedbackClick,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.check_update),
+                    subtitle = stringResource(R.string.check_update_subtitle),
+                    onClick = onCheckUpdateClick,
                 )
                 FlatDivider()
                 SettingRow(

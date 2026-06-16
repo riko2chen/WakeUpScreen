@@ -136,4 +136,13 @@
     <string name="feedback_contact_x">X（Twitter）</string>
     <string name="feedback_contact_xiaohongshu">小紅書</string>
 
+    <string name="check_update">アップデートを確認</string>
+    <string name="check_update_subtitle">Play・F-Droid・GitHub で確認</string>
+    <string name="check_update_hint">以下のオプションは外部アプリやページを開いて更新を確認します。アプリ自体はインターネットに接続しません。</string>
+    <string name="update_via_play">Google Play</string>
+    <string name="update_via_play_subtitle">Play ストアのアプリページを開く</string>
+    <string name="update_via_fdroid">F-Droid</string>
+    <string name="update_via_fdroid_subtitle">F-Droid のページを開く（バージョンが少し遅れる場合があります）</string>
+    <string name="update_via_github">GitHub Releases</string>
+    <string name="update_via_github_subtitle">最新リリースページを開く</string>
 </resources>
