@@ -61,14 +61,17 @@ fun SettingScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
                 .background(
                     Brush.linearGradient(
                         listOf(GradientStart, GradientMid, GradientEnd),
                         start = Offset(0f, 0f),
                         end = Offset(400f, 300f),
                     )
-                ),
+                )
+                // Gradient bleeds under the status bar; the title sits in a
+                // 64dp band below it (so the total header isn't over-inflated).
+                .statusBarsPadding()
+                .height(64.dp),
             contentAlignment = Alignment.BottomCenter,
         ) {
             Text(

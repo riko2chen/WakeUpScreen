@@ -7,6 +7,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -94,6 +98,24 @@ class FilterListActivity : ScBaseActivity() {
             resources.getString(R.string.white_list_hints)
         }
         binding.tvLogHeadHint.text = hints
+
+        applyWindowInsets()
+    }
+
+    /**
+     * Edge-to-edge is enforced on Android 15+. Keep the gradient header below
+     * the status bar / camera cutout, and the list above the gesture bar.
+     */
+    private fun applyWindowInsets() {
+        val baseHeaderHeight = binding.llHeader.layoutParams.height
+        val baseListPaddingBottom = binding.rvAppList.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.llHeader.updateLayoutParams { height = baseHeaderHeight + bars.top }
+            binding.llHeader.updatePadding(top = bars.top)
+            binding.rvAppList.updatePadding(bottom = baseListPaddingBottom + bars.bottom)
+            insets
+        }
     }
 
     private fun setListener() {

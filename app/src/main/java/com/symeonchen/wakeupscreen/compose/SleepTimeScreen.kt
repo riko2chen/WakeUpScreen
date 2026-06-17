@@ -22,7 +22,7 @@ fun SleepTimeScreen(
     onBeginHourChange: (Int) -> Unit,
     onEndHourChange: (Int) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.sleep_time),
             onBack = onBack,

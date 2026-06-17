@@ -29,7 +29,7 @@ fun NotificationLogScreen(
 ) {
     var selectedEntry by remember { mutableStateOf<NotificationLogEntry?>(null) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.view_logs),
             onBack = onBack,
