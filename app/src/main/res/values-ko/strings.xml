@@ -90,8 +90,6 @@
     <string name="close_app_notice">이 작업으로 앱이 종료됩니다. 종료 후 앱을 다시 열어주세요.</string>
     <string name="include_system_app">시스템 앱 포함</string>
     <string name="radical_ongoing_detact">엄격한 지속 알림 필터링 (실험적 기능)</string>
-    <string name="running_to_prevent_kill_app">서비스가 정상적으로 실행 중</string>
-    <string name="show_notification_when_service_start">서비스 시작 후 알림 표시 (휴대폰 재시작 후 적용)</string>
     <string name="send_notification_permission">알림 전송 권한</string>
 
     <string name="function_test">기능 테스트</string>

@@ -90,8 +90,6 @@
     <string name="close_app_notice">การกระทำนี้จะปิดแอป กรุณาเปิดแอปอีกครั้งหลังจากนั้น</string>
     <string name="include_system_app">รวมแอประบบ</string>
     <string name="radical_ongoing_detact">กรองการแจ้งเตือนต่อเนื่องแบบเข้มงวด (ทดลอง)</string>
-    <string name="running_to_prevent_kill_app">บริการกำลังทำงาน</string>
-    <string name="show_notification_when_service_start">แสดงการแจ้งเตือนหลังเริ่มบริการ (มีผลหลังรีสตาร์ทโทรศัพท์)</string>
     <string name="send_notification_permission">สิทธิ์ในการส่งการแจ้งเตือน</string>
 
     <string name="function_test">ทดสอบฟังก์ชัน</string>
