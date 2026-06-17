@@ -31,14 +31,18 @@ fun ComposeToolbar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp)
             .background(
                 Brush.linearGradient(
                     listOf(GradientStart, GradientMid, GradientEnd),
                     start = Offset(0f, 0f),
                     end = Offset(600f, 0f),
                 )
-            ),
+            )
+            // Let the gradient bleed under the status bar, but keep the back
+            // button and title below it so they aren't hidden by the camera
+            // cutout / unreachable behind the status bar (edge-to-edge).
+            .statusBarsPadding()
+            .height(56.dp),
     ) {
         // Back button
         Icon(

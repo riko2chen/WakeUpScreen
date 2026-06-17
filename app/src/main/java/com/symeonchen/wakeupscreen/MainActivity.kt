@@ -1,6 +1,9 @@
 package com.symeonchen.wakeupscreen
 
 import android.os.Bundle
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -24,6 +27,14 @@ class MainActivity : ScBaseActivity() {
     }
 
     private fun initView() {
+        // Edge-to-edge is enforced on Android 15+, so keep the bottom nav above
+        // the gesture / navigation bar instead of being hidden behind it.
+        ViewCompat.setOnApplyWindowInsetsListener(binding.bnvMain) { view, insets ->
+            val bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+            view.updatePadding(bottom = bottom)
+            insets
+        }
+
         binding.vpMain.adapter = MainViewPagerAdapter(this, fragmentList)
 
         binding.vpMain.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

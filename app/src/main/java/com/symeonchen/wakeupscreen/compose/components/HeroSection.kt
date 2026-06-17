@@ -48,7 +48,9 @@ fun HeroSection(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = 32.dp),
+            modifier = Modifier
+                .statusBarsPadding()
+                .padding(horizontal = 32.dp),
         ) {
             // Decorative app label
             Text(
