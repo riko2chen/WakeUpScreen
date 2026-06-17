@@ -42,7 +42,7 @@ fun AdvanceSettingScreen(
     sleepDetailSubtitle: String,
     onSleepDetailClick: () -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.advanced_setting),
             onBack = onBack,

@@ -22,7 +22,7 @@ fun FeedbackScreen(
     onContactX: () -> Unit,
     onContactXiaohongshu: () -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.feedback),
             onBack = onBack,

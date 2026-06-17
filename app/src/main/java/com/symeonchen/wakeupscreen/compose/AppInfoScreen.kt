@@ -26,7 +26,7 @@ import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
 fun AppInfoScreen(
     onBack: () -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.app_name),
             onBack = onBack,
