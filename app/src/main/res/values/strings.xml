@@ -150,6 +150,7 @@
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">Xiaohongshu</string>
 
+    <string name="current_version">Current version: %1$s</string>
     <string name="check_update">Check for updates</string>
     <string name="check_update_subtitle">Check via Play, F-Droid or GitHub</string>
     <string name="check_update_hint">These options open an external app or page to check for updates. The app itself never connects to the internet.</string>

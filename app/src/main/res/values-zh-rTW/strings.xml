@@ -136,6 +136,7 @@
     <string name="feedback_contact_x">X（Twitter）</string>
     <string name="feedback_contact_xiaohongshu">小紅書</string>
 
+    <string name="current_version">目前版本：%1$s</string>
     <string name="check_update">檢查更新</string>
     <string name="check_update_subtitle">透過 Play、F-Droid 或 GitHub 檢查</string>
     <string name="check_update_hint">以下選項會跳轉到外部應用程式或網頁來檢查更新，App 本身不會連網。</string>

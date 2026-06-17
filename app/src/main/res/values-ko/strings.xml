@@ -136,6 +136,7 @@
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">샤오홍슈</string>
 
+    <string name="current_version">현재 버전: %1$s</string>
     <string name="check_update">업데이트 확인</string>
     <string name="check_update_subtitle">Play, F-Droid 또는 GitHub로 확인</string>
     <string name="check_update_hint">아래 옵션은 외부 앱이나 페이지를 열어 업데이트를 확인합니다. 앱 자체는 인터넷에 연결하지 않습니다.</string>
