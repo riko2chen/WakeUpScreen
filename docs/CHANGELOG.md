@@ -4,6 +4,16 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [3.0.5]
+
+### Features
+- Added a "Check for updates" page (Settings → About) with Google Play, F-Droid and GitHub options, and the current installed version. No internet permission is required — it simply opens the chosen store or page.
+
+### Fixes
+- Fixed edge-to-edge / safe-area layout on Android 15+: back buttons are no longer unreachable, titles are no longer hidden behind the status bar or camera cutout, and the bottom navigation and lists now clear the gesture bar.
+
+---
+
 ## [3.0.4]
 
 ### Fixes
