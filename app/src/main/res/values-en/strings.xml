@@ -103,8 +103,6 @@
     <string name="close_app_notice">This action will close Application, please reopen the APP after that.</string>
     <string name="include_system_app">Include system APP</string>
     <string name="radical_ongoing_detact">Radical Ongoing Detect (unstable)</string>
-    <string name="running_to_prevent_kill_app">Service is running</string>
-    <string name="show_notification_when_service_start">Show Notification After Service Start(It will take effect after the phone is restarted)</string>
     <string name="send_notification_permission">Permission to send notifications</string>
 
     <string name="function_test">Function Test</string>

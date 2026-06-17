@@ -4,6 +4,14 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [3.0.6]
+
+### Changes
+- Removed the `FOREGROUND_SERVICE_SPECIAL_USE` permission. Waking the screen relies on the notification listener, which the system keeps bound automatically, so the special-use foreground service was not actually required for core behavior.
+- Removed the optional "persistent notification (keep service alive)" setting, which was the only feature that used that permission. On aggressive battery-management devices, please keep the app exempt from battery optimization instead.
+
+---
+
 ## [3.0.5]
 
 ### Features

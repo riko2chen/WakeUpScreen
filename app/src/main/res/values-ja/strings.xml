@@ -90,8 +90,6 @@
     <string name="close_app_notice">この操作によりアプリが終了します。終了後にアプリを再度開いてください。</string>
     <string name="include_system_app">システムアプリを含む</string>
     <string name="radical_ongoing_detact">厳格な継続通知フィルタリング（実験的機能）</string>
-    <string name="running_to_prevent_kill_app">サービスは正常に動作中</string>
-    <string name="show_notification_when_service_start">サービス開始後に通知を表示（端末再起動後に有効）</string>
     <string name="send_notification_permission">通知送信の権限</string>
 
     <string name="function_test">機能テスト</string>
