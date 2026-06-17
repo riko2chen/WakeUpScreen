@@ -1,0 +1,2 @@
+• Removed the FOREGROUND_SERVICE_SPECIAL_USE permission — waking the screen uses the notification listener, which the system keeps alive on its own, so it was not needed
+• Removed the optional "persistent notification (keep service alive)" setting (the only feature that used that permission). On aggressive devices, exempt the app from battery optimization instead

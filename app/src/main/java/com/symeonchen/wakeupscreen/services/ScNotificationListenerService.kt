@@ -2,13 +2,11 @@ package com.symeonchen.wakeupscreen.services
 
 import android.app.NotificationChannel
 import android.content.ComponentName
-import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.PowerManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.NotificationListenerService.Ranking
 import android.service.notification.StatusBarNotification
-import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
 import com.symeonchen.wakeupscreen.services.notification.ListenerManager
@@ -18,7 +16,6 @@ import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.conditions.*
 import com.symeonchen.wakeupscreen.utils.DataInjection
-import com.symeonchen.wakeupscreen.utils.NotificationUtils
 import kotlinx.coroutines.*
 
 /**
@@ -36,31 +33,12 @@ class ScNotificationListenerService : NotificationListenerService() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        updateForegroundState()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         instance = null
-        stopForeground(STOP_FOREGROUND_REMOVE)
     }
-
-    fun updateForegroundState() {
-        if (!DataInjection.persistentNotification) {
-            stopForeground(STOP_FOREGROUND_REMOVE)
-            return
-        }
-        val notificationBuilder = NotificationUtils(this).getNotification(
-            resources.getString(R.string.app_name),
-            resources.getString(R.string.running_to_prevent_kill_app)
-        )
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            startForeground(1, notificationBuilder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
-        } else {
-            startForeground(1, notificationBuilder.build())
-        }
-    }
-
 
     init {
         ListenerManager.register(PocketModeCondition())

@@ -1,0 +1,2 @@
+• Aggiunta una pagina "Controlla aggiornamenti" (Impostazioni → Info) con opzioni Google Play, F-Droid e GitHub e la versione attuale — nessun permesso Internet richiesto
+• Corretto il layout edge-to-edge / area sicura su Android 15+: i pulsanti Indietro sono raggiungibili, i titoli non sono più nascosti dietro la barra di stato o il foro della fotocamera e la navigazione inferiore non è più coperta dalla barra dei gesti

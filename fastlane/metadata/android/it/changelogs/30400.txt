@@ -1,0 +1,3 @@
+• Corretto il registro notifiche che mostrava "Motivo sconosciuto" nelle build di release — ora viene mostrato il motivo reale (Non disturbare, in carica, modalità sonno, ecc.)
+• L'interruttore della notifica persistente ha ora effetto immediato, senza riavvio
+• I motivi di blocco non riconosciuti vengono ora mostrati così come sono, senza ridursi a "Motivo sconosciuto"

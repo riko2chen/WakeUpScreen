@@ -1,0 +1,2 @@
+• Rimosso il permesso FOREGROUND_SERVICE_SPECIAL_USE — l'accensione dello schermo usa il listener delle notifiche, che il sistema mantiene attivo da solo, quindi non era necessario
+• Rimossa l'impostazione opzionale "notifica persistente (mantieni il servizio attivo)" (l'unica funzione che usava quel permesso). Sui dispositivi aggressivi, escludi invece l'app dall'ottimizzazione della batteria

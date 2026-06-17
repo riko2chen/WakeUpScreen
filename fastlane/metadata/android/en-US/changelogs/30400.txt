@@ -1,0 +1,3 @@
+• Fixed notification log showing "Unknown reason" in release builds — the real block reason (DND, charging, sleep mode, etc.) is now shown correctly
+• Persistent notification toggle now takes effect immediately, no restart needed
+• Unrecognized block reasons are now shown as-is instead of collapsing into "Unknown reason"

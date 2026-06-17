@@ -1,0 +1,2 @@
+• Added a "Check for updates" page (Settings → About) with Google Play, F-Droid and GitHub options and the current version — no internet permission required
+• Fixed edge-to-edge / safe-area layout on Android 15+: back buttons are reachable, titles are no longer hidden behind the status bar or camera cutout, and bottom navigation now clears the gesture bar

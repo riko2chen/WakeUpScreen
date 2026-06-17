@@ -90,8 +90,6 @@
     <string name="close_app_notice">此操作將關閉應用程式，請在此之後重新開啟。</string>
     <string name="include_system_app">包含系統應用程式</string>
     <string name="radical_ongoing_detact">嚴格的持續通知過濾（實驗功能）</string>
-    <string name="running_to_prevent_kill_app">服務正常運行中</string>
-    <string name="show_notification_when_service_start">服務啟動後顯示通知（手機重新啟動後生效）</string>
     <string name="send_notification_permission">傳送通知的權限</string>
 
     <string name="function_test">功能測試</string>

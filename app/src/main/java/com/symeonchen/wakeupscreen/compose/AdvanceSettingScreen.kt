@@ -26,9 +26,6 @@ fun AdvanceSettingScreen(
     radicalOngoingChecked: Boolean,
     radicalOngoingSubtitle: String,
     onRadicalOngoingToggle: () -> Unit,
-    persistentChecked: Boolean,
-    persistentSubtitle: String,
-    onPersistentToggle: () -> Unit,
     dndChecked: Boolean,
     onDndToggle: () -> Unit,
     chargingOnlyChecked: Boolean,
@@ -79,13 +76,6 @@ fun AdvanceSettingScreen(
                         subtitle = radicalOngoingSubtitle,
                         checked = radicalOngoingChecked,
                         onCheckedChange = onRadicalOngoingToggle,
-                    )
-                    FlatDivider()
-                    SettingSwitchRow(
-                        title = stringResource(R.string.show_notification_when_service_start),
-                        subtitle = persistentSubtitle,
-                        checked = persistentChecked,
-                        onCheckedChange = onPersistentToggle,
                     )
                     FlatDivider()
                     SettingSwitchRow(
