@@ -33,7 +33,7 @@ fun WakeUpTimeScreen(
     onInputChange: (String) -> Unit,
     onPresetClick: (Long) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.time_of_wake_up_screen),
             onBack = onBack,

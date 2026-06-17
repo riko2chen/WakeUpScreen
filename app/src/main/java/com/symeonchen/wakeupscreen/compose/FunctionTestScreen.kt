@@ -19,7 +19,7 @@ fun FunctionTestScreen(
     onWakeTestClick: () -> Unit,
     onViewLogsClick: () -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.function_test),
             onBack = onBack,
