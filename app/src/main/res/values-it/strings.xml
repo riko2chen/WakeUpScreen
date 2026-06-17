@@ -149,4 +149,14 @@
     <string name="language_th">Tailandese</string>
     <string name="language_zh_tw">Cinese Tradizionale</string>
 
+    <string name="current_version">Versione attuale: %1$s</string>
+    <string name="check_update">Controlla aggiornamenti</string>
+    <string name="check_update_subtitle">Controlla tramite Play, F-Droid o GitHub</string>
+    <string name="check_update_hint">Queste opzioni aprono un\'app o una pagina esterna per controllare gli aggiornamenti. L\'app stessa non si connette mai a internet.</string>
+    <string name="update_via_play">Google Play</string>
+    <string name="update_via_play_subtitle">Apri la pagina dell\'app su Play Store</string>
+    <string name="update_via_fdroid">F-Droid</string>
+    <string name="update_via_fdroid_subtitle">Apri la pagina F-Droid (la versione potrebbe essere leggermente indietro)</string>
+    <string name="update_via_github">GitHub Releases</string>
+    <string name="update_via_github_subtitle">Apri la pagina dell\'ultima release</string>
 </resources>

@@ -137,4 +137,14 @@
     <string name="feedback_contact_x">X（Twitter）</string>
     <string name="feedback_contact_xiaohongshu">小红书</string>
 
+    <string name="current_version">当前版本：%1$s</string>
+    <string name="check_update">检查更新</string>
+    <string name="check_update_subtitle">通过 Play、F-Droid 或 GitHub 检查</string>
+    <string name="check_update_hint">以下选项会跳转到外部应用或网页来检查更新，App 本身不会联网。</string>
+    <string name="update_via_play">Google Play</string>
+    <string name="update_via_play_subtitle">打开 Play 商店应用页</string>
+    <string name="update_via_fdroid">F-Droid</string>
+    <string name="update_via_fdroid_subtitle">打开 F-Droid 页面（版本可能稍有延迟）</string>
+    <string name="update_via_github">GitHub Releases</string>
+    <string name="update_via_github_subtitle">打开最新发布页面</string>
 </resources>

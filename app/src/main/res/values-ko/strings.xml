@@ -136,4 +136,14 @@
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">샤오홍슈</string>
 
+    <string name="current_version">현재 버전: %1$s</string>
+    <string name="check_update">업데이트 확인</string>
+    <string name="check_update_subtitle">Play, F-Droid 또는 GitHub로 확인</string>
+    <string name="check_update_hint">아래 옵션은 외부 앱이나 페이지를 열어 업데이트를 확인합니다. 앱 자체는 인터넷에 연결하지 않습니다.</string>
+    <string name="update_via_play">Google Play</string>
+    <string name="update_via_play_subtitle">Play 스토어 앱 페이지 열기</string>
+    <string name="update_via_fdroid">F-Droid</string>
+    <string name="update_via_fdroid_subtitle">F-Droid 페이지 열기 (버전이 다소 늦을 수 있음)</string>
+    <string name="update_via_github">GitHub Releases</string>
+    <string name="update_via_github_subtitle">최신 릴리스 페이지 열기</string>
 </resources>
