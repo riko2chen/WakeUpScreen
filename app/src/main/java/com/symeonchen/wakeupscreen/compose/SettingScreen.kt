@@ -68,9 +68,10 @@ fun SettingScreen(
                         end = Offset(400f, 300f),
                     )
                 )
-                // Gradient bleeds under the status bar; title stays below it.
+                // Gradient bleeds under the status bar; the title sits in a
+                // 64dp band below it (so the total header isn't over-inflated).
                 .statusBarsPadding()
-                .height(100.dp),
+                .height(64.dp),
             contentAlignment = Alignment.BottomCenter,
         ) {
             Text(
