@@ -4,6 +4,20 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [Unreleased]
+
+### Features
+- Added **Repeat Reminder** (Settings → Advanced Setting). While notifications are still sitting unread in the shade, the screen wakes again every 5–60 minutes, and stops as soon as they are cleared. The interval, and how many reminders a single batch of unread notifications may trigger (default 5), are configurable.
+- Reminders honour every existing rule: sleep mode, Do Not Disturb, pocket mode, charging-only mode, the app filter list, and "screen already on" all take priority, and the settings screen spells this out.
+- Ongoing and non-clearable notifications (media players, navigation, downloads) never count as unread, so they cannot keep the screen waking indefinitely.
+- The notification log now tracks reminders: entries carry a "Reminder" badge, and the detail view shows what triggered the wake, which reminder of the streak it was, and how many notifications were unread at the time. A "Reminder ended" entry records why a streak stopped.
+- Added "Test repeat reminder" to Function Test, which runs one reminder immediately instead of waiting out the interval.
+
+### Notes
+- No new permissions. Reminders use inexact alarms, so Android's Doze mode may delay one by a few minutes; the settings screen explains this behind a help button.
+
+---
+
 ## [3.0.6]
 
 ### Changes

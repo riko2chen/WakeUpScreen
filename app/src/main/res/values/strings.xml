@@ -158,4 +158,43 @@
     <string name="update_via_fdroid_subtitle">Open the F-Droid page (version may be slightly behind)</string>
     <string name="update_via_github">GitHub Releases</string>
     <string name="update_via_github_subtitle">Open the latest release page</string>
+
+    <!-- Repeat reminder -->
+    <string name="repeat_reminder">Repeat Reminder</string>
+    <string name="repeat_reminder_desc">Wake the screen again while notifications are still unread</string>
+    <string name="repeat_reminder_detail">Reminder settings</string>
+    <string name="reminder_interval_title">Reminder interval</string>
+    <string name="reminder_interval_minutes_value">%1$d min</string>
+    <string name="reminder_interval_hours_value">%1$d hour</string>
+    <string name="reminder_delay_notice">A reminder may arrive a little later than the interval you set.</string>
+    <string name="reminder_delay_help_title">Why can a reminder be late?</string>
+    <string name="reminder_delay_help_body">Android has a battery-saving mode called Doze. When the phone has been sitting still with the screen off for a while, the system holds background work back and runs it in batches to save power.\n\nSo a reminder can arrive a few minutes later than the interval you picked, and the shorter the interval, the more noticeable this is. Every app is affected and none can opt out.\n\nKeeping the phone on a charger, or excluding this app from battery optimisation in system settings, makes reminders more punctual.</string>
+    <string name="reminder_max_rounds_title">Maximum reminders</string>
+    <string name="reminder_max_rounds_desc">How many times the same unread notifications are allowed to wake the screen. The count starts over once they are cleared.</string>
+    <string name="reminder_rounds_unlimited">No limit</string>
+    <string name="reminder_priority_title">What takes priority</string>
+    <string name="reminder_priority_desc">These settings outrank the repeat reminder. While any of them applies, the screen stays off even if notifications are still unread:</string>
+    <string name="reminder_priority_sleep">Sleep mode is in its time window</string>
+    <string name="reminder_priority_dnd">Do Not Disturb is on</string>
+    <string name="reminder_priority_pocket">Pocket mode detects the device in a pocket or bag</string>
+    <string name="reminder_priority_charging">Charging-only mode is on and the device is not charging</string>
+    <string name="reminder_priority_screen_on">The screen is already on</string>
+    <string name="reminder_priority_filter">Every unread notification comes from an app your filter list excludes</string>
+    <string name="reminder_test">Test repeat reminder</string>
+    <string name="reminder_test_subtitle">Runs one reminder right away, using your current settings</string>
+    <string name="reminder_test_toast">Turn off the screen within 10 seconds; one reminder will then run</string>
+    <string name="log_reminder_stopped">Reminder ended</string>
+    <string name="log_trigger_reminder">Reminder</string>
+    <string name="log_trigger_notification">New notification</string>
+    <string name="log_detail_trigger">Triggered by</string>
+    <string name="log_detail_reminder_round">Reminder number</string>
+    <string name="log_reminder_round_value">No. %1$d</string>
+    <string name="log_detail_unread_count">Unread notifications</string>
+    <string name="log_no_source_app">None</string>
+    <string name="log_status_reminder_waked_up_desc">Notifications were still unread, so the repeat reminder woke the screen again.</string>
+    <string name="log_status_reminder_already_on_desc">The screen was already on when the reminder fired, no action needed.</string>
+    <string name="log_reason_reminder_all_read">All unread notifications were cleared, so reminding stopped.</string>
+    <string name="log_reason_reminder_max_rounds">The maximum number of reminders was reached.</string>
+    <string name="log_reason_reminder_switch_off">Repeat reminder was turned off.</string>
+    <string name="log_reason_reminder_service_unavailable">The notification listener service was temporarily unavailable.</string>
 </resources>

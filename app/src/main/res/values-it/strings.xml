@@ -157,4 +157,43 @@
     <string name="update_via_fdroid_subtitle">Apri la pagina F-Droid (la versione potrebbe essere leggermente indietro)</string>
     <string name="update_via_github">GitHub Releases</string>
     <string name="update_via_github_subtitle">Apri la pagina dell\'ultima release</string>
+
+    <!-- Repeat reminder -->
+    <string name="repeat_reminder">Promemoria ripetuto</string>
+    <string name="repeat_reminder_desc">Riaccende lo schermo finché ci sono notifiche non lette</string>
+    <string name="repeat_reminder_detail">Impostazioni promemoria</string>
+    <string name="reminder_interval_title">Intervallo del promemoria</string>
+    <string name="reminder_interval_minutes_value">%1$d min</string>
+    <string name="reminder_interval_hours_value">%1$d ora</string>
+    <string name="reminder_delay_notice">Il promemoria può arrivare un po\' più tardi dell\'intervallo impostato.</string>
+    <string name="reminder_delay_help_title">Perché il promemoria può arrivare in ritardo?</string>
+    <string name="reminder_delay_help_body">Android ha una modalità di risparmio energetico chiamata Doze. Quando il telefono resta fermo con lo schermo spento per un po\', il sistema trattiene le attività in background e le esegue a gruppi per risparmiare batteria.\n\nPer questo un promemoria può arrivare qualche minuto dopo l\'intervallo scelto, e più l\'intervallo è breve più la cosa si nota. Riguarda tutte le app e nessuna può sottrarsi.\n\nTenere il telefono in carica, o escludere questa app dall\'ottimizzazione della batteria nelle impostazioni di sistema, rende i promemoria più puntuali.</string>
+    <string name="reminder_max_rounds_title">Numero massimo di promemoria</string>
+    <string name="reminder_max_rounds_desc">Quante volte le stesse notifiche non lette possono riaccendere lo schermo. Il conteggio riparte quando vengono cancellate.</string>
+    <string name="reminder_rounds_unlimited">Illimitati</string>
+    <string name="reminder_priority_title">Che cosa ha la precedenza</string>
+    <string name="reminder_priority_desc">Queste impostazioni hanno la precedenza sul promemoria ripetuto. Finché una di esse è valida, lo schermo resta spento anche con notifiche non lette:</string>
+    <string name="reminder_priority_sleep">La modalità sonno è nella sua fascia oraria</string>
+    <string name="reminder_priority_dnd">Non disturbare è attivo</string>
+    <string name="reminder_priority_pocket">La modalità tasca rileva il dispositivo in tasca o in borsa</string>
+    <string name="reminder_priority_charging">La modalità solo in carica è attiva e il dispositivo non è in carica</string>
+    <string name="reminder_priority_screen_on">Lo schermo è già acceso</string>
+    <string name="reminder_priority_filter">Tutte le notifiche non lette provengono da app escluse dai filtri</string>
+    <string name="reminder_test">Prova il promemoria ripetuto</string>
+    <string name="reminder_test_subtitle">Esegue subito un promemoria con le impostazioni attuali</string>
+    <string name="reminder_test_toast">Spegnere lo schermo entro 10 secondi: verrà eseguito un promemoria</string>
+    <string name="log_reminder_stopped">Promemoria terminato</string>
+    <string name="log_trigger_reminder">Promemoria</string>
+    <string name="log_trigger_notification">Nuova notifica</string>
+    <string name="log_detail_trigger">Attivato da</string>
+    <string name="log_detail_reminder_round">Numero del promemoria</string>
+    <string name="log_reminder_round_value">N. %1$d</string>
+    <string name="log_detail_unread_count">Notifiche non lette</string>
+    <string name="log_no_source_app">Nessuna</string>
+    <string name="log_status_reminder_waked_up_desc">C\'erano ancora notifiche non lette, quindi il promemoria ha riacceso lo schermo.</string>
+    <string name="log_status_reminder_already_on_desc">Lo schermo era già acceso quando è scattato il promemoria, nessuna azione necessaria.</string>
+    <string name="log_reason_reminder_all_read">Tutte le notifiche non lette sono state cancellate, i promemoria si sono fermati.</string>
+    <string name="log_reason_reminder_max_rounds">È stato raggiunto il numero massimo di promemoria.</string>
+    <string name="log_reason_reminder_switch_off">Il promemoria ripetuto è stato disattivato.</string>
+    <string name="log_reason_reminder_service_unavailable">Il servizio di lettura delle notifiche non era temporaneamente disponibile.</string>
 </resources>

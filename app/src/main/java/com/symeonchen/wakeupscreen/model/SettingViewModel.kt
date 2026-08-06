@@ -82,6 +82,21 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.chargingOnlySwitch)
         }
 
+    var repeatReminderSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.repeatReminderSwitch)
+        }
+
+    var repeatReminderIntervalMinutes: ScLiveData<Int> = ScLiveData<Int>()
+        .apply {
+            setValue(DataInjection.repeatReminderIntervalMinutes)
+        }
+
+    var repeatReminderMaxRounds: ScLiveData<Int> = ScLiveData<Int>()
+        .apply {
+            setValue(DataInjection.repeatReminderMaxRounds)
+        }
+
     init {
 
         switchOfApp.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
@@ -157,6 +172,24 @@ class SettingViewModel : ViewModel() {
         chargingOnlySwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.chargingOnlySwitch = value
+            }
+        }
+
+        repeatReminderSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.repeatReminderSwitch = value
+            }
+        }
+
+        repeatReminderIntervalMinutes.listener = object : ScLiveData.OnLiveDataValueInput<Int> {
+            override fun onValueInput(value: Int) {
+                DataInjection.repeatReminderIntervalMinutes = value
+            }
+        }
+
+        repeatReminderMaxRounds.listener = object : ScLiveData.OnLiveDataValueInput<Int> {
+            override fun onValueInput(value: Int) {
+                DataInjection.repeatReminderMaxRounds = value
             }
         }
     }

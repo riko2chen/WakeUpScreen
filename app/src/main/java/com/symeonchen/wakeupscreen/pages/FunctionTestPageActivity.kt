@@ -7,6 +7,7 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.compose.FunctionTestScreen
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
+import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
 import com.symeonchen.wakeupscreen.utils.NotificationUtils
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
@@ -29,6 +30,19 @@ class FunctionTestPageActivity : ScBaseActivity() {
                             NotificationUtils(applicationContext).sendNotification(
                                 1, "This is a test", "Just for testing wakeup screen"
                             )
+                        }, 10000)
+                    },
+                    onReminderTestClick = {
+                        Toast.makeText(
+                            applicationContext,
+                            R.string.reminder_test_toast,
+                            Toast.LENGTH_LONG
+                        ).show()
+                        // Runs one reminder round immediately, exactly as the
+                        // alarm would, so the feature can be verified without
+                        // waiting out the interval.
+                        window.decorView.postDelayed({
+                            ReminderEngine.onAlarm(applicationContext)
                         }, 10000)
                     },
                     onViewLogsClick = {

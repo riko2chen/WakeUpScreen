@@ -24,6 +24,7 @@
         <activity android:name=".pages.AppInfoPageActivity" />
         <activity android:name=".pages.SleepTimeSettingActivity" />
         <activity android:name=".pages.WakeUptimeSettingActivity" />
+        <activity android:name=".pages.ReminderSettingActivity" />
         <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -50,6 +51,10 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <!-- Only ever triggered by this app's own repeat-reminder alarm. -->
+        <receiver android:name=".receiver.ReminderAlarmReceiver"
+            android:exported="false" />
 
     </application>
 

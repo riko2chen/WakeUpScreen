@@ -23,6 +23,10 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PERMISSION_OF_SEND_NOTIFICATION
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_MAX_ROUNDS
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_ROUND_COUNT
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_TIME_END_HOUR
@@ -39,6 +43,10 @@ import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_NOTIFICATION_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_INTERVAL_MINUTES
+import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_MAX_ROUNDS
+import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_ROUND_COUNT
+import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.SEND_NOTIFICATION_PERMISSION
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_BOOLEAN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_BEGIN
@@ -269,6 +277,62 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV()?.putBoolean(CHARGING_ONLY_SWITCH, value)
+        }
+
+    var repeatReminderSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(
+                REPEAT_REMINDER_SWITCH,
+                DEFAULT_REPEAT_REMINDER_SWITCH
+            ) ?: DEFAULT_REPEAT_REMINDER_SWITCH
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(REPEAT_REMINDER_SWITCH, value)
+        }
+
+    var repeatReminderIntervalMinutes: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                REPEAT_REMINDER_INTERVAL_MINUTES,
+                DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
+            ) ?: DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
+        }
+        set(value) {
+            if (value <= 0) {
+                return
+            }
+            MMKV.defaultMMKV()?.putInt(REPEAT_REMINDER_INTERVAL_MINUTES, value)
+        }
+
+    /** Number of reminders allowed per unread streak. 0 means unlimited. */
+    var repeatReminderMaxRounds: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                REPEAT_REMINDER_MAX_ROUNDS,
+                DEFAULT_REPEAT_REMINDER_MAX_ROUNDS
+            ) ?: DEFAULT_REPEAT_REMINDER_MAX_ROUNDS
+        }
+        set(value) {
+            if (value < 0) {
+                return
+            }
+            MMKV.defaultMMKV()?.putInt(REPEAT_REMINDER_MAX_ROUNDS, value)
+        }
+
+    /**
+     * How many reminders the current unread streak has already fired. Runtime
+     * state rather than a user setting; reset whenever the streak ends or a new
+     * notification arrives.
+     */
+    var repeatReminderRoundCount: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                REPEAT_REMINDER_ROUND_COUNT,
+                DEFAULT_REPEAT_REMINDER_ROUND_COUNT
+            ) ?: DEFAULT_REPEAT_REMINDER_ROUND_COUNT
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putInt(REPEAT_REMINDER_ROUND_COUNT, value)
         }
 
 }

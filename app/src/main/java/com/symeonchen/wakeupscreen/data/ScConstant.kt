@@ -25,6 +25,10 @@ object ScConstant {
     const val DND_DETECT_SWITCH = "dnd_detect_switch"
     const val LAST_IN_APP_REVIEW_TIMESTAMP = "last_in_app_review_timestamp"
     const val CHARGING_ONLY_SWITCH = "charging_only_switch"
+    const val REPEAT_REMINDER_SWITCH = "repeat_reminder_switch"
+    const val REPEAT_REMINDER_INTERVAL_MINUTES = "repeat_reminder_interval_minutes"
+    const val REPEAT_REMINDER_MAX_ROUNDS = "repeat_reminder_max_rounds"
+    const val REPEAT_REMINDER_ROUND_COUNT = "repeat_reminder_round_count"
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
@@ -47,6 +51,25 @@ object ScConstant {
     const val DEFAULT_DND_DETECT_SWITCH = true
     const val DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP = "0"
     const val DEFAULT_CHARGING_ONLY_SWITCH = false
+    const val DEFAULT_REPEAT_REMINDER_SWITCH = false
+    const val DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES = 15
+    const val DEFAULT_REPEAT_REMINDER_MAX_ROUNDS = 5
+    const val DEFAULT_REPEAT_REMINDER_ROUND_COUNT = 0
+
+    /**
+     * Selectable intervals for the repeat reminder, in minutes.
+     *
+     * Capped at one hour on purpose: a reminder that only fires once every few
+     * hours is indistinguishable from no reminder at all. The lower bound is
+     * kept at 5 minutes even though Doze usually stretches anything under ~15
+     * minutes, because the delay is explained in the UI rather than hidden by
+     * removing the option.
+     */
+    val REPEAT_REMINDER_INTERVAL_OPTIONS = listOf(5, 10, 15, 20, 30, 45, 60)
+
+    /** Selectable reminder-count caps. [REPEAT_REMINDER_ROUNDS_UNLIMITED] means "never stop". */
+    val REPEAT_REMINDER_MAX_ROUNDS_OPTIONS = listOf(1, 3, 5, 10, 0)
+    const val REPEAT_REMINDER_ROUNDS_UNLIMITED = 0
 
 
     const val AUTHOR_MAIL = "symeonchen@gmail.com"

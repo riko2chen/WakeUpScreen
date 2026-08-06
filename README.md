@@ -27,6 +27,7 @@ No cloud, no clutter, no compromise.
 |---|---|---|
 | :bell: | **Instant Wake** | Your screen lights up the moment a notification arrives. Never miss what matters while your phone sits on the desk. |
 | :sun_with_face: | **Pocket Mode** | Intelligently detects when your phone is in a pocket or bag, and stays off. Saves battery where it counts. |
+| :repeat: | **Repeat Reminder** | Missed it the first time? The screen wakes again every 5–60 minutes while notifications sit unread, and stops the moment you clear them. |
 | :mag: | **App Filtering** | Choose exactly which apps can wake your screen. Full control over what deserves your attention. |
 | :new_moon: | **Dark Mode** | A beautiful dark interface that feels at home on any AMOLED display. Easy on the eyes, easy on the battery. |
 | :closed_lock_with_key: | **No Internet** | Runs entirely on your device. Zero data collected, zero servers contacted. Your privacy is absolute. |

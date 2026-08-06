@@ -38,6 +38,13 @@ fun AdvanceSettingScreen(
     showSleepDetail: Boolean,
     sleepDetailSubtitle: String,
     onSleepDetailClick: () -> Unit,
+    // Repeat reminder
+    repeatReminderChecked: Boolean,
+    repeatReminderSubtitle: String,
+    onRepeatReminderToggle: () -> Unit,
+    showRepeatReminderDetail: Boolean,
+    repeatReminderDetailSubtitle: String,
+    onRepeatReminderDetailClick: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
@@ -104,6 +111,21 @@ fun AdvanceSettingScreen(
                             title = stringResource(R.string.sleep_time),
                             subtitle = sleepDetailSubtitle,
                             onClick = onSleepDetailClick,
+                        )
+                    }
+                    FlatDivider()
+                    SettingSwitchRow(
+                        title = stringResource(R.string.repeat_reminder),
+                        subtitle = repeatReminderSubtitle,
+                        checked = repeatReminderChecked,
+                        onCheckedChange = onRepeatReminderToggle,
+                    )
+                    if (showRepeatReminderDetail) {
+                        FlatDivider()
+                        SettingRow(
+                            title = stringResource(R.string.repeat_reminder_detail),
+                            subtitle = repeatReminderDetailSubtitle,
+                            onClick = onRepeatReminderDetailClick,
                         )
                     }
                 }

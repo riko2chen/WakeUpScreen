@@ -144,4 +144,43 @@
     <string name="update_via_fdroid_subtitle">F-Droid のページを開く（バージョンが少し遅れる場合があります）</string>
     <string name="update_via_github">GitHub Releases</string>
     <string name="update_via_github_subtitle">最新リリースページを開く</string>
+
+    <!-- Repeat reminder -->
+    <string name="repeat_reminder">繰り返し通知</string>
+    <string name="repeat_reminder_desc">未読の通知が残っている間、画面を再度点灯します</string>
+    <string name="repeat_reminder_detail">通知の設定</string>
+    <string name="reminder_interval_title">通知の間隔</string>
+    <string name="reminder_interval_minutes_value">%1$d 分</string>
+    <string name="reminder_interval_hours_value">%1$d 時間</string>
+    <string name="reminder_delay_notice">設定した間隔より少し遅れて通知されることがあります。</string>
+    <string name="reminder_delay_help_title">通知が遅れるのはなぜ？</string>
+    <string name="reminder_delay_help_body">Android には Doze（休止状態）という省電力機能があります。端末をしばらく操作せず画面が消えたままだと、システムはバックグラウンドの処理をためてまとめて実行し、電力を節約します。\n\nそのため、設定した間隔より数分遅れて通知が届くことがあり、間隔が短いほど目立ちます。これはすべてのアプリに共通する制限で、回避できるアプリはありません。\n\n端末を充電器につないでおくか、システム設定でこのアプリを電池の最適化から除外すると、通知がより正確な時刻に届きます。</string>
+    <string name="reminder_max_rounds_title">最大通知回数</string>
+    <string name="reminder_max_rounds_desc">同じ未読通知で画面を点灯できる回数です。通知を消すとカウントはリセットされます。</string>
+    <string name="reminder_rounds_unlimited">無制限</string>
+    <string name="reminder_priority_title">優先される設定</string>
+    <string name="reminder_priority_desc">次の設定は繰り返し通知より優先されます。いずれかに当てはまる間は、未読の通知があっても画面は点灯しません:</string>
+    <string name="reminder_priority_sleep">スリープモードの時間帯である</string>
+    <string name="reminder_priority_dnd">サイレントモードがオンである</string>
+    <string name="reminder_priority_pocket">ポケットモードが端末をポケットやカバンの中と判定した</string>
+    <string name="reminder_priority_charging">充電中のみ点灯がオンで、端末が充電されていない</string>
+    <string name="reminder_priority_screen_on">画面がすでに点灯している</string>
+    <string name="reminder_priority_filter">未読の通知がすべてフィルターで除外されたアプリのものである</string>
+    <string name="reminder_test">繰り返し通知をテスト</string>
+    <string name="reminder_test_subtitle">現在の設定で通知を 1 回すぐ実行します</string>
+    <string name="reminder_test_toast">10 秒以内に画面をオフにしてください。その後 1 回通知します</string>
+    <string name="log_reminder_stopped">通知の終了</string>
+    <string name="log_trigger_reminder">繰り返し通知</string>
+    <string name="log_trigger_notification">新しい通知</string>
+    <string name="log_detail_trigger">きっかけ</string>
+    <string name="log_detail_reminder_round">通知の回数</string>
+    <string name="log_reminder_round_value">%1$d 回目</string>
+    <string name="log_detail_unread_count">未読の通知数</string>
+    <string name="log_no_source_app">なし</string>
+    <string name="log_status_reminder_waked_up_desc">未読の通知が残っていたため、繰り返し通知が画面を再度点灯しました。</string>
+    <string name="log_status_reminder_already_on_desc">通知の時点で画面がすでに点灯していたため、操作は不要でした。</string>
+    <string name="log_reason_reminder_all_read">未読の通知がすべて消えたため、繰り返し通知を停止しました。</string>
+    <string name="log_reason_reminder_max_rounds">設定した最大通知回数に達しました。</string>
+    <string name="log_reason_reminder_switch_off">繰り返し通知がオフになっています。</string>
+    <string name="log_reason_reminder_service_unavailable">通知読み取りサービスが一時的に利用できませんでした。</string>
 </resources>

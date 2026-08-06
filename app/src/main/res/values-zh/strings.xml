@@ -145,4 +145,43 @@
     <string name="update_via_fdroid_subtitle">打开 F-Droid 页面（版本可能稍有延迟）</string>
     <string name="update_via_github">GitHub Releases</string>
     <string name="update_via_github_subtitle">打开最新发布页面</string>
+
+    <!-- Repeat reminder -->
+    <string name="repeat_reminder">重复提醒</string>
+    <string name="repeat_reminder_desc">通知未处理时，隔一段时间再次点亮屏幕</string>
+    <string name="repeat_reminder_detail">提醒设置</string>
+    <string name="reminder_interval_title">提醒间隔</string>
+    <string name="reminder_interval_minutes_value">%1$d 分钟</string>
+    <string name="reminder_interval_hours_value">%1$d 小时</string>
+    <string name="reminder_delay_notice">提醒可能比设定的间隔稍晚一点到达。</string>
+    <string name="reminder_delay_help_title">为什么提醒会迟到？</string>
+    <string name="reminder_delay_help_body">Android 有一个叫 Doze（休眠）的省电机制。当手机长时间没人动、屏幕一直关着时，系统会把后台任务攒起来集中执行，以此节省电量。\n\n所以提醒可能比你设定的间隔晚几分钟才到，间隔越短越明显。这是系统对所有应用的统一限制，谁都绕不开。\n\n把手机接上充电器，或在系统设置里将本应用排除出电池优化，可以让提醒更准时。</string>
+    <string name="reminder_max_rounds_title">最多提醒次数</string>
+    <string name="reminder_max_rounds_desc">同一批未读通知最多可以点亮屏幕几次。通知被清除后重新计数。</string>
+    <string name="reminder_rounds_unlimited">不限</string>
+    <string name="reminder_priority_title">优先级说明</string>
+    <string name="reminder_priority_desc">以下设置的优先级高于重复提醒。满足其中任意一条时，即使还有未读通知，屏幕也不会点亮：</string>
+    <string name="reminder_priority_sleep">正处于睡眠模式的时间段内</string>
+    <string name="reminder_priority_dnd">系统开启了免打扰</string>
+    <string name="reminder_priority_pocket">口袋模式检测到设备在口袋或包里</string>
+    <string name="reminder_priority_charging">开启了仅充电时亮屏，但设备未在充电</string>
+    <string name="reminder_priority_screen_on">屏幕已经是亮着的</string>
+    <string name="reminder_priority_filter">未读通知全部来自被过滤名单排除的应用</string>
+    <string name="reminder_test">测试重复提醒</string>
+    <string name="reminder_test_subtitle">按当前设置立即执行一次提醒</string>
+    <string name="reminder_test_toast">请在 10 秒内关闭屏幕，随后将执行一次提醒</string>
+    <string name="log_reminder_stopped">提醒结束</string>
+    <string name="log_trigger_reminder">重复提醒</string>
+    <string name="log_trigger_notification">新通知</string>
+    <string name="log_detail_trigger">触发方式</string>
+    <string name="log_detail_reminder_round">提醒次数</string>
+    <string name="log_reminder_round_value">第 %1$d 次</string>
+    <string name="log_detail_unread_count">未读通知数</string>
+    <string name="log_no_source_app">无</string>
+    <string name="log_status_reminder_waked_up_desc">仍有未读通知，重复提醒再次点亮了屏幕。</string>
+    <string name="log_status_reminder_already_on_desc">提醒触发时屏幕已经亮着，无需操作。</string>
+    <string name="log_reason_reminder_all_read">未读通知已全部清除，提醒停止。</string>
+    <string name="log_reason_reminder_max_rounds">已达到设定的最多提醒次数。</string>
+    <string name="log_reason_reminder_switch_off">重复提醒已关闭。</string>
+    <string name="log_reason_reminder_service_unavailable">通知读取服务暂时不可用。</string>
 </resources>
