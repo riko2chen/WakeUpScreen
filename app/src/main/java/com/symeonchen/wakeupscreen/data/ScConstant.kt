@@ -29,6 +29,7 @@ object ScConstant {
     const val REPEAT_REMINDER_INTERVAL_MINUTES = "repeat_reminder_interval_minutes"
     const val REPEAT_REMINDER_MAX_ROUNDS = "repeat_reminder_max_rounds"
     const val REPEAT_REMINDER_ROUND_COUNT = "repeat_reminder_round_count"
+    const val PRECISE_SCREEN_ON_SWITCH = "precise_screen_on_switch"
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
@@ -55,6 +56,52 @@ object ScConstant {
     const val DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES = 15
     const val DEFAULT_REPEAT_REMINDER_MAX_ROUNDS = 5
     const val DEFAULT_REPEAT_REMINDER_ROUND_COUNT = 0
+
+    /**
+     * Off by default on purpose. With the switch off the app keeps doing what
+     * it has always done — wake the display and let the system time it out —
+     * so an update can never change the behaviour of an existing install.
+     */
+    const val DEFAULT_PRECISE_SCREEN_ON_SWITCH: Boolean = false
+
+    /**
+     * Bounds the engine will honour, in seconds.
+     *
+     * Nothing in the UI can produce a value outside [PRECISE_SCREEN_ON_PRESET_SECONDS]
+     * any more; these exist because the duration is stored under the key the old
+     * free-text setting used, where nothing ever validated it, and a leftover
+     * value must not be able to ask for a twenty-minute wake lock.
+     */
+    const val MIN_PRECISE_SCREEN_ON_SECOND: Long = 1
+    const val MAX_PRECISE_SCREEN_ON_SECOND: Long = 300
+
+    /**
+     * The durations offered on the settings screen, in seconds. A fixed list
+     * rather than free text: every value a user would realistically pick is
+     * here, and the field only ever invited numbers the engine clamps away.
+     */
+    val PRECISE_SCREEN_ON_PRESET_SECONDS = listOf(3L, 5L, 10L, 15L, 30L)
+
+    /**
+     * Longest gap between two wake-lock refreshes while a precise window is
+     * running. The deadline itself is absolute, so this only bounds how stale
+     * the wake lock may get — not the accuracy of the window.
+     */
+    const val PRECISE_SCREEN_ON_TICK_INTERVAL_MS: Long = 2000
+
+    /**
+     * Ignore screen-off requests that arrive within this window of the previous
+     * one, so a burst of notifications cannot fight over the display.
+     */
+    const val SCREEN_OFF_REQUEST_COOLDOWN_MS: Long = 2000
+
+    /**
+     * How long [com.symeonchen.wakeupscreen.pages.ScreenOffActivity] may stay up
+     * before it closes itself. It is a bail-out, not the configured duration:
+     * if the system has not blanked the display by then, something stopped it
+     * and sitting on a black full-screen activity would only trap the user.
+     */
+    const val SCREEN_OFF_ACTIVITY_SAFETY_TIMEOUT_MS: Long = 10000
 
     /**
      * Selectable intervals for the repeat reminder, in minutes.

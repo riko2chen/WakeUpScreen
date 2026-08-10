@@ -21,6 +21,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PERMISSION_OF_SEND_NOTIFICATION
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PRECISE_SCREEN_ON_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
@@ -39,6 +40,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
+import com.symeonchen.wakeupscreen.data.ScConstant.PRECISE_SCREEN_ON_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
@@ -334,5 +336,31 @@ object DataInjection {
         set(value) {
             MMKV.defaultMMKV()?.putInt(REPEAT_REMINDER_ROUND_COUNT, value)
         }
+
+    /**
+     * Master switch for the precise screen-on window. While it is off,
+     * [milliSecondOfWakeUpScreen] is not consulted at all and the display is
+     * woken exactly the way it always was.
+     */
+    var preciseScreenOnSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(
+                PRECISE_SCREEN_ON_SWITCH,
+                DEFAULT_PRECISE_SCREEN_ON_SWITCH
+            ) ?: DEFAULT_PRECISE_SCREEN_ON_SWITCH
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(PRECISE_SCREEN_ON_SWITCH, value)
+        }
+
+    /**
+     * The configured window in seconds, clamped to the supported range.
+     *
+     * The value on disk is a millisecond count inherited from the old, inert
+     * setting, where nothing ever validated it. Clamping on read means a
+     * leftover value cannot ask the new engine for a twenty-minute wake lock.
+     */
+    val preciseScreenOnSecond: Long
+        get() = ScreenOnWindowCalculator.clampSeconds(milliSecondOfWakeUpScreen / 1000L)
 
 }

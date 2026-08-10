@@ -81,10 +81,6 @@
     <string name="dnd_detect_desc">ปิดหากต้องการให้หน้าจอเปิดในโหมดห้ามรบกวน</string>
     <string name="charging_only_title">เปิดหน้าจอเฉพาะขณะชาร์จ</string>
     <string name="charging_only_desc">เปิดหน้าจอเฉพาะเมื่ออุปกรณ์กำลังชาร์จเท่านั้น</string>
-    <string name="wake_hint_before">หน้าจอจะเปิด</string>
-    <string name="seconds">วินาที</string>
-    <string name="wake_up_time_limitaon_desc">หมายเหตุ:\nในหลายอุปกรณ์ การตั้งค่านี้อาจไม่ทำงานอย่างถูกต้อง\nนี่เป็นข้อจำกัดของระบบ</string>
-    <string name="invalid_number">ตัวเลขไม่ถูกต้อง</string>
     <string name="saved_successfully">บันทึกสำเร็จ</string>
     <string name="still_have_problem">ยังมีปัญหาอยู่? แตะเพื่อเปิดตั้งค่า</string>
     <string name="close_app_notice">การกระทำนี้จะปิดแอป กรุณาเปิดแอปอีกครั้งหลังจากนั้น</string>
@@ -183,4 +179,32 @@
     <string name="log_reason_reminder_max_rounds">ถึงจำนวนการเตือนสูงสุดที่ตั้งไว้แล้ว</string>
     <string name="log_reason_reminder_switch_off">การเตือนซ้ำถูกปิดอยู่</string>
     <string name="log_reason_reminder_service_unavailable">บริการอ่านการแจ้งเตือนไม่พร้อมใช้งานชั่วคราว</string>
+
+    <!-- ควบคุมเวลาเปิดหน้าจออย่างแม่นยำ -->
+    <string name="precise_wake_switch_title">กำหนดเวลาเปิดหน้าจอเอง</string>
+    <string name="precise_wake_switch_desc">เปิดหน้าจอไว้ตามเวลาที่กำหนด แล้วปิดให้อัตโนมัติ</string>
+    <string name="precise_wake_disabled_notice">ปิดอยู่: เมื่อมีการแจ้งเตือนหน้าจอจะสว่างขึ้นเท่านั้น ส่วนจะดับเมื่อใดขึ้นอยู่กับการตั้งค่า \"หมดเวลาหน้าจอ\" ของระบบ เปิดใช้งานเพื่อควบคุมเวลาได้อย่างแม่นยำ</string>
+    <string name="precise_wake_duration_title">เวลาเปิดหน้าจอ</string>
+    <string name="precise_wake_battery_notice">หน้าจอจะสว่างตลอดช่วงเวลานี้ การตั้งค่านานเกินไปจะเปลืองแบตเตอรี่ หากปลดล็อกเครื่องหรือหน้าจอดับก่อน การจับเวลาจะยกเลิกอัตโนมัติ</string>
+    <string name="precise_wake_summary_on">%1$d วินาที</string>
+    <string name="precise_wake_summary_off">ปิดอยู่ (ใช้ค่าของระบบ)</string>
+    <string name="screen_off_method_title">วิธีปิดหน้าจอ</string>
+    <string name="accessibility_status_granted">ให้สิทธิ์การช่วยเหลือพิเศษแล้ว</string>
+    <string name="accessibility_grant_action">เปิดการตั้งค่าการช่วยเหลือพิเศษ</string>
+    <string name="accessibility_open_settings_failed">เปิดการตั้งค่าการช่วยเหลือพิเศษไม่ได้</string>
+    <string name="accessibility_service_label">ปลุกหน้าจอ — ล็อกหน้าจอ</string>
+    <string name="accessibility_service_description">ใช้เพื่อปิดหน้าจอเมื่อครบเวลาเปิดหน้าจอที่กำหนดเท่านั้น ไม่มีการอ่านเนื้อหาบนหน้าจอ</string>
+    <string name="accessibility_service_summary">ปิดหน้าจอเมื่อครบเวลาเปิดหน้าจอที่กำหนด</string>
+
+    <string name="precise_wake_preset_seconds">%1$d วิ</string>
+    <string name="screen_off_method_accessibility_summary">เมื่อหมดเวลา หน้าจอจะถูกปิดด้วยคำสั่ง \"ล็อกหน้าจอ\" ของระบบผ่านบริการช่วยเหลือพิเศษ บน Android 9 ขึ้นไปนี่เป็นวิธีเดียวที่ใช้ได้</string>
+    <string name="accessibility_required_warning">ยังไม่ได้ให้สิทธิ์การช่วยเหลือพิเศษ ก่อนที่จะให้สิทธิ์ หน้าจอจะปิดตรงเวลาไม่ได้ และจะสว่างค้างจนกว่าจะหมดเวลาของระบบ</string>
+    <string name="accessibility_step_open_settings">เปิดการตั้งค่าการช่วยเหลือพิเศษของระบบ</string>
+    <string name="accessibility_step_installed_apps">ไปที่รายการ \"แอปที่ติดตั้ง\" หรือบริการที่ดาวน์โหลด</string>
+    <string name="accessibility_step_enable_service">หา \"ปลุกหน้าจอ — ล็อกหน้าจอ\" แล้วเปิดใช้งาน</string>
+    <string name="accessibility_unsupported_notice">ระบบรุ่นนี้เก่าเกินกว่าจะใช้การล็อกหน้าจอด้วยการช่วยเหลือพิเศษ (ต้องใช้ Android 9 ขึ้นไป) จะใช้วิธีเร่งให้ระบบหมดเวลาหน้าจอแทน ซึ่งใช้ไม่ได้กับทุกเครื่อง</string>
+    <string name="unsaved_changes_title">ยังไม่ได้บันทึก</string>
+    <string name="unsaved_changes_message">เวลาเปิดหน้าจอถูกแก้ไขแล้วแต่ยังไม่ได้บันทึก</string>
+    <string name="save_and_back">บันทึกแล้วย้อนกลับ</string>
+    <string name="discard_changes">ยกเลิก</string>
 </resources>

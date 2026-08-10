@@ -113,7 +113,7 @@ class ScNotificationListenerService : NotificationListenerService() {
             return
         }
 
-        ScreenWakeUtils.wakeUpScreen(pm)
+        ScreenWakeUtils.wakeUpScreen(applicationContext, pm)
 
         logNotification(sbn.packageName, LogStatus.WAKED_UP, "", channel)
     }

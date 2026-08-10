@@ -36,6 +36,7 @@ import com.symeonchen.wakeupscreen.compose.theme.GradientStart
 fun SettingScreen(
     currentModeText: String,
     languageText: String,
+    wakeTimeText: String,
     showWhiteListEntry: Boolean,
     showBlackListEntry: Boolean,
     onLanguageClick: () -> Unit,
@@ -105,6 +106,7 @@ fun SettingScreen(
                 FlatDivider()
                 SettingRow(
                     title = stringResource(R.string.time_of_wake_up_screen),
+                    subtitle = wakeTimeText,
                     onClick = onWakeTimeClick,
                 )
                 FlatDivider()

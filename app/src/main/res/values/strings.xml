@@ -95,10 +95,6 @@
     <string name="language_ko">한국어</string>
     <string name="language_th">ไทย</string>
     <string name="language_zh_tw">繁體中文</string>
-    <string name="wake_hint_before">The screen will wake</string>
-    <string name="seconds">second(s)</string>
-    <string name="wake_up_time_limitaon_desc">Notice: \nIn many Devices, this setting will not work properly. \nThis is a limitation by the system.</string>
-    <string name="invalid_number">Invalid number</string>
     <string name="saved_successfully">Saved successfully</string>
     <string name="still_have_problem">Still having problems? Click here to open setting</string>
     <string name="close_app_notice">This action will close Application, please reopen the APP after that.</string>
@@ -197,4 +193,32 @@
     <string name="log_reason_reminder_max_rounds">The maximum number of reminders was reached.</string>
     <string name="log_reason_reminder_switch_off">Repeat reminder was turned off.</string>
     <string name="log_reason_reminder_service_unavailable">The notification listener service was temporarily unavailable.</string>
+
+    <!-- precise screen-on duration -->
+    <string name="precise_wake_switch_title">Custom screen-on duration</string>
+    <string name="precise_wake_switch_desc">Keep the screen on for an exact time, then turn it off</string>
+    <string name="precise_wake_disabled_notice">Off: a notification only wakes the screen, and your system \"Screen timeout\" setting decides when it goes dark. Turn this on to control the duration exactly.</string>
+    <string name="precise_wake_duration_title">Screen-on duration</string>
+    <string name="precise_wake_battery_notice">The screen is held on for the whole duration, so a long duration costs battery. The timer stops early if you unlock the device or the screen goes off.</string>
+    <string name="precise_wake_summary_on">%1$d second(s)</string>
+    <string name="precise_wake_summary_off">Off (system timeout)</string>
+    <string name="screen_off_method_title">Turn-off method</string>
+    <string name="accessibility_status_granted">Accessibility access granted</string>
+    <string name="accessibility_grant_action">Open accessibility settings</string>
+    <string name="accessibility_open_settings_failed">Could not open accessibility settings</string>
+    <string name="accessibility_service_label">WakeUpScreen — lock screen</string>
+    <string name="accessibility_service_description">Used only to turn the screen off when a custom screen-on duration ends. It reads no screen content.</string>
+    <string name="accessibility_service_summary">Turns the screen off when a custom screen-on duration ends</string>
+
+    <string name="precise_wake_preset_seconds">%1$ds</string>
+    <string name="screen_off_method_accessibility_summary">When the time is up the screen is turned off with the system\'s own \"lock screen\" action, through an accessibility service. On Android 9 and later this is the only method that works.</string>
+    <string name="accessibility_required_warning">Accessibility access has not been granted yet. Until it is, the screen cannot be turned off on time and will stay lit until the system timeout.</string>
+    <string name="accessibility_step_open_settings">Open the system accessibility settings</string>
+    <string name="accessibility_step_installed_apps">Go to the list of installed apps or downloaded services</string>
+    <string name="accessibility_step_enable_service">Find \"WakeUpScreen — lock screen\" and switch it on</string>
+    <string name="accessibility_unsupported_notice">This Android version is too old for the accessibility lock (Android 9 or later is needed). The screen will be turned off by forcing the display timeout instead, which does not work on every device.</string>
+    <string name="unsaved_changes_title">Unsaved change</string>
+    <string name="unsaved_changes_message">The screen-on duration has been changed but not saved yet.</string>
+    <string name="save_and_back">Save and go back</string>
+    <string name="discard_changes">Discard</string>
 </resources>

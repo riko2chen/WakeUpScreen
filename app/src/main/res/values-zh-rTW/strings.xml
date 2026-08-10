@@ -81,10 +81,6 @@
     <string name="dnd_detect_desc">勿擾模式下將不會點亮螢幕</string>
     <string name="charging_only_title">僅充電時亮屏</string>
     <string name="charging_only_desc">僅在裝置充電時點亮螢幕。</string>
-    <string name="wake_hint_before">螢幕將點亮</string>
-    <string name="seconds">秒</string>
-    <string name="wake_up_time_limitaon_desc">注意：\n在許多裝置中，此設定將無法正常運作。\n這是系統的限制。</string>
-    <string name="invalid_number">無效數字</string>
     <string name="saved_successfully">儲存成功</string>
     <string name="still_have_problem">仍然有問題嗎？點擊這裡開啟通知開關。</string>
     <string name="close_app_notice">此操作將關閉應用程式，請在此之後重新開啟。</string>
@@ -183,4 +179,32 @@
     <string name="log_reason_reminder_max_rounds">已達到設定的最多提醒次數。</string>
     <string name="log_reason_reminder_switch_off">重複提醒已關閉。</string>
     <string name="log_reason_reminder_service_unavailable">通知讀取服務暫時無法使用。</string>
+
+    <!-- 精確亮螢幕時長 -->
+    <string name="precise_wake_switch_title">自訂亮螢幕時長</string>
+    <string name="precise_wake_switch_desc">精確保持亮螢幕指定時間，時間到自動熄螢幕</string>
+    <string name="precise_wake_disabled_notice">已關閉：收到通知時只會點亮螢幕，何時熄滅由系統的「螢幕逾時」設定決定。開啟後即可精確控制亮螢幕時長。</string>
+    <string name="precise_wake_duration_title">亮螢幕時長</string>
+    <string name="precise_wake_battery_notice">整段時間內螢幕會持續點亮，設定過長會增加耗電。解鎖裝置或螢幕提前熄滅時，計時會自動取消。</string>
+    <string name="precise_wake_summary_on">%1$d 秒</string>
+    <string name="precise_wake_summary_off">已關閉（跟隨系統逾時）</string>
+    <string name="screen_off_method_title">熄螢幕方式</string>
+    <string name="accessibility_status_granted">無障礙權限已授予</string>
+    <string name="accessibility_grant_action">前往無障礙設定</string>
+    <string name="accessibility_open_settings_failed">無法開啟無障礙設定</string>
+    <string name="accessibility_service_label">通知亮屏 — 鎖定螢幕</string>
+    <string name="accessibility_service_description">僅用於在自訂亮螢幕時長結束時熄滅螢幕，不會讀取任何螢幕內容。</string>
+    <string name="accessibility_service_summary">在自訂亮螢幕時長結束時熄滅螢幕</string>
+
+    <string name="precise_wake_preset_seconds">%1$d 秒</string>
+    <string name="screen_off_method_accessibility_summary">計時結束時，透過無障礙服務執行系統內建的「鎖定螢幕」動作來熄螢幕。在 Android 9 以上，這是唯一能生效的方式。</string>
+    <string name="accessibility_required_warning">尚未授予無障礙權限。在授權之前，螢幕無法準時熄滅，會一直亮到系統逾時為止。</string>
+    <string name="accessibility_step_open_settings">開啟系統的「無障礙」設定</string>
+    <string name="accessibility_step_installed_apps">進入「已安裝的應用程式」或「已下載的服務」</string>
+    <string name="accessibility_step_enable_service">找到「通知亮屏 — 鎖定螢幕」並開啟開關</string>
+    <string name="accessibility_unsupported_notice">目前系統版本過低，無法使用無障礙鎖定螢幕（需要 Android 9 以上）。熄螢幕將改用「模擬系統逾時」，在部分裝置上不生效。</string>
+    <string name="unsaved_changes_title">尚未儲存</string>
+    <string name="unsaved_changes_message">亮螢幕時長已修改，但還沒有儲存。</string>
+    <string name="save_and_back">儲存並返回</string>
+    <string name="discard_changes">放棄修改</string>
 </resources>

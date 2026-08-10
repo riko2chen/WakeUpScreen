@@ -90,10 +90,6 @@
     <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
     <string name="charging_only_title">Solo in carica</string>
     <string name="charging_only_desc">Accendi lo schermo solo quando il dispositivo è in carica.</string>
-    <string name="wake_hint_before">Lo schermo si sveglia</string>
-    <string name="seconds">secondo</string>
-    <string name="wake_up_time_limitaon_desc">Avviso: \nin molti dispositivi, questa impostazione non funzionerà correttamente. \nQuesta è una limitazione del sistema.</string>
-    <string name="invalid_number">Numero non valido</string>
     <string name="saved_successfully">Salvato con successo</string>
     <string name="still_have_problem">Hai ancora problemi?Clicca qui per aprire l\'impostazione</string>
     <string name="close_app_notice">Questa azione chiuderà l\'Applicazione, quindi riaprire l\'APP successivamente.</string>
@@ -196,4 +192,32 @@
     <string name="log_reason_reminder_max_rounds">È stato raggiunto il numero massimo di promemoria.</string>
     <string name="log_reason_reminder_switch_off">Il promemoria ripetuto è stato disattivato.</string>
     <string name="log_reason_reminder_service_unavailable">Il servizio di lettura delle notifiche non era temporaneamente disponibile.</string>
+
+    <!-- durata precisa dello schermo acceso -->
+    <string name="precise_wake_switch_title">Durata schermo acceso personalizzata</string>
+    <string name="precise_wake_switch_desc">Tiene lo schermo acceso per un tempo esatto, poi lo spegne</string>
+    <string name="precise_wake_disabled_notice">Disattivato: una notifica accende soltanto lo schermo e a decidere quando si spegne è l\'impostazione di sistema \"Timeout schermo\". Attivalo per controllare la durata con precisione.</string>
+    <string name="precise_wake_duration_title">Durata schermo acceso</string>
+    <string name="precise_wake_battery_notice">Lo schermo resta acceso per tutta la durata, quindi un valore alto consuma batteria. Il timer si interrompe se sblocchi il dispositivo o se lo schermo si spegne prima.</string>
+    <string name="precise_wake_summary_on">%1$d second(i)</string>
+    <string name="precise_wake_summary_off">Disattivato (timeout di sistema)</string>
+    <string name="screen_off_method_title">Metodo di spegnimento</string>
+    <string name="accessibility_status_granted">Accesso all\'accessibilità concesso</string>
+    <string name="accessibility_grant_action">Apri le impostazioni di accessibilità</string>
+    <string name="accessibility_open_settings_failed">Impossibile aprire le impostazioni di accessibilità</string>
+    <string name="accessibility_service_label">WakeUpScreen — blocco schermo</string>
+    <string name="accessibility_service_description">Usato solo per spegnere lo schermo al termine di una durata personalizzata. Non legge alcun contenuto dello schermo.</string>
+    <string name="accessibility_service_summary">Spegne lo schermo al termine della durata personalizzata</string>
+
+    <string name="precise_wake_preset_seconds">%1$ds</string>
+    <string name="screen_off_method_accessibility_summary">Allo scadere del tempo lo schermo viene spento con l\'azione di sistema \"blocca schermo\", tramite un servizio di accessibilità. Da Android 9 in poi è l\'unico metodo che funziona.</string>
+    <string name="accessibility_required_warning">L\'accesso all\'accessibilità non è ancora stato concesso. Finché manca, lo schermo non può essere spento in tempo e resterà acceso fino al timeout di sistema.</string>
+    <string name="accessibility_step_open_settings">Apri le impostazioni di accessibilità del sistema</string>
+    <string name="accessibility_step_installed_apps">Vai all\'elenco delle app installate o dei servizi scaricati</string>
+    <string name="accessibility_step_enable_service">Trova \"WakeUpScreen — blocco schermo\" e attivalo</string>
+    <string name="accessibility_unsupported_notice">Questa versione di Android è troppo vecchia per il blocco tramite accessibilità (serve Android 9 o successivo). Lo schermo verrà spento forzando il timeout del display, che non funziona su tutti i dispositivi.</string>
+    <string name="unsaved_changes_title">Modifica non salvata</string>
+    <string name="unsaved_changes_message">La durata dello schermo acceso è stata modificata ma non ancora salvata.</string>
+    <string name="save_and_back">Salva ed esci</string>
+    <string name="discard_changes">Annulla</string>
 </resources>

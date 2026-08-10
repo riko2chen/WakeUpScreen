@@ -81,10 +81,6 @@
     <string name="dnd_detect_desc">방해 금지 모드에서도 화면을 켜려면 끄세요.</string>
     <string name="charging_only_title">충전 중에만 화면 켜기</string>
     <string name="charging_only_desc">기기가 충전 중일 때만 화면을 켭니다.</string>
-    <string name="wake_hint_before">화면이 켜집니다</string>
-    <string name="seconds">초</string>
-    <string name="wake_up_time_limitaon_desc">주의:\n많은 기기에서 이 설정이 제대로 작동하지 않을 수 있습니다.\n이는 시스템의 제한입니다.</string>
-    <string name="invalid_number">잘못된 숫자</string>
     <string name="saved_successfully">저장되었습니다</string>
     <string name="still_have_problem">아직 문제가 있나요? 탭하여 설정 열기</string>
     <string name="close_app_notice">이 작업으로 앱이 종료됩니다. 종료 후 앱을 다시 열어주세요.</string>
@@ -183,4 +179,32 @@
     <string name="log_reason_reminder_max_rounds">설정한 최대 알림 횟수에 도달했습니다.</string>
     <string name="log_reason_reminder_switch_off">반복 알림이 꺼져 있습니다.</string>
     <string name="log_reason_reminder_service_unavailable">알림 읽기 서비스를 일시적으로 사용할 수 없었습니다.</string>
+
+    <!-- 화면 켜짐 시간 정밀 제어 -->
+    <string name="precise_wake_switch_title">화면 켜짐 시간 지정</string>
+    <string name="precise_wake_switch_desc">지정한 시간만큼 화면을 켜 두었다가 자동으로 끕니다</string>
+    <string name="precise_wake_disabled_notice">꺼짐: 알림이 오면 화면만 켜지고, 언제 꺼질지는 시스템의 \"화면 자동 꺼짐\" 설정이 결정합니다. 켜면 켜짐 시간을 정확히 제어할 수 있습니다.</string>
+    <string name="precise_wake_duration_title">화면 켜짐 시간</string>
+    <string name="precise_wake_battery_notice">이 시간 동안 화면이 계속 켜져 있으므로 너무 길게 설정하면 배터리를 많이 씁니다. 잠금을 해제하거나 화면이 먼저 꺼지면 타이머는 자동으로 취소됩니다.</string>
+    <string name="precise_wake_summary_on">%1$d초</string>
+    <string name="precise_wake_summary_off">꺼짐 (시스템 설정 사용)</string>
+    <string name="screen_off_method_title">화면 끄는 방식</string>
+    <string name="accessibility_status_granted">접근성 권한이 허용되었습니다</string>
+    <string name="accessibility_grant_action">접근성 설정 열기</string>
+    <string name="accessibility_open_settings_failed">접근성 설정을 열 수 없습니다</string>
+    <string name="accessibility_service_label">알림 화면 켜기 — 화면 잠금</string>
+    <string name="accessibility_service_description">지정한 화면 켜짐 시간이 끝났을 때 화면을 끄는 데에만 사용합니다. 화면 내용은 전혀 읽지 않습니다.</string>
+    <string name="accessibility_service_summary">지정한 화면 켜짐 시간이 끝나면 화면을 끕니다</string>
+
+    <string name="precise_wake_preset_seconds">%1$d초</string>
+    <string name="screen_off_method_accessibility_summary">시간이 다 되면 접근성 서비스를 통해 시스템의 \"화면 잠금\" 동작을 실행해 화면을 끕니다. Android 9 이상에서는 이 방법만 동작합니다.</string>
+    <string name="accessibility_required_warning">아직 접근성 권한이 없습니다. 허용하기 전까지는 화면을 제때 끌 수 없어 시스템 자동 꺼짐 시간까지 켜져 있습니다.</string>
+    <string name="accessibility_step_open_settings">시스템 접근성 설정을 엽니다</string>
+    <string name="accessibility_step_installed_apps">\"설치된 앱\" 또는 다운로드한 서비스 목록으로 이동합니다</string>
+    <string name="accessibility_step_enable_service">\"알림 화면 켜기 — 화면 잠금\"을 찾아 켭니다</string>
+    <string name="accessibility_unsupported_notice">이 시스템 버전에서는 접근성 화면 잠금을 쓸 수 없습니다(Android 9 이상 필요). 대신 시스템 자동 꺼짐을 유도하지만 일부 기기에서는 동작하지 않습니다.</string>
+    <string name="unsaved_changes_title">저장하지 않은 변경</string>
+    <string name="unsaved_changes_message">화면 켜짐 시간을 바꿨지만 아직 저장하지 않았습니다.</string>
+    <string name="save_and_back">저장하고 돌아가기</string>
+    <string name="discard_changes">취소</string>
 </resources>

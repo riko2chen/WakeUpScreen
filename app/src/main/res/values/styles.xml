@@ -38,6 +38,21 @@
         <item name="android:colorForeground">#44444A</item>
     </style>
 
+    <!--
+        Black, chrome-free and unanimated: ScreenOffActivity is meant to look
+        like the display already went off, so any window animation or system bar
+        would give the trick away.
+    -->
+    <style name="ScreenOffTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
+
     <style name="ScActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/page_slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/page_slide_out_left</item>
