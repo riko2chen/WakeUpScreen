@@ -1,0 +1,4 @@
+• Nuovo "Promemoria ripetuto" (Impostazioni → Impostazioni avanzate): finché ci sono notifiche non lette, lo schermo si riaccende ogni 5–60 minuti e si ferma appena vengono cancellate — intervallo e numero massimo di promemoria sono configurabili
+• Modalità sonno, Non disturbare, modalità tasca, modalità solo in carica e i filtri app hanno ancora la precedenza sui promemoria, e le notifiche persistenti non contano come non lette
+• Nuova "Durata schermo acceso personalizzata": lo schermo resta acceso da 3 a 30 secondi e poi si spegne, invece di dipendere dal timeout schermo di sistema. È disattivata per impostazione predefinita e lo spegnimento usa un servizio di accessibilità opzionale che non legge alcun contenuto dello schermo
+• Nessun nuovo permesso

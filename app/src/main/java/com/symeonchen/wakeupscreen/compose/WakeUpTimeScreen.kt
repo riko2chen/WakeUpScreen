@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -26,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
+import com.symeonchen.wakeupscreen.compose.components.GlyphBadge
 import com.symeonchen.wakeupscreen.compose.components.SettingSwitchRow
 import com.symeonchen.wakeupscreen.compose.theme.*
 import com.symeonchen.wakeupscreen.data.ScConstant
@@ -276,20 +276,13 @@ private fun ScreenOffMethodCard(
 @Composable
 private fun GrantedRow() {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(
-            modifier = Modifier
-                .size(20.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primary),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = "✓",
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-            )
-        }
+        GlyphBadge(
+            text = "✓",
+            size = 20.dp,
+            fontSize = 12.sp,
+            background = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White,
+        )
         Text(
             text = stringResource(R.string.accessibility_status_granted),
             style = MaterialTheme.typography.bodyMedium,
@@ -329,20 +322,13 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
             )
             steps.forEachIndexed { index, step ->
                 Row(modifier = Modifier.padding(bottom = 6.dp)) {
-                    Box(
-                        modifier = Modifier
-                            .size(18.dp)
-                            .clip(CircleShape)
-                            .background(Amber),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Text(
-                            text = "${index + 1}",
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White,
-                        )
-                    }
+                    GlyphBadge(
+                        text = "${index + 1}",
+                        size = 18.dp,
+                        fontSize = 11.sp,
+                        background = Amber,
+                        contentColor = Color.White,
+                    )
                     Text(
                         text = stringResource(step),
                         style = MaterialTheme.typography.bodySmall,

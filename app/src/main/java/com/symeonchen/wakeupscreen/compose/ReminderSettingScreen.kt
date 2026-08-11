@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
+import com.symeonchen.wakeupscreen.compose.components.GlyphBadge
 import com.symeonchen.wakeupscreen.compose.theme.Indigo
 import com.symeonchen.wakeupscreen.compose.theme.IndigoDark
 
@@ -174,22 +174,16 @@ private fun IntervalCard(
 
 @Composable
 private fun HelpButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    val label = stringResource(R.string.reminder_delay_help_title)
-    Box(
-        modifier = modifier
-            .size(20.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.15f))
-            .clickable(onClickLabel = label, onClick = onClick),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = "?",
-            fontSize = 13.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-    }
+    GlyphBadge(
+        text = "?",
+        size = 20.dp,
+        fontSize = 13.sp,
+        background = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.15f),
+        contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = modifier,
+        onClick = onClick,
+        onClickLabel = stringResource(R.string.reminder_delay_help_title),
+    )
 }
 
 @Composable

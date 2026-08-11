@@ -28,6 +28,7 @@ Nessun cloud, nessun disordine, nessun compromesso.
 | :bell: | **Attivazione Istantanea** | Lo schermo si illumina nel momento in cui arriva una notifica. Non perdere mai ciò che conta mentre il telefono è sulla scrivania. |
 | :sun_with_face: | **Modalità Tasca** | Rileva intelligentemente quando il telefono è in tasca o in borsa e resta spento. Risparmia batteria dove serve. |
 | :repeat: | **Promemoria Ripetuto** | Sfuggito la prima volta? Lo schermo si riaccende ogni 5–60 minuti finché le notifiche restano non lette, e si ferma appena le cancelli. |
+| :hourglass_flowing_sand: | **Durata Schermo Personalizzata** | Decidi tu per quanto resta acceso lo schermo — da 3 a 30 secondi — invece di affidarti al timeout di sistema. |
 | :mag: | **Filtro App** | Scegli esattamente quali app possono attivare lo schermo. Controllo totale su ciò che merita la tua attenzione. |
 | :new_moon: | **Modalità Scura** | Un'interfaccia scura e raffinata, perfetta per qualsiasi display AMOLED. Delicata per gli occhi, leggera per la batteria. |
 | :closed_lock_with_key: | **Nessun Internet** | Funziona interamente sul tuo dispositivo. Zero dati raccolti, zero server contattati. La tua privacy è assoluta. |

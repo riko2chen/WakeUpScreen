@@ -4,26 +4,19 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
-## [Unreleased]
+## [3.1.0]
 
 ### Features
-- Added **Repeat Reminder** (Settings → Advanced Setting). While notifications are still sitting unread in the shade, the screen wakes again every 5–60 minutes, and stops as soon as they are cleared. The interval, and how many reminders a single batch of unread notifications may trigger (default 5), are configurable.
-- Reminders honour every existing rule: sleep mode, Do Not Disturb, pocket mode, charging-only mode, the app filter list, and "screen already on" all take priority, and the settings screen spells this out.
-- Ongoing and non-clearable notifications (media players, navigation, downloads) never count as unread, so they cannot keep the screen waking indefinitely.
-- The notification log now tracks reminders: entries carry a "Reminder" badge, and the detail view shows what triggered the wake, which reminder of the streak it was, and how many notifications were unread at the time. A "Reminder ended" entry records why a streak stopped.
-- Added "Test repeat reminder" to Function Test, which runs one reminder immediately instead of waiting out the interval.
-
-- Added **Custom screen-on duration** (Settings → Custom screen-on duration). With it on, the screen is held on for the duration you pick — 3, 5, 10, 15 or 30 seconds — and then turned off, instead of being handed back to the system's screen timeout. Measured on Android 13: a 15-second window lasts 15.0 seconds end to end.
-- The screen is turned off with the system's own lock-screen action, through an optional accessibility service. The settings screen walks through granting it, and says plainly that the timing is not exact until it is granted.
-- Leaving the screen with a duration picked but not saved now asks first, and offers to save.
+- Added "Repeat Reminder" (Settings → Advanced Setting): while notifications sit unread, the screen wakes again every 5–60 minutes and stops as soon as they are cleared. The interval and the maximum number of reminders per batch are configurable, and sleep mode, Do Not Disturb, pocket mode, charging-only mode and the app filter all still take priority. Ongoing notifications never count as unread
+- Reminder wakes are recorded in the notification log, and Function Test can run one reminder immediately instead of waiting out the interval
+- Added "Custom screen-on duration" (Settings → Custom screen-on duration): the screen is held on for 3, 5, 10, 15 or 30 seconds and then turned off, instead of being handed back to the system screen timeout. Turning the screen off uses the system's own lock-screen action through an optional accessibility service, which reads no screen content
 
 ### Changes
-- The screen-on duration setting is **off by default and does nothing while it is off** — which is also what it did before, since the old implementation released its wake lock immediately and the configured number was never applied. Existing installs behave exactly as they did until the switch is turned on.
+- Custom screen-on duration is off by default and does nothing while it is off, so existing installs behave exactly as before — the old implementation released its wake lock immediately and never applied the configured value either
 
 ### Notes
-- No new permissions. Reminders use inexact alarms, so Android's Doze mode may delay one by a few minutes; the settings screen explains this behind a help button.
-- The accessibility service used for the custom screen-on duration is optional, subscribes to no events and reads no screen content; it only performs the system's "lock screen" action.
-- A custom screen-on window is cancelled early if the device is unlocked or the screen goes off, and is never allowed to blank the display during a call.
+- No new permissions. Reminders use inexact alarms, so Doze may delay one by a few minutes
+- A custom screen-on window is cancelled early if the device is unlocked or the screen goes off, and never blanks the display during a call
 
 ---
 
