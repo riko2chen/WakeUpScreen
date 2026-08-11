@@ -24,6 +24,22 @@
         <activity android:name=".pages.AppInfoPageActivity" />
         <activity android:name=".pages.SleepTimeSettingActivity" />
         <activity android:name=".pages.WakeUptimeSettingActivity" />
+        <activity android:name=".pages.ReminderSettingActivity" />
+
+        <!--
+            Ends a precise screen-on window on devices where no lock permission
+            is granted. Its own task, so it never lands on top of the app's UI,
+            and out of recents because the user is not meant to see it at all.
+        -->
+        <activity
+            android:name=".pages.ScreenOffActivity"
+            android:theme="@style/ScreenOffTheme"
+            android:taskAffinity=".ScreenOff"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:launchMode="singleInstance"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
         <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -44,12 +60,38 @@
             </intent-filter>
         </service>
 
+        <!--
+            Optional: only bound after the user enables it, and only used to
+            perform GLOBAL_ACTION_LOCK_SCREEN at the end of a precise screen-on
+            window. See ScLockScreenAccessibilityService.
+        -->
+        <service
+            android:name=".services.ScLockScreenAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:label="@string/accessibility_service_label"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/lock_screen_accessibility_service" />
+        </service>
+
         <receiver android:name=".receiver.PackageReplacedReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <!-- Only ever triggered by this app's own repeat-reminder alarm. -->
+        <receiver android:name=".receiver.ReminderAlarmReceiver"
+            android:exported="false" />
+
+        <!-- Only ever triggered by this app's own function-test alarm. -->
+        <receiver android:name=".receiver.FunctionTestAlarmReceiver"
+            android:exported="false" />
 
     </application>
 

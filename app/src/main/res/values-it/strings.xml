@@ -90,10 +90,6 @@
     <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
     <string name="charging_only_title">Solo in carica</string>
     <string name="charging_only_desc">Accendi lo schermo solo quando il dispositivo è in carica.</string>
-    <string name="wake_hint_before">Lo schermo si sveglia</string>
-    <string name="seconds">secondo</string>
-    <string name="wake_up_time_limitaon_desc">Avviso: \nin molti dispositivi, questa impostazione non funzionerà correttamente. \nQuesta è una limitazione del sistema.</string>
-    <string name="invalid_number">Numero non valido</string>
     <string name="saved_successfully">Salvato con successo</string>
     <string name="still_have_problem">Hai ancora problemi?Clicca qui per aprire l\'impostazione</string>
     <string name="close_app_notice">Questa azione chiuderà l\'Applicazione, quindi riaprire l\'APP successivamente.</string>
@@ -157,4 +153,71 @@
     <string name="update_via_fdroid_subtitle">Apri la pagina F-Droid (la versione potrebbe essere leggermente indietro)</string>
     <string name="update_via_github">GitHub Releases</string>
     <string name="update_via_github_subtitle">Apri la pagina dell\'ultima release</string>
+
+    <!-- Repeat reminder -->
+    <string name="repeat_reminder">Promemoria ripetuto</string>
+    <string name="repeat_reminder_desc">Riaccende lo schermo finché ci sono notifiche non lette</string>
+    <string name="repeat_reminder_detail">Impostazioni promemoria</string>
+    <string name="reminder_interval_title">Intervallo del promemoria</string>
+    <string name="reminder_interval_minutes_value">%1$d min</string>
+    <string name="reminder_interval_hours_value">%1$d ora</string>
+    <string name="reminder_delay_notice">Il promemoria può arrivare un po\' più tardi dell\'intervallo impostato.</string>
+    <string name="reminder_delay_help_title">Perché il promemoria può arrivare in ritardo?</string>
+    <string name="reminder_delay_help_body">Android ha una modalità di risparmio energetico chiamata Doze. Quando il telefono resta fermo con lo schermo spento per un po\', il sistema trattiene le attività in background e le esegue a gruppi per risparmiare batteria.\n\nPer questo un promemoria può arrivare qualche minuto dopo l\'intervallo scelto, e più l\'intervallo è breve più la cosa si nota. Riguarda tutte le app e nessuna può sottrarsi.\n\nTenere il telefono in carica, o escludere questa app dall\'ottimizzazione della batteria nelle impostazioni di sistema, rende i promemoria più puntuali.</string>
+    <string name="reminder_max_rounds_title">Numero massimo di promemoria</string>
+    <string name="reminder_max_rounds_desc">Quante volte le stesse notifiche non lette possono riaccendere lo schermo. Il conteggio riparte quando vengono cancellate.</string>
+    <string name="reminder_rounds_unlimited">Illimitati</string>
+    <string name="reminder_priority_title">Che cosa ha la precedenza</string>
+    <string name="reminder_priority_desc">Queste impostazioni hanno la precedenza sul promemoria ripetuto. Finché una di esse è valida, lo schermo resta spento anche con notifiche non lette:</string>
+    <string name="reminder_priority_sleep">La modalità sonno è nella sua fascia oraria</string>
+    <string name="reminder_priority_dnd">Non disturbare è attivo</string>
+    <string name="reminder_priority_pocket">La modalità tasca rileva il dispositivo in tasca o in borsa</string>
+    <string name="reminder_priority_charging">La modalità solo in carica è attiva e il dispositivo non è in carica</string>
+    <string name="reminder_priority_screen_on">Lo schermo è già acceso</string>
+    <string name="reminder_priority_filter">Tutte le notifiche non lette provengono da app escluse dai filtri</string>
+    <string name="reminder_test">Prova il promemoria ripetuto</string>
+    <string name="reminder_test_subtitle">Esegue subito un promemoria con le impostazioni attuali</string>
+    <string name="reminder_test_toast">Spegnere lo schermo entro 10 secondi: verrà eseguito un promemoria</string>
+    <string name="log_reminder_stopped">Promemoria terminato</string>
+    <string name="log_trigger_reminder">Promemoria</string>
+    <string name="log_trigger_notification">Nuova notifica</string>
+    <string name="log_detail_trigger">Attivato da</string>
+    <string name="log_detail_reminder_round">Numero del promemoria</string>
+    <string name="log_reminder_round_value">N. %1$d</string>
+    <string name="log_detail_unread_count">Notifiche non lette</string>
+    <string name="log_no_source_app">Nessuna</string>
+    <string name="log_status_reminder_waked_up_desc">C\'erano ancora notifiche non lette, quindi il promemoria ha riacceso lo schermo.</string>
+    <string name="log_status_reminder_already_on_desc">Lo schermo era già acceso quando è scattato il promemoria, nessuna azione necessaria.</string>
+    <string name="log_reason_reminder_all_read">Tutte le notifiche non lette sono state cancellate, i promemoria si sono fermati.</string>
+    <string name="log_reason_reminder_max_rounds">È stato raggiunto il numero massimo di promemoria.</string>
+    <string name="log_reason_reminder_switch_off">Il promemoria ripetuto è stato disattivato.</string>
+    <string name="log_reason_reminder_service_unavailable">Il servizio di lettura delle notifiche non era temporaneamente disponibile.</string>
+
+    <!-- durata precisa dello schermo acceso -->
+    <string name="precise_wake_switch_title">Durata schermo acceso personalizzata</string>
+    <string name="precise_wake_switch_desc">Tiene lo schermo acceso per un tempo esatto, poi lo spegne</string>
+    <string name="precise_wake_disabled_notice">Disattivato: una notifica accende soltanto lo schermo e a decidere quando si spegne è l\'impostazione di sistema \"Timeout schermo\". Attivalo per controllare la durata con precisione.</string>
+    <string name="precise_wake_duration_title">Durata schermo acceso</string>
+    <string name="precise_wake_battery_notice">Lo schermo resta acceso per tutta la durata, quindi un valore alto consuma batteria. Il timer si interrompe se sblocchi il dispositivo o se lo schermo si spegne prima.</string>
+    <string name="precise_wake_summary_on">%1$d second(i)</string>
+    <string name="precise_wake_summary_off">Disattivato (timeout di sistema)</string>
+    <string name="screen_off_method_title">Metodo di spegnimento</string>
+    <string name="accessibility_status_granted">Accesso all\'accessibilità concesso</string>
+    <string name="accessibility_grant_action">Apri le impostazioni di accessibilità</string>
+    <string name="accessibility_open_settings_failed">Impossibile aprire le impostazioni di accessibilità</string>
+    <string name="accessibility_service_label">WakeUpScreen — blocco schermo</string>
+    <string name="accessibility_service_description">Usato solo per spegnere lo schermo al termine di una durata personalizzata. Non legge alcun contenuto dello schermo.</string>
+    <string name="accessibility_service_summary">Spegne lo schermo al termine della durata personalizzata</string>
+
+    <string name="precise_wake_preset_seconds">%1$ds</string>
+    <string name="screen_off_method_accessibility_summary">Allo scadere del tempo lo schermo viene spento con l\'azione di sistema \"blocca schermo\", tramite un servizio di accessibilità. Da Android 9 in poi è l\'unico metodo che funziona.</string>
+    <string name="accessibility_required_warning">L\'accesso all\'accessibilità non è ancora stato concesso. Finché manca, lo schermo non può essere spento in tempo e resterà acceso fino al timeout di sistema.</string>
+    <string name="accessibility_step_open_settings">Apri le impostazioni di accessibilità del sistema</string>
+    <string name="accessibility_step_installed_apps">Vai all\'elenco delle app installate o dei servizi scaricati</string>
+    <string name="accessibility_step_enable_service">Trova \"WakeUpScreen — blocco schermo\" e attivalo</string>
+    <string name="accessibility_unsupported_notice">Questa versione di Android è troppo vecchia per il blocco tramite accessibilità (serve Android 9 o successivo). Lo schermo verrà spento forzando il timeout del display, che non funziona su tutti i dispositivi.</string>
+    <string name="unsaved_changes_title">Modifica non salvata</string>
+    <string name="unsaved_changes_message">La durata dello schermo acceso è stata modificata ma non ancora salvata.</string>
+    <string name="save_and_back">Salva ed esci</string>
+    <string name="discard_changes">Annulla</string>
 </resources>

@@ -15,7 +15,10 @@ import com.symeonchen.wakeupscreen.data.NotificationLogEntry
 import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.conditions.*
+import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
+import com.symeonchen.wakeupscreen.utils.ScreenWakeUtils
 import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.toLogInfo
 import kotlinx.coroutines.*
 
 /**
@@ -25,7 +28,6 @@ import kotlinx.coroutines.*
 class ScNotificationListenerService : NotificationListenerService() {
 
     companion object {
-        private const val TAG_WAKE = "symeonchen:wakeupscreen"
         private val TAG = this::class.java.simpleName
         @Volatile var instance: ScNotificationListenerService? = null
     }
@@ -50,6 +52,18 @@ class ScNotificationListenerService : NotificationListenerService() {
             .register(ChargingCondition())
     }
 
+    override fun onListenerConnected() {
+        super.onListenerConnected()
+        // Also covers the post-reboot case: the system rebinds the listener and
+        // any reminder alarm that was lost with the restart is re-armed here.
+        ReminderEngine.onListenerConnected(applicationContext, safeActiveNotifications())
+    }
+
+    override fun onNotificationRemoved(sbn: StatusBarNotification?) {
+        super.onNotificationRemoved(sbn)
+        ReminderEngine.onNotificationRemoved(applicationContext, safeActiveNotifications())
+    }
+
     override fun onListenerDisconnected() {
         super.onListenerDisconnected()
         try {
@@ -70,7 +84,12 @@ class ScNotificationListenerService : NotificationListenerService() {
         super.onNotificationPosted(sbn)
         sbn ?: return
 
-        val channel = getNotificationChannel(sbn)
+        val channel = channelOf(sbn)
+
+        // A new message restarts the reminder streak whatever the outcome
+        // below: if the screen does not light up now, the reminder is the only
+        // thing that will bring it up later.
+        ReminderEngine.onNotificationPosted(applicationContext, sbn)
 
         //Pre check for better performance
         if (ConditionState.BLOCK == preCheckStatusOpen()) {
@@ -94,19 +113,22 @@ class ScNotificationListenerService : NotificationListenerService() {
             return
         }
 
-        val wl = pm.newWakeLock(
-            PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
-            TAG_WAKE
-        )
-        val sec = DataInjection.milliSecondOfWakeUpScreen
-
-        wl.acquire(sec)
-        wl.release()
+        ScreenWakeUtils.wakeUpScreen(applicationContext, pm)
 
         logNotification(sbn.packageName, LogStatus.WAKED_UP, "", channel)
     }
 
-    private fun getNotificationChannel(sbn: StatusBarNotification): NotificationChannel? {
+    private fun safeActiveNotifications(): Array<StatusBarNotification>? {
+        return try {
+            activeNotifications
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    /** Resolves the channel a notification was posted to, for the log. */
+    fun channelOf(sbn: StatusBarNotification): NotificationChannel? {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return null
         return try {
             val ranking = Ranking()
@@ -124,30 +146,16 @@ class ScNotificationListenerService : NotificationListenerService() {
         channel: NotificationChannel?,
     ) {
         try {
-            val importance = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && channel != null) {
-                channel.importance
-            } else {
-                -1
-            }
-            val hasSound = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && channel != null) {
-                channel.sound != null && channel.sound.toString().isNotEmpty()
-            } else {
-                null
-            }
-            val hasVibration = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && channel != null) {
-                channel.shouldVibrate()
-            } else {
-                null
-            }
+            val channelInfo = channel.toLogInfo()
             NotificationLogStore.addLog(
                 NotificationLogEntry(
                     timestamp = System.currentTimeMillis(),
                     packageName = packageName,
                     status = status,
                     blockReason = blockReason,
-                    importance = importance,
-                    hasSound = hasSound,
-                    hasVibration = hasVibration,
+                    importance = channelInfo.importance,
+                    hasSound = channelInfo.hasSound,
+                    hasVibration = channelInfo.hasVibration,
                 )
             )
         } catch (_: Exception) {

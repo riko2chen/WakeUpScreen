@@ -1,0 +1,4 @@
+• New "Repeat Reminder" (Settings → Advanced Setting): while notifications sit unread, the screen wakes again every 5–60 minutes and stops as soon as they are cleared — interval and maximum number of reminders are configurable
+• Sleep mode, Do Not Disturb, pocket mode, charging-only mode and the app filter all still take priority over reminders, and ongoing notifications never count as unread
+• New "Custom screen-on duration": the screen is held on for 3–30 seconds and then turned off, instead of being handed back to the system screen timeout. It is off by default, and turning the screen off uses an optional accessibility service that reads no screen content
+• No new permissions

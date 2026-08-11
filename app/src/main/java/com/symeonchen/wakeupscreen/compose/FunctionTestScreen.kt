@@ -17,6 +17,7 @@ import com.symeonchen.wakeupscreen.compose.components.SettingRow
 fun FunctionTestScreen(
     onBack: () -> Unit,
     onWakeTestClick: () -> Unit,
+    onReminderTestClick: () -> Unit,
     onViewLogsClick: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
@@ -37,6 +38,16 @@ fun FunctionTestScreen(
                         title = stringResource(R.string.delay_to_wakeup),
                         subtitle = stringResource(R.string.click_here_and_press_power_button_within_10_sec),
                         onClick = onWakeTestClick,
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                        thickness = 0.5.dp,
+                        color = MaterialTheme.colorScheme.outline,
+                    )
+                    SettingRow(
+                        title = stringResource(R.string.reminder_test),
+                        subtitle = stringResource(R.string.reminder_test_subtitle),
+                        onClick = onReminderTestClick,
                     )
                     HorizontalDivider(
                         modifier = Modifier.padding(horizontal = 20.dp),

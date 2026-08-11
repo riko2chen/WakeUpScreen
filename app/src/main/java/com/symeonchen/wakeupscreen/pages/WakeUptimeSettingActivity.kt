@@ -1,6 +1,9 @@
 package com.symeonchen.wakeupscreen.pages
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -10,12 +13,25 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.compose.WakeUpTimeScreen
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
+import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.model.WakeUpTimeViewModel
+import com.symeonchen.wakeupscreen.services.ScLockScreenAccessibilityService
+import com.symeonchen.wakeupscreen.utils.ScLog
 
 class WakeUptimeSettingActivity : ScBaseActivity() {
 
+    private companion object {
+        const val MODULE = "WakeTimeSetting"
+    }
+
     private var viewModel: WakeUpTimeViewModel? = null
+
+    /**
+     * Recomputed in [onResume] because the grant happens in system settings,
+     * which gives no callback — the user simply comes back to this screen.
+     */
+    private val accessibilityGranted = mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,37 +40,60 @@ class WakeUptimeSettingActivity : ScBaseActivity() {
 
         setContent {
             WakeUpScreenTheme {
-                val tempTime by viewModel!!.temporaryTimeOfWakeUpScreen.observeAsState(3000L)
-                val currentSecond = tempTime / 1000
-                var inputText by remember(currentSecond) { mutableStateOf("$currentSecond") }
+                val savedTime by viewModel!!.timeOfWakeUpScreen.observeAsState(
+                    ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
+                )
+                val pendingTime by viewModel!!.temporaryTimeOfWakeUpScreen.observeAsState(savedTime)
+                val preciseEnabled by viewModel!!.preciseScreenOnSwitch.observeAsState(
+                    ScConstant.DEFAULT_PRECISE_SCREEN_ON_SWITCH
+                )
 
                 WakeUpTimeScreen(
                     onBack = { finish() },
-                    onSave = { tryToSaveWakeUpTime(inputText) },
-                    selectedSecond = currentSecond,
-                    inputText = inputText,
-                    onInputChange = { inputText = it },
-                    onPresetClick = { sec ->
-                        viewModel?.temporaryTimeOfWakeUpScreen?.postValue(sec * 1000)
+                    preciseEnabled = preciseEnabled,
+                    onPreciseToggle = {
+                        val next = !preciseEnabled
+                        ScLog.i(MODULE, "precise screen-on switch -> $next")
+                        viewModel?.preciseScreenOnSwitch?.postValue(next)
                     },
+                    selectedSecond = pendingTime / 1000,
+                    onPresetClick = { seconds ->
+                        // Only staged here; the save button is what writes it.
+                        viewModel?.temporaryTimeOfWakeUpScreen?.postValue(seconds * 1000)
+                    },
+                    hasUnsavedChanges = pendingTime != savedTime,
+                    onSave = { save(pendingTime) },
+                    onDiscard = {
+                        viewModel?.temporaryTimeOfWakeUpScreen?.postValue(savedTime)
+                        finish()
+                    },
+                    accessibilitySupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P,
+                    accessibilityGranted = accessibilityGranted.value,
+                    onGrantAccessibilityClick = { openAccessibilitySettings() },
                 )
             }
         }
     }
 
-    private fun tryToSaveWakeUpTime(inputText: String) {
-        val etNum = try {
-            inputText.toLong()
-        } catch (e: NumberFormatException) {
-            -1L
-        }
-        if (etNum <= 0) {
-            ToastUtils.showLong(getString(R.string.invalid_number))
-            viewModel?.temporaryTimeOfWakeUpScreen?.postValue(3000L)
-            return
-        }
-        viewModel?.timeOfWakeUpScreen?.postValue(etNum * 1000)
+    override fun onResume() {
+        super.onResume()
+        accessibilityGranted.value =
+            ScLockScreenAccessibilityService.isEnabledInSettings(applicationContext)
+    }
+
+    private fun save(pendingTime: Long) {
+        viewModel?.timeOfWakeUpScreen?.postValue(pendingTime)
+        ScLog.i(MODULE, "precise screen-on duration saved: ${pendingTime / 1000}s")
         ToastUtils.showLong(getString(R.string.saved_successfully))
         finish()
+    }
+
+    private fun openAccessibilitySettings() {
+        try {
+            startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+        } catch (e: Exception) {
+            ScLog.w(MODULE, "cannot open accessibility settings", e)
+            ToastUtils.showLong(getString(R.string.accessibility_open_settings_failed))
+        }
     }
 }

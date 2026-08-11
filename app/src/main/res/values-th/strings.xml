@@ -81,10 +81,6 @@
     <string name="dnd_detect_desc">ปิดหากต้องการให้หน้าจอเปิดในโหมดห้ามรบกวน</string>
     <string name="charging_only_title">เปิดหน้าจอเฉพาะขณะชาร์จ</string>
     <string name="charging_only_desc">เปิดหน้าจอเฉพาะเมื่ออุปกรณ์กำลังชาร์จเท่านั้น</string>
-    <string name="wake_hint_before">หน้าจอจะเปิด</string>
-    <string name="seconds">วินาที</string>
-    <string name="wake_up_time_limitaon_desc">หมายเหตุ:\nในหลายอุปกรณ์ การตั้งค่านี้อาจไม่ทำงานอย่างถูกต้อง\nนี่เป็นข้อจำกัดของระบบ</string>
-    <string name="invalid_number">ตัวเลขไม่ถูกต้อง</string>
     <string name="saved_successfully">บันทึกสำเร็จ</string>
     <string name="still_have_problem">ยังมีปัญหาอยู่? แตะเพื่อเปิดตั้งค่า</string>
     <string name="close_app_notice">การกระทำนี้จะปิดแอป กรุณาเปิดแอปอีกครั้งหลังจากนั้น</string>
@@ -144,4 +140,71 @@
     <string name="update_via_fdroid_subtitle">เปิดหน้า F-Droid (เวอร์ชันอาจช้ากว่าเล็กน้อย)</string>
     <string name="update_via_github">GitHub Releases</string>
     <string name="update_via_github_subtitle">เปิดหน้ารีลีสล่าสุด</string>
+
+    <!-- Repeat reminder -->
+    <string name="repeat_reminder">การเตือนซ้ำ</string>
+    <string name="repeat_reminder_desc">ปลุกหน้าจออีกครั้งขณะที่ยังมีการแจ้งเตือนที่ยังไม่ได้อ่าน</string>
+    <string name="repeat_reminder_detail">ตั้งค่าการเตือน</string>
+    <string name="reminder_interval_title">ระยะห่างของการเตือน</string>
+    <string name="reminder_interval_minutes_value">%1$d นาที</string>
+    <string name="reminder_interval_hours_value">%1$d ชั่วโมง</string>
+    <string name="reminder_delay_notice">การเตือนอาจมาช้ากว่าระยะเวลาที่ตั้งไว้เล็กน้อย</string>
+    <string name="reminder_delay_help_title">ทำไมการเตือนถึงมาช้า</string>
+    <string name="reminder_delay_help_body">Android มีโหมดประหยัดแบตเตอรี่ชื่อ Doze เมื่อโทรศัพท์ถูกวางไว้เฉย ๆ โดยปิดหน้าจอสักระยะ ระบบจะเก็บงานเบื้องหลังไว้แล้วรันรวมกันเป็นชุดเพื่อประหยัดพลังงาน\n\nการเตือนจึงอาจมาช้ากว่าระยะเวลาที่เลือกไว้ไม่กี่นาที และยิ่งตั้งระยะสั้นก็ยิ่งสังเกตได้ชัด ข้อจำกัดนี้ใช้กับทุกแอปและไม่มีแอปใดหลีกเลี่ยงได้\n\nการเสียบชาร์จไว้ หรือยกเว้นแอปนี้จากการเพิ่มประสิทธิภาพแบตเตอรี่ในการตั้งค่าระบบ จะช่วยให้การเตือนตรงเวลามากขึ้น</string>
+    <string name="reminder_max_rounds_title">จำนวนการเตือนสูงสุด</string>
+    <string name="reminder_max_rounds_desc">จำนวนครั้งที่การแจ้งเตือนชุดเดิมจะปลุกหน้าจอได้ การนับจะเริ่มใหม่เมื่อล้างการแจ้งเตือนแล้ว</string>
+    <string name="reminder_rounds_unlimited">ไม่จำกัด</string>
+    <string name="reminder_priority_title">ลำดับความสำคัญ</string>
+    <string name="reminder_priority_desc">การตั้งค่าต่อไปนี้มีลำดับความสำคัญเหนือการเตือนซ้ำ หากเข้าเงื่อนไขข้อใดข้อหนึ่ง หน้าจอจะไม่สว่างแม้ยังมีการแจ้งเตือนที่ยังไม่ได้อ่าน:</string>
+    <string name="reminder_priority_sleep">อยู่ในช่วงเวลาของโหมดนอนหลับ</string>
+    <string name="reminder_priority_dnd">เปิดโหมดห้ามรบกวนอยู่</string>
+    <string name="reminder_priority_pocket">โหมดกระเป๋าตรวจพบว่าอุปกรณ์อยู่ในกระเป๋าหรือถุง</string>
+    <string name="reminder_priority_charging">เปิดโหมดสว่างเฉพาะตอนชาร์จ แต่อุปกรณ์ไม่ได้ชาร์จอยู่</string>
+    <string name="reminder_priority_screen_on">หน้าจอเปิดอยู่แล้ว</string>
+    <string name="reminder_priority_filter">การแจ้งเตือนที่ยังไม่ได้อ่านทั้งหมดมาจากแอปที่ถูกตัวกรองคัดออก</string>
+    <string name="reminder_test">ทดสอบการเตือนซ้ำ</string>
+    <string name="reminder_test_subtitle">เรียกใช้การเตือนหนึ่งครั้งทันทีตามการตั้งค่าปัจจุบัน</string>
+    <string name="reminder_test_toast">กรุณาปิดหน้าจอภายใน 10 วินาที จากนั้นจะมีการเตือนหนึ่งครั้ง</string>
+    <string name="log_reminder_stopped">สิ้นสุดการเตือน</string>
+    <string name="log_trigger_reminder">การเตือนซ้ำ</string>
+    <string name="log_trigger_notification">การแจ้งเตือนใหม่</string>
+    <string name="log_detail_trigger">สาเหตุที่ทำงาน</string>
+    <string name="log_detail_reminder_round">ครั้งที่เตือน</string>
+    <string name="log_reminder_round_value">ครั้งที่ %1$d</string>
+    <string name="log_detail_unread_count">จำนวนการแจ้งเตือนที่ยังไม่ได้อ่าน</string>
+    <string name="log_no_source_app">ไม่มี</string>
+    <string name="log_status_reminder_waked_up_desc">ยังมีการแจ้งเตือนที่ยังไม่ได้อ่าน การเตือนซ้ำจึงปลุกหน้าจออีกครั้ง</string>
+    <string name="log_status_reminder_already_on_desc">หน้าจอเปิดอยู่แล้วตอนที่การเตือนทำงาน จึงไม่ต้องทำอะไร</string>
+    <string name="log_reason_reminder_all_read">ล้างการแจ้งเตือนที่ยังไม่ได้อ่านหมดแล้ว จึงหยุดเตือน</string>
+    <string name="log_reason_reminder_max_rounds">ถึงจำนวนการเตือนสูงสุดที่ตั้งไว้แล้ว</string>
+    <string name="log_reason_reminder_switch_off">การเตือนซ้ำถูกปิดอยู่</string>
+    <string name="log_reason_reminder_service_unavailable">บริการอ่านการแจ้งเตือนไม่พร้อมใช้งานชั่วคราว</string>
+
+    <!-- ควบคุมเวลาเปิดหน้าจออย่างแม่นยำ -->
+    <string name="precise_wake_switch_title">กำหนดเวลาเปิดหน้าจอเอง</string>
+    <string name="precise_wake_switch_desc">เปิดหน้าจอไว้ตามเวลาที่กำหนด แล้วปิดให้อัตโนมัติ</string>
+    <string name="precise_wake_disabled_notice">ปิดอยู่: เมื่อมีการแจ้งเตือนหน้าจอจะสว่างขึ้นเท่านั้น ส่วนจะดับเมื่อใดขึ้นอยู่กับการตั้งค่า \"หมดเวลาหน้าจอ\" ของระบบ เปิดใช้งานเพื่อควบคุมเวลาได้อย่างแม่นยำ</string>
+    <string name="precise_wake_duration_title">เวลาเปิดหน้าจอ</string>
+    <string name="precise_wake_battery_notice">หน้าจอจะสว่างตลอดช่วงเวลานี้ การตั้งค่านานเกินไปจะเปลืองแบตเตอรี่ หากปลดล็อกเครื่องหรือหน้าจอดับก่อน การจับเวลาจะยกเลิกอัตโนมัติ</string>
+    <string name="precise_wake_summary_on">%1$d วินาที</string>
+    <string name="precise_wake_summary_off">ปิดอยู่ (ใช้ค่าของระบบ)</string>
+    <string name="screen_off_method_title">วิธีปิดหน้าจอ</string>
+    <string name="accessibility_status_granted">ให้สิทธิ์การช่วยเหลือพิเศษแล้ว</string>
+    <string name="accessibility_grant_action">เปิดการตั้งค่าการช่วยเหลือพิเศษ</string>
+    <string name="accessibility_open_settings_failed">เปิดการตั้งค่าการช่วยเหลือพิเศษไม่ได้</string>
+    <string name="accessibility_service_label">ปลุกหน้าจอ — ล็อกหน้าจอ</string>
+    <string name="accessibility_service_description">ใช้เพื่อปิดหน้าจอเมื่อครบเวลาเปิดหน้าจอที่กำหนดเท่านั้น ไม่มีการอ่านเนื้อหาบนหน้าจอ</string>
+    <string name="accessibility_service_summary">ปิดหน้าจอเมื่อครบเวลาเปิดหน้าจอที่กำหนด</string>
+
+    <string name="precise_wake_preset_seconds">%1$d วิ</string>
+    <string name="screen_off_method_accessibility_summary">เมื่อหมดเวลา หน้าจอจะถูกปิดด้วยคำสั่ง \"ล็อกหน้าจอ\" ของระบบผ่านบริการช่วยเหลือพิเศษ บน Android 9 ขึ้นไปนี่เป็นวิธีเดียวที่ใช้ได้</string>
+    <string name="accessibility_required_warning">ยังไม่ได้ให้สิทธิ์การช่วยเหลือพิเศษ ก่อนที่จะให้สิทธิ์ หน้าจอจะปิดตรงเวลาไม่ได้ และจะสว่างค้างจนกว่าจะหมดเวลาของระบบ</string>
+    <string name="accessibility_step_open_settings">เปิดการตั้งค่าการช่วยเหลือพิเศษของระบบ</string>
+    <string name="accessibility_step_installed_apps">ไปที่รายการ \"แอปที่ติดตั้ง\" หรือบริการที่ดาวน์โหลด</string>
+    <string name="accessibility_step_enable_service">หา \"ปลุกหน้าจอ — ล็อกหน้าจอ\" แล้วเปิดใช้งาน</string>
+    <string name="accessibility_unsupported_notice">ระบบรุ่นนี้เก่าเกินกว่าจะใช้การล็อกหน้าจอด้วยการช่วยเหลือพิเศษ (ต้องใช้ Android 9 ขึ้นไป) จะใช้วิธีเร่งให้ระบบหมดเวลาหน้าจอแทน ซึ่งใช้ไม่ได้กับทุกเครื่อง</string>
+    <string name="unsaved_changes_title">ยังไม่ได้บันทึก</string>
+    <string name="unsaved_changes_message">เวลาเปิดหน้าจอถูกแก้ไขแล้วแต่ยังไม่ได้บันทึก</string>
+    <string name="save_and_back">บันทึกแล้วย้อนกลับ</string>
+    <string name="discard_changes">ยกเลิก</string>
 </resources>

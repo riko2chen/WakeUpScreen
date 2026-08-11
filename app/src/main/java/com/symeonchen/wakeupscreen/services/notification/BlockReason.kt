@@ -18,4 +18,14 @@ object BlockReason {
     const val SLEEP_MODE = "sleep_mode"
     const val DND = "dnd"
     const val CHARGING = "charging"
+
+    /**
+     * Reasons a repeat-reminder streak ended. Same vocabulary and the same
+     * obfuscation constraint as above, reported on
+     * [com.symeonchen.wakeupscreen.data.LogStatus.REMINDER_STOPPED] entries.
+     */
+    const val REMINDER_ALL_READ = "reminder_all_read"
+    const val REMINDER_MAX_ROUNDS = "reminder_max_rounds"
+    const val REMINDER_SWITCH_OFF = "reminder_switch_off"
+    const val REMINDER_SERVICE_UNAVAILABLE = "reminder_service_unavailable"
 }

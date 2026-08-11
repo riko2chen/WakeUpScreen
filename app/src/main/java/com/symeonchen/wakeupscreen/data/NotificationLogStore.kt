@@ -7,10 +7,27 @@ import org.json.JSONObject
 enum class LogStatus(val key: String) {
     SCREEN_ALREADY_ON("already_on"),
     WAKED_UP("waked_up"),
-    BLOCKED("blocked");
+    BLOCKED("blocked"),
+
+    /** A repeat-reminder streak ended; [NotificationLogEntry.blockReason] says why. */
+    REMINDER_STOPPED("reminder_stopped");
 
     companion object {
         fun fromKey(key: String): LogStatus = entries.firstOrNull { it.key == key } ?: BLOCKED
+    }
+}
+
+/**
+ * What caused this log entry: a notification the system just delivered, or the
+ * repeat reminder firing on its own because unread notifications were still
+ * sitting in the shade.
+ */
+enum class LogTrigger(val key: String) {
+    NOTIFICATION("notification"),
+    REMINDER("reminder");
+
+    companion object {
+        fun fromKey(key: String): LogTrigger = entries.firstOrNull { it.key == key } ?: NOTIFICATION
     }
 }
 
@@ -22,6 +39,11 @@ data class NotificationLogEntry(
     val importance: Int = -1,
     val hasSound: Boolean? = null,
     val hasVibration: Boolean? = null,
+    val trigger: LogTrigger = LogTrigger.NOTIFICATION,
+    /** Which reminder of the current streak this was. 0 for non-reminder entries. */
+    val reminderRound: Int = 0,
+    /** Unread notifications counted when the reminder fired. 0 for non-reminder entries. */
+    val unreadCount: Int = 0,
 )
 
 object NotificationLogStore {
@@ -40,6 +62,13 @@ object NotificationLogStore {
             put("importance", entry.importance)
             if (entry.hasSound != null) put("hasSound", entry.hasSound)
             if (entry.hasVibration != null) put("hasVibration", entry.hasVibration)
+            // Only written for reminder entries so existing logs stay compact
+            // and older entries keep reading back as plain notification events.
+            if (entry.trigger != LogTrigger.NOTIFICATION) {
+                put("trigger", entry.trigger.key)
+                put("round", entry.reminderRound)
+                put("unread", entry.unreadCount)
+            }
         }
         arr.put(obj)
         while (arr.length() > MAX_LOGS) {
@@ -63,6 +92,9 @@ object NotificationLogStore {
                     importance = obj.optInt("importance", -1),
                     hasSound = if (obj.has("hasSound")) obj.getBoolean("hasSound") else null,
                     hasVibration = if (obj.has("hasVibration")) obj.getBoolean("hasVibration") else null,
+                    trigger = LogTrigger.fromKey(obj.optString("trigger", LogTrigger.NOTIFICATION.key)),
+                    reminderRound = obj.optInt("round", 0),
+                    unreadCount = obj.optInt("unread", 0),
                 )
             )
         }

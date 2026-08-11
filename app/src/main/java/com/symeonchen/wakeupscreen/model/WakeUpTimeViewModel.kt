@@ -2,6 +2,7 @@ package com.symeonchen.wakeupscreen.model
 
 import androidx.lifecycle.ViewModel
 import com.symeonchen.wakeupscreen.ScLiveData
+import com.symeonchen.wakeupscreen.services.screen.PreciseScreenOnManager
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 
@@ -20,10 +21,26 @@ class WakeUpTimeViewModel : ViewModel() {
             setValue(DataInjection.milliSecondOfWakeUpScreen)
         }
 
+    var preciseScreenOnSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.preciseScreenOnSwitch)
+        }
+
     init {
         timeOfWakeUpScreen.listener = object : ScLiveData.OnLiveDataValueInput<Long> {
             override fun onValueInput(value: Long) {
                 DataInjection.milliSecondOfWakeUpScreen = value
+            }
+        }
+
+        preciseScreenOnSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.preciseScreenOnSwitch = value
+                if (!value) {
+                    // A window already counting down would otherwise run to its
+                    // end and blank the screen after the feature was turned off.
+                    PreciseScreenOnManager.onSwitchDisabled()
+                }
             }
         }
     }

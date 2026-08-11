@@ -21,12 +21,20 @@ import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
+import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.PlayStoreTools
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
 class ScSettingFragment : ScBaseFragment() {
 
     private lateinit var settingModel: SettingViewModel
+
+    /**
+     * Mirrors the precise screen-on setting for the row subtitle. Refreshed on
+     * resume rather than observed: the setting lives in another screen's view
+     * model, and coming back from that screen is the only way it can change.
+     */
+    private val preciseWakeState = mutableStateOf(preciseWakeSnapshot())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,9 +67,17 @@ class ScSettingFragment : ScBaseFragment() {
                     }
                 )
 
+                val (preciseEnabled, preciseSeconds) = preciseWakeState.value
+                val wakeTimeText = if (preciseEnabled) {
+                    stringResource(R.string.precise_wake_summary_on, preciseSeconds)
+                } else {
+                    stringResource(R.string.precise_wake_summary_off)
+                }
+
                 SettingScreen(
                     currentModeText = currentModeText,
                     languageText = language.desc,
+                    wakeTimeText = wakeTimeText,
                     showWhiteListEntry = currentMode == CurrentMode.MODE_WHITE_LIST,
                     showBlackListEntry = currentMode == CurrentMode.MODE_BLACK_LIST,
                     onLanguageClick = { showLanguageDialog = true },
@@ -127,5 +143,13 @@ class ScSettingFragment : ScBaseFragment() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        preciseWakeState.value = preciseWakeSnapshot()
+    }
+
+    private fun preciseWakeSnapshot(): Pair<Boolean, Long> =
+        DataInjection.preciseScreenOnSwitch to DataInjection.preciseScreenOnSecond
 
 }

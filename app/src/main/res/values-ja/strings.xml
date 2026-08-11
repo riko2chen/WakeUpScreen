@@ -81,10 +81,6 @@
     <string name="dnd_detect_desc">おやすみモード中も画面を点灯させたい場合はオフにしてください。</string>
     <string name="charging_only_title">充電中のみ点灯</string>
     <string name="charging_only_desc">充電中のみ画面を点灯します。</string>
-    <string name="wake_hint_before">画面が点灯します</string>
-    <string name="seconds">秒</string>
-    <string name="wake_up_time_limitaon_desc">注意：\n多くのデバイスでは、この設定が正常に動作しない場合があります。\nこれはシステムの制限です。</string>
-    <string name="invalid_number">無効な数値</string>
     <string name="saved_successfully">保存しました</string>
     <string name="still_have_problem">まだ問題がありますか？タップして設定を開く</string>
     <string name="close_app_notice">この操作によりアプリが終了します。終了後にアプリを再度開いてください。</string>
@@ -144,4 +140,71 @@
     <string name="update_via_fdroid_subtitle">F-Droid のページを開く（バージョンが少し遅れる場合があります）</string>
     <string name="update_via_github">GitHub Releases</string>
     <string name="update_via_github_subtitle">最新リリースページを開く</string>
+
+    <!-- Repeat reminder -->
+    <string name="repeat_reminder">繰り返し通知</string>
+    <string name="repeat_reminder_desc">未読の通知が残っている間、画面を再度点灯します</string>
+    <string name="repeat_reminder_detail">通知の設定</string>
+    <string name="reminder_interval_title">通知の間隔</string>
+    <string name="reminder_interval_minutes_value">%1$d 分</string>
+    <string name="reminder_interval_hours_value">%1$d 時間</string>
+    <string name="reminder_delay_notice">設定した間隔より少し遅れて通知されることがあります。</string>
+    <string name="reminder_delay_help_title">通知が遅れるのはなぜ？</string>
+    <string name="reminder_delay_help_body">Android には Doze（休止状態）という省電力機能があります。端末をしばらく操作せず画面が消えたままだと、システムはバックグラウンドの処理をためてまとめて実行し、電力を節約します。\n\nそのため、設定した間隔より数分遅れて通知が届くことがあり、間隔が短いほど目立ちます。これはすべてのアプリに共通する制限で、回避できるアプリはありません。\n\n端末を充電器につないでおくか、システム設定でこのアプリを電池の最適化から除外すると、通知がより正確な時刻に届きます。</string>
+    <string name="reminder_max_rounds_title">最大通知回数</string>
+    <string name="reminder_max_rounds_desc">同じ未読通知で画面を点灯できる回数です。通知を消すとカウントはリセットされます。</string>
+    <string name="reminder_rounds_unlimited">無制限</string>
+    <string name="reminder_priority_title">優先される設定</string>
+    <string name="reminder_priority_desc">次の設定は繰り返し通知より優先されます。いずれかに当てはまる間は、未読の通知があっても画面は点灯しません:</string>
+    <string name="reminder_priority_sleep">スリープモードの時間帯である</string>
+    <string name="reminder_priority_dnd">サイレントモードがオンである</string>
+    <string name="reminder_priority_pocket">ポケットモードが端末をポケットやカバンの中と判定した</string>
+    <string name="reminder_priority_charging">充電中のみ点灯がオンで、端末が充電されていない</string>
+    <string name="reminder_priority_screen_on">画面がすでに点灯している</string>
+    <string name="reminder_priority_filter">未読の通知がすべてフィルターで除外されたアプリのものである</string>
+    <string name="reminder_test">繰り返し通知をテスト</string>
+    <string name="reminder_test_subtitle">現在の設定で通知を 1 回すぐ実行します</string>
+    <string name="reminder_test_toast">10 秒以内に画面をオフにしてください。その後 1 回通知します</string>
+    <string name="log_reminder_stopped">通知の終了</string>
+    <string name="log_trigger_reminder">繰り返し通知</string>
+    <string name="log_trigger_notification">新しい通知</string>
+    <string name="log_detail_trigger">きっかけ</string>
+    <string name="log_detail_reminder_round">通知の回数</string>
+    <string name="log_reminder_round_value">%1$d 回目</string>
+    <string name="log_detail_unread_count">未読の通知数</string>
+    <string name="log_no_source_app">なし</string>
+    <string name="log_status_reminder_waked_up_desc">未読の通知が残っていたため、繰り返し通知が画面を再度点灯しました。</string>
+    <string name="log_status_reminder_already_on_desc">通知の時点で画面がすでに点灯していたため、操作は不要でした。</string>
+    <string name="log_reason_reminder_all_read">未読の通知がすべて消えたため、繰り返し通知を停止しました。</string>
+    <string name="log_reason_reminder_max_rounds">設定した最大通知回数に達しました。</string>
+    <string name="log_reason_reminder_switch_off">繰り返し通知がオフになっています。</string>
+    <string name="log_reason_reminder_service_unavailable">通知読み取りサービスが一時的に利用できませんでした。</string>
+
+    <!-- 画面点灯時間の精密制御 -->
+    <string name="precise_wake_switch_title">画面点灯時間を指定する</string>
+    <string name="precise_wake_switch_desc">指定した時間だけ画面を点灯し、時間が来たら消灯します</string>
+    <string name="precise_wake_disabled_notice">オフの場合：通知が届くと画面が点灯するだけで、消えるタイミングはシステムの「画面消灯」設定に従います。オンにすると点灯時間を正確に制御できます。</string>
+    <string name="precise_wake_duration_title">点灯時間</string>
+    <string name="precise_wake_battery_notice">この時間中は画面が点灯し続けるため、長く設定すると電池を消費します。ロックを解除した場合や画面が先に消えた場合、計測は自動的に中止されます。</string>
+    <string name="precise_wake_summary_on">%1$d 秒</string>
+    <string name="precise_wake_summary_off">オフ（システム設定に従う）</string>
+    <string name="screen_off_method_title">消灯方法</string>
+    <string name="accessibility_status_granted">ユーザー補助の許可があります</string>
+    <string name="accessibility_grant_action">ユーザー補助の設定を開く</string>
+    <string name="accessibility_open_settings_failed">ユーザー補助の設定を開けませんでした</string>
+    <string name="accessibility_service_label">通知画面点灯 — 画面ロック</string>
+    <string name="accessibility_service_description">指定した点灯時間の終了時に画面を消すためだけに使用します。画面の内容は一切読み取りません。</string>
+    <string name="accessibility_service_summary">指定した点灯時間の終了時に画面を消します</string>
+
+    <string name="precise_wake_preset_seconds">%1$d 秒</string>
+    <string name="screen_off_method_accessibility_summary">時間が来たら、ユーザー補助サービスからシステムの「画面ロック」操作を実行して消灯します。Android 9 以降ではこれが唯一有効な方法です。</string>
+    <string name="accessibility_required_warning">まだユーザー補助が許可されていません。許可するまで画面を時間どおりに消すことができず、システムの消灯時間まで点いたままになります。</string>
+    <string name="accessibility_step_open_settings">システムの「ユーザー補助」設定を開く</string>
+    <string name="accessibility_step_installed_apps">「インストール済みのアプリ」またはダウンロードしたサービスの一覧を開く</string>
+    <string name="accessibility_step_enable_service">「通知画面点灯 — 画面ロック」を見つけてオンにする</string>
+    <string name="accessibility_unsupported_notice">お使いのシステムはユーザー補助による画面ロックに対応していません（Android 9 以降が必要です）。代わりに「システムの消灯をうながす」方法を使いますが、一部の端末では動作しません。</string>
+    <string name="unsaved_changes_title">未保存の変更</string>
+    <string name="unsaved_changes_message">点灯時間を変更しましたが、まだ保存されていません。</string>
+    <string name="save_and_back">保存して戻る</string>
+    <string name="discard_changes">破棄する</string>
 </resources>

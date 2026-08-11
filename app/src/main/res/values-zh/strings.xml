@@ -82,10 +82,6 @@
     <string name="language_ko">한국어</string>
     <string name="language_th">ไทย</string>
     <string name="language_zh_tw">繁體中文</string>
-    <string name="wake_hint_before">屏幕将点亮</string>
-    <string name="seconds">秒</string>
-    <string name="wake_up_time_limitaon_desc">注意：\n在许多设备中，此设置将无法正常工作。 \n这是系统的限制。</string>
-    <string name="invalid_number">无效数字</string>
     <string name="saved_successfully">保存成功</string>
     <string name="still_have_problem">仍然有问题吗？点击这里打开通知开关。</string>
     <string name="close_app_notice">此操作将关闭应用，请在此之后重新打开它。</string>
@@ -145,4 +141,71 @@
     <string name="update_via_fdroid_subtitle">打开 F-Droid 页面（版本可能稍有延迟）</string>
     <string name="update_via_github">GitHub Releases</string>
     <string name="update_via_github_subtitle">打开最新发布页面</string>
+
+    <!-- Repeat reminder -->
+    <string name="repeat_reminder">重复提醒</string>
+    <string name="repeat_reminder_desc">通知未处理时，隔一段时间再次点亮屏幕</string>
+    <string name="repeat_reminder_detail">提醒设置</string>
+    <string name="reminder_interval_title">提醒间隔</string>
+    <string name="reminder_interval_minutes_value">%1$d 分钟</string>
+    <string name="reminder_interval_hours_value">%1$d 小时</string>
+    <string name="reminder_delay_notice">提醒可能比设定的间隔稍晚一点到达。</string>
+    <string name="reminder_delay_help_title">为什么提醒会迟到？</string>
+    <string name="reminder_delay_help_body">Android 有一个叫 Doze（休眠）的省电机制。当手机长时间没人动、屏幕一直关着时，系统会把后台任务攒起来集中执行，以此节省电量。\n\n所以提醒可能比你设定的间隔晚几分钟才到，间隔越短越明显。这是系统对所有应用的统一限制，谁都绕不开。\n\n把手机接上充电器，或在系统设置里将本应用排除出电池优化，可以让提醒更准时。</string>
+    <string name="reminder_max_rounds_title">最多提醒次数</string>
+    <string name="reminder_max_rounds_desc">同一批未读通知最多可以点亮屏幕几次。通知被清除后重新计数。</string>
+    <string name="reminder_rounds_unlimited">不限</string>
+    <string name="reminder_priority_title">优先级说明</string>
+    <string name="reminder_priority_desc">以下设置的优先级高于重复提醒。满足其中任意一条时，即使还有未读通知，屏幕也不会点亮：</string>
+    <string name="reminder_priority_sleep">正处于睡眠模式的时间段内</string>
+    <string name="reminder_priority_dnd">系统开启了免打扰</string>
+    <string name="reminder_priority_pocket">口袋模式检测到设备在口袋或包里</string>
+    <string name="reminder_priority_charging">开启了仅充电时亮屏，但设备未在充电</string>
+    <string name="reminder_priority_screen_on">屏幕已经是亮着的</string>
+    <string name="reminder_priority_filter">未读通知全部来自被过滤名单排除的应用</string>
+    <string name="reminder_test">测试重复提醒</string>
+    <string name="reminder_test_subtitle">按当前设置立即执行一次提醒</string>
+    <string name="reminder_test_toast">请在 10 秒内关闭屏幕，随后将执行一次提醒</string>
+    <string name="log_reminder_stopped">提醒结束</string>
+    <string name="log_trigger_reminder">重复提醒</string>
+    <string name="log_trigger_notification">新通知</string>
+    <string name="log_detail_trigger">触发方式</string>
+    <string name="log_detail_reminder_round">提醒次数</string>
+    <string name="log_reminder_round_value">第 %1$d 次</string>
+    <string name="log_detail_unread_count">未读通知数</string>
+    <string name="log_no_source_app">无</string>
+    <string name="log_status_reminder_waked_up_desc">仍有未读通知，重复提醒再次点亮了屏幕。</string>
+    <string name="log_status_reminder_already_on_desc">提醒触发时屏幕已经亮着，无需操作。</string>
+    <string name="log_reason_reminder_all_read">未读通知已全部清除，提醒停止。</string>
+    <string name="log_reason_reminder_max_rounds">已达到设定的最多提醒次数。</string>
+    <string name="log_reason_reminder_switch_off">重复提醒已关闭。</string>
+    <string name="log_reason_reminder_service_unavailable">通知读取服务暂时不可用。</string>
+
+    <!-- 精确亮屏时长 -->
+    <string name="precise_wake_switch_title">自定义亮屏时长</string>
+    <string name="precise_wake_switch_desc">精确保持亮屏指定时间，到时自动熄屏</string>
+    <string name="precise_wake_disabled_notice">已关闭：收到通知时只会点亮屏幕，何时熄灭由系统的「屏幕超时」设置决定。开启后可精确控制亮屏时长。</string>
+    <string name="precise_wake_duration_title">亮屏时长</string>
+    <string name="precise_wake_battery_notice">整段时间内屏幕会被持续点亮，设置过长会增加耗电。解锁设备或屏幕提前熄灭时，计时会自动取消。</string>
+    <string name="precise_wake_summary_on">%1$d 秒</string>
+    <string name="precise_wake_summary_off">已关闭（跟随系统超时）</string>
+    <string name="screen_off_method_title">熄屏方式</string>
+    <string name="accessibility_status_granted">无障碍权限已授予</string>
+    <string name="accessibility_grant_action">前往无障碍设置</string>
+    <string name="accessibility_open_settings_failed">无法打开无障碍设置</string>
+    <string name="accessibility_service_label">通知亮屏 — 锁屏</string>
+    <string name="accessibility_service_description">仅用于在自定义亮屏时长结束时熄灭屏幕，不会读取任何屏幕内容。</string>
+    <string name="accessibility_service_summary">在自定义亮屏时长结束时熄灭屏幕</string>
+
+    <string name="precise_wake_preset_seconds">%1$d 秒</string>
+    <string name="screen_off_method_accessibility_summary">计时结束时，通过无障碍服务执行系统自带的「锁定屏幕」动作来熄屏。在 Android 9 及以上，这是唯一能生效的方式。</string>
+    <string name="accessibility_required_warning">尚未授予无障碍权限。在授权之前，屏幕无法准时熄灭，会一直亮到系统超时为止。</string>
+    <string name="accessibility_step_open_settings">打开系统的「无障碍」设置</string>
+    <string name="accessibility_step_installed_apps">进入「已安装的应用」或「已下载的服务」</string>
+    <string name="accessibility_step_enable_service">找到「通知亮屏 — 锁屏」并打开开关</string>
+    <string name="accessibility_unsupported_notice">当前系统版本过低，无法使用无障碍锁屏（需要 Android 9 及以上）。熄屏将改用「模拟系统超时」，在部分设备上不生效。</string>
+    <string name="unsaved_changes_title">尚未保存</string>
+    <string name="unsaved_changes_message">亮屏时长已修改，但还没有保存。</string>
+    <string name="save_and_back">保存并返回</string>
+    <string name="discard_changes">放弃修改</string>
 </resources>

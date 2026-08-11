@@ -4,6 +4,22 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [3.1.0]
+
+### Features
+- Added "Repeat Reminder" (Settings → Advanced Setting): while notifications sit unread, the screen wakes again every 5–60 minutes and stops as soon as they are cleared. The interval and the maximum number of reminders per batch are configurable, and sleep mode, Do Not Disturb, pocket mode, charging-only mode and the app filter all still take priority. Ongoing notifications never count as unread
+- Reminder wakes are recorded in the notification log, and Function Test can run one reminder immediately instead of waiting out the interval
+- Added "Custom screen-on duration" (Settings → Custom screen-on duration): the screen is held on for 3, 5, 10, 15 or 30 seconds and then turned off, instead of being handed back to the system screen timeout. Turning the screen off uses the system's own lock-screen action through an optional accessibility service, which reads no screen content
+
+### Changes
+- Custom screen-on duration is off by default and does nothing while it is off, so existing installs behave exactly as before — the old implementation released its wake lock immediately and never applied the configured value either
+
+### Notes
+- No new permissions. Reminders use inexact alarms, so Doze may delay one by a few minutes
+- A custom screen-on window is cancelled early if the device is unlocked or the screen goes off, and never blanks the display during a call
+
+---
+
 ## [3.0.6]
 
 ### Changes
