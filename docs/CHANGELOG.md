@@ -4,6 +4,17 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [3.2.0]
+
+### Fixes
+- Fixed "Radical Ongoing Detect" (Settings → Advanced Setting) writing to the wrong preference key: turning it on or off silently flipped the plain "Ongoing Detect" setting instead, and the radical switch itself was never saved — it reverted to on every time the page was reopened. Both switches are now independent and persist correctly
+
+### Notes
+- Radical Ongoing Detect was effectively always on before this fix and stays on by default, so notification filtering does not change on upgrade
+- If you ever toggled the radical switch, the plain "Ongoing Detect" setting may have been changed without your knowing. Both switches are worth a quick check under Settings → Advanced Setting
+
+---
+
 ## [3.1.1]
 
 ### Changes

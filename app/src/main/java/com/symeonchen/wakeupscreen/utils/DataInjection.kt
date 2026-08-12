@@ -190,7 +190,7 @@ object DataInjection {
                 ?: DEFAULT_RADICAL_ONGOING_DETECT
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(ONGOING_STATUS_DETECT, value)
+            MMKV.defaultMMKV()?.putBoolean(RADICAL_ONGOING_DETECT, value)
         }
 
     var languageSelected: LanguageInfo
