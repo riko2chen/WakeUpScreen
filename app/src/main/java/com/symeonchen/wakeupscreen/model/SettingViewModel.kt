@@ -52,11 +52,6 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.radicalOngoingOptimize)
         }
 
-    var radicalOngoingNotificationSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
-        .apply {
-            setValue(DataInjection.radicalOngoingNotificationSwitch)
-        }
-
     var languageSelected: ScLiveData<LanguageInfo> = ScLiveData<LanguageInfo>()
         .apply {
             setValue(DataInjection.languageSelected)
@@ -134,12 +129,6 @@ class SettingViewModel : ViewModel() {
         radicalOngoingOptimize.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.radicalOngoingOptimize = value
-            }
-        }
-
-        radicalOngoingNotificationSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
-            override fun onValueInput(value: Boolean) {
-                DataInjection.radicalOngoingNotificationSwitch = value
             }
         }
 

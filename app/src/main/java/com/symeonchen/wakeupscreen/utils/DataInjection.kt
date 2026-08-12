@@ -23,7 +23,6 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PERMISSION_OF_SEND_NOTIFICATION
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PRECISE_SCREEN_ON_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
-import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_MAX_ROUNDS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_ROUND_COUNT
@@ -44,7 +43,6 @@ import com.symeonchen.wakeupscreen.data.ScConstant.PRECISE_SCREEN_ON_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
-import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_INTERVAL_MINUTES
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_MAX_ROUNDS
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_ROUND_COUNT
@@ -193,17 +191,6 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV()?.putBoolean(ONGOING_STATUS_DETECT, value)
-        }
-
-    var radicalOngoingNotificationSwitch: Boolean
-        get() {
-            return MMKV.defaultMMKV()?.getBoolean(
-                RADICAL_ONGOING_NOTIFICATION_SWITCH,
-                DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
-            ) ?: DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
-        }
-        set(value) {
-            MMKV.defaultMMKV()?.putBoolean(RADICAL_ONGOING_NOTIFICATION_SWITCH, value)
         }
 
     var languageSelected: LanguageInfo
