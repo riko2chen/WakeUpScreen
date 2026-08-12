@@ -29,6 +29,7 @@ object ScConstant {
     const val REPEAT_REMINDER_MAX_ROUNDS = "repeat_reminder_max_rounds"
     const val REPEAT_REMINDER_ROUND_COUNT = "repeat_reminder_round_count"
     const val PRECISE_SCREEN_ON_SWITCH = "precise_screen_on_switch"
+    const val IGNORE_SILENT_NOTIFICATION_SWITCH = "ignore_silent_notification_switch"
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
@@ -61,6 +62,12 @@ object ScConstant {
      * so an update can never change the behaviour of an existing install.
      */
     const val DEFAULT_PRECISE_SCREEN_ON_SWITCH: Boolean = false
+
+    /**
+     * Off by default, for the same reason as above: an update must not start
+     * suppressing notifications that used to wake the screen.
+     */
+    const val DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH: Boolean = false
 
     /**
      * Bounds the engine will honour, in seconds.

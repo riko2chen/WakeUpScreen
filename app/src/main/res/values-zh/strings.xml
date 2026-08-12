@@ -88,6 +88,8 @@
     <string name="close_app_notice">此操作将关闭应用，请在此之后重新打开它。</string>
     <string name="include_system_app">包括系统应用</string>
     <string name="radical_ongoing_detact">严格的持续通知过滤（实验功能）</string>
+    <string name="ignore_silent_notification">忽略静音通知</string>
+    <string name="ignore_silent_notification_desc">重要性为「低 / 最低 / 无」的通知不再亮屏。</string>
     <string name="send_notification_permission">发送通知的权限</string>
 
     <string name="function_test">功能测试</string>
@@ -109,6 +111,7 @@
     <string name="log_reason_pocket_mode">口袋模式已激活——距离传感器检测到设备在口袋中。</string>
     <string name="log_reason_filter_list">该应用被白名单/黑名单规则过滤。</string>
     <string name="log_reason_ongoing">持续通知被过滤。</string>
+    <string name="log_reason_low_importance">该通知属于静音通知，所在渠道的重要性过低。</string>
     <string name="log_reason_sleep_mode">当前处于睡眠模式时段。</string>
     <string name="log_reason_dnd">免打扰模式已开启。</string>
     <string name="log_reason_charging">设备未在充电。</string>
@@ -214,7 +217,7 @@
     <string name="chain_title">拦截链路</string>
     <string name="chain_entry_subtitle">看一条通知要经过哪些判断</string>
     <string name="chain_live_hint">依据当前设置与手机状态 —— 此刻来一条通知，会遇到下面这些判断。</string>
-    <string name="chain_live_footer">应用过滤和持续通知过滤取决于通知本身，这里无法预先判定。</string>
+    <string name="chain_live_footer">应用过滤、通知重要性和持续通知过滤取决于通知本身，这里无法预先判定。</string>
     <string name="chain_log_section_title">它经过了什么</string>
     <string name="chain_show_notification_fields">展开通知字段</string>
     <string name="chain_current_setting">当前设置为 %1$s</string>
@@ -223,6 +226,7 @@
     <string name="chain_node_pocket_mode">口袋模式</string>
     <string name="chain_node_interactive">屏幕状态</string>
     <string name="chain_node_filter_list">应用过滤</string>
+    <string name="chain_node_low_importance">通知重要性</string>
     <string name="chain_node_ongoing">持续通知过滤</string>
     <string name="chain_node_sleep_mode">睡眠模式</string>
     <string name="chain_node_dnd">免打扰侦测</string>

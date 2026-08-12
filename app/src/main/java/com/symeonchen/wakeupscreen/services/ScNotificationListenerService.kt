@@ -1,6 +1,5 @@
 package com.symeonchen.wakeupscreen.services
 
-import android.app.NotificationChannel
 import android.content.ComponentName
 import android.os.Build
 import android.os.PowerManager
@@ -15,6 +14,7 @@ import com.symeonchen.wakeupscreen.data.NotificationLogEntry
 import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
+import com.symeonchen.wakeupscreen.utils.ChannelLogInfo
 import com.symeonchen.wakeupscreen.utils.ScreenWakeUtils
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.toLogInfo
@@ -73,7 +73,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         super.onNotificationPosted(sbn)
         sbn ?: return
 
-        val channel = channelOf(sbn)
+        val channelInfo = channelInfoOf(sbn)
 
         // A new message restarts the reminder streak whatever the outcome
         // below: if the screen does not light up now, the reminder is the only
@@ -82,29 +82,33 @@ class ScNotificationListenerService : NotificationListenerService() {
 
         //Pre check for better performance
         if (ConditionState.BLOCK == preCheckStatusOpen()) {
-            logNotification(sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, channel)
+            logNotification(
+                sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, channelInfo
+            )
             return
         }
 
         val pm = getSystemService(POWER_SERVICE) as PowerManager
 
         val result = ListenerManager.provideState(
-            ConditionParam(sbn, pm, application)
+            ConditionParam(sbn, pm, application, channelInfo)
         )
 
         if (result.state == ConditionState.BLOCK) {
             val conditionName = result.blockingCondition ?: ""
             if (conditionName == BlockReason.INTERACTIVE) {
-                logNotification(sbn.packageName, LogStatus.SCREEN_ALREADY_ON, conditionName, channel)
+                logNotification(
+                    sbn.packageName, LogStatus.SCREEN_ALREADY_ON, conditionName, channelInfo
+                )
             } else {
-                logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName, channel)
+                logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName, channelInfo)
             }
             return
         }
 
         ScreenWakeUtils.wakeUpScreen(applicationContext, pm)
 
-        logNotification(sbn.packageName, LogStatus.WAKED_UP, "", channel)
+        logNotification(sbn.packageName, LogStatus.WAKED_UP, "", channelInfo)
     }
 
     private fun safeActiveNotifications(): Array<StatusBarNotification>? {
@@ -116,15 +120,43 @@ class ScNotificationListenerService : NotificationListenerService() {
         }
     }
 
-    /** Resolves the channel a notification was posted to, for the log. */
-    fun channelOf(sbn: StatusBarNotification): NotificationChannel? {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return null
+    /**
+     * What the system decided about this notification: the importance it was
+     * ranked with, plus the sound and vibration settings of the channel behind
+     * it.
+     *
+     * The importance comes from the ranking rather than from `channel.importance`
+     * because the ranking is the value the system applied to *this* notification,
+     * which is the question the silent filter is asking. In the ordinary case the
+     * two agree; where they differ the ranking is the one that decided how the
+     * notification was actually treated. It also answers on Android 7, where
+     * there is no channel to read at all.
+     *
+     * Worth knowing what this still cannot see: an OEM per-app "silent" switch
+     * may lower a notification's effective importance without that showing up in
+     * either the ranking or the channel — measured on One UI 5, where `dumpsys
+     * notification` reports the record at LOW while both APIs a listener can
+     * reach still say DEFAULT. Notifications silenced that way are invisible to
+     * this filter, and no amount of reading the channel would have helped.
+     *
+     * The channel is still what says whether a sound or vibration is configured,
+     * so both are read from the same [Ranking].
+     */
+    fun channelInfoOf(sbn: StatusBarNotification): ChannelLogInfo {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return ChannelLogInfo()
         return try {
             val ranking = Ranking()
-            currentRanking.getRanking(sbn.key, ranking)
-            ranking.channel
+            if (!currentRanking.getRanking(sbn.key, ranking)) {
+                return ChannelLogInfo()
+            }
+            val channelInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ranking.channel.toLogInfo()
+            } else {
+                ChannelLogInfo()
+            }
+            channelInfo.copy(importance = ranking.importance)
         } catch (_: Exception) {
-            null
+            ChannelLogInfo()
         }
     }
 
@@ -132,10 +164,9 @@ class ScNotificationListenerService : NotificationListenerService() {
         packageName: String,
         status: LogStatus,
         blockReason: String,
-        channel: NotificationChannel?,
+        channelInfo: ChannelLogInfo,
     ) {
         try {
-            val channelInfo = channel.toLogInfo()
             NotificationLogStore.addLog(
                 NotificationLogEntry(
                     timestamp = System.currentTimeMillis(),

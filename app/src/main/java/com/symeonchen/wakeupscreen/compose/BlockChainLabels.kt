@@ -23,6 +23,7 @@ fun chainNodeTitle(key: String): String = when (key) {
     BlockReason.POCKET_MODE -> stringResource(R.string.chain_node_pocket_mode)
     BlockReason.INTERACTIVE -> stringResource(R.string.chain_node_interactive)
     BlockReason.FILTER_LIST -> stringResource(R.string.chain_node_filter_list)
+    BlockReason.LOW_IMPORTANCE -> stringResource(R.string.chain_node_low_importance)
     BlockReason.ONGOING -> stringResource(R.string.chain_node_ongoing)
     BlockReason.SLEEP_MODE -> stringResource(R.string.chain_node_sleep_mode)
     BlockReason.DND -> stringResource(R.string.chain_node_dnd)
@@ -85,6 +86,7 @@ fun chainConfigSummary(key: String, hasNotificationAccess: Boolean): String? {
                 else -> R.string.all_pass
             }
         )
+        BlockReason.LOW_IMPORTANCE -> onOff(DataInjection.ignoreSilentNotificationSwitch)
         BlockReason.ONGOING -> onOff(
             DataInjection.ongoingOptimize || DataInjection.radicalOngoingOptimize
         )

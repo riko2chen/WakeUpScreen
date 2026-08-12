@@ -86,6 +86,8 @@
     <string name="close_app_notice">การกระทำนี้จะปิดแอป กรุณาเปิดแอปอีกครั้งหลังจากนั้น</string>
     <string name="include_system_app">รวมแอประบบ</string>
     <string name="radical_ongoing_detact">กรองการแจ้งเตือนต่อเนื่องแบบเข้มงวด (ทดลอง)</string>
+    <string name="ignore_silent_notification">ไม่สนใจการแจ้งเตือนแบบเงียบ</string>
+    <string name="ignore_silent_notification_desc">การแจ้งเตือนจากช่องที่ตั้งความสำคัญเป็นต่ำ ต่ำสุด หรือไม่มี จะไม่ปลุกหน้าจอ</string>
     <string name="send_notification_permission">สิทธิ์ในการส่งการแจ้งเตือน</string>
 
     <string name="function_test">ทดสอบฟังก์ชัน</string>
@@ -107,6 +109,7 @@
     <string name="log_reason_pocket_mode">โหมดกระเป๋าเปิดอยู่ — เซ็นเซอร์ความใกล้ตรวจจับว่าอุปกรณ์อยู่ในกระเป๋า</string>
     <string name="log_reason_filter_list">แอปถูกกรองโดยกฎรายการที่อนุญาต/บล็อก</string>
     <string name="log_reason_ongoing">การแจ้งเตือนต่อเนื่องถูกกรอง</string>
+    <string name="log_reason_low_importance">เป็นการแจ้งเตือนแบบเงียบ ความสำคัญของช่องต่ำเกินไป</string>
     <string name="log_reason_sleep_mode">อยู่ในช่วงเวลาโหมดพักผ่อน</string>
     <string name="log_reason_dnd">โหมดห้ามรบกวนเปิดอยู่</string>
     <string name="log_reason_charging">อุปกรณ์ไม่ได้ชาร์จอยู่</string>
@@ -212,7 +215,7 @@
     <string name="chain_title">เส้นทางการบล็อก</string>
     <string name="chain_entry_subtitle">ดูทุกเงื่อนไขที่การแจ้งเตือนต้องผ่าน</string>
     <string name="chain_live_hint">อ้างอิงจากการตั้งค่าปัจจุบันและสถานะเครื่อง นี่คือสิ่งที่การแจ้งเตือนที่เข้ามาตอนนี้จะต้องเจอ</string>
-    <string name="chain_live_footer">ตัวกรองแอปและตัวกรองการแจ้งเตือนค้างขึ้นอยู่กับตัวการแจ้งเตือนเอง จึงตัดสินล่วงหน้าที่นี่ไม่ได้</string>
+    <string name="chain_live_footer">ตัวกรองแอป ความสำคัญของการแจ้งเตือน และตัวกรองการแจ้งเตือนค้าง ขึ้นอยู่กับตัวการแจ้งเตือนเอง จึงตัดสินล่วงหน้าที่นี่ไม่ได้</string>
     <string name="chain_log_section_title">ผ่านอะไรมาบ้าง</string>
     <string name="chain_show_notification_fields">แสดงข้อมูลการแจ้งเตือน</string>
     <string name="chain_current_setting">ตั้งค่าปัจจุบันคือ %1$s</string>
@@ -221,6 +224,7 @@
     <string name="chain_node_pocket_mode">โหมดกระเป๋า</string>
     <string name="chain_node_interactive">สถานะหน้าจอ</string>
     <string name="chain_node_filter_list">ตัวกรองแอป</string>
+    <string name="chain_node_low_importance">ความสำคัญของการแจ้งเตือน</string>
     <string name="chain_node_ongoing">ตัวกรองการแจ้งเตือนค้าง</string>
     <string name="chain_node_sleep_mode">โหมดนอนหลับ</string>
     <string name="chain_node_dnd">ตรวจจับห้ามรบกวน</string>

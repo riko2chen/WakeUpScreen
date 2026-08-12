@@ -17,6 +17,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_CHARGING_ONLY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
@@ -36,6 +37,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_VALUE_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.IGNORE_SILENT_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
@@ -349,5 +351,21 @@ object DataInjection {
      */
     val preciseScreenOnSecond: Long
         get() = ScreenOnWindowCalculator.clampSeconds(milliSecondOfWakeUpScreen / 1000L)
+
+    /**
+     * Whether notifications the system itself treats as silent should be
+     * ignored. See [com.symeonchen.wakeupscreen.services.notification.ImportancePolicy]
+     * for what counts as silent.
+     */
+    var ignoreSilentNotificationSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(
+                IGNORE_SILENT_NOTIFICATION_SWITCH,
+                DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
+            ) ?: DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(IGNORE_SILENT_NOTIFICATION_SWITCH, value)
+        }
 
 }

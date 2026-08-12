@@ -26,6 +26,8 @@ fun AdvanceSettingScreen(
     radicalOngoingChecked: Boolean,
     radicalOngoingSubtitle: String,
     onRadicalOngoingToggle: () -> Unit,
+    ignoreSilentChecked: Boolean,
+    onIgnoreSilentToggle: () -> Unit,
     dndChecked: Boolean,
     onDndToggle: () -> Unit,
     chargingOnlyChecked: Boolean,
@@ -83,6 +85,13 @@ fun AdvanceSettingScreen(
                         subtitle = radicalOngoingSubtitle,
                         checked = radicalOngoingChecked,
                         onCheckedChange = onRadicalOngoingToggle,
+                    )
+                    FlatDivider()
+                    SettingSwitchRow(
+                        title = stringResource(R.string.ignore_silent_notification),
+                        subtitle = stringResource(R.string.ignore_silent_notification_desc),
+                        checked = ignoreSilentChecked,
+                        onCheckedChange = onIgnoreSilentToggle,
                     )
                     FlatDivider()
                     SettingSwitchRow(

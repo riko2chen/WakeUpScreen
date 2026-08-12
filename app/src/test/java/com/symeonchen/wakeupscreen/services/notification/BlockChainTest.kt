@@ -34,6 +34,7 @@ class BlockChainTest {
                 BlockReason.POCKET_MODE,
                 BlockReason.INTERACTIVE,
                 BlockReason.FILTER_LIST,
+                BlockReason.LOW_IMPORTANCE,
                 BlockReason.ONGOING,
                 BlockReason.SLEEP_MODE,
                 BlockReason.DND,

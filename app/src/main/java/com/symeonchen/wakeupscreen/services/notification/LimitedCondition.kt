@@ -44,4 +44,13 @@ sealed class LimitedCondition {
     abstract class NoParamCondition : LimitedCondition() {
         abstract fun provideResult(): ConditionState
     }
+
+    /**
+     * For gates that need more than one of the delivery facts at once — the
+     * notification plus something the caller resolved about it, such as its
+     * channel or whether it announces a new track.
+     */
+    abstract class ParamCondition : LimitedCondition() {
+        abstract fun provideResult(param: ConditionParam): ConditionState
+    }
 }

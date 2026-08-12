@@ -3,6 +3,7 @@ package com.symeonchen.wakeupscreen.services.notification
 import com.symeonchen.wakeupscreen.services.notification.conditions.ChargingCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.DndCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.FilterListCondition
+import com.symeonchen.wakeupscreen.services.notification.conditions.ImportanceCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.InteractiveCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.OnGoingNotificationCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.PocketModeCondition
@@ -36,6 +37,10 @@ object ListenerManager {
         PocketModeCondition(),
         InteractiveCondition(),
         FilterListCondition(),
+        // Both judge the notification itself, and both sit after the app filter
+        // so that "this app never wakes me" still outranks any judgement about
+        // the individual message.
+        ImportanceCondition(),
         OnGoingNotificationCondition(),
         SleepModeCondition(),
         DndCondition(),
@@ -79,6 +84,10 @@ object ListenerManager {
             }
             is LimitedCondition.AppContextCondition -> {
                 condition.provideResult(param.appContext)
+            }
+
+            is LimitedCondition.ParamCondition -> {
+                condition.provideResult(param)
             }
         }
     }

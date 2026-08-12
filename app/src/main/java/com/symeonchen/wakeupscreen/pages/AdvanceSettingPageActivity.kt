@@ -31,6 +31,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 val proximity by settingModel.switchOfProximity.observeAsState(false)
                 val ongoing by settingModel.ongoingOptimize.observeAsState(false)
                 val radicalOngoing by settingModel.radicalOngoingOptimize.observeAsState(false)
+                val ignoreSilent by settingModel.ignoreSilentNotificationSwitch.observeAsState(false)
                 val dnd by settingModel.dndDetectBoolean.observeAsState(false)
                 val chargingOnly by settingModel.chargingOnlySwitch.observeAsState(false)
                 val sleep by settingModel.sleepModeBoolean.observeAsState(false)
@@ -61,6 +62,10 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     radicalOngoingChecked = radicalOngoing,
                     radicalOngoingSubtitle = statusText(radicalOngoing),
                     onRadicalOngoingToggle = { settingModel.radicalOngoingOptimize.postValue(!radicalOngoing) },
+                    ignoreSilentChecked = ignoreSilent,
+                    onIgnoreSilentToggle = {
+                        settingModel.ignoreSilentNotificationSwitch.postValue(!ignoreSilent)
+                    },
                     dndChecked = dnd,
                     onDndToggle = { settingModel.dndDetectBoolean.postValue(!dnd) },
                     chargingOnlyChecked = chargingOnly,

@@ -96,6 +96,8 @@
     <string name="close_app_notice">Questa azione chiuderà l\'Applicazione, quindi riaprire l\'APP successivamente.</string>
     <string name="include_system_app">Includi APP di sistema</string>
     <string name="radical_ongoing_detact">Rilevamento continuo radicale (instabile)</string>
+    <string name="ignore_silent_notification">Ignora notifiche silenziose</string>
+    <string name="ignore_silent_notification_desc">Le notifiche dei canali con importanza Bassa, Minima o Nessuna non accendono più lo schermo.</string>
     <string name="send_notification_permission">Permesso di inviare notifiche</string>
 
     <string name="function_test">Test funzionale</string>
@@ -117,6 +119,7 @@
     <string name="log_reason_pocket_mode">Modalità tasca attiva — il sensore di prossimità ha rilevato che il dispositivo è in tasca.</string>
     <string name="log_reason_filter_list">L\'app è stata filtrata dalle regole whitelist/blacklist.</string>
     <string name="log_reason_ongoing">La notifica continua è stata filtrata.</string>
+    <string name="log_reason_low_importance">La notifica è silenziosa: l\'importanza del suo canale è troppo bassa.</string>
     <string name="log_reason_sleep_mode">Attualmente nel periodo della modalità sonno.</string>
     <string name="log_reason_dnd">La modalità Non Disturbare è attiva.</string>
     <string name="log_reason_charging">Il dispositivo non è in carica.</string>
@@ -226,7 +229,7 @@
     <string name="chain_title">Catena di blocco</string>
     <string name="chain_entry_subtitle">Vedi ogni controllo che una notifica attraversa</string>
     <string name="chain_live_hint">In base alle impostazioni attuali e allo stato del dispositivo: ecco cosa incontrerebbe una notifica in arrivo adesso.</string>
-    <string name="chain_live_footer">Il filtro app e il filtro delle notifiche persistenti dipendono dalla notifica stessa, quindi non si possono decidere qui.</string>
+    <string name="chain_live_footer">Il filtro app, l\'importanza della notifica e il filtro delle notifiche persistenti dipendono dalla notifica stessa, quindi non si possono decidere qui.</string>
     <string name="chain_log_section_title">Cosa ha attraversato</string>
     <string name="chain_show_notification_fields">Mostra i campi della notifica</string>
     <string name="chain_current_setting">ora impostato su %1$s</string>
@@ -235,6 +238,7 @@
     <string name="chain_node_pocket_mode">Modalita tasca</string>
     <string name="chain_node_interactive">Stato dello schermo</string>
     <string name="chain_node_filter_list">Filtro app</string>
+    <string name="chain_node_low_importance">Importanza della notifica</string>
     <string name="chain_node_ongoing">Notifiche persistenti</string>
     <string name="chain_node_sleep_mode">Modalita sonno</string>
     <string name="chain_node_dnd">Non disturbare</string>

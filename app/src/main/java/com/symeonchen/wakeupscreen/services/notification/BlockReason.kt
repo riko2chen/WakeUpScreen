@@ -14,6 +14,7 @@ object BlockReason {
     const val POCKET_MODE = "pocket_mode"
     const val INTERACTIVE = "interactive"
     const val FILTER_LIST = "filter_list"
+    const val LOW_IMPORTANCE = "low_importance"
     const val ONGOING = "ongoing"
     const val SLEEP_MODE = "sleep_mode"
     const val DND = "dnd"
