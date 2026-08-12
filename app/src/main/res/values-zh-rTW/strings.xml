@@ -64,6 +64,13 @@
     <string name="about">關於</string>
     <string name="debug">偵錯</string>
     <string name="advanced_setting">進階設定</string>
+    <string name="setting_search_hint">搜尋設定</string>
+    <string name="setting_search_no_result">沒有找到相關設定</string>
+    <string name="section_general">一般</string>
+    <string name="section_notification_filter">通知過濾</string>
+    <string name="section_advanced">進階</string>
+    <string name="section_notification_rules">通知規則</string>
+    <string name="section_device_state">裝置狀態</string>
     <string name="about_this_app">關於通知亮屏</string>
     <string name="app_info">應用程式資訊</string>
     <string name="info">資訊</string>

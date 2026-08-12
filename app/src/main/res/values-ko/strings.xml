@@ -64,6 +64,13 @@
     <string name="about">정보</string>
     <string name="debug">디버그</string>
     <string name="advanced_setting">고급 설정</string>
+    <string name="setting_search_hint">설정 검색</string>
+    <string name="setting_search_no_result">일치하는 설정이 없습니다</string>
+    <string name="section_general">일반</string>
+    <string name="section_notification_filter">알림 필터</string>
+    <string name="section_advanced">고급</string>
+    <string name="section_notification_rules">알림 규칙</string>
+    <string name="section_device_state">기기 상태</string>
     <string name="about_this_app">Wake Up Screen 정보</string>
     <string name="app_info">앱 정보</string>
     <string name="info">정보</string>

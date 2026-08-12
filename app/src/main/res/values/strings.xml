@@ -73,6 +73,13 @@
     <string name="about">About</string>
     <string name="debug">Debug</string>
     <string name="advanced_setting">Advanced Setting</string>
+    <string name="setting_search_hint">Search settings</string>
+    <string name="setting_search_no_result">No matching settings</string>
+    <string name="section_general">General</string>
+    <string name="section_notification_filter">Notification Filter</string>
+    <string name="section_advanced">Advanced</string>
+    <string name="section_notification_rules">Notification Rules</string>
+    <string name="section_device_state">Device State</string>
     <string name="about_this_app">About Wake Up Screen</string>
     <string name="app_info">App Info</string>
     <string name="info">Info</string>

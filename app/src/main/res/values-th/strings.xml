@@ -64,6 +64,13 @@
     <string name="about">เกี่ยวกับ</string>
     <string name="debug">ดีบัก</string>
     <string name="advanced_setting">ตั้งค่าขั้นสูง</string>
+    <string name="setting_search_hint">ค้นหาการตั้งค่า</string>
+    <string name="setting_search_no_result">ไม่พบการตั้งค่าที่ตรงกัน</string>
+    <string name="section_general">ทั่วไป</string>
+    <string name="section_notification_filter">ตัวกรองการแจ้งเตือน</string>
+    <string name="section_advanced">ขั้นสูง</string>
+    <string name="section_notification_rules">กฎการแจ้งเตือน</string>
+    <string name="section_device_state">สถานะอุปกรณ์</string>
     <string name="about_this_app">เกี่ยวกับ Wake Up Screen</string>
     <string name="app_info">ข้อมูลแอป</string>
     <string name="info">ข้อมูล</string>

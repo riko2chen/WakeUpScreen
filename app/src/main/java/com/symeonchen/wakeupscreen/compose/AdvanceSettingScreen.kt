@@ -58,88 +58,115 @@ fun AdvanceSettingScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
-            Surface(
-                shape = RoundedCornerShape(16.dp),
-                color = MaterialTheme.colorScheme.surface,
-                tonalElevation = 0.dp,
-            ) {
-                Column {
-                    SettingSwitchRow(
-                        title = stringResource(R.string.pocket_mode),
-                        subtitle = proximitySubtitle,
-                        checked = proximityChecked,
-                        onCheckedChange = onProximityToggle,
-                    )
+            // Which notifications count
+            SectionLabel(
+                text = stringResource(R.string.section_notification_rules),
+                modifier = Modifier.padding(start = 4.dp, top = 8.dp, bottom = 10.dp),
+            )
+            GroupCard {
+                SettingSwitchRow(
+                    title = stringResource(R.string.ongoing_status),
+                    subtitle = ongoingSubtitle,
+                    checked = ongoingChecked,
+                    onCheckedChange = onOngoingToggle,
+                )
+                FlatDivider()
+                SettingSwitchRow(
+                    title = stringResource(R.string.radical_ongoing_detact),
+                    subtitle = radicalOngoingSubtitle,
+                    checked = radicalOngoingChecked,
+                    onCheckedChange = onRadicalOngoingToggle,
+                )
+                FlatDivider()
+                SettingSwitchRow(
+                    title = stringResource(R.string.ignore_silent_notification),
+                    subtitle = stringResource(R.string.ignore_silent_notification_desc),
+                    checked = ignoreSilentChecked,
+                    onCheckedChange = onIgnoreSilentToggle,
+                )
+            }
+
+            // When the device should stay dark
+            SectionLabel(
+                text = stringResource(R.string.section_device_state),
+                modifier = Modifier.padding(start = 4.dp, top = 24.dp, bottom = 10.dp),
+            )
+            GroupCard {
+                SettingSwitchRow(
+                    title = stringResource(R.string.pocket_mode),
+                    subtitle = proximitySubtitle,
+                    checked = proximityChecked,
+                    onCheckedChange = onProximityToggle,
+                )
+                FlatDivider()
+                SettingSwitchRow(
+                    title = stringResource(R.string.dnd_detect_title),
+                    subtitle = stringResource(R.string.dnd_detect_desc),
+                    checked = dndChecked,
+                    onCheckedChange = onDndToggle,
+                )
+                FlatDivider()
+                SettingSwitchRow(
+                    title = stringResource(R.string.charging_only_title),
+                    subtitle = chargingOnlySubtitle,
+                    checked = chargingOnlyChecked,
+                    onCheckedChange = onChargingOnlyToggle,
+                )
+                FlatDivider()
+                SettingSwitchRow(
+                    title = stringResource(R.string.sleep_mode),
+                    subtitle = sleepSubtitle,
+                    checked = sleepChecked,
+                    onCheckedChange = onSleepToggle,
+                )
+                if (showSleepDetail) {
                     FlatDivider()
-                    SettingSwitchRow(
-                        title = stringResource(R.string.ongoing_status),
-                        subtitle = ongoingSubtitle,
-                        checked = ongoingChecked,
-                        onCheckedChange = onOngoingToggle,
+                    SettingRow(
+                        title = stringResource(R.string.sleep_time),
+                        subtitle = sleepDetailSubtitle,
+                        onClick = onSleepDetailClick,
                     )
-                    FlatDivider()
-                    SettingSwitchRow(
-                        title = stringResource(R.string.radical_ongoing_detact),
-                        subtitle = radicalOngoingSubtitle,
-                        checked = radicalOngoingChecked,
-                        onCheckedChange = onRadicalOngoingToggle,
-                    )
-                    FlatDivider()
-                    SettingSwitchRow(
-                        title = stringResource(R.string.ignore_silent_notification),
-                        subtitle = stringResource(R.string.ignore_silent_notification_desc),
-                        checked = ignoreSilentChecked,
-                        onCheckedChange = onIgnoreSilentToggle,
-                    )
-                    FlatDivider()
-                    SettingSwitchRow(
-                        title = stringResource(R.string.dnd_detect_title),
-                        subtitle = stringResource(R.string.dnd_detect_desc),
-                        checked = dndChecked,
-                        onCheckedChange = onDndToggle,
-                    )
-                    FlatDivider()
-                    SettingSwitchRow(
-                        title = stringResource(R.string.charging_only_title),
-                        subtitle = chargingOnlySubtitle,
-                        checked = chargingOnlyChecked,
-                        onCheckedChange = onChargingOnlyToggle,
-                    )
-                    FlatDivider()
-                    SettingSwitchRow(
-                        title = stringResource(R.string.sleep_mode),
-                        subtitle = sleepSubtitle,
-                        checked = sleepChecked,
-                        onCheckedChange = onSleepToggle,
-                    )
-                    if (showSleepDetail) {
-                        FlatDivider()
-                        SettingRow(
-                            title = stringResource(R.string.sleep_time),
-                            subtitle = sleepDetailSubtitle,
-                            onClick = onSleepDetailClick,
-                        )
-                    }
-                    FlatDivider()
-                    SettingSwitchRow(
-                        title = stringResource(R.string.repeat_reminder),
-                        subtitle = repeatReminderSubtitle,
-                        checked = repeatReminderChecked,
-                        onCheckedChange = onRepeatReminderToggle,
-                    )
-                    if (showRepeatReminderDetail) {
-                        FlatDivider()
-                        SettingRow(
-                            title = stringResource(R.string.repeat_reminder_detail),
-                            subtitle = repeatReminderDetailSubtitle,
-                            onClick = onRepeatReminderDetailClick,
-                        )
-                    }
                 }
             }
+
+            // Repeat reminder
+            SectionLabel(
+                text = stringResource(R.string.repeat_reminder),
+                modifier = Modifier.padding(start = 4.dp, top = 24.dp, bottom = 10.dp),
+            )
+            GroupCard {
+                SettingSwitchRow(
+                    title = stringResource(R.string.repeat_reminder),
+                    subtitle = repeatReminderSubtitle,
+                    checked = repeatReminderChecked,
+                    onCheckedChange = onRepeatReminderToggle,
+                )
+                if (showRepeatReminderDetail) {
+                    FlatDivider()
+                    SettingRow(
+                        title = stringResource(R.string.repeat_reminder_detail),
+                        subtitle = repeatReminderDetailSubtitle,
+                        onClick = onRepeatReminderDetailClick,
+                    )
+                }
+            }
+
+            Spacer(Modifier.height(16.dp))
         }
+    }
+}
+
+@Composable
+private fun GroupCard(content: @Composable ColumnScope.() -> Unit) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 0.dp,
+    ) {
+        Column(content = content)
     }
 }
 

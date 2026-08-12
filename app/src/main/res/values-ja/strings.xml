@@ -64,6 +64,13 @@
     <string name="about">概要</string>
     <string name="debug">デバッグ</string>
     <string name="advanced_setting">詳細設定</string>
+    <string name="setting_search_hint">設定を検索</string>
+    <string name="setting_search_no_result">一致する設定が見つかりません</string>
+    <string name="section_general">一般</string>
+    <string name="section_notification_filter">通知フィルター</string>
+    <string name="section_advanced">詳細</string>
+    <string name="section_notification_rules">通知ルール</string>
+    <string name="section_device_state">デバイスの状態</string>
     <string name="about_this_app">Wake Up Screenについて</string>
     <string name="app_info">アプリ情報</string>
     <string name="info">情報</string>

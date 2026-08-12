@@ -74,6 +74,13 @@
     <string name="about">Info</string>
     <string name="debug">Debug</string>
     <string name="advanced_setting">Impostazioni avanzate</string>
+    <string name="setting_search_hint">Cerca nelle impostazioni</string>
+    <string name="setting_search_no_result">Nessuna impostazione trovata</string>
+    <string name="section_general">Generali</string>
+    <string name="section_notification_filter">Filtro notifiche</string>
+    <string name="section_advanced">Avanzate</string>
+    <string name="section_notification_rules">Regole di notifica</string>
+    <string name="section_device_state">Stato del dispositivo</string>
     <string name="about_this_app">info su Wake Up Screen</string>
     <string name="app_info">App Info</string>
     <string name="info">Info</string>
