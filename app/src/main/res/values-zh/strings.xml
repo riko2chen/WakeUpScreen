@@ -1,6 +1,7 @@
 <resources>
     <!--common-->
     <string name="app_name">通知亮屏</string>
+    <string name="back">返回</string>
     <string name="home">首页</string>
     <string name="setting">设置</string>
     <string name="open">开启</string>

@@ -11,6 +11,7 @@
     <string name="language_it">Italiano</string>
     <string name="clear_all">Cancella</string>
     <string name="save">Salva</string>
+    <string name="back">Indietro</string>
     <string name="mail_title">[Domanda] [Wake Up Screen] scrivi il titolo qui</string>
 
 
@@ -94,7 +95,7 @@
     <string name="still_have_problem">Hai ancora problemi?Clicca qui per aprire l\'impostazione</string>
     <string name="close_app_notice">Questa azione chiuderà l\'Applicazione, quindi riaprire l\'APP successivamente.</string>
     <string name="include_system_app">Includi APP di sistema</string>
-    <string name="radical_ongoing_detact">Detección continua radical (inestable)</string>
+    <string name="radical_ongoing_detact">Rilevamento continuo radicale (instabile)</string>
     <string name="send_notification_permission">Permesso di inviare notifiche</string>
 
     <string name="function_test">Test funzionale</string>
