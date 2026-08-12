@@ -45,6 +45,7 @@ fun SettingScreen(
     onWhiteListClick: () -> Unit,
     onBlackListClick: () -> Unit,
     onAdvancedSettingClick: () -> Unit,
+    onBlockChainClick: () -> Unit,
     onFunctionTestClick: () -> Unit,
     onAddressClick: () -> Unit,
     onFeedbackClick: () -> Unit,
@@ -135,6 +136,12 @@ fun SettingScreen(
                 SettingRow(
                     title = stringResource(R.string.advanced_setting),
                     onClick = onAdvancedSettingClick,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.chain_title),
+                    subtitle = stringResource(R.string.chain_entry_subtitle),
+                    onClick = onBlockChainClick,
                 )
                 FlatDivider()
                 SettingRow(

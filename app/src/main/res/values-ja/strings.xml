@@ -207,4 +207,37 @@
     <string name="unsaved_changes_message">点灯時間を変更しましたが、まだ保存されていません。</string>
     <string name="save_and_back">保存して戻る</string>
     <string name="discard_changes">破棄する</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">判定チェーン</string>
+    <string name="chain_entry_subtitle">通知が通るすべての判定を見る</string>
+    <string name="chain_live_hint">現在の設定と端末の状態にもとづく表示です。今この瞬間に通知が届いた場合に通る判定です。</string>
+    <string name="chain_live_footer">アプリフィルターと常駐通知フィルターは通知そのものに依存するため、ここでは判定できません。</string>
+    <string name="chain_log_section_title">通過した判定</string>
+    <string name="chain_show_notification_fields">通知の項目を表示</string>
+    <string name="chain_current_setting">現在の設定は %1$s</string>
+    <string name="chain_node_notification_access">通知へのアクセス</string>
+    <string name="chain_node_master_switch">メインスイッチ</string>
+    <string name="chain_node_pocket_mode">ポケットモード</string>
+    <string name="chain_node_interactive">画面の状態</string>
+    <string name="chain_node_filter_list">アプリフィルター</string>
+    <string name="chain_node_ongoing">常駐通知フィルター</string>
+    <string name="chain_node_sleep_mode">スリープモード</string>
+    <string name="chain_node_dnd">サイレントモード検出</string>
+    <string name="chain_node_charging">充電中のみ点灯</string>
+    <string name="chain_node_wake_up">画面を点灯</string>
+    <string name="chain_state_passed">通過</string>
+    <string name="chain_state_blocked">ここで停止</string>
+    <string name="chain_state_skipped">オフのため対象外</string>
+    <string name="chain_state_depends">通知の内容による</string>
+    <string name="chain_state_not_evaluated">未実行</string>
+    <string name="chain_state_reached">画面が点灯</string>
+    <string name="chain_state_not_reached">到達せず</string>
+    <string name="chain_legend_pass">通過</string>
+    <string name="chain_legend_block">現在ブロック中</string>
+    <string name="chain_legend_depends">通知による</string>
+    <string name="chain_legend_off">オフ</string>
+    <string name="chain_config_granted">許可済み</string>
+    <string name="chain_config_not_granted">未許可</string>
+    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
 </resources>

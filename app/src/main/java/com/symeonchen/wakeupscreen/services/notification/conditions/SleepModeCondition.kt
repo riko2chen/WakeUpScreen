@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.services.notification.conditions
 
+import android.app.Application
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
@@ -16,14 +17,24 @@ class SleepModeCondition : LimitedCondition.NoParamCondition() {
     override val key = BlockReason.SLEEP_MODE
 
     override fun provideResult(): ConditionState {
-        if (DataInjection.sleepModeBoolean) {
-            val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-            val beginHour = DataInjection.sleepModeTimeBeginHour
-            val endHour = DataInjection.sleepModeTimeEndHour
-            if (TimeRangeCalculateUtils.hourInRange(currentHour, beginHour, endHour)) {
-                return ConditionState.BLOCK
-            }
+        if (inSleepWindow()) {
+            return ConditionState.BLOCK
         }
         return ConditionState.SUCCESS
+    }
+
+    override fun isArmed(): Boolean = DataInjection.sleepModeBoolean
+
+    override fun wouldBlockNow(application: Application?): Boolean = inSleepWindow()
+
+    /** Armed and the clock currently sits inside the configured window. */
+    private fun inSleepWindow(): Boolean {
+        if (!DataInjection.sleepModeBoolean) {
+            return false
+        }
+        val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val beginHour = DataInjection.sleepModeTimeBeginHour
+        val endHour = DataInjection.sleepModeTimeEndHour
+        return TimeRangeCalculateUtils.hourInRange(currentHour, beginHour, endHour)
     }
 }

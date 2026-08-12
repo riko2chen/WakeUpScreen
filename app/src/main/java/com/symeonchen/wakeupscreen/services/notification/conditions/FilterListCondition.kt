@@ -36,4 +36,9 @@ class FilterListCondition : LimitedCondition.AbstractSbnCondition() {
         }
         return ConditionState.SUCCESS
     }
+
+    override fun isArmed(): Boolean =
+        DataInjection.modeOfCurrent != CurrentMode.MODE_ALL_NOTIFY
+
+    // wouldBlockNow stays null: the verdict depends on which app posted.
 }

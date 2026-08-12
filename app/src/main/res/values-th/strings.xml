@@ -207,4 +207,37 @@
     <string name="unsaved_changes_message">เวลาเปิดหน้าจอถูกแก้ไขแล้วแต่ยังไม่ได้บันทึก</string>
     <string name="save_and_back">บันทึกแล้วย้อนกลับ</string>
     <string name="discard_changes">ยกเลิก</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">เส้นทางการบล็อก</string>
+    <string name="chain_entry_subtitle">ดูทุกเงื่อนไขที่การแจ้งเตือนต้องผ่าน</string>
+    <string name="chain_live_hint">อ้างอิงจากการตั้งค่าปัจจุบันและสถานะเครื่อง นี่คือสิ่งที่การแจ้งเตือนที่เข้ามาตอนนี้จะต้องเจอ</string>
+    <string name="chain_live_footer">ตัวกรองแอปและตัวกรองการแจ้งเตือนค้างขึ้นอยู่กับตัวการแจ้งเตือนเอง จึงตัดสินล่วงหน้าที่นี่ไม่ได้</string>
+    <string name="chain_log_section_title">ผ่านอะไรมาบ้าง</string>
+    <string name="chain_show_notification_fields">แสดงข้อมูลการแจ้งเตือน</string>
+    <string name="chain_current_setting">ตั้งค่าปัจจุบันคือ %1$s</string>
+    <string name="chain_node_notification_access">สิทธิ์เข้าถึงการแจ้งเตือน</string>
+    <string name="chain_node_master_switch">สวิตช์หลัก</string>
+    <string name="chain_node_pocket_mode">โหมดกระเป๋า</string>
+    <string name="chain_node_interactive">สถานะหน้าจอ</string>
+    <string name="chain_node_filter_list">ตัวกรองแอป</string>
+    <string name="chain_node_ongoing">ตัวกรองการแจ้งเตือนค้าง</string>
+    <string name="chain_node_sleep_mode">โหมดนอนหลับ</string>
+    <string name="chain_node_dnd">ตรวจจับห้ามรบกวน</string>
+    <string name="chain_node_charging">เปิดจอเฉพาะตอนชาร์จ</string>
+    <string name="chain_node_wake_up">เปิดหน้าจอ</string>
+    <string name="chain_state_passed">ผ่าน</string>
+    <string name="chain_state_blocked">ถูกหยุดที่นี่</string>
+    <string name="chain_state_skipped">ปิดอยู่ ไม่มีผล</string>
+    <string name="chain_state_depends">ขึ้นอยู่กับการแจ้งเตือน</string>
+    <string name="chain_state_not_evaluated">ไม่ได้ทำงาน</string>
+    <string name="chain_state_reached">หน้าจอสว่างแล้ว</string>
+    <string name="chain_state_not_reached">ไปไม่ถึง</string>
+    <string name="chain_legend_pass">ผ่าน</string>
+    <string name="chain_legend_block">กำลังบล็อก</string>
+    <string name="chain_legend_depends">แล้วแต่การแจ้งเตือน</string>
+    <string name="chain_legend_off">ปิดอยู่</string>
+    <string name="chain_config_granted">ได้รับสิทธิ์แล้ว</string>
+    <string name="chain_config_not_granted">ยังไม่ได้รับสิทธิ์</string>
+    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
 </resources>

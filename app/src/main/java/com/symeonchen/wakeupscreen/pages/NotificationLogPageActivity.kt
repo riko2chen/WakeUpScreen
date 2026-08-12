@@ -16,6 +16,7 @@ class NotificationLogPageActivity : ScBaseActivity() {
         setContent {
             WakeUpScreenTheme {
                 var logs by remember { mutableStateOf(NotificationLogStore.loadLogs()) }
+                var showModeDialog by remember { mutableStateOf(false) }
 
                 NotificationLogScreen(
                     logs = logs,
@@ -24,7 +25,19 @@ class NotificationLogPageActivity : ScBaseActivity() {
                         NotificationLogStore.clearLogs()
                         logs = emptyList()
                     },
+                    onChainNodeClick = { key ->
+                        if (ChainNavigation.opensModeDialog(key)) {
+                            showModeDialog = true
+                        } else {
+                            ChainNavigation.navigate(this, key)
+                        }
+                    },
+                    isChainNodeNavigable = ChainNavigation::isNavigable,
                 )
+
+                if (showModeDialog) {
+                    FilterModeDialog(onDismiss = { showModeDialog = false })
+                }
             }
         }
     }

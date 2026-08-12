@@ -207,4 +207,37 @@
     <string name="unsaved_changes_message">화면 켜짐 시간을 바꿨지만 아직 저장하지 않았습니다.</string>
     <string name="save_and_back">저장하고 돌아가기</string>
     <string name="discard_changes">취소</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">차단 경로</string>
+    <string name="chain_entry_subtitle">알림이 거치는 모든 판정 보기</string>
+    <string name="chain_live_hint">현재 설정과 기기 상태를 기준으로, 지금 알림이 도착하면 거치게 될 판정입니다.</string>
+    <string name="chain_live_footer">앱 필터와 상시 알림 필터는 알림 자체에 따라 달라지므로 여기서는 판정할 수 없습니다.</string>
+    <string name="chain_log_section_title">거쳐 간 판정</string>
+    <string name="chain_show_notification_fields">알림 항목 보기</string>
+    <string name="chain_current_setting">현재 설정은 %1$s</string>
+    <string name="chain_node_notification_access">알림 접근 권한</string>
+    <string name="chain_node_master_switch">메인 스위치</string>
+    <string name="chain_node_pocket_mode">주머니 모드</string>
+    <string name="chain_node_interactive">화면 상태</string>
+    <string name="chain_node_filter_list">앱 필터</string>
+    <string name="chain_node_ongoing">상시 알림 필터</string>
+    <string name="chain_node_sleep_mode">수면 모드</string>
+    <string name="chain_node_dnd">방해 금지 감지</string>
+    <string name="chain_node_charging">충전 중에만 켜기</string>
+    <string name="chain_node_wake_up">화면 켜기</string>
+    <string name="chain_state_passed">통과</string>
+    <string name="chain_state_blocked">여기서 차단됨</string>
+    <string name="chain_state_skipped">꺼져 있어 적용 안 됨</string>
+    <string name="chain_state_depends">알림에 따라 다름</string>
+    <string name="chain_state_not_evaluated">실행되지 않음</string>
+    <string name="chain_state_reached">화면이 켜짐</string>
+    <string name="chain_state_not_reached">도달하지 못함</string>
+    <string name="chain_legend_pass">통과</string>
+    <string name="chain_legend_block">지금 차단 중</string>
+    <string name="chain_legend_depends">알림에 따라</string>
+    <string name="chain_legend_off">꺼짐</string>
+    <string name="chain_config_granted">허용됨</string>
+    <string name="chain_config_not_granted">허용 안 됨</string>
+    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
 </resources>

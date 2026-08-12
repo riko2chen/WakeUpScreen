@@ -4,7 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,11 +16,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import android.app.NotificationManager
 import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.compose.components.BlockChainView
+import com.symeonchen.wakeupscreen.compose.components.ChainRow
+import com.symeonchen.wakeupscreen.compose.components.ChainSurface
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
 import com.symeonchen.wakeupscreen.data.LogStatus
 import com.symeonchen.wakeupscreen.data.LogTrigger
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
+import com.symeonchen.wakeupscreen.services.notification.BlockChain
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
+import com.symeonchen.wakeupscreen.services.notification.ChainNodeState
+import com.symeonchen.wakeupscreen.services.notification.ChainStep
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,6 +35,8 @@ fun NotificationLogScreen(
     logs: List<NotificationLogEntry>,
     onBack: () -> Unit,
     onClear: () -> Unit,
+    onChainNodeClick: (String) -> Unit = {},
+    isChainNodeNavigable: (String) -> Boolean = { false },
 ) {
     var selectedEntry by remember { mutableStateOf<NotificationLogEntry?>(null) }
 
@@ -69,7 +79,12 @@ fun NotificationLogScreen(
     }
 
     selectedEntry?.let { entry ->
-        LogDetailDialog(entry = entry, onDismiss = { selectedEntry = null })
+        LogDetailDialog(
+            entry = entry,
+            onDismiss = { selectedEntry = null },
+            onChainNodeClick = onChainNodeClick,
+            isChainNodeNavigable = isChainNodeNavigable,
+        )
     }
 }
 
@@ -128,11 +143,22 @@ private fun LogEntryCard(entry: NotificationLogEntry, onClick: () -> Unit) {
 }
 
 @Composable
-private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) {
+private fun LogDetailDialog(
+    entry: NotificationLogEntry,
+    onDismiss: () -> Unit,
+    onChainNodeClick: (String) -> Unit,
+    isChainNodeNavigable: (String) -> Boolean,
+) {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     val timeStr = dateFormat.format(Date(entry.timestamp))
 
     val statusText = logStatusText(entry.status)
+
+    // Empty whenever the entry is not a chain outcome (a reminder streak
+    // ending, or a reason this build does not know); the plain rows below take
+    // over in that case.
+    val chainSteps = remember(entry) { BlockChain.forLogEntry(entry) }
+    var showRawFields by remember { mutableStateOf(chainSteps.isEmpty()) }
 
     val isReminder = entry.trigger == LogTrigger.REMINDER
     val description = when (entry.status) {
@@ -166,7 +192,10 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
             Text(text = stringResource(R.string.log_detail_title))
         },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
                 DetailRow(
                     label = stringResource(R.string.log_detail_source_app),
                     value = entry.packageName.ifEmpty { stringResource(R.string.log_no_source_app) },
@@ -175,43 +204,63 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
                     label = stringResource(R.string.log_detail_time),
                     value = timeStr,
                 )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_trigger),
-                    value = if (isReminder) stringResource(R.string.log_trigger_reminder)
-                    else stringResource(R.string.log_trigger_notification),
-                )
-                if (isReminder && entry.reminderRound > 0) {
-                    DetailRow(
-                        label = stringResource(R.string.log_detail_reminder_round),
-                        value = stringResource(R.string.log_reminder_round_value, entry.reminderRound),
-                    )
-                }
                 if (isReminder) {
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_trigger),
+                        value = if (entry.reminderRound > 0) {
+                            stringResource(R.string.log_trigger_reminder) + " · " +
+                                stringResource(R.string.log_reminder_round_value, entry.reminderRound)
+                        } else {
+                            stringResource(R.string.log_trigger_reminder)
+                        },
+                    )
                     DetailRow(
                         label = stringResource(R.string.log_detail_unread_count),
                         value = entry.unreadCount.toString(),
                     )
                 }
-                DetailRow(
-                    label = stringResource(R.string.log_detail_status),
-                    value = statusText,
-                )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_reason),
-                    value = description,
-                )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_importance),
-                    value = importanceText,
-                )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_sound),
-                    value = soundText,
-                )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_vibration),
-                    value = vibrationText,
-                )
+
+                if (chainSteps.isNotEmpty()) {
+                    ChainSection(
+                        steps = chainSteps,
+                        onChainNodeClick = onChainNodeClick,
+                        isChainNodeNavigable = isChainNodeNavigable,
+                    )
+                } else {
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_status),
+                        value = statusText,
+                    )
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_reason),
+                        value = description,
+                    )
+                }
+
+                if (showRawFields) {
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_importance),
+                        value = importanceText,
+                    )
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_sound),
+                        value = soundText,
+                    )
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_vibration),
+                        value = vibrationText,
+                    )
+                } else {
+                    TextButton(
+                        onClick = { showRawFields = true },
+                        contentPadding = PaddingValues(0.dp),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.chain_show_notification_fields),
+                            style = MaterialTheme.typography.labelMedium,
+                        )
+                    }
+                }
             }
         },
         confirmButton = {
@@ -220,6 +269,59 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
             }
         },
     )
+}
+
+/**
+ * The recorded outcome drawn as the chain the notification actually walked.
+ *
+ * Everything shown here is replayed from what was written at the time, so the
+ * verdicts are exact. The one thing that is not history is the configuration
+ * under the blocking node — the log never recorded the values behind a gate,
+ * only which gate it was — so that line is labelled as the current setting.
+ */
+@Composable
+private fun ChainSection(
+    steps: List<ChainStep>,
+    onChainNodeClick: (String) -> Unit,
+    isChainNodeNavigable: (String) -> Boolean,
+) {
+    Column {
+        Text(
+            text = stringResource(R.string.chain_log_section_title),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        ChainSurface(modifier = Modifier.padding(top = 6.dp)) {
+            BlockChainView(
+                rows = steps.map { step ->
+                    val navigable = step.state == ChainNodeState.BLOCKED &&
+                        isChainNodeNavigable(step.key)
+                    ChainRow(
+                        key = step.key,
+                        title = chainNodeTitle(step.key),
+                        subtitle = logSubtitle(step),
+                        state = step.state,
+                        onClick = if (navigable) {
+                            { onChainNodeClick(step.key) }
+                        } else {
+                            null
+                        },
+                    )
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun logSubtitle(step: ChainStep): String {
+    val stateLabel = chainStateLabel(step.key, step.state)
+    if (step.state != ChainNodeState.BLOCKED) {
+        return stateLabel
+    }
+    val config = chainConfigSummary(step.key, hasNotificationAccess = true)
+        ?: return stateLabel
+    return stateLabel + " · " + stringResource(R.string.chain_current_setting, config)
 }
 
 @Composable

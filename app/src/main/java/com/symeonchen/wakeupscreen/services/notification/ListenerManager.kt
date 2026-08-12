@@ -1,5 +1,13 @@
 package com.symeonchen.wakeupscreen.services.notification
 
+import com.symeonchen.wakeupscreen.services.notification.conditions.ChargingCondition
+import com.symeonchen.wakeupscreen.services.notification.conditions.DndCondition
+import com.symeonchen.wakeupscreen.services.notification.conditions.FilterListCondition
+import com.symeonchen.wakeupscreen.services.notification.conditions.InteractiveCondition
+import com.symeonchen.wakeupscreen.services.notification.conditions.OnGoingNotificationCondition
+import com.symeonchen.wakeupscreen.services.notification.conditions.PocketModeCondition
+import com.symeonchen.wakeupscreen.services.notification.conditions.SleepModeCondition
+
 
 data class ConditionCheckResult(
     val state: ConditionState,
@@ -11,16 +19,36 @@ data class ConditionCheckResult(
  */
 object ListenerManager {
 
-    private var mConditionList = mutableListOf<LimitedCondition>()
+    /**
+     * The gates a notification passes through, in evaluation order.
+     *
+     * This list is the single definition of that order: the chain view reads
+     * it through [orderedKeys] rather than repeating it, so a condition added
+     * here cannot silently go missing from the diagram. Order is meaningful —
+     * [InteractiveCondition] sitting this early means nothing below it is ever
+     * evaluated while the screen is on.
+     *
+     * It is built here rather than registered by the listener service so that
+     * the UI can describe the chain even in a process where the service has
+     * never been constructed.
+     */
+    private val mConditionList = mutableListOf<LimitedCondition>(
+        PocketModeCondition(),
+        InteractiveCondition(),
+        FilterListCondition(),
+        OnGoingNotificationCondition(),
+        SleepModeCondition(),
+        DndCondition(),
+        ChargingCondition(),
+    )
 
+    /** The chain in evaluation order. */
     @Synchronized
-    fun register(condition: LimitedCondition): ListenerManager {
-        if (this.mConditionList.indexOf(condition) > 0) {
-            return this
-        }
-        this.mConditionList.add(condition)
-        return this
-    }
+    fun conditions(): List<LimitedCondition> = mConditionList.toList()
+
+    /** The [BlockReason] keys of [conditions], in evaluation order. */
+    @Synchronized
+    fun orderedKeys(): List<String> = mConditionList.map { it.key }
 
     @Synchronized
     fun provideState(param: ConditionParam): ConditionCheckResult {

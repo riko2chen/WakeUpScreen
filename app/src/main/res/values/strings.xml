@@ -221,4 +221,37 @@
     <string name="unsaved_changes_message">The screen-on duration has been changed but not saved yet.</string>
     <string name="save_and_back">Save and go back</string>
     <string name="discard_changes">Discard</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">Block Chain</string>
+    <string name="chain_entry_subtitle">See every check a notification goes through</string>
+    <string name="chain_live_hint">Based on your current settings and device state — this is what a notification arriving right now would run into.</string>
+    <string name="chain_live_footer">App filter and ongoing notification filter depend on the notification itself, so they cannot be decided here.</string>
+    <string name="chain_log_section_title">What it went through</string>
+    <string name="chain_show_notification_fields">Show notification fields</string>
+    <string name="chain_current_setting">now set to %1$s</string>
+    <string name="chain_node_notification_access">Notification access</string>
+    <string name="chain_node_master_switch">Main switch</string>
+    <string name="chain_node_pocket_mode">Pocket mode</string>
+    <string name="chain_node_interactive">Screen state</string>
+    <string name="chain_node_filter_list">App filter</string>
+    <string name="chain_node_ongoing">Ongoing notifications</string>
+    <string name="chain_node_sleep_mode">Sleep mode</string>
+    <string name="chain_node_dnd">Do Not Disturb</string>
+    <string name="chain_node_charging">Charging only</string>
+    <string name="chain_node_wake_up">Wake the screen</string>
+    <string name="chain_state_passed">Passed</string>
+    <string name="chain_state_blocked">Stopped here</string>
+    <string name="chain_state_skipped">Off, not applied</string>
+    <string name="chain_state_depends">Depends on the notification</string>
+    <string name="chain_state_not_evaluated">Not reached</string>
+    <string name="chain_state_reached">Screen woken</string>
+    <string name="chain_state_not_reached">Never got here</string>
+    <string name="chain_legend_pass">Passing</string>
+    <string name="chain_legend_block">Blocking now</string>
+    <string name="chain_legend_depends">Depends</string>
+    <string name="chain_legend_off">Off</string>
+    <string name="chain_config_granted">Granted</string>
+    <string name="chain_config_not_granted">Not granted</string>
+    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
 </resources>

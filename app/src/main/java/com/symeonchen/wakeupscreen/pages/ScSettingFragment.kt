@@ -86,6 +86,7 @@ class ScSettingFragment : ScBaseFragment() {
                     onWhiteListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_WHITE_LIST) },
                     onBlackListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_BLACK_LIST) },
                     onAdvancedSettingClick = { context?.quickStartActivity<AdvanceSettingPageActivity>() },
+                    onBlockChainClick = { context?.quickStartActivity<BlockChainPageActivity>() },
                     onFunctionTestClick = { context?.quickStartActivity<FunctionTestPageActivity>() },
                     onAddressClick = {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/riko2chen/WakeUpScreen")))

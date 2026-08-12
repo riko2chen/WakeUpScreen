@@ -220,4 +220,37 @@
     <string name="unsaved_changes_message">La durata dello schermo acceso è stata modificata ma non ancora salvata.</string>
     <string name="save_and_back">Salva ed esci</string>
     <string name="discard_changes">Annulla</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">Catena di blocco</string>
+    <string name="chain_entry_subtitle">Vedi ogni controllo che una notifica attraversa</string>
+    <string name="chain_live_hint">In base alle impostazioni attuali e allo stato del dispositivo: ecco cosa incontrerebbe una notifica in arrivo adesso.</string>
+    <string name="chain_live_footer">Il filtro app e il filtro delle notifiche persistenti dipendono dalla notifica stessa, quindi non si possono decidere qui.</string>
+    <string name="chain_log_section_title">Cosa ha attraversato</string>
+    <string name="chain_show_notification_fields">Mostra i campi della notifica</string>
+    <string name="chain_current_setting">ora impostato su %1$s</string>
+    <string name="chain_node_notification_access">Accesso alle notifiche</string>
+    <string name="chain_node_master_switch">Interruttore principale</string>
+    <string name="chain_node_pocket_mode">Modalita tasca</string>
+    <string name="chain_node_interactive">Stato dello schermo</string>
+    <string name="chain_node_filter_list">Filtro app</string>
+    <string name="chain_node_ongoing">Notifiche persistenti</string>
+    <string name="chain_node_sleep_mode">Modalita sonno</string>
+    <string name="chain_node_dnd">Non disturbare</string>
+    <string name="chain_node_charging">Solo in carica</string>
+    <string name="chain_node_wake_up">Accendi lo schermo</string>
+    <string name="chain_state_passed">Superato</string>
+    <string name="chain_state_blocked">Fermata qui</string>
+    <string name="chain_state_skipped">Disattivato, non applicato</string>
+    <string name="chain_state_depends">Dipende dalla notifica</string>
+    <string name="chain_state_not_evaluated">Non raggiunto</string>
+    <string name="chain_state_reached">Schermo acceso</string>
+    <string name="chain_state_not_reached">Mai raggiunto</string>
+    <string name="chain_legend_pass">Passa</string>
+    <string name="chain_legend_block">Blocca ora</string>
+    <string name="chain_legend_depends">Dipende</string>
+    <string name="chain_legend_off">Disattivato</string>
+    <string name="chain_config_granted">Concesso</string>
+    <string name="chain_config_not_granted">Non concesso</string>
+    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
 </resources>

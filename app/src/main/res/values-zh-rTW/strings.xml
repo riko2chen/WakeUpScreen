@@ -207,4 +207,37 @@
     <string name="unsaved_changes_message">亮螢幕時長已修改，但還沒有儲存。</string>
     <string name="save_and_back">儲存並返回</string>
     <string name="discard_changes">放棄修改</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">攔截鏈路</string>
+    <string name="chain_entry_subtitle">看一則通知要經過哪些判斷</string>
+    <string name="chain_live_hint">依據目前設定與手機狀態 —— 此刻來一則通知，會遇到下面這些判斷。</string>
+    <string name="chain_live_footer">應用程式過濾和持續通知過濾取決於通知本身，這裡無法預先判定。</string>
+    <string name="chain_log_section_title">它經過了什麼</string>
+    <string name="chain_show_notification_fields">展開通知欄位</string>
+    <string name="chain_current_setting">目前設定為 %1$s</string>
+    <string name="chain_node_notification_access">通知使用權</string>
+    <string name="chain_node_master_switch">總開關</string>
+    <string name="chain_node_pocket_mode">口袋模式</string>
+    <string name="chain_node_interactive">螢幕狀態</string>
+    <string name="chain_node_filter_list">應用程式過濾</string>
+    <string name="chain_node_ongoing">持續通知過濾</string>
+    <string name="chain_node_sleep_mode">睡眠模式</string>
+    <string name="chain_node_dnd">勿擾偵測</string>
+    <string name="chain_node_charging">僅充電時亮螢幕</string>
+    <string name="chain_node_wake_up">點亮螢幕</string>
+    <string name="chain_state_passed">通過</string>
+    <string name="chain_state_blocked">在這裡被攔下</string>
+    <string name="chain_state_skipped">未開啟，不參與判斷</string>
+    <string name="chain_state_depends">取決於實際通知</string>
+    <string name="chain_state_not_evaluated">未執行</string>
+    <string name="chain_state_reached">螢幕已點亮</string>
+    <string name="chain_state_not_reached">未到達</string>
+    <string name="chain_legend_pass">通過</string>
+    <string name="chain_legend_block">此刻攔截</string>
+    <string name="chain_legend_depends">看通知而定</string>
+    <string name="chain_legend_off">未開啟</string>
+    <string name="chain_config_granted">已授予</string>
+    <string name="chain_config_not_granted">未授予</string>
+    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
 </resources>

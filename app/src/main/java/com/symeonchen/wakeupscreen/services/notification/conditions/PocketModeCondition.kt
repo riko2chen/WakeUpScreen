@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.services.notification.conditions
 
+import android.app.Application
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
@@ -17,14 +18,19 @@ class PocketModeCondition : LimitedCondition.NoParamCondition() {
      * Check if pocket mode is enable and active
      */
     override fun provideResult(): ConditionState {
-        val proximityStatus = DataInjection.statueOfProximity
-        val proximitySwitch = DataInjection.switchOfProximity
-
-        if (proximitySwitch && proximityStatus == 0) {
+        if (isCovered()) {
             return ConditionState.BLOCK
         }
         return ConditionState.SUCCESS
     }
+
+    override fun isArmed(): Boolean = DataInjection.switchOfProximity
+
+    override fun wouldBlockNow(application: Application?): Boolean = isCovered()
+
+    /** Armed and the proximity sensor currently reads "covered". */
+    private fun isCovered(): Boolean =
+        DataInjection.switchOfProximity && DataInjection.statueOfProximity == 0
 
 
 }

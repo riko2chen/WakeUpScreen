@@ -14,7 +14,6 @@ import com.symeonchen.wakeupscreen.data.LogStatus
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
 import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
-import com.symeonchen.wakeupscreen.services.notification.conditions.*
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
 import com.symeonchen.wakeupscreen.utils.ScreenWakeUtils
 import com.symeonchen.wakeupscreen.utils.DataInjection
@@ -40,16 +39,6 @@ class ScNotificationListenerService : NotificationListenerService() {
     override fun onDestroy() {
         super.onDestroy()
         instance = null
-    }
-
-    init {
-        ListenerManager.register(PocketModeCondition())
-            .register(InteractiveCondition())
-            .register(FilterListCondition())
-            .register(OnGoingNotificationCondition())
-            .register(SleepModeCondition())
-            .register(DndCondition())
-            .register(ChargingCondition())
     }
 
     override fun onListenerConnected() {
