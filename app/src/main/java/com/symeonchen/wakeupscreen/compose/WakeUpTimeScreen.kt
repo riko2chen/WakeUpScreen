@@ -73,7 +73,7 @@ fun WakeUpTimeScreen(
                 if (preciseEnabled) {
                     Text(
                         text = stringResource(R.string.save),
-                        color = WakeUpTheme.colors.switchTrack,
+                        color = MaterialTheme.colorScheme.tertiary,
                         style = MaterialTheme.typography.labelLarge,
                         modifier = Modifier
                             .alpha(if (hasUnsavedChanges) 1f else 0.4f)
@@ -93,7 +93,7 @@ fun WakeUpTimeScreen(
         ) {
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
                 tonalElevation = 0.dp,
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -180,7 +180,7 @@ private fun DurationCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -204,7 +204,10 @@ private fun DurationCard(
                             .then(
                                 if (isSelected) Modifier.background(
                                     Brush.linearGradient(
-                                        WakeUpTheme.colors.accentGradient,
+                                        listOf(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            MaterialTheme.colorScheme.primaryContainer,
+                        ),
                                         start = Offset(0f, 0f),
                                         end = Offset(56f, 56f),
                                     )
@@ -241,7 +244,7 @@ private fun ScreenOffMethodCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -310,7 +313,7 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
             Text(
                 text = stringResource(R.string.accessibility_required_warning),
                 style = MaterialTheme.typography.bodySmall,
-                color = WakeUpTheme.colors.notice,
+                color = WakeUpTheme.colors.onNoticeContainer,
                 lineHeight = 18.sp,
             )
 
@@ -328,12 +331,12 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
                         size = 18.dp,
                         fontSize = 11.sp,
                         background = WakeUpTheme.colors.notice,
-                        contentColor = Color.White,
+                        contentColor = WakeUpTheme.colors.onNotice,
                     )
                     Text(
                         text = stringResource(step),
                         style = MaterialTheme.typography.bodySmall,
-                        color = WakeUpTheme.colors.notice,
+                        color = WakeUpTheme.colors.onNoticeContainer,
                         lineHeight = 18.sp,
                         modifier = Modifier.padding(start = 8.dp),
                     )
@@ -344,7 +347,7 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
 
             Button(
                 onClick = onGrantAccessibilityClick,
-                colors = ButtonDefaults.buttonColors(containerColor = WakeUpTheme.colors.switchTrack),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
                 shape = RoundedCornerShape(10.dp),
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -364,7 +367,7 @@ private fun NoticeCard(text: String) {
     ) {
         Text(
             text = text,
-            color = WakeUpTheme.colors.notice,
+            color = WakeUpTheme.colors.onNoticeContainer,
             style = MaterialTheme.typography.bodySmall,
             lineHeight = 18.sp,
             modifier = Modifier.padding(14.dp),

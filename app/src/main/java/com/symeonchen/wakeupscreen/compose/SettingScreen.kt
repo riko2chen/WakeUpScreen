@@ -121,15 +121,9 @@ fun SettingScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(
-                    Brush.linearGradient(
-                        WakeUpTheme.colors.heroGradient,
-                        start = Offset(0f, 0f),
-                        end = Offset(400f, 300f),
-                    )
-                )
-                // Gradient bleeds under the status bar; the title sits in a
-                // 64dp band below it (so the total header isn't over-inflated).
+                .background(MaterialTheme.colorScheme.surfaceContainer)
+                // Bleeds under the status bar; the title sits in a 64dp band
+                // below it (so the total header isn't over-inflated).
                 .statusBarsPadding()
                 .height(64.dp),
             contentAlignment = Alignment.BottomCenter,
@@ -137,7 +131,7 @@ fun SettingScreen(
             Text(
                 text = stringResource(R.string.setting),
                 style = MaterialTheme.typography.headlineMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(bottom = 20.dp),
             )
         }
@@ -166,7 +160,7 @@ fun SettingScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 16.dp),
                     shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surface,
+                    color = MaterialTheme.colorScheme.surfaceContainerLow,
                     tonalElevation = 0.dp,
                 ) {
                     Column {
@@ -326,7 +320,7 @@ private fun SettingsCard(content: @Composable ColumnScope.() -> Unit) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
     ) {
         Column(content = content)

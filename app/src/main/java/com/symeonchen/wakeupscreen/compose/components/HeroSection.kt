@@ -88,7 +88,7 @@ fun HeroSection(
                         onCheckedChange = { onToggleClick() },
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = Color.White,
-                            checkedTrackColor = WakeUpTheme.colors.switchTrack,
+                            checkedTrackColor = WakeUpTheme.colors.heroAccent,
                             uncheckedThumbColor = Color.White.copy(alpha = 0.9f),
                             uncheckedTrackColor = Color.White.copy(alpha = 0.2f),
                             uncheckedBorderColor = Color.White.copy(alpha = 0.3f),

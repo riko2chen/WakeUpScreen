@@ -19,6 +19,10 @@ class MainActivity : ScBaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private val fragmentList = listOf<Fragment>(ScMainFragment(), ScSettingFragment())
 
+    private companion object {
+        const val HOME_PAGE = 0
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,12 +44,30 @@ class MainActivity : ScBaseActivity() {
         binding.vpMain.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.bnvMain.menu.getItem(position).isChecked = true
+                applyStatusBarForPage(position)
             }
         })
 
         binding.bnvMain.setOnItemSelectedListener {
             binding.vpMain.currentItem = it.order
             true
+        }
+
+        // The callback above only fires on a change, so the first page needs
+        // its status bar treatment applied here.
+        applyStatusBarForPage(binding.vpMain.currentItem)
+    }
+
+    /**
+     * The home hero is a deep gradient in both modes, so the bar above it takes
+     * the gradient's first stop and keeps light glyphs. The settings header is
+     * surfaceContainer and follows the theme.
+     */
+    private fun applyStatusBarForPage(position: Int) {
+        if (position == HOME_PAGE) {
+            applyStatusBar(R.color.gradient_start, light = false)
+        } else {
+            applyStatusBar(R.color.surface_container, light = !isNightMode())
         }
     }
 

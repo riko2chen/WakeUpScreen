@@ -246,7 +246,7 @@ fun ChainSurface(
     androidx.compose.material3.Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
     ) {
         Column(modifier = Modifier.padding(vertical = 4.dp)) {

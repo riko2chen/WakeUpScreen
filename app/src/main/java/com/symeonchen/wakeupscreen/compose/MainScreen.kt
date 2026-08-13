@@ -116,7 +116,7 @@ fun MainScreen(
             ) {
                 Text(
                     text = noticeText,
-                    color = WakeUpTheme.colors.notice,
+                    color = WakeUpTheme.colors.onNoticeContainer,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(14.dp),
                 )

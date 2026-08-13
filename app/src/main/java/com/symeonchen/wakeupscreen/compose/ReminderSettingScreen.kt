@@ -99,7 +99,7 @@ private fun IntervalCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -181,7 +181,7 @@ private fun MaxRoundsCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -210,7 +210,10 @@ private fun MaxRoundsCard(
                             .then(
                                 if (isSelected) Modifier.background(
                                     Brush.linearGradient(
-                                        WakeUpTheme.colors.accentGradient,
+                                        listOf(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            MaterialTheme.colorScheme.primaryContainer,
+                        ),
                                         start = Offset(0f, 0f),
                                         end = Offset(56f, 56f),
                                     )
@@ -241,7 +244,7 @@ private fun MaxRoundsCard(
 private fun PriorityCard() {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {

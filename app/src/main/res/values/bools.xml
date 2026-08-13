@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Toolbars and the settings header sit on surfaceContainer, so status bar
+        glyphs must be dark in light mode. MainActivity overrides this per page,
+        because the home hero stays a deep gradient in both modes.
+    -->
+    <bool name="light_status_bar">true</bool>
+</resources>

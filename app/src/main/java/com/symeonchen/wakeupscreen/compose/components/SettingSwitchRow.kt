@@ -59,7 +59,7 @@ fun SettingSwitchRow(
             checked = checked,
             onCheckedChange = { onCheckedChange() },
             colors = SwitchDefaults.colors(
-                checkedTrackColor = WakeUpTheme.colors.switchTrack,
+                checkedTrackColor = MaterialTheme.colorScheme.tertiary,
             ),
         )
     }

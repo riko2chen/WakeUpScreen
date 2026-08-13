@@ -13,6 +13,10 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 - Adding a window checks it against the existing ones, naming the window it would collide with instead of silently accepting an overlap
 
 ### Changes
+- Colours are rebuilt on Material 3. Rather than each value being written by hand, full tonal ranges are generated from the brand colours and light and dark each read the tones M3 prescribes, so the two can no longer drift apart
+- Top bars drop their gradient for a flat colour. The status bar's colour and glyph brightness follow the current page: the home hero keeps its deep gradient, everything else follows the light or dark theme
+- Cards, the search field and the top bar now use M3's surface levels, so they stay distinguishable from the background in dark mode
+- The 24-hour ring labels every hour from 0 to 23, where it previously marked only 0, 6, 12 and 18
 - A sleep window runs from its start up to but not including its end, so 02:00 - 04:00 stops at 03:59. Two windows can therefore meet end to end, one starting exactly where another finishes
 - An existing single window is converted automatically on upgrade and keeps behaving the same
 - "Optimize Ongoing Notify" is now "Block Ongoing Notifications" and "Radical Ongoing Detect" is now "Block Non-clearable Notifications". Both carry a "?" button explaining what each one stops and how they differ

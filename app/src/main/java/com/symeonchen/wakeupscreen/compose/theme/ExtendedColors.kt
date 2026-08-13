@@ -7,64 +7,67 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 /**
- * The colours M3's [androidx.compose.material3.ColorScheme] has no slot for:
- * the header gradients and the success / notice / danger accents.
+ * The roles M3's [androidx.compose.material3.ColorScheme] has no slot for:
+ * success and notice, plus the home hero's gradient.
  *
- * They belong here rather than as constants referenced from each screen,
- * because every one of them needs a different value in dark mode and a
- * top-level `val` read straight from a composable cannot switch with the
- * theme. Reading them through [WakeUpTheme] is what keeps the two modes in
- * step.
+ * They are built from the same tonal palettes as the scheme itself and read
+ * at the same tones M3 uses for its own container roles, so they behave like
+ * first-class roles rather than one-off accents. Reading them through
+ * [WakeUpTheme] is what keeps light and dark in step; a top-level `val`
+ * referenced straight from a composable cannot switch with the theme.
  */
 @Immutable
 data class ExtendedColors(
-    /** Toolbars, the home hero, the settings header. */
-    val heroGradient: List<Color>,
-    /** The home hero while something is wrong. */
-    val errorGradient: List<Color>,
-    /** Feature cards that sit on a filled indigo panel. */
-    val accentGradient: List<Color>,
-    val switchTrack: Color,
     val success: Color,
+    val onSuccess: Color,
     val successContainer: Color,
-    val danger: Color,
-    val dangerContainer: Color,
+    val onSuccessContainer: Color,
     val notice: Color,
+    val onNotice: Color,
     val noticeContainer: Color,
-    val noticeStroke: Color,
+    val onNoticeContainer: Color,
+    /** The home hero, the one surface that stays a deep brand colour in both modes. */
+    val heroGradient: List<Color>,
+    val errorGradient: List<Color>,
+    /** Content on top of either gradient. */
+    val onHero: Color,
+    /**
+     * The hero's own accent, for the main switch. Identical in both modes on
+     * purpose: the hero stays a deep gradient either way, so a track that
+     * followed the theme would turn near-white in dark and stop reading as
+     * "on" against a white thumb.
+     */
+    val heroAccent: Color,
 )
 
 val LightExtendedColors = ExtendedColors(
-    heroGradient = listOf(GradientStart, GradientMid, GradientEnd),
-    errorGradient = listOf(ErrorGradientStart, ErrorGradientMid, ErrorGradientEnd),
-    accentGradient = listOf(IndigoDark, Indigo),
-    switchTrack = PinkAccent,
-    success = MintGreen,
-    successContainer = MintGreenBg,
-    danger = CoralRed,
-    dangerContainer = CoralRedBg,
-    notice = Amber,
-    noticeContainer = AmberSoft,
-    noticeStroke = AmberStroke,
+    success = LightSuccess,
+    onSuccess = LightOnSuccess,
+    successContainer = LightSuccessContainer,
+    onSuccessContainer = LightOnSuccessContainer,
+    notice = LightNotice,
+    onNotice = LightOnNotice,
+    noticeContainer = LightNoticeContainer,
+    onNoticeContainer = LightOnNoticeContainer,
+    heroGradient = listOf(LightHeroA, LightHeroB, LightHeroC),
+    errorGradient = listOf(LightErrHeroA, LightErrHeroB, LightErrHeroC),
+    onHero = Color.White,
+    heroAccent = DarkTertiary,
 )
 
-/**
- * Darker, less saturated counterparts. The gradients drop to the deep end of
- * the indigo range so a header does not glow against a near-black background,
- * and the accents move to their lighter tints so they stay legible on it.
- */
 val DarkExtendedColors = ExtendedColors(
-    heroGradient = listOf(DarkGradientStart, DarkGradientMid, DarkGradientEnd),
-    errorGradient = listOf(ErrorGradientStart, ErrorGradientMid, ErrorGradientEnd),
-    accentGradient = listOf(IndigoDeep, IndigoDark),
-    switchTrack = DarkPinkAccent,
-    success = DarkMintGreen,
-    successContainer = DarkMintGreenBg,
-    danger = DarkCoralRed,
-    dangerContainer = DarkCoralRedBg,
-    notice = Amber,
-    noticeContainer = DarkAmberSoft,
-    noticeStroke = AmberStroke,
+    success = DarkSuccess,
+    onSuccess = DarkOnSuccess,
+    successContainer = DarkSuccessContainer,
+    onSuccessContainer = DarkOnSuccessContainer,
+    notice = DarkNotice,
+    onNotice = DarkOnNotice,
+    noticeContainer = DarkNoticeContainer,
+    onNoticeContainer = DarkOnNoticeContainer,
+    heroGradient = listOf(DarkHeroA, DarkHeroB, DarkHeroC),
+    errorGradient = listOf(DarkErrHeroA, DarkErrHeroB, DarkErrHeroC),
+    onHero = Color.White,
+    heroAccent = DarkTertiary,
 )
 
 val LocalExtendedColors = staticCompositionLocalOf { LightExtendedColors }

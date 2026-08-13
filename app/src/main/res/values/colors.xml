@@ -1,49 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Generated from the M3 tonal palettes; see theme/Color.kt -->
 <resources>
-    <!-- Brand palette -->
-    <color name="colorPrimary">#5C6BC0</color>
-    <color name="colorPrimaryDark">#3949AB</color>
-    <color name="colorPrimaryLight">#E8EAF6</color>
-    <color name="colorAccent">#EC407A</color>
-
-    <!-- Hero gradient stops -->
-    <color name="gradient_start">#1A237E</color>
-    <color name="gradient_mid">#3949AB</color>
-    <color name="gradient_end">#5C6BC0</color>
-
-    <!-- Surfaces -->
-    <color name="background">#F4F5FF</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="surface_variant">#E8EAF6</color>
-    <color name="divider">#EBEBF5</color>
-
-    <!-- Status -->
-    <color name="status_ok">#4CAF50</color>
-    <color name="status_ok_bg">#E8F5E9</color>
-    <color name="status_error">#EF5350</color>
-    <color name="status_error_bg">#FFEBEE</color>
-
-    <!-- Text -->
-    <color name="text_primary">#1C1B3E</color>
-    <color name="text_secondary">#6E6D8A</color>
-    <color name="text_on_dark">#FFFFFF</color>
-
-    <!-- Amber / notice -->
-    <color name="amber">#FF9800</color>
-    <color name="amber_soft">#FFF8E1</color>
-    <color name="amber_stroke">#FFB300</color>
-
-    <!-- Util -->
-    <color name="green">#4CAF50</color>
-    <color name="red">#EF5350</color>
-    <color name="blue">#5C6BC0</color>
-    <color name="gray">#6E6D8A</color>
-    <color name="lite_gray">#C5CAE9</color>
-    <color name="deep_gray">#3C3B5A</color>
+    <color name="colorPrimary">#4658AB</color>
+    <color name="colorPrimaryDark">#E0E0FF</color>
+    <color name="colorPrimaryLight">#E0E0FF</color>
+    <color name="colorAccent">#BB0056</color>
+    <color name="gradient_start">#002C72</color>
+    <color name="gradient_mid">#274190</color>
+    <color name="gradient_end">#4658AB</color>
+    <color name="background">#F9F9FF</color>
+    <color name="surface">#F9F9FF</color>
+    <color name="surface_variant">#E1E1F0</color>
+    <color name="divider">#C5C5D4</color>
+    <color name="status_ok">#006E1C</color>
+    <color name="status_ok_bg">#96F994</color>
+    <color name="status_error">#AF2E30</color>
+    <color name="status_error_bg">#FFDAD5</color>
+    <color name="text_primary">#1B1B20</color>
+    <color name="text_secondary">#464652</color>
+    <color name="amber">#8B5000</color>
+    <color name="amber_soft">#FFDCBE</color>
+    <color name="amber_stroke">#8B5000</color>
+    <color name="green">#006E1C</color>
+    <color name="red">#AF2E30</color>
+    <color name="blue">#4658AB</color>
+    <color name="gray">#464652</color>
+    <color name="lite_gray">#E2E2E9</color>
+    <color name="deep_gray">#464652</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#1C1B3E</color>
-
-    <!-- Nav -->
-    <color name="nav_active">#5C6BC0</color>
-    <color name="nav_inactive">#9E9EBE</color>
+    <color name="black">#1B1B20</color>
+    <color name="nav_active">#4658AB</color>
+    <color name="nav_inactive">#464652</color>
+    <color name="surface_container">#EDEDF5</color>
+    <color name="on_surface">#1B1B20</color>
+    <color name="outline">#767683</color>
+    <color name="text_on_dark">#FFFFFFFF</color>
 </resources>

@@ -29,7 +29,7 @@ fun StatusCard(
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
     ) {
         Row(
@@ -43,13 +43,13 @@ fun StatusCard(
                 modifier = Modifier
                     .size(44.dp)
                     .clip(CircleShape)
-                    .background(if (isOk) WakeUpTheme.colors.successContainer else WakeUpTheme.colors.dangerContainer),
+                    .background(if (isOk) WakeUpTheme.colors.successContainer else MaterialTheme.colorScheme.errorContainer),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = if (isOk) Icons.Rounded.Check else Icons.Rounded.Close,
                     contentDescription = null,
-                    tint = if (isOk) WakeUpTheme.colors.success else WakeUpTheme.colors.danger,
+                    tint = if (isOk) WakeUpTheme.colors.onSuccessContainer else MaterialTheme.colorScheme.onErrorContainer,
                     modifier = Modifier.size(22.dp),
                 )
             }

@@ -96,7 +96,7 @@ fun SleepTimeScreen(
 private fun RingCard(segments: List<SleepSegment>, currentMinuteOfDay: Int) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -177,7 +177,7 @@ private fun SegmentListCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {

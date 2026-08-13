@@ -98,7 +98,7 @@ private fun LogEntryCard(entry: NotificationLogEntry, onClick: () -> Unit) {
 
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier
             .fillMaxWidth()

@@ -2,65 +2,117 @@ package com.symeonchen.wakeupscreen.compose.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Primary Indigo
-val Indigo = Color(0xFF5C6BC0)
-val IndigoDark = Color(0xFF3949AB)
-val IndigoDeep = Color(0xFF1A237E)
-val IndigoLight = Color(0xFFE8EAF6)
+/**
+ * Material 3 tonal tokens.
+ *
+ * Generated from three brand seeds (indigo #5C6BC0, pink #EC407A, red #EF5350)
+ * by the standard recipe: a tone is a fixed CIELAB lightness on the seed's hue,
+ * with chroma reduced only as far as sRGB requires. Light and dark then read
+ * the same palettes at the tones M3 prescribes, which is what keeps contrast
+ * correct in both without hand-tuning either.
+ *
+ * Do not edit a single value here in isolation: change the seed or the tone,
+ * so the pair stays in step.
+ */
 
-// Accent Pink
-val PinkAccent = Color(0xFFEC407A)
-val PinkAccentDark = Color(0xFFC2185B)
+// ---- Light ----
+val LightPrimary = Color(0xFF4658AB)
+val LightOnPrimary = Color(0xFFFFFFFF)
+val LightPrimaryContainer = Color(0xFFE0E0FF)
+val LightOnPrimaryContainer = Color(0xFF001847)
+val LightSecondary = Color(0xFF5C5C76)
+val LightOnSecondary = Color(0xFFFFFFFF)
+val LightSecondaryContainer = Color(0xFFE0E0FF)
+val LightOnSecondaryContainer = Color(0xFF171A30)
+val LightTertiary = Color(0xFFBB0056)
+val LightOnTertiary = Color(0xFFFFFFFF)
+val LightTertiaryContainer = Color(0xFFFFD9E0)
+val LightOnTertiaryContainer = Color(0xFF3F0018)
+val LightError = Color(0xFFAF2E30)
+val LightOnError = Color(0xFFFFFFFF)
+val LightErrorContainer = Color(0xFFFFDAD5)
+val LightOnErrorContainer = Color(0xFF3E0500)
+val LightBackground = Color(0xFFF9F9FF)
+val LightOnBackground = Color(0xFF1B1B20)
+val LightSurface = Color(0xFFF9F9FF)
+val LightOnSurface = Color(0xFF1B1B20)
+val LightSurfaceVariant = Color(0xFFE1E1F0)
+val LightOnSurfaceVariant = Color(0xFF464652)
+val LightSurfaceContainerLowest = Color(0xFFFFFFFF)
+val LightSurfaceContainerLow = Color(0xFFF3F3FB)
+val LightSurfaceContainer = Color(0xFFEDEDF5)
+val LightSurfaceContainerHigh = Color(0xFFE8E7EF)
+val LightSurfaceContainerHighest = Color(0xFFE2E2E9)
+val LightSurfaceDim = Color(0xFFD9D9E1)
+val LightSurfaceBright = Color(0xFFF9F9FF)
+val LightOutline = Color(0xFF767683)
+val LightOutlineVariant = Color(0xFFC5C5D4)
+val LightInverseSurface = Color(0xFF303036)
+val LightInverseOnSurface = Color(0xFFF0F0F8)
+val LightInversePrimary = Color(0xFFBFC2FF)
+val LightScrim = Color(0xFF000000)
+val LightSuccess = Color(0xFF006E1C)
+val LightOnSuccess = Color(0xFFFFFFFF)
+val LightSuccessContainer = Color(0xFF96F994)
+val LightOnSuccessContainer = Color(0xFF062100)
+val LightNotice = Color(0xFF8B5000)
+val LightOnNotice = Color(0xFFFFFFFF)
+val LightNoticeContainer = Color(0xFFFFDCBE)
+val LightOnNoticeContainer = Color(0xFF291800)
+val LightHeroA = Color(0xFF002C72)
+val LightHeroB = Color(0xFF274190)
+val LightHeroC = Color(0xFF4658AB)
+val LightErrHeroA = Color(0xFF68000E)
+val LightErrHeroB = Color(0xFF91081B)
+val LightErrHeroC = Color(0xFFAF2E30)
 
-// Status
-val MintGreen = Color(0xFF4CAF50)
-val MintGreenBg = Color(0xFFE8F5E9)
-val CoralRed = Color(0xFFEF5350)
-val CoralRedBg = Color(0xFFFFEBEE)
-
-// Surfaces
-val LightBackground = Color(0xFFF4F5FF)
-val LightSurface = Color(0xFFFFFFFF)
-val LightSurfaceVariant = Color(0xFFE8EAF6)
-val LightDivider = Color(0xFFEBEBF5)
-
-val DarkBackground = Color(0xFF0F0F1C)
-val DarkSurface = Color(0xFF1C1C2E)
-val DarkSurfaceVariant = Color(0xFF26263E)
-val DarkDivider = Color(0xFF26263E)
-
-// Text
-val LightTextPrimary = Color(0xFF1C1B3E)
-val LightTextSecondary = Color(0xFF6E6D8A)
-
-val DarkTextPrimary = Color(0xFFE8E8FF)
-val DarkTextSecondary = Color(0xFF9898BB)
-
-// Amber / notice
-val Amber = Color(0xFFFF9800)
-val AmberSoft = Color(0xFFFFF8E1)
-val AmberStroke = Color(0xFFFFB300)
-val DarkAmberSoft = Color(0xFF2A1F08)
-
-// Hero gradient stops
-val GradientStart = Color(0xFF1A237E)
-val GradientMid = Color(0xFF3949AB)
-val GradientEnd = Color(0xFF5C6BC0)
-
-val ErrorGradientStart = Color(0xFF4A0010)
-val ErrorGradientMid = Color(0xFF7B1030)
-val ErrorGradientEnd = Color(0xFFB71C4A)
-
-val DarkGradientStart = Color(0xFF0D1332)
-val DarkGradientMid = Color(0xFF1A237E)
-val DarkGradientEnd = Color(0xFF283593)
-
-// Dark status
-val DarkMintGreen = Color(0xFF81C784)
-val DarkMintGreenBg = Color(0xFF1A3320)
-val DarkCoralRed = Color(0xFFEF9A9A)
-val DarkCoralRedBg = Color(0xFF3B1515)
-
-// Dark primary
-val DarkIndigo = Color(0xFF9FA8DA)
-val DarkPinkAccent = Color(0xFFF48FB1)
+// ---- Dark ----
+val DarkPrimary = Color(0xFFBFC2FF)
+val DarkOnPrimary = Color(0xFF002C72)
+val DarkPrimaryContainer = Color(0xFF274190)
+val DarkOnPrimaryContainer = Color(0xFFE0E0FF)
+val DarkSecondary = Color(0xFFC4C4E2)
+val DarkOnSecondary = Color(0xFF2D2E46)
+val DarkSecondaryContainer = Color(0xFF44455E)
+val DarkOnSecondaryContainer = Color(0xFFE0E0FF)
+val DarkTertiary = Color(0xFFFFB1C1)
+val DarkOnTertiary = Color(0xFF66002B)
+val DarkTertiaryContainer = Color(0xFF8F0040)
+val DarkOnTertiaryContainer = Color(0xFFFFD9E0)
+val DarkError = Color(0xFFFFB4AB)
+val DarkOnError = Color(0xFF68000E)
+val DarkErrorContainer = Color(0xFF91081B)
+val DarkOnErrorContainer = Color(0xFFFFDAD5)
+val DarkBackground = Color(0xFF131318)
+val DarkOnBackground = Color(0xFFE2E2E9)
+val DarkSurface = Color(0xFF131318)
+val DarkOnSurface = Color(0xFFE2E2E9)
+val DarkSurfaceVariant = Color(0xFF464652)
+val DarkOnSurfaceVariant = Color(0xFFC5C5D4)
+val DarkSurfaceContainerLowest = Color(0xFF0E0D14)
+val DarkSurfaceContainerLow = Color(0xFF1B1B20)
+val DarkSurfaceContainer = Color(0xFF1F1F25)
+val DarkSurfaceContainerHigh = Color(0xFF29292F)
+val DarkSurfaceContainerHighest = Color(0xFF34343A)
+val DarkSurfaceDim = Color(0xFF131318)
+val DarkSurfaceBright = Color(0xFF39393F)
+val DarkOutline = Color(0xFF908F9E)
+val DarkOutlineVariant = Color(0xFF464652)
+val DarkInverseSurface = Color(0xFFE2E2E9)
+val DarkInverseOnSurface = Color(0xFF303036)
+val DarkInversePrimary = Color(0xFF4658AB)
+val DarkScrim = Color(0xFF000000)
+val DarkSuccess = Color(0xFF7ADC79)
+val DarkOnSuccess = Color(0xFF003909)
+val DarkSuccessContainer = Color(0xFF005313)
+val DarkOnSuccessContainer = Color(0xFF96F994)
+val DarkNotice = Color(0xFFFFB871)
+val DarkOnNotice = Color(0xFF492900)
+val DarkNoticeContainer = Color(0xFF693C00)
+val DarkOnNoticeContainer = Color(0xFFFFDCBE)
+val DarkHeroA = Color(0xFF001847)
+val DarkHeroB = Color(0xFF002C72)
+val DarkHeroC = Color(0xFF274190)
+val DarkErrHeroA = Color(0xFF3E0500)
+val DarkErrHeroB = Color(0xFF68000E)
+val DarkErrHeroC = Color(0xFF91081B)

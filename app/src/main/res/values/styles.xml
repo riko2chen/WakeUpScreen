@@ -12,7 +12,8 @@
         <item name="colorSurfaceVariant">@color/surface_variant</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="android:windowBackground">@color/background</item>
-        <item name="android:statusBarColor">@color/gradient_start</item>
+        <item name="android:statusBarColor">@color/surface_container</item>
+        <item name="android:windowLightStatusBar">@bool/light_status_bar</item>
         <item name="android:windowAnimationStyle">@style/ScActivityAnimation</item>
     </style>
 
