@@ -19,6 +19,7 @@ object BlockReason {
     const val SLEEP_MODE = "sleep_mode"
     const val DND = "dnd"
     const val CHARGING = "charging"
+    const val BATTERY_LEVEL = "battery_level"
 
     /**
      * Reasons a repeat-reminder streak ended. Same vocabulary and the same

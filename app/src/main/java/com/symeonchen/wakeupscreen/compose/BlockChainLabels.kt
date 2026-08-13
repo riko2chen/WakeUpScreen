@@ -29,6 +29,7 @@ fun chainNodeTitle(key: String): String = when (key) {
     BlockReason.SLEEP_MODE -> stringResource(R.string.chain_node_sleep_mode)
     BlockReason.DND -> stringResource(R.string.chain_node_dnd)
     BlockReason.CHARGING -> stringResource(R.string.chain_node_charging)
+    BlockReason.BATTERY_LEVEL -> stringResource(R.string.chain_node_battery_level)
     BlockChain.KEY_WAKE_UP -> stringResource(R.string.chain_node_wake_up)
     // A gate registered by a newer build than these labels know about. Showing
     // the raw key keeps the diagram complete instead of quietly dropping a step.
@@ -107,6 +108,11 @@ fun chainConfigSummary(key: String, hasNotificationAccess: Boolean): String? {
         }
         BlockReason.DND -> onOff(DataInjection.dndDetectSwitch)
         BlockReason.CHARGING -> onOff(DataInjection.chargingOnlySwitch)
+        BlockReason.BATTERY_LEVEL -> if (DataInjection.batteryLevelSwitch) {
+            stringResource(R.string.chain_config_battery_threshold, DataInjection.batteryLevelThreshold)
+        } else {
+            onOff(false)
+        }
         BlockChain.KEY_WAKE_UP -> if (DataInjection.preciseScreenOnSwitch) {
             stringResource(R.string.precise_wake_summary_on, DataInjection.preciseScreenOnSecond)
         } else {

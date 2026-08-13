@@ -288,4 +288,12 @@
     <string name="sleep_days_weekdays">วันธรรมดา</string>
     <string name="sleep_days_weekend">สุดสัปดาห์</string>
     <string name="sleep_days_empty_error">เลือกอย่างน้อยหนึ่งวัน</string>
+    <!-- ตัวกรองระดับแบตเตอรี่ -->
+    <string name="battery_level_title">ปิดเสียงเมื่อแบตต่ำ</string>
+    <string name="battery_level_desc">เมื่อแบตเตอรี่ต่ำกว่าเกณฑ์และไม่ได้ชาร์จ การแจ้งเตือนจะไม่ปลุกหน้าจอ</string>
+    <string name="battery_level_threshold_title">เกณฑ์แบตเตอรี่</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">ระดับแบตเตอรี่</string>
+    <string name="chain_config_battery_threshold">ต่ำกว่า %1$d%%</string>
+    <string name="log_reason_battery_level">แบตเตอรี่ต่ำกว่าเกณฑ์ที่ตั้งไว้และอุปกรณ์ไม่ได้ชาร์จอยู่</string>
 </resources>

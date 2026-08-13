@@ -55,6 +55,11 @@ fun AdvanceSettingScreen(
     chargingOnlyChecked: Boolean,
     chargingOnlySubtitle: String,
     onChargingOnlyToggle: () -> Unit,
+    batteryLevelChecked: Boolean,
+    onBatteryLevelToggle: () -> Unit,
+    showBatteryLevelDetail: Boolean,
+    batteryLevelDetailSubtitle: String,
+    onBatteryLevelDetailClick: () -> Unit,
     sleepChecked: Boolean,
     sleepSubtitle: String,
     onSleepToggle: () -> Unit,
@@ -190,6 +195,21 @@ fun AdvanceSettingScreen(
                     checked = chargingOnlyChecked,
                     onCheckedChange = onChargingOnlyToggle,
                 )
+                FlatDivider()
+                SettingSwitchRow(
+                    title = stringResource(R.string.battery_level_title),
+                    subtitle = stringResource(R.string.battery_level_desc),
+                    checked = batteryLevelChecked,
+                    onCheckedChange = onBatteryLevelToggle,
+                )
+                if (showBatteryLevelDetail) {
+                    FlatDivider()
+                    SettingRow(
+                        title = stringResource(R.string.battery_level_threshold_title),
+                        subtitle = batteryLevelDetailSubtitle,
+                        onClick = onBatteryLevelDetailClick,
+                    )
+                }
                 FlatDivider()
                 SettingSwitchRow(
                     title = stringResource(R.string.sleep_mode),

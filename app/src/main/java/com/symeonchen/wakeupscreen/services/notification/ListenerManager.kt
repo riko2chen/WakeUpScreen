@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.services.notification
 
+import com.symeonchen.wakeupscreen.services.notification.conditions.BatteryLevelCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.ChargingCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.DndCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.FilterListCondition
@@ -45,6 +46,7 @@ object ListenerManager {
         SleepModeCondition(),
         DndCondition(),
         ChargingCondition(),
+        BatteryLevelCondition(),
     )
 
     /** The chain in evaluation order. */

@@ -288,4 +288,12 @@
     <string name="sleep_days_weekdays">평일</string>
     <string name="sleep_days_weekend">주말</string>
     <string name="sleep_days_empty_error">최소 하루는 선택하세요.</string>
+    <!-- 배터리 잔량 게이트 -->
+    <string name="battery_level_title">배터리 부족 무음</string>
+    <string name="battery_level_desc">배터리가 기준치보다 낮고 충전 중이 아니면 알림이 화면을 켜지 않습니다.</string>
+    <string name="battery_level_threshold_title">배터리 기준치</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">배터리 잔량</string>
+    <string name="chain_config_battery_threshold">%1$d%% 미만</string>
+    <string name="log_reason_battery_level">배터리가 설정한 기준치보다 낮고 충전 중이 아니었습니다.</string>
 </resources>

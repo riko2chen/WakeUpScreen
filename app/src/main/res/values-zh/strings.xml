@@ -290,4 +290,12 @@
     <string name="sleep_days_weekdays">工作日</string>
     <string name="sleep_days_weekend">周末</string>
     <string name="sleep_days_empty_error">至少选择一天。</string>
+    <!-- 电量阈值过滤 -->
+    <string name="battery_level_title">低电量静默</string>
+    <string name="battery_level_desc">电量低于阈值且未在充电时，通知不再亮屏。</string>
+    <string name="battery_level_threshold_title">电量阈值</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">电量</string>
+    <string name="chain_config_battery_threshold">低于 %1$d%%</string>
+    <string name="log_reason_battery_level">电量低于设定阈值且设备未在充电。</string>
 </resources>

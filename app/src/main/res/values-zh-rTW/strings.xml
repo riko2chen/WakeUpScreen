@@ -288,4 +288,12 @@
     <string name="sleep_days_weekdays">平日</string>
     <string name="sleep_days_weekend">週末</string>
     <string name="sleep_days_empty_error">至少選擇一天。</string>
+    <!-- 電量閾值過濾 -->
+    <string name="battery_level_title">低電量靜默</string>
+    <string name="battery_level_desc">電量低於閾值且未充電時，通知不再喚醒螢幕。</string>
+    <string name="battery_level_threshold_title">電量閾值</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">電量</string>
+    <string name="chain_config_battery_threshold">低於 %1$d%%</string>
+    <string name="log_reason_battery_level">電量低於設定閾值且裝置未在充電。</string>
 </resources>

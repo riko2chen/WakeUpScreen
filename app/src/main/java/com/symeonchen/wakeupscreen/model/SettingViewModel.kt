@@ -89,6 +89,16 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.chargingOnlySwitch)
         }
 
+    var batteryLevelSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.batteryLevelSwitch)
+        }
+
+    var batteryLevelThreshold: ScLiveData<Int> = ScLiveData<Int>()
+        .apply {
+            setValue(DataInjection.batteryLevelThreshold)
+        }
+
     var repeatReminderSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.repeatReminderSwitch)
@@ -184,6 +194,18 @@ class SettingViewModel : ViewModel() {
         chargingOnlySwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.chargingOnlySwitch = value
+            }
+        }
+
+        batteryLevelSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.batteryLevelSwitch = value
+            }
+        }
+
+        batteryLevelThreshold.listener = object : ScLiveData.OnLiveDataValueInput<Int> {
+            override fun onValueInput(value: Int) {
+                DataInjection.batteryLevelThreshold = value
             }
         }
 

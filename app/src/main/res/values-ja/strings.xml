@@ -288,4 +288,12 @@
     <string name="sleep_days_weekdays">平日</string>
     <string name="sleep_days_weekend">週末</string>
     <string name="sleep_days_empty_error">少なくとも1日選択してください。</string>
+    <!-- 電池残量ゲート -->
+    <string name="battery_level_title">低電池サイレント</string>
+    <string name="battery_level_desc">電池残量がしきい値を下回り充電していない間は、通知で画面を点灯しません。</string>
+    <string name="battery_level_threshold_title">電池残量のしきい値</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">電池残量</string>
+    <string name="chain_config_battery_threshold">%1$d%% 未満</string>
+    <string name="log_reason_battery_level">電池残量が設定したしきい値を下回り、充電もしていませんでした。</string>
 </resources>

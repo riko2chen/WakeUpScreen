@@ -302,4 +302,12 @@
     <string name="sleep_days_weekdays">Giorni feriali</string>
     <string name="sleep_days_weekend">Fine settimana</string>
     <string name="sleep_days_empty_error">Scegli almeno un giorno.</string>
+    <!-- Filtro livello batteria -->
+    <string name="battery_level_title">Silenzio con batteria scarica</string>
+    <string name="battery_level_desc">Sotto la soglia e senza carica, le notifiche non accendono più lo schermo.</string>
+    <string name="battery_level_threshold_title">Soglia batteria</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">Livello batteria</string>
+    <string name="chain_config_battery_threshold">sotto il %1$d%%</string>
+    <string name="log_reason_battery_level">La batteria era sotto la soglia impostata e il dispositivo non era in carica.</string>
 </resources>

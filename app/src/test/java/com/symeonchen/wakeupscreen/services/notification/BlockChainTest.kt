@@ -39,6 +39,7 @@ class BlockChainTest {
                 BlockReason.SLEEP_MODE,
                 BlockReason.DND,
                 BlockReason.CHARGING,
+                BlockReason.BATTERY_LEVEL,
             ),
             BlockChain.gateKeys(),
         )

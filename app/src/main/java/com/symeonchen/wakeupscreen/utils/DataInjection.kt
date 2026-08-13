@@ -6,6 +6,10 @@ import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.SleepSchedule
 import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_BLACK_LIST_STRING
+import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_LEVEL_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_LEVEL_THRESHOLD
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_LEVEL_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_LEVEL_THRESHOLD
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_LIST_FLAG
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_NOTIFY_MODE
@@ -406,6 +410,32 @@ object DataInjection {
      * ignored. See [com.symeonchen.wakeupscreen.services.notification.ImportancePolicy]
      * for what counts as silent.
      */
+    var batteryLevelSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(
+                BATTERY_LEVEL_SWITCH,
+                DEFAULT_BATTERY_LEVEL_SWITCH
+            ) ?: DEFAULT_BATTERY_LEVEL_SWITCH
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(BATTERY_LEVEL_SWITCH, value)
+        }
+
+    /** Battery percentage below which the screen stays dark, while not charging. */
+    var batteryLevelThreshold: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                BATTERY_LEVEL_THRESHOLD,
+                DEFAULT_BATTERY_LEVEL_THRESHOLD
+            ) ?: DEFAULT_BATTERY_LEVEL_THRESHOLD
+        }
+        set(value) {
+            if (value !in 1..99) {
+                return
+            }
+            MMKV.defaultMMKV()?.putInt(BATTERY_LEVEL_THRESHOLD, value)
+        }
+
     var ignoreSilentNotificationSwitch: Boolean
         get() {
             return MMKV.defaultMMKV()?.getBoolean(

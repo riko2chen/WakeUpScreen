@@ -88,6 +88,7 @@ fun SettingScreen(
         SettingsSearchEntry(stringResource(R.string.ignore_silent_notification), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.dnd_detect_title), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.charging_only_title), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.battery_level_title), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.sleep_mode), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.sleep_time), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.repeat_reminder), advancedPage, onAdvancedSettingClick),

@@ -50,6 +50,10 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 val ignoreSilent by settingModel.ignoreSilentNotificationSwitch.observeAsState(false)
                 val dnd by settingModel.dndDetectBoolean.observeAsState(false)
                 val chargingOnly by settingModel.chargingOnlySwitch.observeAsState(false)
+                val batteryLevel by settingModel.batteryLevelSwitch.observeAsState(false)
+                val batteryThreshold by settingModel.batteryLevelThreshold.observeAsState(
+                    ScConstant.DEFAULT_BATTERY_LEVEL_THRESHOLD
+                )
                 val sleep by settingModel.sleepModeBoolean.observeAsState(false)
                 val sleepSegments by settingModel.sleepModeSegments.observeAsState(emptyList())
                 val repeatReminder by settingModel.repeatReminderSwitch.observeAsState(false)
@@ -61,6 +65,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     getString(if (on) R.string.already_open else R.string.already_close)
 
                 var showModeDialog by remember { mutableStateOf(false) }
+                var showBatteryThresholdDialog by remember { mutableStateOf(false) }
 
                 val currentModeText = stringResource(
                     when (currentMode) {
@@ -112,6 +117,13 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     chargingOnlyChecked = chargingOnly,
                     chargingOnlySubtitle = statusText(chargingOnly),
                     onChargingOnlyToggle = { settingModel.chargingOnlySwitch.postValue(!chargingOnly) },
+                    batteryLevelChecked = batteryLevel,
+                    onBatteryLevelToggle = { settingModel.batteryLevelSwitch.postValue(!batteryLevel) },
+                    showBatteryLevelDetail = batteryLevel,
+                    batteryLevelDetailSubtitle = getString(
+                        R.string.battery_level_threshold_value, batteryThreshold
+                    ),
+                    onBatteryLevelDetailClick = { showBatteryThresholdDialog = true },
                     sleepChecked = sleep,
                     sleepSubtitle = statusText(sleep),
                     onSleepToggle = { settingModel.sleepModeBoolean.postValue(!sleep) },
@@ -129,6 +141,23 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     repeatReminderDetailSubtitle = reminderIntervalText(reminderInterval),
                     onRepeatReminderDetailClick = { quickStartActivity<ReminderSettingActivity>() },
                 )
+
+                // Battery threshold dialog
+                if (showBatteryThresholdDialog) {
+                    val options = ScConstant.BATTERY_LEVEL_THRESHOLD_OPTIONS
+                    val currentIdx = options.indexOf(batteryThreshold).let { if (it >= 0) it else 0 }
+                    SelectionDialog(
+                        title = stringResource(R.string.battery_level_threshold_title),
+                        options = options.map { getString(R.string.battery_level_threshold_value, it) },
+                        selectedIndex = currentIdx,
+                        confirmText = stringResource(R.string.ok),
+                        onSelect = { idx ->
+                            showBatteryThresholdDialog = false
+                            settingModel.batteryLevelThreshold.postValue(options[idx])
+                        },
+                        onDismiss = { showBatteryThresholdDialog = false },
+                    )
+                }
 
                 // Mode dialog
                 if (showModeDialog) {

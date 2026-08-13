@@ -32,6 +32,8 @@ object ScConstant {
     const val REPEAT_REMINDER_ROUND_COUNT = "repeat_reminder_round_count"
     const val PRECISE_SCREEN_ON_SWITCH = "precise_screen_on_switch"
     const val IGNORE_SILENT_NOTIFICATION_SWITCH = "ignore_silent_notification_switch"
+    const val BATTERY_LEVEL_SWITCH = "battery_level_switch"
+    const val BATTERY_LEVEL_THRESHOLD = "battery_level_threshold"
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
@@ -81,6 +83,13 @@ object ScConstant {
      * suppressing notifications that used to wake the screen.
      */
     const val DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH: Boolean = false
+
+    /** Off by default: same rule — updates never start blocking wakes on their own. */
+    const val DEFAULT_BATTERY_LEVEL_SWITCH: Boolean = false
+    const val DEFAULT_BATTERY_LEVEL_THRESHOLD: Int = 20
+
+    /** Thresholds offered in the picker, in percent. */
+    val BATTERY_LEVEL_THRESHOLD_OPTIONS = listOf(5, 10, 15, 20, 30, 50)
 
     /**
      * Bounds the engine will honour, in seconds.

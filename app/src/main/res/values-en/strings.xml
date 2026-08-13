@@ -302,4 +302,12 @@
     <string name="sleep_days_weekdays">Weekdays</string>
     <string name="sleep_days_weekend">Weekend</string>
     <string name="sleep_days_empty_error">Pick at least one day.</string>
+    <!-- Battery level gate -->
+    <string name="battery_level_title">Low Battery Silence</string>
+    <string name="battery_level_desc">Below the threshold and not charging, notifications stop waking the screen.</string>
+    <string name="battery_level_threshold_title">Battery threshold</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">Battery level</string>
+    <string name="chain_config_battery_threshold">below %1$d%%</string>
+    <string name="log_reason_battery_level">Battery was below the configured threshold and the device was not charging.</string>
 </resources>

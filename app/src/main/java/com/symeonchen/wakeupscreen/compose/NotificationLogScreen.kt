@@ -399,6 +399,7 @@ private fun blockReasonToString(reason: String): String {
         BlockReason.SLEEP_MODE -> stringResource(R.string.log_reason_sleep_mode)
         BlockReason.DND -> stringResource(R.string.log_reason_dnd)
         BlockReason.CHARGING -> stringResource(R.string.log_reason_charging)
+        BlockReason.BATTERY_LEVEL -> stringResource(R.string.log_reason_battery_level)
         BlockReason.INTERACTIVE -> stringResource(R.string.log_status_already_on_desc)
         BlockReason.REMINDER_ALL_READ -> stringResource(R.string.log_reason_reminder_all_read)
         BlockReason.REMINDER_MAX_ROUNDS -> stringResource(R.string.log_reason_reminder_max_rounds)
