@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.symeonchen.wakeupscreen'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.symeonchen.wakeupscreen"
         minSdk 23
-        targetSdk 35
+        targetSdk 36
         versionCode project.AppVersionCode as int
         versionName project.AppVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -1,0 +1,3 @@
+• L'app ha ora come target Android 16 (API 36), verificato su un'immagine di sistema Android 16: la durata schermo acceso personalizzata, l'azione di blocco tramite accessibilità e il metodo di riserva senza permessi si comportano esattamente come prima
+• Le pagine secondarie usano ora l'animazione "predictive back" di Android invece della transizione a scorrimento dell'app. È solo un cambiamento visivo; la navigazione indietro non cambia
+• Nessun nuovo permesso, nessuna modifica funzionale

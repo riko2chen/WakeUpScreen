@@ -1,0 +1,3 @@
+• Now targets Android 16 (API 36), verified on an Android 16 system image — precise screen-on windows, the accessibility lock-screen action and the permission-free fallback all behave exactly as before
+• Secondary pages now use Android's predictive back animation instead of the app's own slide transition. This is a visual change only; back navigation itself is unchanged
+• No new permissions, no functional changes

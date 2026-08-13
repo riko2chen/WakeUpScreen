@@ -4,6 +4,18 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [3.1.1]
+
+### Changes
+- Now targets Android 16 (API 36). Verified on an Android 16 system image: precise screen-on windows, the accessibility lock-screen action and the permission-free fallback all behave exactly as before
+- Secondary pages now use Android's predictive back animation instead of the app's own slide transition. This comes with targeting Android 16 and is a visual change only — back navigation itself is unchanged
+
+### Notes
+- No new permissions, no functional changes
+- Verified on a device image using the new 16 KB memory page size
+
+---
+
 ## [3.1.0]
 
 ### Features
