@@ -43,7 +43,7 @@
     <string name="time_of_wake_up_screen">ระยะเวลาเปิดหน้าจอ</string>
     <string name="optimize_of_battery_saver">ปิดการเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="pocket_mode">โหมดกระเป๋า</string>
-    <string name="ongoing_status">เพิ่มประสิทธิภาพการแจ้งเตือนต่อเนื่อง</string>
+    <string name="ongoing_status">บล็อกการแจ้งเตือนที่กำลังดำเนินอยู่</string>
     <string name="current_mode">โหมดตัวกรอง</string>
     <string name="all_pass">แจ้งเตือนทั้งหมด</string>
     <string name="white_list">โหมดรายการที่อนุญาต</string>
@@ -86,11 +86,26 @@
     <string name="click_here_to_open_google_play_store">แตะเพื่อเปิด Google Play Store</string>
 
     <string name="app_intro_full">แอป Android ที่ทำให้หน้าจอเปิดเมื่อได้รับการแจ้งเตือน\nปรับแต่งเฉพาะสำหรับ Samsung S10 และรองรับอุปกรณ์อื่นด้วย\nเป็นโอเพนซอร์ส ไม่ต้องเชื่อมต่ออินเทอร์เน็ต และฟรี</string>
-    <string name="sleep_mode_open_desc">หน้าจอจะไม่เปิดในช่วงเวลา: </string>
     <string name="sleep_mode">โหมดพักผ่อน</string>
     <string name="delay_to_wakeup">แตะเพื่อเริ่มทดสอบการปลุกหน้าจอ</string>
     <string name="click_here_and_press_power_button_within_10_sec">แตะแล้วกดปุ่มเปิด/ปิดภายใน 10 วินาที</string>
     <string name="sleep_time">เวลาพักผ่อน</string>
+    <string name="sleep_ring_asleep">ช่วงเวลานอน</string>
+    <string name="sleep_ring_awake">หน้าจอสว่าง</string>
+    <string name="sleep_segments_count">%1$d ช่วงเวลา</string>
+    <string name="sleep_segments_empty">ยังไม่ได้ตั้งช่วงเวลา</string>
+    <string name="sleep_segments_empty_hint">หากยังไม่เพิ่มช่วงเวลา หน้าจอจะสว่างได้ตลอดทั้งวัน</string>
+    <string name="sleep_add_segment">เพิ่มช่วงเวลา</string>
+    <string name="sleep_delete_segment">ลบช่วงเวลา</string>
+    <string name="sleep_start_time">เริ่ม</string>
+    <string name="sleep_end_time">สิ้นสุด</string>
+    <string name="sleep_overlap_error">ทับซ้อนกับช่วงเวลาที่มีอยู่ (%1$s) โปรดเลือกเวลาอื่น</string>
+    <string name="sleep_same_time_error">เวลาเริ่มและสิ้นสุดต้องไม่เหมือนกัน</string>
+    <string name="sleep_max_segments_reached">ตั้งได้สูงสุด %1$d ช่วงเวลา</string>
+    <string name="sleep_range_note">นาทีเริ่มต้นอยู่ในช่วง ส่วนนาทีสิ้นสุดไม่อยู่ในช่วง ดังนั้น 02:00 - 04:00 จะสิ้นสุดที่ 03:59 และช่วงหนึ่งสามารถเริ่มต้นที่จุดสิ้นสุดของอีกช่วงได้</string>
+    <string name="sleep_crosses_midnight">ข้ามเที่ยงคืน</string>
+    <string name="sleep_duration_hm">%1$d ชม. %2$d น.</string>
+    <string name="sleep_duration_m">%1$d นาที</string>
     <string name="dnd_detect_title">ตรวจจับโหมดห้ามรบกวน</string>
     <string name="dnd_detect_desc">ปิดหากต้องการให้หน้าจอเปิดในโหมดห้ามรบกวน</string>
     <string name="charging_only_title">เปิดหน้าจอเฉพาะขณะชาร์จ</string>
@@ -99,7 +114,9 @@
     <string name="still_have_problem">ยังมีปัญหาอยู่? แตะเพื่อเปิดตั้งค่า</string>
     <string name="close_app_notice">การกระทำนี้จะปิดแอป กรุณาเปิดแอปอีกครั้งหลังจากนั้น</string>
     <string name="include_system_app">รวมแอประบบ</string>
-    <string name="radical_ongoing_detact">กรองการแจ้งเตือนต่อเนื่องแบบเข้มงวด (ทดลอง)</string>
+    <string name="radical_ongoing_detact">บล็อกการแจ้งเตือนที่ลบไม่ได้</string>
+    <string name="ongoing_status_help">การแจ้งเตือนที่แอปทำเครื่องหมายว่ากำลังดำเนินอยู่จะถูกบล็อก และหน้าจอจะไม่สว่าง\n\nการแจ้งเตือนประเภทนี้แทนสิ่งที่ยังดำเนินอยู่ เช่น การสนทนาผ่านวิดีโอ WeChat การโทร QQ เพลงที่กำลังเล่น หรือการนำทางที่กำลังทำงาน มันจะค้างอยู่ในแถบแจ้งเตือนจนกว่าจะจบ และอาจอัปเดตหลายครั้งระหว่างนั้น ซึ่งการอัปเดตแต่ละครั้งอาจทำให้หน้าจอสว่างได้</string>
+    <string name="radical_ongoing_help">การแจ้งเตือนที่แอปทำเครื่องหมายว่าลบไม่ได้จะถูกบล็อก\n\nครอบคลุมกว้างกว่า «บล็อกการแจ้งเตือนที่กำลังดำเนินอยู่» นอกจากการแจ้งเตือนที่ทำเครื่องหมายว่ากำลังดำเนินอยู่แล้ว ยังรวมถึงการแจ้งเตือนที่ไม่มีเครื่องหมายนั้นแต่ปัดทิ้งไม่ได้ เช่น การแจ้งเตือนค้างของบริการเบื้องหลังบางตัว\n\nเมื่อเปิดทั้งสองรายการ รายการนี้จะเป็นตัวกำหนดผล และรายการการแจ้งเตือนที่กำลังดำเนินอยู่จะไม่มีผลเพิ่มเติม\n\nบางแอปทำเครื่องหมายว่าลบไม่ได้กับข้อความทั่วไปด้วย ข้อความเหล่านั้นจะถูกบล็อกไปด้วย รายการนี้จึงเป็นฟีเจอร์ทดลอง</string>
     <string name="ignore_silent_notification">ไม่สนใจการแจ้งเตือนแบบเงียบ</string>
     <string name="ignore_silent_notification_desc">การแจ้งเตือนจากช่องที่ตั้งความสำคัญเป็นต่ำ ต่ำสุด หรือไม่มี จะไม่ปลุกหน้าจอ</string>
     <string name="send_notification_permission">สิทธิ์ในการส่งการแจ้งเตือน</string>
@@ -257,5 +274,5 @@
     <string name="chain_legend_off">ปิดอยู่</string>
     <string name="chain_config_granted">ได้รับสิทธิ์แล้ว</string>
     <string name="chain_config_not_granted">ยังไม่ได้รับสิทธิ์</string>
-    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
 </resources>

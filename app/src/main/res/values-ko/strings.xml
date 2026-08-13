@@ -43,7 +43,7 @@
     <string name="time_of_wake_up_screen">화면 켜기 시간</string>
     <string name="optimize_of_battery_saver">전력 최적화 끄기</string>
     <string name="pocket_mode">주머니 모드</string>
-    <string name="ongoing_status">지속 알림 최적화</string>
+    <string name="ongoing_status">진행 중 알림 차단</string>
     <string name="current_mode">필터 모드</string>
     <string name="all_pass">모든 알림</string>
     <string name="white_list">화이트리스트 모드</string>
@@ -86,11 +86,26 @@
     <string name="click_here_to_open_google_play_store">탭하여 Google Play 스토어 열기</string>
 
     <string name="app_intro_full">알림 수신 시 화면을 켜는 Android 앱입니다.\nSamsung S10에 최적화되었으며 다른 기기에도 호환됩니다.\n오픈소스, 인터넷 연결 불필요, 무료입니다.</string>
-    <string name="sleep_mode_open_desc">이 시간대에는 화면이 켜지지 않습니다: </string>
     <string name="sleep_mode">수면 모드</string>
     <string name="delay_to_wakeup">탭하여 화면 켜기 테스트 시작</string>
     <string name="click_here_and_press_power_button_within_10_sec">탭한 후 10초 이내에 전원 버튼을 누르세요</string>
     <string name="sleep_time">수면 시간</string>
+    <string name="sleep_ring_asleep">수면 시간대</string>
+    <string name="sleep_ring_awake">화면 켜짐</string>
+    <string name="sleep_segments_count">시간대 %1$d개</string>
+    <string name="sleep_segments_empty">설정된 시간대 없음</string>
+    <string name="sleep_segments_empty_hint">시간대를 추가하기 전까지는 하루 종일 화면이 켜집니다.</string>
+    <string name="sleep_add_segment">시간대 추가</string>
+    <string name="sleep_delete_segment">시간대 삭제</string>
+    <string name="sleep_start_time">시작</string>
+    <string name="sleep_end_time">종료</string>
+    <string name="sleep_overlap_error">기존 시간대(%1$s)와 겹칩니다. 다른 시각을 선택하세요.</string>
+    <string name="sleep_same_time_error">시작과 종료를 같은 시각으로 지정할 수 없습니다.</string>
+    <string name="sleep_max_segments_reached">시간대는 최대 %1$d개입니다.</string>
+    <string name="sleep_range_note">시작 분은 시간대에 포함되고 종료 분은 포함되지 않습니다. 02:00 - 04:00은 03:59까지이며, 한 시간대가 끝나는 시각에 다른 시간대를 시작할 수 있습니다.</string>
+    <string name="sleep_crosses_midnight">자정 넘김</string>
+    <string name="sleep_duration_hm">%1$d시간 %2$d분</string>
+    <string name="sleep_duration_m">%1$d분</string>
     <string name="dnd_detect_title">방해 금지 모드 감지</string>
     <string name="dnd_detect_desc">방해 금지 모드에서도 화면을 켜려면 끄세요.</string>
     <string name="charging_only_title">충전 중에만 화면 켜기</string>
@@ -99,7 +114,9 @@
     <string name="still_have_problem">아직 문제가 있나요? 탭하여 설정 열기</string>
     <string name="close_app_notice">이 작업으로 앱이 종료됩니다. 종료 후 앱을 다시 열어주세요.</string>
     <string name="include_system_app">시스템 앱 포함</string>
-    <string name="radical_ongoing_detact">엄격한 지속 알림 필터링 (실험적 기능)</string>
+    <string name="radical_ongoing_detact">상주 알림 차단</string>
+    <string name="ongoing_status_help">앱이 진행 중으로 표시한 알림을 차단하며, 화면은 켜지지 않습니다.\n\n진행 중 알림은 아직 계속되고 있는 일을 나타냅니다. WeChat 영상 통화, QQ 통화, 재생 중인 음악, 실행 중인 내비게이션 등입니다. 일이 끝날 때까지 알림 창에 남아 있고 그 사이 여러 번 갱신될 수 있는데, 갱신될 때마다 화면이 켜질 수 있습니다.</string>
+    <string name="radical_ongoing_help">앱이 지울 수 없음으로 표시한 알림을 차단합니다.\n\n「진행 중 알림 차단」보다 범위가 넓습니다. 진행 중으로 표시된 알림뿐 아니라, 그런 표시가 없는데도 밀어서 지울 수 없는 알림(일부 백그라운드 서비스의 상주 알림 등)까지 포함합니다.\n\n둘 다 켜면 이 항목이 결과를 결정하므로 진행 중 알림 항목은 추가 효과가 없습니다.\n\n일부 앱은 일반 메시지에도 지울 수 없음을 표시합니다. 그런 메시지까지 차단되기 때문에 이 항목은 실험 기능입니다.</string>
     <string name="ignore_silent_notification">무음 알림 무시</string>
     <string name="ignore_silent_notification_desc">중요도가 낮음, 최소, 없음인 채널의 알림은 화면을 켜지 않습니다.</string>
     <string name="send_notification_permission">알림 전송 권한</string>
@@ -257,5 +274,5 @@
     <string name="chain_legend_off">꺼짐</string>
     <string name="chain_config_granted">허용됨</string>
     <string name="chain_config_not_granted">허용 안 됨</string>
-    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
 </resources>

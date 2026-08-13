@@ -43,7 +43,7 @@
     <string name="time_of_wake_up_screen">自訂亮屏時間</string>
     <string name="optimize_of_battery_saver">關閉電量最佳化</string>
     <string name="pocket_mode">口袋防誤觸</string>
-    <string name="ongoing_status">持續通知最佳化</string>
+    <string name="ongoing_status">攔截持續通知</string>
     <string name="current_mode">過濾模式</string>
     <string name="all_pass">全部通知</string>
     <string name="white_list">白名單模式</string>
@@ -86,11 +86,26 @@
     <string name="click_here_to_open_google_play_store">點擊開啟Google Play商店</string>
 
     <string name="app_intro_full">這是一個可以在接收到通知時點亮螢幕的 Android APP。\n特別為三星S10最佳化，同樣相容其他裝置。\n本應用程式開源、無需網路連線、免費無廣告。</string>
-    <string name="sleep_mode_open_desc">螢幕在此時段將不會點亮：</string>
     <string name="sleep_mode">睡眠模式</string>
     <string name="delay_to_wakeup">點擊此處測試是否能正常點亮</string>
     <string name="click_here_and_press_power_button_within_10_sec">點擊之後，在十秒內關閉螢幕，觀察是否能點亮</string>
     <string name="sleep_time">睡眠時間</string>
+    <string name="sleep_ring_asleep">睡眠時段</string>
+    <string name="sleep_ring_awake">正常亮螢幕</string>
+    <string name="sleep_segments_count">%1$d 個時段</string>
+    <string name="sleep_segments_empty">尚未設定時段</string>
+    <string name="sleep_segments_empty_hint">未新增時段前，全天都會正常亮螢幕。</string>
+    <string name="sleep_add_segment">新增時段</string>
+    <string name="sleep_delete_segment">刪除時段</string>
+    <string name="sleep_start_time">開始</string>
+    <string name="sleep_end_time">結束</string>
+    <string name="sleep_overlap_error">與已有時段（%1$s）重疊，請另選時間。</string>
+    <string name="sleep_same_time_error">開始和結束時間不能相同。</string>
+    <string name="sleep_max_segments_reached">最多只能設定 %1$d 個時段。</string>
+    <string name="sleep_range_note">開始時間算在時段內，結束時間不算，因此 02:00 - 04:00 到 03:59 為止，一個時段可以從另一個時段的結束時間開始。</string>
+    <string name="sleep_crosses_midnight">跨午夜</string>
+    <string name="sleep_duration_hm">%1$d 小時 %2$d 分</string>
+    <string name="sleep_duration_m">%1$d 分鐘</string>
     <string name="dnd_detect_title">勿擾模式偵測</string>
     <string name="dnd_detect_desc">勿擾模式下將不會點亮螢幕</string>
     <string name="charging_only_title">僅充電時亮屏</string>
@@ -99,7 +114,9 @@
     <string name="still_have_problem">仍然有問題嗎？點擊這裡開啟通知開關。</string>
     <string name="close_app_notice">此操作將關閉應用程式，請在此之後重新開啟。</string>
     <string name="include_system_app">包含系統應用程式</string>
-    <string name="radical_ongoing_detact">嚴格的持續通知過濾（實驗功能）</string>
+    <string name="radical_ongoing_detact">攔截常駐通知</string>
+    <string name="ongoing_status_help">應用程式標記為「進行中」的通知會被攔下，螢幕不亮。\n\n這類通知代表一件仍在進行的事：微信視訊通話、QQ 電話、正在播放的音樂、正在進行的導航。它們在事件結束前一直留在通知欄，期間可能反覆更新，每次更新都可能觸發一次亮螢幕。</string>
+    <string name="radical_ongoing_help">應用程式標記為不可清除的通知會被攔下。\n\n涵蓋範圍比「攔截持續通知」更大：除了標記為進行中的通知，還包含那些沒有這個標記、但同樣滑不掉的通知，例如部分背景服務的常駐提示。\n\n兩項同時開啟時以本項為準，「攔截持續通知」不再產生額外效果。\n\n少數應用程式會給普通訊息也加上不可清除標記，這類訊息會被一併攔下，因此本項屬於實驗功能。</string>
     <string name="ignore_silent_notification">忽略靜音通知</string>
     <string name="ignore_silent_notification_desc">重要性為「低 / 最低 / 無」的通知不再亮螢幕。</string>
     <string name="send_notification_permission">傳送通知的權限</string>
@@ -257,5 +274,5 @@
     <string name="chain_legend_off">未開啟</string>
     <string name="chain_config_granted">已授予</string>
     <string name="chain_config_not_granted">未授予</string>
-    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
 </resources>

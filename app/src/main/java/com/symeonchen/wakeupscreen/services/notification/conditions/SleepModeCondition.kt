@@ -4,8 +4,8 @@ import android.app.Application
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
+import com.symeonchen.wakeupscreen.data.SleepSchedule
 import com.symeonchen.wakeupscreen.utils.DataInjection
-import com.symeonchen.wakeupscreen.utils.TimeRangeCalculateUtils
 import java.util.*
 
 
@@ -27,14 +27,13 @@ class SleepModeCondition : LimitedCondition.NoParamCondition() {
 
     override fun wouldBlockNow(application: Application?): Boolean = inSleepWindow()
 
-    /** Armed and the clock currently sits inside the configured window. */
+    /** Armed and the clock currently sits inside one of the configured windows. */
     private fun inSleepWindow(): Boolean {
         if (!DataInjection.sleepModeBoolean) {
             return false
         }
-        val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        val beginHour = DataInjection.sleepModeTimeBeginHour
-        val endHour = DataInjection.sleepModeTimeEndHour
-        return TimeRangeCalculateUtils.hourInRange(currentHour, beginHour, endHour)
+        val now = Calendar.getInstance()
+        val minuteOfDay = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
+        return SleepSchedule.contains(DataInjection.sleepModeSegments, minuteOfDay)
     }
 }

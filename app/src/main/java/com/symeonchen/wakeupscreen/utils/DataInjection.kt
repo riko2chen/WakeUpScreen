@@ -3,6 +3,8 @@ package com.symeonchen.wakeupscreen.utils
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
+import com.symeonchen.wakeupscreen.data.SleepSchedule
+import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_BLACK_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_LIST_FLAG
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_WHITE_LIST_STRING
@@ -53,7 +55,9 @@ import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_MAX_ROUNDS
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_ROUND_COUNT
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.SEND_NOTIFICATION_PERMISSION
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_SEGMENTS
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_BOOLEAN
+import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_SEGMENTS
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_BEGIN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_END
 import com.symeonchen.wakeupscreen.data.ScConstant.WAKE_SCREEN_SECOND
@@ -233,6 +237,35 @@ object DataInjection {
             MMKV.defaultMMKV()?.putBoolean(SLEEP_MODE_BOOLEAN, value)
         }
 
+    /**
+     * Every sleep window, as `[start, end)` minute pairs.
+     *
+     * Reading it the first time after an upgrade migrates the old hour-only
+     * pair into a single window and writes the result, so the migration runs
+     * once and the legacy keys are never consulted again. Clearing every window
+     * writes an empty string, which is a value like any other: the getter must
+     * not mistake it for "not migrated yet" and resurrect the old range.
+     */
+    var sleepModeSegments: List<SleepSegment>
+        get() {
+            val stored = MMKV.defaultMMKV()?.getString(SLEEP_MODE_SEGMENTS, DEFAULT_SLEEP_MODE_SEGMENTS)
+            if (stored == null) {
+                val migrated = listOf(
+                    SleepSchedule.fromLegacyHours(sleepModeTimeBeginHour, sleepModeTimeEndHour)
+                )
+                sleepModeSegments = migrated
+                return migrated
+            }
+            return SleepSchedule.parse(stored)
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putString(SLEEP_MODE_SEGMENTS, SleepSchedule.serialize(value))
+        }
+
+    /**
+     * Pre-3.2.0 sleep window, kept only so [sleepModeSegments] can migrate an
+     * existing install once. Nothing reads it to decide anything any more.
+     */
     var sleepModeTimeBeginHour: Int
         get() {
             return MMKV.defaultMMKV()?.getInt(

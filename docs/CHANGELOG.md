@@ -6,7 +6,16 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ## [3.2.0]
 
+### Added
+- Sleep mode accepts several windows, added and removed one by one, so a night window and an afternoon nap can coexist
+- Sleep windows are set to the minute instead of the full hour
+- The sleep time page shows the day as a 24-hour ring, with sleep windows greyed out, the current moment marked, and ticks at 0, 6, 12 and 18
+- Adding a window checks it against the existing ones, naming the window it would collide with instead of silently accepting an overlap
+
 ### Changes
+- A sleep window runs from its start up to but not including its end, so 02:00 - 04:00 stops at 03:59. Two windows can therefore meet end to end, one starting exactly where another finishes
+- An existing single window is converted automatically on upgrade and keeps behaving the same
+- "Optimize Ongoing Notify" is now "Block Ongoing Notifications" and "Radical Ongoing Detect" is now "Block Non-clearable Notifications". Both carry a "?" button explaining what each one stops and how they differ
 - Settings are regrouped into General, Advanced, Diagnostics and About. General holds language and the new dark mode; Advanced holds the notification check process and the wake rules page; Diagnostics holds the wake test and a direct entry to the log
 - New dark mode setting with three options: follow system, light, dark. It defaults to following the system, so appearance does not change on upgrade
 - Screen-on duration and the app filter (mode, whitelist, blacklist) moved from the settings home into the wake rules page, which now covers everything that decides whether the screen lights up

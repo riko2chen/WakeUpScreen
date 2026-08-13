@@ -8,6 +8,7 @@ import com.symeonchen.wakeupscreen.services.notification.BlockChain
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ChainNodeState
 import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.TimeOfDayFormatter
 
 /**
  * Display text for the chain nodes.
@@ -91,11 +92,16 @@ fun chainConfigSummary(key: String, hasNotificationAccess: Boolean): String? {
             DataInjection.ongoingOptimize || DataInjection.radicalOngoingOptimize
         )
         BlockReason.SLEEP_MODE -> if (DataInjection.sleepModeBoolean) {
-            stringResource(
-                R.string.chain_config_sleep_window,
-                DataInjection.sleepModeTimeBeginHour,
-                DataInjection.sleepModeTimeEndHour,
-            )
+            val segments = DataInjection.sleepModeSegments
+            when (segments.size) {
+                0 -> stringResource(R.string.sleep_segments_empty)
+                1 -> stringResource(
+                    R.string.chain_config_sleep_window,
+                    TimeOfDayFormatter.formatMinuteOfDay(segments[0].startMinute),
+                    TimeOfDayFormatter.formatMinuteOfDay(segments[0].endMinute),
+                )
+                else -> stringResource(R.string.sleep_segments_count, segments.size)
+            }
         } else {
             onOff(false)
         }

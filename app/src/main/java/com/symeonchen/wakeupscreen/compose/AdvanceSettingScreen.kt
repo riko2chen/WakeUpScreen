@@ -7,11 +7,23 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.*
+
+/**
+ * The switches whose behaviour needs more than a subtitle to explain.
+ */
+private enum class HelpTopic(val titleRes: Int, val bodyRes: Int) {
+    ONGOING(R.string.ongoing_status, R.string.ongoing_status_help),
+    RADICAL_ONGOING(R.string.radical_ongoing_detact, R.string.radical_ongoing_help),
+}
 
 @Composable
 fun AdvanceSettingScreen(
@@ -58,6 +70,16 @@ fun AdvanceSettingScreen(
     repeatReminderDetailSubtitle: String,
     onRepeatReminderDetailClick: () -> Unit,
 ) {
+    var helpTopic by remember { mutableStateOf<HelpTopic?>(null) }
+
+    helpTopic?.let { topic ->
+        HelpDialog(
+            title = stringResource(topic.titleRes),
+            body = stringResource(topic.bodyRes),
+            onDismiss = { helpTopic = null },
+        )
+    }
+
     Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.advanced_setting),
@@ -123,6 +145,7 @@ fun AdvanceSettingScreen(
                     subtitle = ongoingSubtitle,
                     checked = ongoingChecked,
                     onCheckedChange = onOngoingToggle,
+                    onHelpClick = { helpTopic = HelpTopic.ONGOING },
                 )
                 FlatDivider()
                 SettingSwitchRow(
@@ -130,6 +153,7 @@ fun AdvanceSettingScreen(
                     subtitle = radicalOngoingSubtitle,
                     checked = radicalOngoingChecked,
                     onCheckedChange = onRadicalOngoingToggle,
+                    onHelpClick = { helpTopic = HelpTopic.RADICAL_ONGOING },
                 )
                 FlatDivider()
                 SettingSwitchRow(

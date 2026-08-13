@@ -43,7 +43,7 @@
     <string name="time_of_wake_up_screen">画面点灯時間</string>
     <string name="optimize_of_battery_saver">電力最適化をオフにする</string>
     <string name="pocket_mode">ポケットモード</string>
-    <string name="ongoing_status">継続通知の最適化</string>
+    <string name="ongoing_status">進行中の通知をブロック</string>
     <string name="current_mode">フィルターモード</string>
     <string name="all_pass">すべての通知</string>
     <string name="white_list">ホワイトリストモード</string>
@@ -86,11 +86,26 @@
     <string name="click_here_to_open_google_play_store">タップしてGoogle Playストアを開く</string>
 
     <string name="app_intro_full">通知を受信した際に画面を点灯させるAndroidアプリです。\nSamsung S10向けに最適化されており、他のデバイスにも対応しています。\nオープンソース、インターネット接続不要、無料です。</string>
-    <string name="sleep_mode_open_desc">この時間帯は画面が点灯しません：</string>
     <string name="sleep_mode">スリープモード</string>
     <string name="delay_to_wakeup">タップして画面点灯テストを開始</string>
     <string name="click_here_and_press_power_button_within_10_sec">タップした後、10秒以内に電源ボタンを押してください</string>
     <string name="sleep_time">スリープ時間</string>
+    <string name="sleep_ring_asleep">睡眠時間帯</string>
+    <string name="sleep_ring_awake">点灯する</string>
+    <string name="sleep_segments_count">%1$d 件の時間帯</string>
+    <string name="sleep_segments_empty">時間帯が未設定</string>
+    <string name="sleep_segments_empty_hint">時間帯を追加するまで、終日画面が点灯します。</string>
+    <string name="sleep_add_segment">時間帯を追加</string>
+    <string name="sleep_delete_segment">時間帯を削除</string>
+    <string name="sleep_start_time">開始</string>
+    <string name="sleep_end_time">終了</string>
+    <string name="sleep_overlap_error">既存の時間帯（%1$s）と重なっています。別の時刻を選んでください。</string>
+    <string name="sleep_same_time_error">開始と終了を同じ時刻にはできません。</string>
+    <string name="sleep_max_segments_reached">時間帯は最大 %1$d 件です。</string>
+    <string name="sleep_range_note">開始の分は時間帯に含まれ、終了の分は含まれません。02:00 - 04:00 は 03:59 までとなり、ある時間帯の終了時刻から次の時間帯を始められます。</string>
+    <string name="sleep_crosses_midnight">日をまたぐ</string>
+    <string name="sleep_duration_hm">%1$d時間%2$d分</string>
+    <string name="sleep_duration_m">%1$d分</string>
     <string name="dnd_detect_title">おやすみモード検出</string>
     <string name="dnd_detect_desc">おやすみモード中も画面を点灯させたい場合はオフにしてください。</string>
     <string name="charging_only_title">充電中のみ点灯</string>
@@ -99,7 +114,9 @@
     <string name="still_have_problem">まだ問題がありますか？タップして設定を開く</string>
     <string name="close_app_notice">この操作によりアプリが終了します。終了後にアプリを再度開いてください。</string>
     <string name="include_system_app">システムアプリを含む</string>
-    <string name="radical_ongoing_detact">厳格な継続通知フィルタリング（実験的機能）</string>
+    <string name="radical_ongoing_detact">常駐通知をブロック</string>
+    <string name="ongoing_status_help">アプリが「進行中」と設定した通知をブロックし、画面は点灯しません。\n\n進行中の通知は、まだ続いている出来事を表します。WeChat のビデオ通話、QQ の通話、再生中の音楽、案内中のナビなどです。出来事が終わるまで通知領域に残り、その間に何度も更新されることがあり、更新のたびに画面が点灯する可能性があります。</string>
+    <string name="radical_ongoing_help">アプリが「消去不可」と設定した通知をブロックします。\n\n「進行中の通知をブロック」より範囲が広く、進行中と設定された通知に加えて、その設定はないのにスワイプで消せない通知（一部のバックグラウンドサービスの常駐表示など）も対象になります。\n\n両方を有効にした場合はこちらが結果を決めるため、進行中の通知の設定は追加の効果を持ちません。\n\n一部のアプリは通常のメッセージにも消去不可を設定します。その場合はそれらもブロックされるため、この項目は実験的機能です。</string>
     <string name="ignore_silent_notification">サイレント通知を無視</string>
     <string name="ignore_silent_notification_desc">重要度が「低」「最小」「なし」のチャンネルの通知では画面を点灯しません。</string>
     <string name="send_notification_permission">通知送信の権限</string>
@@ -257,5 +274,5 @@
     <string name="chain_legend_off">オフ</string>
     <string name="chain_config_granted">許可済み</string>
     <string name="chain_config_not_granted">未許可</string>
-    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
 </resources>

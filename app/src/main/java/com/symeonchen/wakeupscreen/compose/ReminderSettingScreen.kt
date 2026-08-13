@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
-import com.symeonchen.wakeupscreen.compose.components.GlyphBadge
+import com.symeonchen.wakeupscreen.compose.components.HelpButton
 import com.symeonchen.wakeupscreen.compose.theme.Indigo
 import com.symeonchen.wakeupscreen.compose.theme.IndigoDark
 
@@ -165,25 +165,12 @@ private fun IntervalCard(
                 )
                 HelpButton(
                     onClick = onHelpClick,
+                    onClickLabel = stringResource(R.string.reminder_delay_help_title),
                     modifier = Modifier.padding(start = 8.dp),
                 )
             }
         }
     }
-}
-
-@Composable
-private fun HelpButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    GlyphBadge(
-        text = "?",
-        size = 20.dp,
-        fontSize = 13.sp,
-        background = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.15f),
-        contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = modifier,
-        onClick = onClick,
-        onClickLabel = stringResource(R.string.reminder_delay_help_title),
-    )
 }
 
 @Composable

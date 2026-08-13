@@ -16,11 +16,13 @@ import com.symeonchen.wakeupscreen.compose.components.SelectionDialog
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.TimeOfDayFormatter
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
 class AdvanceSettingPageActivity : ScBaseActivity() {
@@ -49,7 +51,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 val dnd by settingModel.dndDetectBoolean.observeAsState(false)
                 val chargingOnly by settingModel.chargingOnlySwitch.observeAsState(false)
                 val sleep by settingModel.sleepModeBoolean.observeAsState(false)
-                val sleepRange by settingModel.sleepModeTimeRange.observeAsState(Pair(2, 4))
+                val sleepSegments by settingModel.sleepModeSegments.observeAsState(emptyList())
                 val repeatReminder by settingModel.repeatReminderSwitch.observeAsState(false)
                 val reminderInterval by settingModel.repeatReminderIntervalMinutes.observeAsState(
                     ScConstant.DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
@@ -114,7 +116,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     sleepSubtitle = statusText(sleep),
                     onSleepToggle = { settingModel.sleepModeBoolean.postValue(!sleep) },
                     showSleepDetail = sleep,
-                    sleepDetailSubtitle = "${getString(R.string.sleep_mode_open_desc)} ${sleepRange.first}:00→${sleepRange.second}:00",
+                    sleepDetailSubtitle = sleepSummary(sleepSegments),
                     onSleepDetailClick = { quickStartActivity<SleepTimeSettingActivity>() },
                     repeatReminderChecked = repeatReminder,
                     repeatReminderSubtitle = getString(R.string.repeat_reminder_desc),
@@ -161,9 +163,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
     override fun onResume() {
         super.onResume()
         preciseWakeState.value = preciseWakeSnapshot()
-        settingModel.sleepModeTimeRange.postValue(
-            Pair(DataInjection.sleepModeTimeBeginHour, DataInjection.sleepModeTimeEndHour)
-        )
+        settingModel.sleepModeSegments.postValue(DataInjection.sleepModeSegments)
         settingModel.repeatReminderIntervalMinutes.postValue(
             DataInjection.repeatReminderIntervalMinutes
         )
@@ -171,6 +171,13 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
 
     private fun preciseWakeSnapshot(): Pair<Boolean, Long> =
         DataInjection.preciseScreenOnSwitch to DataInjection.preciseScreenOnSecond
+
+    /** One line for the row: the window itself when there is only one, a count otherwise. */
+    private fun sleepSummary(segments: List<SleepSegment>): String = when (segments.size) {
+        0 -> getString(R.string.sleep_segments_empty)
+        1 -> TimeOfDayFormatter.formatSegment(segments[0])
+        else -> getString(R.string.sleep_segments_count, segments.size)
+    }
 
     private fun reminderIntervalText(minutes: Int): String =
         if (minutes >= 60 && minutes % 60 == 0) {

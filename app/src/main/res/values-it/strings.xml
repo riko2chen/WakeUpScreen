@@ -47,7 +47,7 @@
     <string name="time_of_wake_up_screen">Tempo di schermo acceso</string>
     <string name="optimize_of_battery_saver">Disattiva l\'ottimizzazione della batteria</string>
     <string name="pocket_mode">Pocket Mode</string>
-    <string name="ongoing_status">Optimize Ongoing Notify</string>
+    <string name="ongoing_status">Blocca notifiche in corso</string>
     <string name="current_mode">Modalità filtro</string>
     <string name="all_pass">Tutte le notifiche</string>
     <string name="white_list">Modalità whitelist</string>
@@ -96,11 +96,26 @@
     <string name="click_here_to_open_google_play_store">Fai clic qui per aprire Google Play Store</string>
 
     <string name="app_intro_full">Questa è un applicazione Android che permette al telefono di risvegliarsi quando riceve una notifica.\nOttimizzato specialmente per il Samsung S10.\nCompatibile con altri dispositivi.E\' open source, senza accesso a internet, e gratis.</string>
-    <string name="sleep_mode_open_desc">"The screen will not wake between "</string>
     <string name="sleep_mode">Sleep Mode</string>
     <string name="delay_to_wakeup">Fare clic qui per iniziare il test di riattivazione</string>
     <string name="click_here_and_press_power_button_within_10_sec">Click here and press power button within 5 seconds</string>
     <string name="sleep_time">Sleep Time</string>
+    <string name="sleep_ring_asleep">Intervallo di sonno</string>
+    <string name="sleep_ring_awake">Schermo attivo</string>
+    <string name="sleep_segments_count">%1$d intervalli</string>
+    <string name="sleep_segments_empty">Nessun intervallo impostato</string>
+    <string name="sleep_segments_empty_hint">Senza intervalli lo schermo si accende a qualsiasi ora.</string>
+    <string name="sleep_add_segment">Aggiungi intervallo</string>
+    <string name="sleep_delete_segment">Elimina intervallo</string>
+    <string name="sleep_start_time">Inizio</string>
+    <string name="sleep_end_time">Fine</string>
+    <string name="sleep_overlap_error">Si sovrappone a un intervallo esistente (%1$s). Scegli un altro orario.</string>
+    <string name="sleep_same_time_error">Inizio e fine non possono coincidere.</string>
+    <string name="sleep_max_segments_reached">Al massimo %1$d intervalli.</string>
+    <string name="sleep_range_note">Il minuto iniziale è incluso, quello finale no: 02:00 - 04:00 termina alle 03:59 e un intervallo può iniziare dove ne finisce un altro.</string>
+    <string name="sleep_crosses_midnight">oltre la mezzanotte</string>
+    <string name="sleep_duration_hm">%1$d h %2$d min</string>
+    <string name="sleep_duration_m">%1$d min</string>
     <string name="dnd_detect_title">Rilevamento Non Disturbare</string>
     <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
     <string name="charging_only_title">Solo in carica</string>
@@ -109,7 +124,9 @@
     <string name="still_have_problem">Hai ancora problemi?Clicca qui per aprire l\'impostazione</string>
     <string name="close_app_notice">Questa azione chiuderà l\'Applicazione, quindi riaprire l\'APP successivamente.</string>
     <string name="include_system_app">Includi APP di sistema</string>
-    <string name="radical_ongoing_detact">Rilevamento continuo radicale (instabile)</string>
+    <string name="radical_ongoing_detact">Blocca notifiche non cancellabili</string>
+    <string name="ongoing_status_help">Le notifiche che un\'app contrassegna come in corso vengono bloccate e lo schermo resta spento.\n\nUna notifica in corso rappresenta qualcosa ancora in svolgimento: una videochiamata WeChat, una chiamata QQ, la musica in riproduzione, la navigazione attiva. Resta nel pannello finché l\'evento non finisce e può aggiornarsi molte volte, e ogni aggiornamento sarebbe altrimenti un\'occasione per accendere lo schermo.</string>
+    <string name="radical_ongoing_help">Le notifiche che un\'app contrassegna come non cancellabili vengono bloccate.\n\nCopre più di \"Blocca notifiche in corso\": oltre alle notifiche in corso, intercetta anche quelle prive di quel contrassegno che comunque non si possono scartare, come alcuni avvisi di servizi in background.\n\nCon entrambi gli interruttori attivi decide questo, e quello sulle notifiche in corso non aggiunge nulla.\n\nAlcune app contrassegnano come non cancellabili anche i messaggi normali, che vengono quindi bloccati: per questo l\'opzione è sperimentale.</string>
     <string name="ignore_silent_notification">Ignora notifiche silenziose</string>
     <string name="ignore_silent_notification_desc">Le notifiche dei canali con importanza Bassa, Minima o Nessuna non accendono più lo schermo.</string>
     <string name="send_notification_permission">Permesso di inviare notifiche</string>
@@ -271,5 +288,5 @@
     <string name="chain_legend_off">Disattivato</string>
     <string name="chain_config_granted">Concesso</string>
     <string name="chain_config_not_granted">Non concesso</string>
-    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
 </resources>

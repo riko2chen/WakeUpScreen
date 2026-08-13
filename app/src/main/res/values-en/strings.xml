@@ -46,7 +46,7 @@
     <string name="time_of_wake_up_screen">Bright screen time</string>
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
     <string name="pocket_mode">Pocket Mode</string>
-    <string name="ongoing_status">Optimize Ongoing Notify</string>
+    <string name="ongoing_status">Block Ongoing Notifications</string>
     <string name="current_mode">Filter Mode</string>
     <string name="all_pass">All Notify</string>
     <string name="white_list">Whitelist mode</string>
@@ -95,11 +95,26 @@
     <string name="click_here_to_open_google_play_store">Click here to open Google Play Store</string>
 
     <string name="app_intro_full">This is an Android app that allows the phone to wake up when it receives a notification.\nSpecially for Samsung S10 optimization. Also compatible with other devices.\nIt\'s open source, no internet access, and free.</string>
-    <string name="sleep_mode_open_desc">"The screen will not wake between "</string>
     <string name="sleep_mode">Sleep Mode</string>
     <string name="delay_to_wakeup">Click here to begin wake test</string>
     <string name="click_here_and_press_power_button_within_10_sec">Click here and press power button within 5 seconds</string>
     <string name="sleep_time">Sleep Time</string>
+    <string name="sleep_ring_asleep">Sleep window</string>
+    <string name="sleep_ring_awake">Screen wakes</string>
+    <string name="sleep_segments_count">%1$d windows</string>
+    <string name="sleep_segments_empty">No window set</string>
+    <string name="sleep_segments_empty_hint">The screen wakes all day until a window is added.</string>
+    <string name="sleep_add_segment">Add window</string>
+    <string name="sleep_delete_segment">Delete window</string>
+    <string name="sleep_start_time">Starts</string>
+    <string name="sleep_end_time">Ends</string>
+    <string name="sleep_overlap_error">Overlaps an existing window (%1$s). Pick a different time.</string>
+    <string name="sleep_same_time_error">Start and end cannot be the same.</string>
+    <string name="sleep_max_segments_reached">At most %1$d windows.</string>
+    <string name="sleep_range_note">The start minute is inside the window, the end minute is outside it, so 02:00 - 04:00 stops at 03:59 and one window may start where another ends.</string>
+    <string name="sleep_crosses_midnight">over midnight</string>
+    <string name="sleep_duration_hm">%1$dh %2$dm</string>
+    <string name="sleep_duration_m">%1$dm</string>
     <string name="dnd_detect_title">Detection of Do Not Disturb</string>
     <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
     <string name="charging_only_title">Charging Only Mode</string>
@@ -113,7 +128,9 @@
     <string name="still_have_problem">Still having problems? Click here to open setting</string>
     <string name="close_app_notice">This action will close Application, please reopen the APP after that.</string>
     <string name="include_system_app">Include system APP</string>
-    <string name="radical_ongoing_detact">Radical Ongoing Detect (unstable)</string>
+    <string name="radical_ongoing_detact">Block Non-clearable Notifications</string>
+    <string name="ongoing_status_help">Notifications an app marks as ongoing are stopped, and the screen stays dark.\n\nAn ongoing notification stands for something still in progress: a WeChat video call, a QQ call, music that is playing, navigation that is running. It stays in the shade until the event ends and may update many times on the way, and every update would otherwise be a chance to wake the screen.</string>
+    <string name="radical_ongoing_help">Notifications an app marks as non-clearable are stopped.\n\nThis reaches wider than \"Block Ongoing Notifications\": besides notifications marked as ongoing, it also catches ones that carry no such mark yet still cannot be swiped away, such as some background service reminders.\n\nWith both switches on, this one decides the outcome and the ongoing switch adds nothing on top.\n\nA few apps mark ordinary messages as non-clearable as well. Those messages are stopped too, which is why this one is experimental.</string>
     <string name="ignore_silent_notification">Ignore Silent Notifications</string>
     <string name="ignore_silent_notification_desc">Notifications on channels set to Low, Min or None importance no longer wake the screen.</string>
     <string name="send_notification_permission">Permission to send notifications</string>
@@ -271,5 +288,5 @@
     <string name="chain_legend_off">Off</string>
     <string name="chain_config_granted">Granted</string>
     <string name="chain_config_not_granted">Not granted</string>
-    <string name="chain_config_sleep_window">%1$d:00 - %2$d:00</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
 </resources>

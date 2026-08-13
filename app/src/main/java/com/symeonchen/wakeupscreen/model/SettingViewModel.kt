@@ -5,6 +5,7 @@ import com.symeonchen.wakeupscreen.ScLiveData
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
+import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 /**
@@ -73,9 +74,9 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.sleepModeBoolean)
         }
 
-    var sleepModeTimeRange: ScLiveData<Pair<Int, Int>> = ScLiveData<Pair<Int, Int>>()
+    var sleepModeSegments: ScLiveData<List<SleepSegment>> = ScLiveData<List<SleepSegment>>()
         .apply {
-            setValue(Pair(DataInjection.sleepModeTimeBeginHour, DataInjection.sleepModeTimeEndHour))
+            setValue(DataInjection.sleepModeSegments)
         }
 
     var dndDetectBoolean: ScLiveData<Boolean> = ScLiveData<Boolean>()
@@ -168,10 +169,9 @@ class SettingViewModel : ViewModel() {
         }
 
 
-        sleepModeTimeRange.listener = object : ScLiveData.OnLiveDataValueInput<Pair<Int, Int>> {
-            override fun onValueInput(value: Pair<Int, Int>) {
-                DataInjection.sleepModeTimeBeginHour = value.first
-                DataInjection.sleepModeTimeEndHour = value.second
+        sleepModeSegments.listener = object : ScLiveData.OnLiveDataValueInput<List<SleepSegment>> {
+            override fun onValueInput(value: List<SleepSegment>) {
+                DataInjection.sleepModeSegments = value
             }
         }
 

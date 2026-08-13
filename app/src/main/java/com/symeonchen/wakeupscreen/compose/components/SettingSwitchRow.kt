@@ -19,6 +19,7 @@ fun SettingSwitchRow(
     checked: Boolean,
     onCheckedChange: () -> Unit,
     modifier: Modifier = Modifier,
+    onHelpClick: (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
@@ -28,11 +29,22 @@ fun SettingSwitchRow(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                if (onHelpClick != null) {
+                    // Its own clickable wins over the row's, so tapping the
+                    // badge opens the explanation instead of flipping the switch.
+                    HelpButton(
+                        onClick = onHelpClick,
+                        onClickLabel = title,
+                        modifier = Modifier.padding(start = 6.dp),
+                    )
+                }
+            }
             if (!subtitle.isNullOrEmpty()) {
                 Text(
                     text = subtitle,

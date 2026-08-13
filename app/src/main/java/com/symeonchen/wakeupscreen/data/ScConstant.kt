@@ -22,6 +22,7 @@ object ScConstant {
     const val SLEEP_MODE_BOOLEAN = "sleep_mode_boolean"
     const val SLEEP_MODE_TIME_BEGIN = "sleep_mode_time_begin"
     const val SLEEP_MODE_TIME_END = "sleep_mode_time_end"
+    const val SLEEP_MODE_SEGMENTS = "sleep_mode_segments"
     const val DND_DETECT_SWITCH = "dnd_detect_switch"
     const val LAST_IN_APP_REVIEW_TIMESTAMP = "last_in_app_review_timestamp"
     const val CHARGING_ONLY_SWITCH = "charging_only_switch"
@@ -50,6 +51,16 @@ object ScConstant {
     const val DEFAULT_SLEEP_MODE_BOOLEAN: Boolean = false
     const val DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR = 2
     const val DEFAULT_SLEEP_MODE_TIME_END_HOUR = 4
+
+    /**
+     * Absent means "never written since the upgrade", which is what triggers the
+     * one-time migration from the hour-only keys above. An empty string is a
+     * real value: every window was deleted on purpose.
+     */
+    val DEFAULT_SLEEP_MODE_SEGMENTS: String? = null
+
+    /** Windows a user may configure. A guard against a runaway list, not a UX limit. */
+    const val MAX_SLEEP_SEGMENTS = 12
     const val DEFAULT_DND_DETECT_SWITCH = true
     const val DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP = "0"
     const val DEFAULT_CHARGING_ONLY_SWITCH = false
