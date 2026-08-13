@@ -92,6 +92,7 @@
     <string name="sleep_time">เวลาพักผ่อน</string>
     <string name="sleep_ring_asleep">ช่วงเวลานอน</string>
     <string name="sleep_ring_awake">หน้าจอสว่าง</string>
+    <string name="sleep_ring_now">ตอนนี้</string>
     <string name="sleep_segments_count">%1$d ช่วงเวลา</string>
     <string name="sleep_segments_empty">ยังไม่ได้ตั้งช่วงเวลา</string>
     <string name="sleep_segments_empty_hint">หากยังไม่เพิ่มช่วงเวลา หน้าจอจะสว่างได้ตลอดทั้งวัน</string>

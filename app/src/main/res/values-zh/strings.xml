@@ -89,6 +89,7 @@
     <string name="sleep_time">睡眠时间</string>
     <string name="sleep_ring_asleep">睡眠时段</string>
     <string name="sleep_ring_awake">正常亮屏</string>
+    <string name="sleep_ring_now">当前时刻</string>
     <string name="sleep_segments_count">%1$d 个时段</string>
     <string name="sleep_segments_empty">尚未设置时段</string>
     <string name="sleep_segments_empty_hint">未添加时段前，全天都会正常亮屏。</string>

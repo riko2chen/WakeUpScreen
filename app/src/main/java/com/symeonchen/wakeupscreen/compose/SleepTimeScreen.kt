@@ -2,6 +2,8 @@ package com.symeonchen.wakeupscreen.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -89,6 +91,7 @@ fun SleepTimeScreen(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun RingCard(segments: List<SleepSegment>, currentMinuteOfDay: Int) {
     Surface(
@@ -131,12 +134,16 @@ private fun RingCard(segments: List<SleepSegment>, currentMinuteOfDay: Int) {
 
             Spacer(Modifier.height(16.dp))
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
+            // Flows onto a second line rather than clipping, since three labels
+            // in a long language do not fit one row on a narrow screen.
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(14.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 LegendDot(color = SleepRingColors.asleep, label = stringResource(R.string.sleep_ring_asleep))
                 LegendDot(color = SleepRingColors.awake, label = stringResource(R.string.sleep_ring_awake))
+                LegendDot(color = SleepRingColors.now, label = stringResource(R.string.sleep_ring_now))
             }
         }
     }

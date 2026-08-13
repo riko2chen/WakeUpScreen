@@ -41,9 +41,9 @@ fun SleepDayRing(
     currentMinuteOfDay: Int? = null,
     content: @Composable () -> Unit = {},
 ) {
-    val awakeColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.28f)
-    val sleepColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.55f)
-    val markerColor = MaterialTheme.colorScheme.secondary
+    val awakeColor = SleepRingColors.awake
+    val sleepColor = SleepRingColors.asleep
+    val markerColor = SleepRingColors.now
     val tickColor = MaterialTheme.colorScheme.onSurfaceVariant
 
     val textMeasurer = rememberTextMeasurer()
@@ -85,7 +85,7 @@ fun SleepDayRing(
                 drawArc(
                     color = markerColor,
                     startAngle = minuteToDegrees(minute) - 90f,
-                    sweepAngle = 1.5f,
+                    sweepAngle = 2f,
                     useCenter = false,
                     topLeft = topLeft,
                     size = arcSize,
@@ -113,10 +113,21 @@ fun SleepDayRing(
     }
 }
 
-/** Colours the ring uses, so a legend can match it without guessing. */
+/**
+ * Colours the ring uses, so a legend can match it without guessing.
+ *
+ * Green for the hours that wake the screen, grey for the ones that do not.
+ * The now marker stays a neutral high-contrast tone rather than a third hue,
+ * so it reads as an annotation on the ring instead of a fourth kind of window.
+ */
 object SleepRingColors {
     val awake: Color
-        @Composable get() = MaterialTheme.colorScheme.primary.copy(alpha = 0.28f)
+        @Composable get() = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.55f)
+    // Opaque on purpose: sleep arcs are painted over the full green track, and
+    // a translucent grey would blend into it as a muddy green instead of
+    // replacing it.
     val asleep: Color
-        @Composable get() = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.55f)
+        @Composable get() = MaterialTheme.colorScheme.onSurfaceVariant
+    val now: Color
+        @Composable get() = MaterialTheme.colorScheme.onSurface
 }

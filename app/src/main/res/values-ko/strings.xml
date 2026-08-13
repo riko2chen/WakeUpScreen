@@ -92,6 +92,7 @@
     <string name="sleep_time">수면 시간</string>
     <string name="sleep_ring_asleep">수면 시간대</string>
     <string name="sleep_ring_awake">화면 켜짐</string>
+    <string name="sleep_ring_now">현재</string>
     <string name="sleep_segments_count">시간대 %1$d개</string>
     <string name="sleep_segments_empty">설정된 시간대 없음</string>
     <string name="sleep_segments_empty_hint">시간대를 추가하기 전까지는 하루 종일 화면이 켜집니다.</string>

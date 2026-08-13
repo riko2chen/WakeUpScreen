@@ -101,6 +101,7 @@
     <string name="sleep_time">Sleep Time</string>
     <string name="sleep_ring_asleep">Sleep window</string>
     <string name="sleep_ring_awake">Screen wakes</string>
+    <string name="sleep_ring_now">Now</string>
     <string name="sleep_segments_count">%1$d windows</string>
     <string name="sleep_segments_empty">No window set</string>
     <string name="sleep_segments_empty_hint">The screen wakes all day until a window is added.</string>

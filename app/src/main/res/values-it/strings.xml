@@ -102,6 +102,7 @@
     <string name="sleep_time">Sleep Time</string>
     <string name="sleep_ring_asleep">Intervallo di sonno</string>
     <string name="sleep_ring_awake">Schermo attivo</string>
+    <string name="sleep_ring_now">Adesso</string>
     <string name="sleep_segments_count">%1$d intervalli</string>
     <string name="sleep_segments_empty">Nessun intervallo impostato</string>
     <string name="sleep_segments_empty_hint">Senza intervalli lo schermo si accende a qualsiasi ora.</string>

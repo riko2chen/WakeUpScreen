@@ -92,6 +92,7 @@
     <string name="sleep_time">睡眠時間</string>
     <string name="sleep_ring_asleep">睡眠時段</string>
     <string name="sleep_ring_awake">正常亮螢幕</string>
+    <string name="sleep_ring_now">目前時刻</string>
     <string name="sleep_segments_count">%1$d 個時段</string>
     <string name="sleep_segments_empty">尚未設定時段</string>
     <string name="sleep_segments_empty_hint">未新增時段前，全天都會正常亮螢幕。</string>
