@@ -5,6 +5,7 @@ import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
 import com.symeonchen.wakeupscreen.data.SleepSchedule
+import com.symeonchen.wakeupscreen.data.Weekdays
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import java.util.*
 
@@ -33,7 +34,8 @@ class SleepModeCondition : LimitedCondition.NoParamCondition() {
             return false
         }
         val now = Calendar.getInstance()
+        val isoDay = Weekdays.fromCalendar(now.get(Calendar.DAY_OF_WEEK))
         val minuteOfDay = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
-        return SleepSchedule.contains(DataInjection.sleepModeSegments, minuteOfDay)
+        return SleepSchedule.contains(DataInjection.sleepModeSegments, isoDay, minuteOfDay)
     }
 }

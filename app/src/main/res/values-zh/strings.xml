@@ -284,4 +284,10 @@
     <string name="last_wake_hours_ago">上次成功唤醒：%1$d 小时前</string>
     <string name="last_wake_days_ago">上次成功唤醒：%1$d 天前</string>
     <string name="last_wake_never">暂无成功唤醒记录，点击查看日志。</string>
+    <!-- 睡眠时段的生效日 -->
+    <string name="sleep_days_label">生效日</string>
+    <string name="sleep_days_every_day">每天</string>
+    <string name="sleep_days_weekdays">工作日</string>
+    <string name="sleep_days_weekend">周末</string>
+    <string name="sleep_days_empty_error">至少选择一天。</string>
 </resources>

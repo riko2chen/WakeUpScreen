@@ -296,4 +296,10 @@
     <string name="last_wake_hours_ago">Last successful wake: %1$d h ago</string>
     <string name="last_wake_days_ago">Last successful wake: %1$d d ago</string>
     <string name="last_wake_never">No successful wake recorded yet. Tap to open the logs.</string>
+    <!-- Sleep window weekdays -->
+    <string name="sleep_days_label">Active days</string>
+    <string name="sleep_days_every_day">Every day</string>
+    <string name="sleep_days_weekdays">Weekdays</string>
+    <string name="sleep_days_weekend">Weekend</string>
+    <string name="sleep_days_empty_error">Pick at least one day.</string>
 </resources>

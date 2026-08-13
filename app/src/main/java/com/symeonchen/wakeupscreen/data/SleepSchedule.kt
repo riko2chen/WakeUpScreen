@@ -9,12 +9,17 @@ object SleepSchedule {
 
     private const val SEGMENT_SEPARATOR = ","
     private const val BOUND_SEPARATOR = "-"
+    private const val DAYS_SEPARATOR = "@"
 
     /**
      * Reads the stored form, dropping anything unparseable rather than throwing.
      * The value has to survive downgrades and hand edits, and a schedule that
      * silently loses one broken window still beats a listener service that
      * crashes on every notification.
+     *
+     * A window is `start-end`, optionally followed by `@` and the ISO weekday
+     * digits it starts on (`1320-360@67`). No `@` part means every day, which
+     * is what the pre-weekday format meant for every window it stored.
      */
     fun parse(stored: String?): List<SleepSegment> {
         if (stored.isNullOrBlank()) {
@@ -22,21 +27,48 @@ object SleepSchedule {
         }
         return stored.split(SEGMENT_SEPARATOR)
             .mapNotNull { part ->
-                val bounds = part.trim().split(BOUND_SEPARATOR)
+                val timeAndDays = part.trim().split(DAYS_SEPARATOR)
+                if (timeAndDays.size > 2) return@mapNotNull null
+                val bounds = timeAndDays[0].trim().split(BOUND_SEPARATOR)
                 if (bounds.size != 2) return@mapNotNull null
                 val start = bounds[0].trim().toIntOrNull() ?: return@mapNotNull null
                 val end = bounds[1].trim().toIntOrNull() ?: return@mapNotNull null
-                SleepSegment(start, end).takeIf { it.isValid }
+                val days = if (timeAndDays.size == 2) {
+                    parseDays(timeAndDays[1].trim()) ?: return@mapNotNull null
+                } else {
+                    Weekdays.EVERY_DAY
+                }
+                SleepSegment(start, end, days).takeIf { it.isValid }
             }
             .sortedBy { it.startMinute }
     }
 
+    private fun parseDays(digits: String): Set<Int>? {
+        if (digits.isEmpty()) return null
+        val days = digits.map { char ->
+            char.digitToIntOrNull()?.takeIf { it in Weekdays.MONDAY..Weekdays.SUNDAY }
+                ?: return null
+        }
+        return days.toSet()
+    }
+
+    /**
+     * An every-day window is written in the old, suffix-free form, so a
+     * schedule that never uses weekdays stays readable to a 3.2.0 install.
+     */
     fun serialize(segments: List<SleepSegment>): String =
         segments.sortedBy { it.startMinute }
-            .joinToString(SEGMENT_SEPARATOR) { "${it.startMinute}$BOUND_SEPARATOR${it.endMinute}" }
+            .joinToString(SEGMENT_SEPARATOR) { segment ->
+                val time = "${segment.startMinute}$BOUND_SEPARATOR${segment.endMinute}"
+                if (segment.days == Weekdays.EVERY_DAY) {
+                    time
+                } else {
+                    time + DAYS_SEPARATOR + segment.days.sorted().joinToString("")
+                }
+            }
 
-    fun contains(segments: List<SleepSegment>, minuteOfDay: Int): Boolean =
-        segments.any { it.contains(minuteOfDay) }
+    fun contains(segments: List<SleepSegment>, isoDay: Int, minuteOfDay: Int): Boolean =
+        segments.any { it.contains(isoDay, minuteOfDay) }
 
     /** The windows [candidate] would collide with, empty when it is free to add. */
     fun conflictsWith(segments: List<SleepSegment>, candidate: SleepSegment): List<SleepSegment> =

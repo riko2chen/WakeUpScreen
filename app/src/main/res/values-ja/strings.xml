@@ -282,4 +282,10 @@
     <string name="last_wake_hours_ago">前回の点灯成功：%1$d時間前</string>
     <string name="last_wake_days_ago">前回の点灯成功：%1$d日前</string>
     <string name="last_wake_never">点灯成功の記録はまだありません。タップしてログを開きます。</string>
+    <!-- 睡眠時間帯の適用曜日 -->
+    <string name="sleep_days_label">適用する曜日</string>
+    <string name="sleep_days_every_day">毎日</string>
+    <string name="sleep_days_weekdays">平日</string>
+    <string name="sleep_days_weekend">週末</string>
+    <string name="sleep_days_empty_error">少なくとも1日選択してください。</string>
 </resources>

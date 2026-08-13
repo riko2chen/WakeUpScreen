@@ -296,4 +296,10 @@
     <string name="last_wake_hours_ago">Ultima accensione riuscita: %1$d h fa</string>
     <string name="last_wake_days_ago">Ultima accensione riuscita: %1$d g fa</string>
     <string name="last_wake_never">Nessuna accensione riuscita registrata. Tocca per aprire i log.</string>
+    <!-- Giorni della finestra di sonno -->
+    <string name="sleep_days_label">Giorni attivi</string>
+    <string name="sleep_days_every_day">Ogni giorno</string>
+    <string name="sleep_days_weekdays">Giorni feriali</string>
+    <string name="sleep_days_weekend">Fine settimana</string>
+    <string name="sleep_days_empty_error">Scegli almeno un giorno.</string>
 </resources>

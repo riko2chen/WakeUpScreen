@@ -282,4 +282,10 @@
     <string name="last_wake_hours_ago">ปลุกหน้าจอสำเร็จล่าสุด: %1$d ชั่วโมงที่แล้ว</string>
     <string name="last_wake_days_ago">ปลุกหน้าจอสำเร็จล่าสุด: %1$d วันที่แล้ว</string>
     <string name="last_wake_never">ยังไม่มีบันทึกการปลุกที่สำเร็จ แตะเพื่อเปิดบันทึก</string>
+    <!-- วันที่ใช้ช่วงเวลานอน -->
+    <string name="sleep_days_label">วันที่มีผล</string>
+    <string name="sleep_days_every_day">ทุกวัน</string>
+    <string name="sleep_days_weekdays">วันธรรมดา</string>
+    <string name="sleep_days_weekend">สุดสัปดาห์</string>
+    <string name="sleep_days_empty_error">เลือกอย่างน้อยหนึ่งวัน</string>
 </resources>

@@ -282,4 +282,10 @@
     <string name="last_wake_hours_ago">마지막 화면 켜짐 성공: %1$d시간 전</string>
     <string name="last_wake_days_ago">마지막 화면 켜짐 성공: %1$d일 전</string>
     <string name="last_wake_never">아직 성공 기록이 없습니다. 눌러서 로그를 확인하세요.</string>
+    <!-- 수면 시간대 적용 요일 -->
+    <string name="sleep_days_label">적용 요일</string>
+    <string name="sleep_days_every_day">매일</string>
+    <string name="sleep_days_weekdays">평일</string>
+    <string name="sleep_days_weekend">주말</string>
+    <string name="sleep_days_empty_error">최소 하루는 선택하세요.</string>
 </resources>

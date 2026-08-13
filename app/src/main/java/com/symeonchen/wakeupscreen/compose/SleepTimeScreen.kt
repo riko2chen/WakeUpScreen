@@ -28,7 +28,10 @@ import com.symeonchen.wakeupscreen.compose.components.SleepDayRing
 import com.symeonchen.wakeupscreen.compose.components.SleepRingColors
 import com.symeonchen.wakeupscreen.data.SleepSchedule
 import com.symeonchen.wakeupscreen.data.SleepSegment
+import com.symeonchen.wakeupscreen.data.Weekdays
 import com.symeonchen.wakeupscreen.utils.TimeOfDayFormatter
+import java.text.DateFormatSymbols
+import java.util.Locale
 
 @Composable
 fun SleepTimeScreen(
@@ -233,6 +236,21 @@ private fun SegmentListCard(
     }
 }
 
+/**
+ * Which days a window applies to, in one phrase: the three common shapes get
+ * their own words, anything else lists the short weekday names.
+ */
+@Composable
+fun weekdaySummary(days: Set<Int>): String = when (days) {
+    Weekdays.EVERY_DAY -> stringResource(R.string.sleep_days_every_day)
+    Weekdays.WEEKDAYS -> stringResource(R.string.sleep_days_weekdays)
+    Weekdays.WEEKEND -> stringResource(R.string.sleep_days_weekend)
+    else -> {
+        val symbols = DateFormatSymbols(Locale.getDefault()).shortWeekdays
+        days.sorted().joinToString(" ") { symbols[Weekdays.toCalendar(it)] }
+    }
+}
+
 @Composable
 private fun SegmentRow(segment: SleepSegment, onDelete: () -> Unit) {
     Row(
@@ -250,8 +268,17 @@ private fun SegmentRow(segment: SleepSegment, onDelete: () -> Unit) {
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )
+            val detail = buildString {
+                append(weekdaySummary(segment.days))
+                append(" · ")
+                append(duration)
+                if (segment.crossesMidnight) {
+                    append(" · ")
+                    append(crossesMidnight)
+                }
+            }
             Text(
-                text = if (segment.crossesMidnight) "$duration · $crossesMidnight" else duration,
+                text = detail,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 2.dp),
@@ -268,7 +295,7 @@ private fun SegmentRow(segment: SleepSegment, onDelete: () -> Unit) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 private fun AddSegmentDialog(
     existing: List<SleepSegment>,
@@ -277,6 +304,7 @@ private fun AddSegmentDialog(
 ) {
     val startState = rememberTimePickerState(initialHour = 23, initialMinute = 0, is24Hour = true)
     val endState = rememberTimePickerState(initialHour = 7, initialMinute = 0, is24Hour = true)
+    var selectedDays by remember { mutableStateOf(Weekdays.EVERY_DAY) }
     var error by remember { mutableStateOf<String?>(null) }
 
     // Resolved through the context rather than stringResource: the checks below
@@ -306,6 +334,46 @@ private fun AddSegmentDialog(
                 Spacer(Modifier.height(6.dp))
                 TimeInput(state = endState)
 
+                Spacer(Modifier.height(12.dp))
+
+                Text(
+                    text = stringResource(R.string.sleep_days_label),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.height(6.dp))
+                // One chip per weekday; an over-midnight window belongs to the
+                // evening it starts on, which the note below the list explains.
+                val daySymbols = DateFormatSymbols(Locale.getDefault()).shortWeekdays
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    (Weekdays.MONDAY..Weekdays.SUNDAY).forEach { day ->
+                        FilterChip(
+                            selected = day in selectedDays,
+                            onClick = {
+                                selectedDays = if (day in selectedDays) {
+                                    selectedDays - day
+                                } else {
+                                    selectedDays + day
+                                }
+                            },
+                            label = { Text(daySymbols[Weekdays.toCalendar(day)]) },
+                        )
+                    }
+                }
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    TextButton(onClick = { selectedDays = Weekdays.EVERY_DAY }) {
+                        Text(stringResource(R.string.sleep_days_every_day))
+                    }
+                    TextButton(onClick = { selectedDays = Weekdays.WEEKDAYS }) {
+                        Text(stringResource(R.string.sleep_days_weekdays))
+                    }
+                    TextButton(onClick = { selectedDays = Weekdays.WEEKEND }) {
+                        Text(stringResource(R.string.sleep_days_weekend))
+                    }
+                }
+
                 error?.let { message ->
                     Text(
                         text = message,
@@ -323,9 +391,11 @@ private fun AddSegmentDialog(
                     startState.minute,
                     endState.hour,
                     endState.minute,
+                    selectedDays,
                 )
                 val conflicts = SleepSchedule.conflictsWith(existing, candidate)
                 error = when {
+                    selectedDays.isEmpty() -> context.getString(R.string.sleep_days_empty_error)
                     !candidate.isValid -> context.getString(R.string.sleep_same_time_error)
                     conflicts.isNotEmpty() -> context.getString(
                         R.string.sleep_overlap_error,
