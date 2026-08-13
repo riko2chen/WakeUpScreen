@@ -50,6 +50,8 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_FACE_DOWN
 import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.FACE_DOWN_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.FACE_DOWN_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_NIGHT_GLOW_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.NIGHT_GLOW_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.IGNORE_SILENT_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
@@ -313,6 +315,19 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV()?.putInt(SLEEP_MODE_TIME_END, value)
+        }
+
+    /**
+     * While on, a notification stopped by the sleep gate still shows the dim
+     * red night glow instead of leaving the display dark.
+     */
+    var nightGlowSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(NIGHT_GLOW_SWITCH, DEFAULT_NIGHT_GLOW_SWITCH)
+                ?: DEFAULT_NIGHT_GLOW_SWITCH
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(NIGHT_GLOW_SWITCH, value)
         }
 
     var dndDetectSwitch: Boolean

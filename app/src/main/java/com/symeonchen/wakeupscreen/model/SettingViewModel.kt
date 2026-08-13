@@ -84,6 +84,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.sleepModeSegments)
         }
 
+    var nightGlowSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.nightGlowSwitch)
+        }
+
     var dndDetectBoolean: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.dndDetectSwitch)
@@ -193,6 +198,12 @@ class SettingViewModel : ViewModel() {
         sleepModeSegments.listener = object : ScLiveData.OnLiveDataValueInput<List<SleepSegment>> {
             override fun onValueInput(value: List<SleepSegment>) {
                 DataInjection.sleepModeSegments = value
+            }
+        }
+
+        nightGlowSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.nightGlowSwitch = value
             }
         }
 

@@ -13,6 +13,7 @@ import com.symeonchen.wakeupscreen.data.LogStatus
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
 import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
+import com.symeonchen.wakeupscreen.pages.NightGlowActivity
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
 import com.symeonchen.wakeupscreen.utils.ChannelLogInfo
 import com.symeonchen.wakeupscreen.utils.ScreenWakeUtils
@@ -100,6 +101,11 @@ class ScNotificationListenerService : NotificationListenerService() {
                 logNotification(
                     sbn.packageName, LogStatus.SCREEN_ALREADY_ON, conditionName, channelInfo
                 )
+            } else if (conditionName == BlockReason.SLEEP_MODE && DataInjection.nightGlowSwitch) {
+                // Sleep window plus night glow: not a full wake, not silence —
+                // the dim red pulse, logged under its own status.
+                NightGlowActivity.start(applicationContext)
+                logNotification(sbn.packageName, LogStatus.NIGHT_GLOW, conditionName, channelInfo)
             } else {
                 logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName, channelInfo)
             }

@@ -326,4 +326,9 @@
     <string name="backup_import_success">Imported %1$d settings</string>
     <string name="backup_import_failed_corrupt">Not a WakeUpScreen backup file</string>
     <string name="backup_import_failed_newer">This backup was made by a newer version of the app. Update the app, then import again.</string>
+    <!-- Night glow -->
+    <string name="night_glow_title">Night Glow</string>
+    <string name="night_glow_desc">During sleep windows, show a dim red glow for a moment instead of staying dark</string>
+    <string name="log_status_night_glow">Night glow</string>
+    <string name="log_status_night_glow_desc">The sleep window stopped the normal wake, and the dim red night glow was shown instead.</string>
 </resources>

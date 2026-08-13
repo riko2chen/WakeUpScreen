@@ -314,4 +314,9 @@
     <string name="backup_import_success">已导入 %1$d 项设置</string>
     <string name="backup_import_failed_corrupt">这不是 WakeUpScreen 的备份文件</string>
     <string name="backup_import_failed_newer">该备份来自更新版本的应用。请先升级应用，再重新导入。</string>
+    <!-- 夜间红光 -->
+    <string name="night_glow_title">夜间红光</string>
+    <string name="night_glow_desc">睡眠时段内不再完全黑屏，改为短暂显示微弱红光</string>
+    <string name="log_status_night_glow">红光提示</string>
+    <string name="log_status_night_glow_desc">睡眠时段拦截了正常亮屏，改为显示微弱的夜间红光。</string>
 </resources>

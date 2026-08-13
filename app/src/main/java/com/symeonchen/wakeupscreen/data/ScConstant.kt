@@ -25,6 +25,7 @@ object ScConstant {
     const val SLEEP_MODE_TIME_BEGIN = "sleep_mode_time_begin"
     const val SLEEP_MODE_TIME_END = "sleep_mode_time_end"
     const val SLEEP_MODE_SEGMENTS = "sleep_mode_segments"
+    const val NIGHT_GLOW_SWITCH = "night_glow_switch"
     const val DND_DETECT_SWITCH = "dnd_detect_switch"
     const val LAST_IN_APP_REVIEW_TIMESTAMP = "last_in_app_review_timestamp"
     const val CHARGING_ONLY_SWITCH = "charging_only_switch"
@@ -72,6 +73,15 @@ object ScConstant {
 
     /** Windows a user may configure. A guard against a runaway list, not a UX limit. */
     const val MAX_SLEEP_SEGMENTS = 12
+    /**
+     * Off by default: sleep mode has always meant total silence, and an update
+     * turning the display red at night unasked would be a shock, not a feature.
+     */
+    const val DEFAULT_NIGHT_GLOW_SWITCH = false
+
+    /** How long the red glow stays up. Fixed: a glanceable pulse, not a screen-on window. */
+    const val NIGHT_GLOW_DURATION_MS = 3000L
+
     const val DEFAULT_DND_DETECT_SWITCH = true
     const val DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP = "0"
     const val DEFAULT_CHARGING_ONLY_SWITCH = false

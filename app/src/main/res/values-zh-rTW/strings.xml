@@ -312,4 +312,9 @@
     <string name="backup_import_success">已匯入 %1$d 項設定</string>
     <string name="backup_import_failed_corrupt">這不是 WakeUpScreen 的備份檔案</string>
     <string name="backup_import_failed_newer">此備份來自較新版本的應用程式。請先更新應用程式，再重新匯入。</string>
+    <!-- 夜間紅光 -->
+    <string name="night_glow_title">夜間紅光</string>
+    <string name="night_glow_desc">睡眠時段內不再完全黑屏，改為短暫顯示微弱紅光</string>
+    <string name="log_status_night_glow">紅光提示</string>
+    <string name="log_status_night_glow_desc">睡眠時段攔截了正常喚醒，改為顯示微弱的夜間紅光。</string>
 </resources>

@@ -312,4 +312,9 @@
     <string name="backup_import_success">%1$d개의 설정을 가져왔습니다</string>
     <string name="backup_import_failed_corrupt">WakeUpScreen 백업 파일이 아닙니다</string>
     <string name="backup_import_failed_newer">이 백업은 더 새로운 버전의 앱에서 만들어졌습니다. 앱을 업데이트한 뒤 다시 가져오세요.</string>
+    <!-- 야간 붉은 빛 -->
+    <string name="night_glow_title">야간 붉은 빛</string>
+    <string name="night_glow_desc">수면 시간대에 완전히 꺼두는 대신 어두운 붉은 빛을 잠시 표시합니다</string>
+    <string name="log_status_night_glow">붉은 빛 알림</string>
+    <string name="log_status_night_glow_desc">수면 시간대가 일반 화면 켜짐을 막고 대신 어두운 붉은 빛을 표시했습니다.</string>
 </resources>

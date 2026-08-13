@@ -9,6 +9,13 @@ enum class LogStatus(val key: String) {
     WAKED_UP("waked_up"),
     BLOCKED("blocked"),
 
+    /**
+     * Stopped by the sleep gate, but the night glow showed the dim red pulse
+     * instead of leaving the display dark. [NotificationLogEntry.blockReason]
+     * still names the gate.
+     */
+    NIGHT_GLOW("night_glow"),
+
     /** A repeat-reminder streak ended; [NotificationLogEntry.blockReason] says why. */
     REMINDER_STOPPED("reminder_stopped");
 

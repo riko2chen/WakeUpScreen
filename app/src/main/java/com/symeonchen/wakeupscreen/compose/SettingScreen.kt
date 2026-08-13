@@ -94,6 +94,7 @@ fun SettingScreen(
         SettingsSearchEntry(stringResource(R.string.battery_level_title), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.sleep_mode), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.sleep_time), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.night_glow_title), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.repeat_reminder), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.repeat_reminder_detail), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.function_test), settingsPage, onFunctionTestClick),

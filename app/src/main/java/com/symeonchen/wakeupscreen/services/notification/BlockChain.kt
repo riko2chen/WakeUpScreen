@@ -98,6 +98,9 @@ object BlockChain {
             // interactive gate that stopped it all the same.
             LogStatus.SCREEN_ALREADY_ON -> entry.blockReason.ifEmpty { BlockReason.INTERACTIVE }
             LogStatus.BLOCKED -> entry.blockReason
+            // The glow is what a sleep-gate block looks like with the night
+            // glow on; the chain outcome is still "stopped at that gate".
+            LogStatus.NIGHT_GLOW -> entry.blockReason.ifEmpty { BlockReason.SLEEP_MODE }
             LogStatus.REMINDER_STOPPED -> return emptyList()
         }
 

@@ -312,4 +312,9 @@
     <string name="backup_import_success">%1$d 件の設定をインポートしました</string>
     <string name="backup_import_failed_corrupt">WakeUpScreen のバックアップファイルではありません</string>
     <string name="backup_import_failed_newer">このバックアップは新しいバージョンのアプリで作成されています。アプリを更新してから再度インポートしてください。</string>
+    <!-- ナイトグロー -->
+    <string name="night_glow_title">ナイトグロー</string>
+    <string name="night_glow_desc">睡眠時間帯は消灯したままにせず、薄暗い赤い光を短く表示します</string>
+    <string name="log_status_night_glow">ナイトグロー</string>
+    <string name="log_status_night_glow_desc">睡眠時間帯が通常の点灯を止め、代わりに薄暗い赤い光を表示しました。</string>
 </resources>

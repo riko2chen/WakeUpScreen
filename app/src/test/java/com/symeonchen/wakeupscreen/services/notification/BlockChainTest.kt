@@ -135,6 +135,21 @@ class BlockChainTest {
     }
 
     @Test
+    fun `a night glow reads as a sleep-gate stop`() {
+        val steps = BlockChain.forLogEntry(entry(LogStatus.NIGHT_GLOW, BlockReason.SLEEP_MODE))
+        val byKey = states(steps)
+
+        assertEquals(ChainNodeState.BLOCKED, byKey[BlockReason.SLEEP_MODE])
+        assertEquals(ChainNodeState.NOT_EVALUATED, byKey[BlockChain.KEY_WAKE_UP])
+    }
+
+    @Test
+    fun `a night glow without a recorded reason still lands on the sleep gate`() {
+        val steps = BlockChain.forLogEntry(entry(LogStatus.NIGHT_GLOW))
+        assertEquals(ChainNodeState.BLOCKED, states(steps)[BlockReason.SLEEP_MODE])
+    }
+
+    @Test
     fun `reminder streak endings are not chain outcomes`() {
         // These carry a reminder vocabulary rather than a gate name; drawing a
         // chain for them would invent a decision that never happened.

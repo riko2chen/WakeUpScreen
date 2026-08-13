@@ -170,6 +170,7 @@ private fun LogDetailDialog(
             if (isReminder) stringResource(R.string.log_status_reminder_waked_up_desc)
             else stringResource(R.string.log_status_waked_up_desc)
         LogStatus.BLOCKED -> blockReasonToString(entry.blockReason)
+        LogStatus.NIGHT_GLOW -> stringResource(R.string.log_status_night_glow_desc)
         LogStatus.REMINDER_STOPPED -> blockReasonToString(entry.blockReason)
     }
 
@@ -330,6 +331,7 @@ private fun logStatusText(status: LogStatus): String = when (status) {
     LogStatus.SCREEN_ALREADY_ON -> stringResource(R.string.log_screen_already_on)
     LogStatus.WAKED_UP -> stringResource(R.string.log_screen_waked_up)
     LogStatus.BLOCKED -> stringResource(R.string.log_screen_blocked)
+    LogStatus.NIGHT_GLOW -> stringResource(R.string.log_status_night_glow)
     LogStatus.REMINDER_STOPPED -> stringResource(R.string.log_reminder_stopped)
 }
 
@@ -339,6 +341,7 @@ private fun logStatusColor(status: LogStatus) = when (status) {
     // Success role, not tertiary: tertiary is pink and reads as error-red.
     LogStatus.SCREEN_ALREADY_ON -> WakeUpTheme.colors.success
     LogStatus.BLOCKED -> MaterialTheme.colorScheme.error
+    LogStatus.NIGHT_GLOW -> MaterialTheme.colorScheme.tertiary
     // Not a failure — the streak simply ran its course, so keep it neutral.
     LogStatus.REMINDER_STOPPED -> MaterialTheme.colorScheme.onSurfaceVariant
 }

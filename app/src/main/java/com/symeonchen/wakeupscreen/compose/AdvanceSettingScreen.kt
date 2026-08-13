@@ -69,6 +69,8 @@ fun AdvanceSettingScreen(
     showSleepDetail: Boolean,
     sleepDetailSubtitle: String,
     onSleepDetailClick: () -> Unit,
+    nightGlowChecked: Boolean,
+    onNightGlowToggle: () -> Unit,
     // Repeat reminder
     repeatReminderChecked: Boolean,
     repeatReminderSubtitle: String,
@@ -232,6 +234,13 @@ fun AdvanceSettingScreen(
                         title = stringResource(R.string.sleep_time),
                         subtitle = sleepDetailSubtitle,
                         onClick = onSleepDetailClick,
+                    )
+                    FlatDivider()
+                    SettingSwitchRow(
+                        title = stringResource(R.string.night_glow_title),
+                        subtitle = stringResource(R.string.night_glow_desc),
+                        checked = nightGlowChecked,
+                        onCheckedChange = onNightGlowToggle,
                     )
                 }
             }

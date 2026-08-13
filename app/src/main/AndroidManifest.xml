@@ -33,6 +33,15 @@
             and out of recents because the user is not meant to see it at all.
         -->
         <activity
+            android:name=".pages.NightGlowActivity"
+            android:theme="@style/ScreenOffTheme"
+            android:taskAffinity=".ScreenOff"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:launchMode="singleInstance"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
             android:name=".pages.ScreenOffActivity"
             android:theme="@style/ScreenOffTheme"
             android:taskAffinity=".ScreenOff"

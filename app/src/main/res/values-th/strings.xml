@@ -312,4 +312,9 @@
     <string name="backup_import_success">นำเข้าการตั้งค่า %1$d รายการแล้ว</string>
     <string name="backup_import_failed_corrupt">ไม่ใช่ไฟล์สำรองของ WakeUpScreen</string>
     <string name="backup_import_failed_newer">ไฟล์สำรองนี้มาจากแอปเวอร์ชันใหม่กว่า โปรดอัปเดตแอปแล้วนำเข้าอีกครั้ง</string>
+    <!-- แสงแดงกลางคืน -->
+    <string name="night_glow_title">แสงแดงกลางคืน</string>
+    <string name="night_glow_desc">ในช่วงเวลานอน แสดงแสงแดงสลัวชั่วครู่แทนการปิดหน้าจอสนิท</string>
+    <string name="log_status_night_glow">แสงแดงกลางคืน</string>
+    <string name="log_status_night_glow_desc">ช่วงเวลานอนหยุดการปลุกหน้าจอตามปกติ และแสดงแสงแดงสลัวแทน</string>
 </resources>

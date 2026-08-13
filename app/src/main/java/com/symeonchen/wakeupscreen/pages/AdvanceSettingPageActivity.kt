@@ -57,6 +57,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     ScConstant.DEFAULT_BATTERY_LEVEL_THRESHOLD
                 )
                 val sleep by settingModel.sleepModeBoolean.observeAsState(false)
+                val nightGlow by settingModel.nightGlowSwitch.observeAsState(false)
                 val sleepSegments by settingModel.sleepModeSegments.observeAsState(emptyList())
                 val repeatReminder by settingModel.repeatReminderSwitch.observeAsState(false)
                 val reminderInterval by settingModel.repeatReminderIntervalMinutes.observeAsState(
@@ -142,6 +143,8 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     showSleepDetail = sleep,
                     sleepDetailSubtitle = sleepSummary(sleepSegments),
                     onSleepDetailClick = { quickStartActivity<SleepTimeSettingActivity>() },
+                    nightGlowChecked = nightGlow,
+                    onNightGlowToggle = { settingModel.nightGlowSwitch.postValue(!nightGlow) },
                     repeatReminderChecked = repeatReminder,
                     repeatReminderSubtitle = getString(R.string.repeat_reminder_desc),
                     onRepeatReminderToggle = {

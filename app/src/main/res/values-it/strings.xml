@@ -326,4 +326,9 @@
     <string name="backup_import_success">Importate %1$d impostazioni</string>
     <string name="backup_import_failed_corrupt">Non è un file di backup di WakeUpScreen</string>
     <string name="backup_import_failed_newer">Questo backup proviene da una versione più recente dell\'app. Aggiorna l\'app e riprova.</string>
+    <!-- Bagliore notturno -->
+    <string name="night_glow_title">Bagliore notturno</string>
+    <string name="night_glow_desc">Nelle finestre di sonno, mostra per un attimo un debole bagliore rosso invece di restare spento</string>
+    <string name="log_status_night_glow">Bagliore notturno</string>
+    <string name="log_status_night_glow_desc">La finestra di sonno ha fermato l\'accensione normale e ha mostrato il debole bagliore rosso notturno.</string>
 </resources>
