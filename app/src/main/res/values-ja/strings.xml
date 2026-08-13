@@ -301,4 +301,15 @@
     <string name="face_down_desc">画面を下にして置いている間は、通知で画面を点灯しません。</string>
     <string name="chain_node_face_down">伏せ置き</string>
     <string name="log_reason_face_down">端末が画面を下にして置かれていました。</string>
+    <!-- 設定のバックアップ -->
+    <string name="section_backup">バックアップ</string>
+    <string name="backup_export_title">設定をエクスポート</string>
+    <string name="backup_export_subtitle">すべての設定を JSON ファイルに保存します</string>
+    <string name="backup_import_title">設定をインポート</string>
+    <string name="backup_import_subtitle">バックアップファイルから設定を復元します</string>
+    <string name="backup_export_success">設定をエクスポートしました</string>
+    <string name="backup_export_failed">バックアップファイルを書き込めませんでした</string>
+    <string name="backup_import_success">%1$d 件の設定をインポートしました</string>
+    <string name="backup_import_failed_corrupt">WakeUpScreen のバックアップファイルではありません</string>
+    <string name="backup_import_failed_newer">このバックアップは新しいバージョンのアプリで作成されています。アプリを更新してから再度インポートしてください。</string>
 </resources>

@@ -3,6 +3,7 @@ package com.symeonchen.wakeupscreen.pages
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +18,12 @@ import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.compose.SettingScreen
 import com.symeonchen.wakeupscreen.compose.components.SelectionDialog
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
+import com.blankj.utilcode.util.ToastUtils
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
+import com.symeonchen.wakeupscreen.data.SettingsBackup
+import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.PlayStoreTools
@@ -28,6 +32,63 @@ import com.symeonchen.wakeupscreen.utils.quickStartActivity
 class ScSettingFragment : ScBaseFragment() {
 
     private lateinit var settingModel: SettingViewModel
+
+    /**
+     * SAF pickers for the settings backup. The user chooses the location both
+     * ways, so no storage permission is involved.
+     */
+    private val exportBackupLauncher =
+        registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
+            uri ?: return@registerForActivityResult
+            writeBackup(uri)
+        }
+
+    private val importBackupLauncher =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            uri ?: return@registerForActivityResult
+            readBackup(uri)
+        }
+
+    private fun writeBackup(uri: Uri) {
+        try {
+            val content = SettingsBackup.export()
+            requireContext().contentResolver.openOutputStream(uri, "wt")?.use { stream ->
+                stream.write(content.toByteArray(Charsets.UTF_8))
+            } ?: throw IllegalStateException("no stream")
+            ToastUtils.showShort(R.string.backup_export_success)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ToastUtils.showShort(R.string.backup_export_failed)
+        }
+    }
+
+    private fun readBackup(uri: Uri) {
+        val raw = try {
+            requireContext().contentResolver.openInputStream(uri)?.use { stream ->
+                stream.readBytes().toString(Charsets.UTF_8)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+        if (raw == null) {
+            ToastUtils.showShort(R.string.backup_import_failed_corrupt)
+            return
+        }
+        when (val result = SettingsBackup.import(raw)) {
+            is SettingsBackup.ImportResult.Success -> {
+                // Language and dark mode are the two settings whose effect is
+                // not read lazily; everything else applies on next read.
+                DataInjection.languageSelected.applyLanguage()
+                DataInjection.darkModeSelected.applyDarkMode()
+                ToastUtils.showShort(getString(R.string.backup_import_success, result.applied))
+            }
+            is SettingsBackup.ImportResult.NewerVersion ->
+                ToastUtils.showShort(R.string.backup_import_failed_newer)
+            is SettingsBackup.ImportResult.Corrupt ->
+                ToastUtils.showShort(R.string.backup_import_failed_corrupt)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,6 +125,12 @@ class ScSettingFragment : ScBaseFragment() {
                     onBlockChainClick = { context?.quickStartActivity<BlockChainPageActivity>() },
                     onFunctionTestClick = { context?.quickStartActivity<FunctionTestPageActivity>() },
                     onViewLogsClick = { context?.quickStartActivity<NotificationLogPageActivity>() },
+                    onBackupExportClick = {
+                        exportBackupLauncher.launch("wakeupscreen-backup.json")
+                    },
+                    onBackupImportClick = {
+                        importBackupLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
+                    },
                     onAddressClick = {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/riko2chen/WakeUpScreen")))
                     },

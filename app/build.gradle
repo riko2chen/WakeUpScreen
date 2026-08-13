@@ -114,6 +114,9 @@ dependencies {
     implementation project(':uicomponent')
 
     testImplementation 'junit:junit:4.13.2'
+    // Real org.json for local unit tests; the android.jar copy is a stub that
+    // throws "not mocked" from every method.
+    testImplementation 'org.json:json:20231013'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }

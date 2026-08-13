@@ -301,4 +301,15 @@
     <string name="face_down_desc">ขณะวางโทรศัพท์คว่ำหน้าจอลง การแจ้งเตือนจะไม่ปลุกหน้าจอ</string>
     <string name="chain_node_face_down">คว่ำหน้าจอ</string>
     <string name="log_reason_face_down">โทรศัพท์ถูกวางคว่ำหน้าจอลง</string>
+    <!-- สำรองการตั้งค่า -->
+    <string name="section_backup">สำรองข้อมูล</string>
+    <string name="backup_export_title">ส่งออกการตั้งค่า</string>
+    <string name="backup_export_subtitle">บันทึกการตั้งค่าทั้งหมดเป็นไฟล์ JSON</string>
+    <string name="backup_import_title">นำเข้าการตั้งค่า</string>
+    <string name="backup_import_subtitle">กู้คืนการตั้งค่าจากไฟล์สำรอง</string>
+    <string name="backup_export_success">ส่งออกการตั้งค่าแล้ว</string>
+    <string name="backup_export_failed">เขียนไฟล์สำรองไม่สำเร็จ</string>
+    <string name="backup_import_success">นำเข้าการตั้งค่า %1$d รายการแล้ว</string>
+    <string name="backup_import_failed_corrupt">ไม่ใช่ไฟล์สำรองของ WakeUpScreen</string>
+    <string name="backup_import_failed_newer">ไฟล์สำรองนี้มาจากแอปเวอร์ชันใหม่กว่า โปรดอัปเดตแอปแล้วนำเข้าอีกครั้ง</string>
 </resources>

@@ -301,4 +301,15 @@
     <string name="face_down_desc">手機螢幕朝下放置時，通知不喚醒螢幕。</string>
     <string name="chain_node_face_down">面朝下</string>
     <string name="log_reason_face_down">手機正面朝下放置。</string>
+    <!-- 設定備份 -->
+    <string name="section_backup">備份</string>
+    <string name="backup_export_title">匯出設定</string>
+    <string name="backup_export_subtitle">將全部設定儲存為 JSON 檔案</string>
+    <string name="backup_import_title">匯入設定</string>
+    <string name="backup_import_subtitle">從備份檔案還原設定</string>
+    <string name="backup_export_success">設定已匯出</string>
+    <string name="backup_export_failed">備份檔案寫入失敗</string>
+    <string name="backup_import_success">已匯入 %1$d 項設定</string>
+    <string name="backup_import_failed_corrupt">這不是 WakeUpScreen 的備份檔案</string>
+    <string name="backup_import_failed_newer">此備份來自較新版本的應用程式。請先更新應用程式，再重新匯入。</string>
 </resources>

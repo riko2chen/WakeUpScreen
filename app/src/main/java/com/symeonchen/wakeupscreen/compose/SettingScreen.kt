@@ -56,6 +56,8 @@ fun SettingScreen(
     onBlockChainClick: () -> Unit,
     onFunctionTestClick: () -> Unit,
     onViewLogsClick: () -> Unit,
+    onBackupExportClick: () -> Unit,
+    onBackupImportClick: () -> Unit,
     onAddressClick: () -> Unit,
     onFeedbackClick: () -> Unit,
     onGiveStarClick: () -> Unit,
@@ -96,6 +98,8 @@ fun SettingScreen(
         SettingsSearchEntry(stringResource(R.string.repeat_reminder_detail), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.function_test), settingsPage, onFunctionTestClick),
         SettingsSearchEntry(stringResource(R.string.view_logs), settingsPage, onViewLogsClick),
+        SettingsSearchEntry(stringResource(R.string.backup_export_title), settingsPage, onBackupExportClick),
+        SettingsSearchEntry(stringResource(R.string.backup_import_title), settingsPage, onBackupImportClick),
         SettingsSearchEntry(stringResource(R.string.delay_to_wakeup), functionTestPage, onFunctionTestClick),
         SettingsSearchEntry(stringResource(R.string.reminder_test), functionTestPage, onFunctionTestClick),
         SettingsSearchEntry(stringResource(R.string.project_address), aboutPage, onAddressClick),
@@ -233,6 +237,26 @@ fun SettingScreen(
                     title = stringResource(R.string.view_logs),
                     subtitle = stringResource(R.string.view_logs_subtitle),
                     onClick = onViewLogsClick,
+                )
+            }
+
+            // BACKUP section
+            SectionLabel(
+                text = stringResource(R.string.section_backup),
+                modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
+            )
+
+            SettingsCard {
+                SettingRow(
+                    title = stringResource(R.string.backup_export_title),
+                    subtitle = stringResource(R.string.backup_export_subtitle),
+                    onClick = onBackupExportClick,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.backup_import_title),
+                    subtitle = stringResource(R.string.backup_import_subtitle),
+                    onClick = onBackupImportClick,
                 )
             }
 

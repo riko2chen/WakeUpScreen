@@ -315,4 +315,15 @@
     <string name="face_down_desc">Con il telefono appoggiato a schermo in giù, le notifiche non accendono lo schermo.</string>
     <string name="chain_node_face_down">A faccia in giù</string>
     <string name="log_reason_face_down">Il telefono era appoggiato con lo schermo verso il basso.</string>
+    <!-- Backup delle impostazioni -->
+    <string name="section_backup">Backup</string>
+    <string name="backup_export_title">Esporta impostazioni</string>
+    <string name="backup_export_subtitle">Salva tutte le impostazioni in un file JSON</string>
+    <string name="backup_import_title">Importa impostazioni</string>
+    <string name="backup_import_subtitle">Ripristina le impostazioni da un file di backup</string>
+    <string name="backup_export_success">Impostazioni esportate</string>
+    <string name="backup_export_failed">Impossibile scrivere il file di backup</string>
+    <string name="backup_import_success">Importate %1$d impostazioni</string>
+    <string name="backup_import_failed_corrupt">Non è un file di backup di WakeUpScreen</string>
+    <string name="backup_import_failed_newer">Questo backup proviene da una versione più recente dell\'app. Aggiorna l\'app e riprova.</string>
 </resources>

@@ -315,4 +315,15 @@
     <string name="face_down_desc">While the phone lies screen-down, notifications do not wake the screen.</string>
     <string name="chain_node_face_down">Face down</string>
     <string name="log_reason_face_down">The phone was lying face down.</string>
+    <!-- Settings backup -->
+    <string name="section_backup">Backup</string>
+    <string name="backup_export_title">Export settings</string>
+    <string name="backup_export_subtitle">Save every setting to a JSON file</string>
+    <string name="backup_import_title">Import settings</string>
+    <string name="backup_import_subtitle">Restore settings from a backup file</string>
+    <string name="backup_export_success">Settings exported</string>
+    <string name="backup_export_failed">Could not write the backup file</string>
+    <string name="backup_import_success">Imported %1$d settings</string>
+    <string name="backup_import_failed_corrupt">Not a WakeUpScreen backup file</string>
+    <string name="backup_import_failed_newer">This backup was made by a newer version of the app. Update the app, then import again.</string>
 </resources>
