@@ -35,7 +35,6 @@ fun SleepTimeScreen(
     onBack: () -> Unit,
     segments: List<SleepSegment>,
     maxSegments: Int,
-    currentMinuteOfDay: Int,
     onAdd: (SleepSegment) -> Unit,
     onDelete: (SleepSegment) -> Unit,
 ) {
@@ -53,7 +52,7 @@ fun SleepTimeScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
-            RingCard(segments = segments, currentMinuteOfDay = currentMinuteOfDay)
+            RingCard(segments = segments)
 
             Spacer(Modifier.height(20.dp))
 
@@ -93,7 +92,7 @@ fun SleepTimeScreen(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun RingCard(segments: List<SleepSegment>, currentMinuteOfDay: Int) {
+private fun RingCard(segments: List<SleepSegment>) {
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -106,7 +105,6 @@ private fun RingCard(segments: List<SleepSegment>, currentMinuteOfDay: Int) {
         ) {
             SleepDayRing(
                 segments = segments,
-                currentMinuteOfDay = currentMinuteOfDay,
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     val totalMinutes = segments.sumOf { it.durationMinutes }
@@ -134,8 +132,8 @@ private fun RingCard(segments: List<SleepSegment>, currentMinuteOfDay: Int) {
 
             Spacer(Modifier.height(16.dp))
 
-            // Flows onto a second line rather than clipping, since three labels
-            // in a long language do not fit one row on a narrow screen.
+            // Flows onto a second line rather than clipping, since the labels
+            // in a long language may not fit one row on a narrow screen.
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(14.dp),
                 verticalArrangement = Arrangement.spacedBy(6.dp),
@@ -143,7 +141,6 @@ private fun RingCard(segments: List<SleepSegment>, currentMinuteOfDay: Int) {
             ) {
                 LegendDot(color = SleepRingColors.asleep, label = stringResource(R.string.sleep_ring_asleep))
                 LegendDot(color = SleepRingColors.awake, label = stringResource(R.string.sleep_ring_awake))
-                LegendDot(color = SleepRingColors.now, label = stringResource(R.string.sleep_ring_now))
             }
         }
     }

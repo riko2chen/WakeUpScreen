@@ -92,7 +92,6 @@
     <string name="sleep_time">スリープ時間</string>
     <string name="sleep_ring_asleep">睡眠時間帯</string>
     <string name="sleep_ring_awake">点灯する</string>
-    <string name="sleep_ring_now">現在</string>
     <string name="sleep_segments_count">%1$d 件の時間帯</string>
     <string name="sleep_segments_empty">時間帯が未設定</string>
     <string name="sleep_segments_empty_hint">時間帯を追加するまで、終日画面が点灯します。</string>

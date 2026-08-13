@@ -13,7 +13,6 @@ import com.symeonchen.wakeupscreen.data.SleepSchedule
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.DataInjection
-import java.util.Calendar
 
 class SleepTimeSettingActivity : ScBaseActivity() {
 
@@ -32,7 +31,6 @@ class SleepTimeSettingActivity : ScBaseActivity() {
                     onBack = { finish() },
                     segments = segments,
                     maxSegments = ScConstant.MAX_SLEEP_SEGMENTS,
-                    currentMinuteOfDay = currentMinuteOfDay(),
                     onAdd = { segment ->
                         settingModel.sleepModeSegments.postValue(
                             SleepSchedule.add(segments, segment)
@@ -51,10 +49,5 @@ class SleepTimeSettingActivity : ScBaseActivity() {
     override fun onResume() {
         super.onResume()
         settingModel.sleepModeSegments.postValue(DataInjection.sleepModeSegments)
-    }
-
-    private fun currentMinuteOfDay(): Int {
-        val now = Calendar.getInstance()
-        return now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
     }
 }
