@@ -29,9 +29,7 @@ import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.SectionLabel
 import com.symeonchen.wakeupscreen.compose.components.SettingRow
 import com.symeonchen.wakeupscreen.compose.components.SettingsSearchField
-import com.symeonchen.wakeupscreen.compose.theme.GradientEnd
-import com.symeonchen.wakeupscreen.compose.theme.GradientMid
-import com.symeonchen.wakeupscreen.compose.theme.GradientStart
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 /**
  * One searchable settings item: its localized title, the localized name of the
@@ -125,7 +123,7 @@ fun SettingScreen(
                 .fillMaxWidth()
                 .background(
                     Brush.linearGradient(
-                        listOf(GradientStart, GradientMid, GradientEnd),
+                        WakeUpTheme.colors.heroGradient,
                         start = Offset(0f, 0f),
                         end = Offset(400f, 300f),
                     )

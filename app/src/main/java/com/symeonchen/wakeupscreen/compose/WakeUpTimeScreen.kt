@@ -29,6 +29,7 @@ import com.symeonchen.wakeupscreen.compose.components.GlyphBadge
 import com.symeonchen.wakeupscreen.compose.components.SettingSwitchRow
 import com.symeonchen.wakeupscreen.compose.theme.*
 import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 /**
  * The whole precise screen-on feature hangs off the switch at the top. With it
@@ -72,7 +73,7 @@ fun WakeUpTimeScreen(
                 if (preciseEnabled) {
                     Text(
                         text = stringResource(R.string.save),
-                        color = PinkAccent,
+                        color = WakeUpTheme.colors.switchTrack,
                         style = MaterialTheme.typography.labelLarge,
                         modifier = Modifier
                             .alpha(if (hasUnsavedChanges) 1f else 0.4f)
@@ -203,7 +204,7 @@ private fun DurationCard(
                             .then(
                                 if (isSelected) Modifier.background(
                                     Brush.linearGradient(
-                                        listOf(IndigoDark, Indigo),
+                                        WakeUpTheme.colors.accentGradient,
                                         start = Offset(0f, 0f),
                                         end = Offset(56f, 56f),
                                     )
@@ -301,7 +302,7 @@ private fun GrantedRow() {
 private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = AmberSoft,
+        color = WakeUpTheme.colors.noticeContainer,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -309,7 +310,7 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
             Text(
                 text = stringResource(R.string.accessibility_required_warning),
                 style = MaterialTheme.typography.bodySmall,
-                color = Amber,
+                color = WakeUpTheme.colors.notice,
                 lineHeight = 18.sp,
             )
 
@@ -326,13 +327,13 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
                         text = "${index + 1}",
                         size = 18.dp,
                         fontSize = 11.sp,
-                        background = Amber,
+                        background = WakeUpTheme.colors.notice,
                         contentColor = Color.White,
                     )
                     Text(
                         text = stringResource(step),
                         style = MaterialTheme.typography.bodySmall,
-                        color = Amber,
+                        color = WakeUpTheme.colors.notice,
                         lineHeight = 18.sp,
                         modifier = Modifier.padding(start = 8.dp),
                     )
@@ -343,7 +344,7 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
 
             Button(
                 onClick = onGrantAccessibilityClick,
-                colors = ButtonDefaults.buttonColors(containerColor = PinkAccent),
+                colors = ButtonDefaults.buttonColors(containerColor = WakeUpTheme.colors.switchTrack),
                 shape = RoundedCornerShape(10.dp),
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -357,13 +358,13 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
 private fun NoticeCard(text: String) {
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = AmberSoft,
+        color = WakeUpTheme.colors.noticeContainer,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
         Text(
             text = text,
-            color = Amber,
+            color = WakeUpTheme.colors.notice,
             style = MaterialTheme.typography.bodySmall,
             lineHeight = 18.sp,
             modifier = Modifier.padding(14.dp),

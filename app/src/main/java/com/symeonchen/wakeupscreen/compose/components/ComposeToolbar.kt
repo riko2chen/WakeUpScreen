@@ -17,9 +17,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.symeonchen.wakeupscreen.compose.theme.GradientEnd
-import com.symeonchen.wakeupscreen.compose.theme.GradientMid
-import com.symeonchen.wakeupscreen.compose.theme.GradientStart
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 @Composable
 fun ComposeToolbar(
@@ -33,7 +31,7 @@ fun ComposeToolbar(
             .fillMaxWidth()
             .background(
                 Brush.linearGradient(
-                    listOf(GradientStart, GradientMid, GradientEnd),
+                    WakeUpTheme.colors.heroGradient,
                     start = Offset(0f, 0f),
                     end = Offset(600f, 0f),
                 )

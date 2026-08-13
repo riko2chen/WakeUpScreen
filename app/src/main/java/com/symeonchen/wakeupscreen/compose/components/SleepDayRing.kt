@@ -15,12 +15,13 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.data.SleepSegment
 import kotlin.math.cos
 import kotlin.math.sin
 
-/** Quarter-day marks: enough to orient the eye without crowding the ring. */
-private val HOUR_TICKS = listOf(0, 6, 12, 18)
+/** Every hour of the day, so any arc can be read off directly. */
+private val HOUR_TICKS = (0..23).toList()
 
 /**
  * The day as a ring: midnight at the top, clockwise through 24 hours. Sleep
@@ -47,7 +48,11 @@ fun SleepDayRing(
     val tickColor = MaterialTheme.colorScheme.onSurfaceVariant
 
     val textMeasurer = rememberTextMeasurer()
-    val tickStyle = MaterialTheme.typography.labelSmall.copy(color = tickColor)
+    // Small enough that 24 labels sit side by side without touching.
+    val tickStyle = MaterialTheme.typography.labelSmall.copy(
+        color = tickColor,
+        fontSize = 9.sp,
+    )
 
     Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
         Canvas(modifier = Modifier.size(diameter)) {
@@ -95,7 +100,7 @@ fun SleepDayRing(
 
             // Hour labels inside the ring, so an arc can be read as a time
             // rather than just a proportion of the day.
-            val labelRadius = size.minDimension / 2f - strokeWidth - 10.dp.toPx()
+            val labelRadius = size.minDimension / 2f - strokeWidth - 11.dp.toPx()
             HOUR_TICKS.forEach { hour ->
                 val radians = Math.toRadians(hour * 15.0 - 90.0)
                 val measured = textMeasurer.measure(hour.toString(), tickStyle)

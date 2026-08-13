@@ -12,8 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.symeonchen.wakeupscreen.compose.components.HeroSection
 import com.symeonchen.wakeupscreen.compose.components.StatusCard
-import com.symeonchen.wakeupscreen.compose.theme.Amber
-import com.symeonchen.wakeupscreen.compose.theme.AmberSoft
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 data class StatusDisplayState(
     val statusText: String,
@@ -111,13 +110,13 @@ fun MainScreen(
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 24.dp),
                 shape = RoundedCornerShape(12.dp),
-                color = AmberSoft,
+                color = WakeUpTheme.colors.noticeContainer,
                 tonalElevation = 0.dp,
                 onClick = onNoticeClick,
             ) {
                 Text(
                     text = noticeText,
-                    color = Amber,
+                    color = WakeUpTheme.colors.notice,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(14.dp),
                 )

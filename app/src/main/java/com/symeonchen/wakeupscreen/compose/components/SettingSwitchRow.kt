@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.symeonchen.wakeupscreen.compose.theme.PinkAccent
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 @Composable
 fun SettingSwitchRow(
@@ -59,7 +59,7 @@ fun SettingSwitchRow(
             checked = checked,
             onCheckedChange = { onCheckedChange() },
             colors = SwitchDefaults.colors(
-                checkedTrackColor = PinkAccent,
+                checkedTrackColor = WakeUpTheme.colors.switchTrack,
             ),
         )
     }

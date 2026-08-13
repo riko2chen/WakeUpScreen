@@ -16,10 +16,18 @@
         <item name="android:windowAnimationStyle">@style/ScActivityAnimation</item>
     </style>
 
+    <!--
+        backgroundTint and a flat elevation are both needed: Material3 tints the
+        bar's own shape drawable by elevation, which in dark mode lifted it to a
+        mid grey that floated above the near-black background regardless of the
+        android:background set here.
+    -->
     <style name="BottomNavigationTheme" parent="Widget.Material3.BottomNavigationView">
         <item name="itemIconTint">@color/bottom_nav_color</item>
         <item name="itemTextColor">@color/bottom_nav_color</item>
         <item name="android:background">@color/surface</item>
+        <item name="backgroundTint">@color/surface</item>
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="BottomNavigationViewTextAppearance" parent="TextAppearance.Material3.LabelSmall">
