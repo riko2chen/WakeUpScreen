@@ -83,7 +83,7 @@ Questo progetto è rilasciato sotto la [GNU General Public License v3.0](LICENSE
 
 <div align="center">
 
-**WakeUpScreen** di [Riko Studio](mailto:symeonchen@gmail.com)
+**WakeUpScreen** di [Riko Lab](mailto:symeonchen@gmail.com)
 
 *Costruito apertamente. La trasparenza non è opzionale.*
 

@@ -99,7 +99,7 @@ cd WakeUpScreen
 
 <div align="center">
 
-**WakeUpScreen** by [Riko Studio](mailto:symeonchen@gmail.com)
+**WakeUpScreen** by [Riko Lab](mailto:symeonchen@gmail.com)
 
 *透明开放地构建。透明不是可选项。*
 
