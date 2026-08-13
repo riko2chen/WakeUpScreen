@@ -83,6 +83,7 @@ fun SettingScreen(
             SettingsSearchEntry(stringResource(R.string.black_list), advancedPage, onAdvancedSettingClick)
         } else null,
         SettingsSearchEntry(stringResource(R.string.pocket_mode), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.face_down_title), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.ongoing_status), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.radical_ongoing_detact), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.ignore_silent_notification), advancedPage, onAdvancedSettingClick),

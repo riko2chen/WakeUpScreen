@@ -296,4 +296,9 @@
     <string name="chain_node_battery_level">ระดับแบตเตอรี่</string>
     <string name="chain_config_battery_threshold">ต่ำกว่า %1$d%%</string>
     <string name="log_reason_battery_level">แบตเตอรี่ต่ำกว่าเกณฑ์ที่ตั้งไว้และอุปกรณ์ไม่ได้ชาร์จอยู่</string>
+    <!-- ปิดเสียงเมื่อคว่ำหน้าจอ -->
+    <string name="face_down_title">เงียบเมื่อคว่ำหน้าจอ</string>
+    <string name="face_down_desc">ขณะวางโทรศัพท์คว่ำหน้าจอลง การแจ้งเตือนจะไม่ปลุกหน้าจอ</string>
+    <string name="chain_node_face_down">คว่ำหน้าจอ</string>
+    <string name="log_reason_face_down">โทรศัพท์ถูกวางคว่ำหน้าจอลง</string>
 </resources>

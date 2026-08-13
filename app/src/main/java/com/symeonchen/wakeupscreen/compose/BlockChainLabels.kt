@@ -22,6 +22,7 @@ fun chainNodeTitle(key: String): String = when (key) {
     BlockChain.KEY_NOTIFICATION_ACCESS -> stringResource(R.string.chain_node_notification_access)
     BlockReason.APP_SWITCH_OFF -> stringResource(R.string.chain_node_master_switch)
     BlockReason.POCKET_MODE -> stringResource(R.string.chain_node_pocket_mode)
+    BlockReason.FACE_DOWN -> stringResource(R.string.chain_node_face_down)
     BlockReason.INTERACTIVE -> stringResource(R.string.chain_node_interactive)
     BlockReason.FILTER_LIST -> stringResource(R.string.chain_node_filter_list)
     BlockReason.LOW_IMPORTANCE -> stringResource(R.string.chain_node_low_importance)
@@ -79,6 +80,7 @@ fun chainConfigSummary(key: String, hasNotificationAccess: Boolean): String? {
         )
         BlockReason.APP_SWITCH_OFF -> onOff(DataInjection.switchOfApp)
         BlockReason.POCKET_MODE -> onOff(DataInjection.switchOfProximity)
+        BlockReason.FACE_DOWN -> onOff(DataInjection.switchOfFaceDown)
         // No setting sits behind the screen check, so there is nothing to
         // report; the log row shows the verdict alone.
         BlockReason.FILTER_LIST -> stringResource(

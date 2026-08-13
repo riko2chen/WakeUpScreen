@@ -31,6 +31,7 @@ import com.symeonchen.wakeupscreen.states.NotificationState
 import com.symeonchen.wakeupscreen.states.NotificationState.Companion.closeNotificationService
 import com.symeonchen.wakeupscreen.states.NotificationState.Companion.openNotificationService
 import com.symeonchen.wakeupscreen.states.PermissionState
+import com.symeonchen.wakeupscreen.states.FaceDownSensorState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.ElapsedTimeBucket
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
@@ -239,6 +240,7 @@ class ScMainFragment : ScBaseFragment() {
         checkStatus()
         checkBatteryOptimization()
         registerProximitySensor()
+        registerFaceDownSensor()
         checkNotificationPermission()
         lastWakeTimestamp.value = NotificationLogStore.lastWakeTimestamp()
     }
@@ -284,6 +286,12 @@ class ScMainFragment : ScBaseFragment() {
     private fun registerProximitySensor() {
         if (settingModel.switchOfProximity.value == true && !ProximitySensorState.isRegistered()) {
             ProximitySensorState.registerListener(context)
+        }
+    }
+
+    private fun registerFaceDownSensor() {
+        if (settingModel.switchOfFaceDown.value == true && !FaceDownSensorState.isRegistered()) {
+            FaceDownSensorState.registerListener(context)
         }
     }
 }

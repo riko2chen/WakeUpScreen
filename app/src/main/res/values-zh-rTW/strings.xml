@@ -296,4 +296,9 @@
     <string name="chain_node_battery_level">電量</string>
     <string name="chain_config_battery_threshold">低於 %1$d%%</string>
     <string name="log_reason_battery_level">電量低於設定閾值且裝置未在充電。</string>
+    <!-- 面朝下靜默 -->
+    <string name="face_down_title">面朝下靜默</string>
+    <string name="face_down_desc">手機螢幕朝下放置時，通知不喚醒螢幕。</string>
+    <string name="chain_node_face_down">面朝下</string>
+    <string name="log_reason_face_down">手機正面朝下放置。</string>
 </resources>

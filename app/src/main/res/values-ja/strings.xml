@@ -296,4 +296,9 @@
     <string name="chain_node_battery_level">電池残量</string>
     <string name="chain_config_battery_threshold">%1$d%% 未満</string>
     <string name="log_reason_battery_level">電池残量が設定したしきい値を下回り、充電もしていませんでした。</string>
+    <!-- 伏せ置きサイレント -->
+    <string name="face_down_title">伏せ置きサイレント</string>
+    <string name="face_down_desc">画面を下にして置いている間は、通知で画面を点灯しません。</string>
+    <string name="chain_node_face_down">伏せ置き</string>
+    <string name="log_reason_face_down">端末が画面を下にして置かれていました。</string>
 </resources>

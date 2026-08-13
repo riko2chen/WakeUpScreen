@@ -8,6 +8,8 @@ object ScConstant {
     const val WAKE_SCREEN_SECOND = "wake_screen_second"
     const val PROXIMITY_STATUS = "proximity_status"
     const val PROXIMITY_SWITCH = "proximity_switch"
+    const val FACE_DOWN_STATUS = "face_down_status"
+    const val FACE_DOWN_SWITCH = "face_down_switch"
     const val BATTERY_SAVER_FAKE_SWITCH = "battery_saver_fake_switch"
     const val SEND_NOTIFICATION_PERMISSION = "send_notification_permission"
     const val DEBUG_MODE_SWITCH = "debug_mode_switch"
@@ -37,6 +39,13 @@ object ScConstant {
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
+
+    /**
+     * Off by default: a posture gate switching itself on with an update would
+     * silently swallow notifications on a phone lying face down on a desk.
+     */
+    const val DEFAULT_SWITCH_OF_FACE_DOWN: Boolean = false
+    const val DEFAULT_STATUS_OF_FACE_DOWN: Boolean = false
     const val DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS: Long = 2000
     const val DEFAULT_VALUE_OF_PROXIMITY: Int = 1
     const val DEFAULT_BATTERY_SAVER: Boolean = false

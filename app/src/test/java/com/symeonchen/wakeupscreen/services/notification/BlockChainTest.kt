@@ -32,6 +32,7 @@ class BlockChainTest {
             listOf(
                 BlockReason.APP_SWITCH_OFF,
                 BlockReason.POCKET_MODE,
+                BlockReason.FACE_DOWN,
                 BlockReason.INTERACTIVE,
                 BlockReason.FILTER_LIST,
                 BlockReason.LOW_IMPORTANCE,

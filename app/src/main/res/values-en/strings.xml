@@ -310,4 +310,9 @@
     <string name="chain_node_battery_level">Battery level</string>
     <string name="chain_config_battery_threshold">below %1$d%%</string>
     <string name="log_reason_battery_level">Battery was below the configured threshold and the device was not charging.</string>
+    <!-- Face-down silence gate -->
+    <string name="face_down_title">Face-down Silence</string>
+    <string name="face_down_desc">While the phone lies screen-down, notifications do not wake the screen.</string>
+    <string name="chain_node_face_down">Face down</string>
+    <string name="log_reason_face_down">The phone was lying face down.</string>
 </resources>

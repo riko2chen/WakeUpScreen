@@ -42,6 +42,8 @@ fun AdvanceSettingScreen(
     proximityChecked: Boolean,
     proximitySubtitle: String,
     onProximityToggle: () -> Unit,
+    faceDownChecked: Boolean,
+    onFaceDownToggle: () -> Unit,
     ongoingChecked: Boolean,
     ongoingSubtitle: String,
     onOngoingToggle: () -> Unit,
@@ -180,6 +182,13 @@ fun AdvanceSettingScreen(
                     subtitle = proximitySubtitle,
                     checked = proximityChecked,
                     onCheckedChange = onProximityToggle,
+                )
+                FlatDivider()
+                SettingSwitchRow(
+                    title = stringResource(R.string.face_down_title),
+                    subtitle = stringResource(R.string.face_down_desc),
+                    checked = faceDownChecked,
+                    onCheckedChange = onFaceDownToggle,
                 )
                 FlatDivider()
                 SettingSwitchRow(

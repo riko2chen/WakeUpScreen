@@ -310,4 +310,9 @@
     <string name="chain_node_battery_level">Livello batteria</string>
     <string name="chain_config_battery_threshold">sotto il %1$d%%</string>
     <string name="log_reason_battery_level">La batteria era sotto la soglia impostata e il dispositivo non era in carica.</string>
+    <!-- Silenzio a faccia in giù -->
+    <string name="face_down_title">Silenzio a faccia in giù</string>
+    <string name="face_down_desc">Con il telefono appoggiato a schermo in giù, le notifiche non accendono lo schermo.</string>
+    <string name="chain_node_face_down">A faccia in giù</string>
+    <string name="log_reason_face_down">Il telefono era appoggiato con lo schermo verso il basso.</string>
 </resources>

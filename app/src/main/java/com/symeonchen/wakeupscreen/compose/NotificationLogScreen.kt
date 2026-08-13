@@ -393,6 +393,7 @@ private fun blockReasonToString(reason: String): String {
     return when (reason) {
         BlockReason.APP_SWITCH_OFF -> stringResource(R.string.log_reason_app_switch_off)
         BlockReason.POCKET_MODE -> stringResource(R.string.log_reason_pocket_mode)
+        BlockReason.FACE_DOWN -> stringResource(R.string.log_reason_face_down)
         BlockReason.FILTER_LIST -> stringResource(R.string.log_reason_filter_list)
         BlockReason.LOW_IMPORTANCE -> stringResource(R.string.log_reason_low_importance)
         BlockReason.ONGOING -> stringResource(R.string.log_reason_ongoing)

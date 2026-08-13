@@ -45,7 +45,11 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_DEBUG_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_VALUE_OF_PROXIMITY
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_STATUS_OF_FACE_DOWN
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_FACE_DOWN
 import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.FACE_DOWN_STATUS
+import com.symeonchen.wakeupscreen.data.ScConstant.FACE_DOWN_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.IGNORE_SILENT_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
@@ -111,6 +115,25 @@ object DataInjection {
         }
         set(switch) {
             MMKV.defaultMMKV()?.putBoolean(PROXIMITY_SWITCH, switch)
+        }
+
+    var switchOfFaceDown: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(FACE_DOWN_SWITCH, DEFAULT_SWITCH_OF_FACE_DOWN)
+                ?: DEFAULT_SWITCH_OF_FACE_DOWN
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(FACE_DOWN_SWITCH, value)
+        }
+
+    /** Last posture the accelerometer reported; written by the sensor listener alone. */
+    var statusOfFaceDown: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(FACE_DOWN_STATUS, DEFAULT_STATUS_OF_FACE_DOWN)
+                ?: DEFAULT_STATUS_OF_FACE_DOWN
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(FACE_DOWN_STATUS, value)
         }
 
     var fakeSwitchOfBatterySaver: Boolean

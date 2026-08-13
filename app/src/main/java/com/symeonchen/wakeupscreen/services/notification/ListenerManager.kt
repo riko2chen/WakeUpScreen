@@ -3,6 +3,7 @@ package com.symeonchen.wakeupscreen.services.notification
 import com.symeonchen.wakeupscreen.services.notification.conditions.BatteryLevelCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.ChargingCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.DndCondition
+import com.symeonchen.wakeupscreen.services.notification.conditions.FaceDownCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.FilterListCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.ImportanceCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.InteractiveCondition
@@ -36,6 +37,9 @@ object ListenerManager {
      */
     private val mConditionList = mutableListOf<LimitedCondition>(
         PocketModeCondition(),
+        // The other posture gate, right beside pocket mode: both read a sensor
+        // state that was current before the notification arrived.
+        FaceDownCondition(),
         InteractiveCondition(),
         FilterListCondition(),
         // Both judge the notification itself, and both sit after the app filter

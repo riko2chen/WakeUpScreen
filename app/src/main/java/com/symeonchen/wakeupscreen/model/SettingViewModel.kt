@@ -23,6 +23,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.switchOfProximity)
         }
 
+    var switchOfFaceDown: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.switchOfFaceDown)
+        }
+
     var fakeSwitchOfBatterySaver: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.fakeSwitchOfBatterySaver)
@@ -126,6 +131,12 @@ class SettingViewModel : ViewModel() {
             ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.switchOfProximity = value
+            }
+        }
+
+        switchOfFaceDown.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.switchOfFaceDown = value
             }
         }
 

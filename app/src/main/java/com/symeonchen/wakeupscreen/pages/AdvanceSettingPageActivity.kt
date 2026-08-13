@@ -20,6 +20,7 @@ import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
+import com.symeonchen.wakeupscreen.states.FaceDownSensorState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.TimeOfDayFormatter
@@ -45,6 +46,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             WakeUpScreenTheme {
                 val currentMode by settingModel.modeOfCurrent.observeAsState(CurrentMode.MODE_ALL_NOTIFY)
                 val proximity by settingModel.switchOfProximity.observeAsState(false)
+                val faceDown by settingModel.switchOfFaceDown.observeAsState(false)
                 val ongoing by settingModel.ongoingOptimize.observeAsState(false)
                 val radicalOngoing by settingModel.radicalOngoingOptimize.observeAsState(false)
                 val ignoreSilent by settingModel.ignoreSilentNotificationSwitch.observeAsState(false)
@@ -100,6 +102,16 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                             if (!ProximitySensorState.isRegistered()) ProximitySensorState.registerListener(this)
                         } else {
                             if (ProximitySensorState.isRegistered()) ProximitySensorState.unRegisterListener(this)
+                        }
+                    },
+                    faceDownChecked = faceDown,
+                    onFaceDownToggle = {
+                        val enabled = !faceDown
+                        settingModel.switchOfFaceDown.postValue(enabled)
+                        if (enabled) {
+                            if (!FaceDownSensorState.isRegistered()) FaceDownSensorState.registerListener(this)
+                        } else {
+                            if (FaceDownSensorState.isRegistered()) FaceDownSensorState.unRegisterListener(this)
                         }
                     },
                     ongoingChecked = ongoing,

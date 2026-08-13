@@ -296,4 +296,9 @@
     <string name="chain_node_battery_level">배터리 잔량</string>
     <string name="chain_config_battery_threshold">%1$d%% 미만</string>
     <string name="log_reason_battery_level">배터리가 설정한 기준치보다 낮고 충전 중이 아니었습니다.</string>
+    <!-- 엎어놓기 무음 -->
+    <string name="face_down_title">엎어놓기 무음</string>
+    <string name="face_down_desc">화면을 아래로 향해 두는 동안 알림이 화면을 켜지 않습니다.</string>
+    <string name="chain_node_face_down">엎어놓기</string>
+    <string name="log_reason_face_down">휴대폰이 화면을 아래로 향해 놓여 있었습니다.</string>
 </resources>
