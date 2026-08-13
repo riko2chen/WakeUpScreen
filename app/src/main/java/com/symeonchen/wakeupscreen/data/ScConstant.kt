@@ -18,6 +18,7 @@ object ScConstant {
     const val ONGOING_STATUS_DETECT = "ongoing_status_detect"
     const val RADICAL_ONGOING_DETECT = "radical_ongoing_detect"
     const val LANGUAGE_SELECTED = "language_selected"
+    const val DARK_MODE_SELECTED = "dark_mode_selected"
     const val SLEEP_MODE_BOOLEAN = "sleep_mode_boolean"
     const val SLEEP_MODE_TIME_BEGIN = "sleep_mode_time_begin"
     const val SLEEP_MODE_TIME_END = "sleep_mode_time_end"
@@ -45,6 +46,7 @@ object ScConstant {
     const val DEFAULT_ONGOING_STATUS_DETECT = true
     const val DEFAULT_RADICAL_ONGOING_DETECT = true
     const val DEFAULT_LANGUAGE_SELECTED: Int = 0
+    const val DEFAULT_DARK_MODE_SELECTED: Int = 0
     const val DEFAULT_SLEEP_MODE_BOOLEAN: Boolean = false
     const val DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR = 2
     const val DEFAULT_SLEEP_MODE_TIME_END_HOUR = 4

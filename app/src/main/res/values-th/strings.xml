@@ -67,6 +67,10 @@
     <string name="setting_search_hint">ค้นหาการตั้งค่า</string>
     <string name="setting_search_no_result">ไม่พบการตั้งค่าที่ตรงกัน</string>
     <string name="section_general">ทั่วไป</string>
+    <string name="dark_mode">โหมดมืด</string>
+    <string name="dark_mode_follow_system">ตามระบบ</string>
+    <string name="dark_mode_light">สว่าง</string>
+    <string name="dark_mode_dark">มืด</string>
     <string name="section_notification_filter">ตัวกรองการแจ้งเตือน</string>
     <string name="section_advanced">ขั้นสูง</string>
     <string name="section_notification_rules">กฎการแจ้งเตือน</string>
@@ -219,7 +223,7 @@
     <string name="discard_changes">ยกเลิก</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">เส้นทางการบล็อก</string>
+    <string name="chain_title">ภาพรวมเส้นทางการแจ้งเตือน</string>
     <string name="chain_entry_subtitle">ดูทุกเงื่อนไขที่การแจ้งเตือนต้องผ่าน</string>
     <string name="chain_live_hint">อ้างอิงจากการตั้งค่าปัจจุบันและสถานะเครื่อง นี่คือสิ่งที่การแจ้งเตือนที่เข้ามาตอนนี้จะต้องเจอ</string>
     <string name="chain_live_footer">ตัวกรองแอป ความสำคัญของการแจ้งเตือน และตัวกรองการแจ้งเตือนค้าง ขึ้นอยู่กับตัวการแจ้งเตือนเอง จึงตัดสินล่วงหน้าที่นี่ไม่ได้</string>

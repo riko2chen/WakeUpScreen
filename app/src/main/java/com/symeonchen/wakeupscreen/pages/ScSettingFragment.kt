@@ -18,23 +18,16 @@ import com.symeonchen.wakeupscreen.compose.SettingScreen
 import com.symeonchen.wakeupscreen.compose.components.SelectionDialog
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
-import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.PlayStoreTools
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
 class ScSettingFragment : ScBaseFragment() {
 
     private lateinit var settingModel: SettingViewModel
-
-    /**
-     * Mirrors the precise screen-on setting for the row subtitle. Refreshed on
-     * resume rather than observed: the setting lives in another screen's view
-     * model, and coming back from that screen is the only way it can change.
-     */
-    private val preciseWakeState = mutableStateOf(preciseWakeSnapshot())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,39 +48,22 @@ class ScSettingFragment : ScBaseFragment() {
             WakeUpScreenTheme {
                 val currentMode by settingModel.modeOfCurrent.observeAsState(CurrentMode.MODE_ALL_NOTIFY)
                 val language by settingModel.languageSelected.observeAsState(LanguageInfo.FOLLOW_SYSTEM)
+                val darkMode by settingModel.darkModeSelected.observeAsState(DarkModeInfo.FOLLOW_SYSTEM)
 
                 var showLanguageDialog by remember { mutableStateOf(false) }
-                var showModeDialog by remember { mutableStateOf(false) }
-
-                val currentModeText = stringResource(
-                    when (currentMode) {
-                        CurrentMode.MODE_BLACK_LIST -> R.string.black_list
-                        CurrentMode.MODE_WHITE_LIST -> R.string.white_list
-                        else -> R.string.all_pass
-                    }
-                )
-
-                val (preciseEnabled, preciseSeconds) = preciseWakeState.value
-                val wakeTimeText = if (preciseEnabled) {
-                    stringResource(R.string.precise_wake_summary_on, preciseSeconds)
-                } else {
-                    stringResource(R.string.precise_wake_summary_off)
-                }
+                var showDarkModeDialog by remember { mutableStateOf(false) }
 
                 SettingScreen(
-                    currentModeText = currentModeText,
                     languageText = language.desc,
-                    wakeTimeText = wakeTimeText,
+                    darkModeText = stringResource(darkMode.labelRes),
                     showWhiteListEntry = currentMode == CurrentMode.MODE_WHITE_LIST,
                     showBlackListEntry = currentMode == CurrentMode.MODE_BLACK_LIST,
                     onLanguageClick = { showLanguageDialog = true },
-                    onWakeTimeClick = { context?.quickStartActivity<WakeUptimeSettingActivity>() },
-                    onCurrentModeClick = { showModeDialog = true },
-                    onWhiteListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_WHITE_LIST) },
-                    onBlackListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_BLACK_LIST) },
+                    onDarkModeClick = { showDarkModeDialog = true },
                     onAdvancedSettingClick = { context?.quickStartActivity<AdvanceSettingPageActivity>() },
                     onBlockChainClick = { context?.quickStartActivity<BlockChainPageActivity>() },
                     onFunctionTestClick = { context?.quickStartActivity<FunctionTestPageActivity>() },
+                    onViewLogsClick = { context?.quickStartActivity<NotificationLogPageActivity>() },
                     onAddressClick = {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/riko2chen/WakeUpScreen")))
                     },
@@ -115,42 +91,26 @@ class ScSettingFragment : ScBaseFragment() {
                     )
                 }
 
-                // Mode dialog
-                if (showModeDialog) {
-                    val modeLabels = listOf(
-                        stringResource(R.string.all_pass),
-                        stringResource(R.string.white_list),
-                        stringResource(R.string.black_list),
-                    )
-                    val currentIdx = when (currentMode) {
-                        CurrentMode.MODE_ALL_NOTIFY -> 0
-                        CurrentMode.MODE_WHITE_LIST -> 1
-                        else -> 2
-                    }
+                // Dark mode dialog
+                if (showDarkModeDialog) {
+                    val darkModeArray = DarkModeInfo.values()
+                    val currentIdx = darkModeArray.indexOfFirst { it.referenceNum == darkMode.referenceNum }
                     SelectionDialog(
-                        title = stringResource(R.string.current_mode),
-                        options = modeLabels,
-                        selectedIndex = currentIdx,
+                        title = stringResource(R.string.dark_mode),
+                        options = darkModeArray.map { stringResource(it.labelRes) },
+                        selectedIndex = if (currentIdx >= 0) currentIdx else 0,
                         confirmText = stringResource(R.string.ok),
                         onSelect = { idx ->
-                            showModeDialog = false
-                            settingModel.modeOfCurrent.postValue(
-                                CurrentMode.getModeFromValue(idx)
-                            )
+                            showDarkModeDialog = false
+                            val selected = darkModeArray[idx]
+                            settingModel.darkModeSelected.postValue(selected)
+                            selected.applyDarkMode()
                         },
-                        onDismiss = { showModeDialog = false },
+                        onDismiss = { showDarkModeDialog = false },
                     )
                 }
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        preciseWakeState.value = preciseWakeSnapshot()
-    }
-
-    private fun preciseWakeSnapshot(): Pair<Boolean, Long> =
-        DataInjection.preciseScreenOnSwitch to DataInjection.preciseScreenOnSecond
 
 }

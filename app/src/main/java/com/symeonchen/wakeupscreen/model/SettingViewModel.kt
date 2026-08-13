@@ -3,6 +3,7 @@ package com.symeonchen.wakeupscreen.model
 import androidx.lifecycle.ViewModel
 import com.symeonchen.wakeupscreen.ScLiveData
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
@@ -60,6 +61,11 @@ class SettingViewModel : ViewModel() {
     var languageSelected: ScLiveData<LanguageInfo> = ScLiveData<LanguageInfo>()
         .apply {
             setValue(DataInjection.languageSelected)
+        }
+
+    var darkModeSelected: ScLiveData<DarkModeInfo> = ScLiveData<DarkModeInfo>()
+        .apply {
+            setValue(DataInjection.darkModeSelected)
         }
 
     var sleepModeBoolean: ScLiveData<Boolean> = ScLiveData<Boolean>()
@@ -146,6 +152,12 @@ class SettingViewModel : ViewModel() {
         languageSelected.listener = object : ScLiveData.OnLiveDataValueInput<LanguageInfo> {
             override fun onValueInput(value: LanguageInfo) {
                 DataInjection.languageSelected = value
+            }
+        }
+
+        darkModeSelected.listener = object : ScLiveData.OnLiveDataValueInput<DarkModeInfo> {
+            override fun onValueInput(value: DarkModeInfo) {
+                DataInjection.darkModeSelected = value
             }
         }
 

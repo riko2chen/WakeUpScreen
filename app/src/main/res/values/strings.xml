@@ -76,6 +76,10 @@
     <string name="setting_search_hint">Search settings</string>
     <string name="setting_search_no_result">No matching settings</string>
     <string name="section_general">General</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="dark_mode_follow_system">Follow System</string>
+    <string name="dark_mode_light">Light</string>
+    <string name="dark_mode_dark">Dark</string>
     <string name="section_notification_filter">Notification Filter</string>
     <string name="section_advanced">Advanced</string>
     <string name="section_notification_rules">Notification Rules</string>
@@ -233,7 +237,7 @@
     <string name="discard_changes">Discard</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">Block Chain</string>
+    <string name="chain_title">Notification Chain Overview</string>
     <string name="chain_entry_subtitle">See every check a notification goes through</string>
     <string name="chain_live_hint">Based on your current settings and device state — this is what a notification arriving right now would run into.</string>
     <string name="chain_live_footer">App filter, notification importance and ongoing notification filter depend on the notification itself, so they cannot be decided here.</string>

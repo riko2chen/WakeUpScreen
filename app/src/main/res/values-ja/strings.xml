@@ -67,6 +67,10 @@
     <string name="setting_search_hint">設定を検索</string>
     <string name="setting_search_no_result">一致する設定が見つかりません</string>
     <string name="section_general">一般</string>
+    <string name="dark_mode">ダークモード</string>
+    <string name="dark_mode_follow_system">システムに従う</string>
+    <string name="dark_mode_light">ライト</string>
+    <string name="dark_mode_dark">ダーク</string>
     <string name="section_notification_filter">通知フィルター</string>
     <string name="section_advanced">詳細</string>
     <string name="section_notification_rules">通知ルール</string>
@@ -219,7 +223,7 @@
     <string name="discard_changes">破棄する</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">判定チェーン</string>
+    <string name="chain_title">通知チェーンの概要</string>
     <string name="chain_entry_subtitle">通知が通るすべての判定を見る</string>
     <string name="chain_live_hint">現在の設定と端末の状態にもとづく表示です。今この瞬間に通知が届いた場合に通る判定です。</string>
     <string name="chain_live_footer">アプリフィルター、通知の重要度、常駐通知フィルターは通知そのものに依存するため、ここでは判定できません。</string>

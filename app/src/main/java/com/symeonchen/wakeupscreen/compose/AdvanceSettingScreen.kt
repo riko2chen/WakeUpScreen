@@ -16,6 +16,16 @@ import com.symeonchen.wakeupscreen.compose.components.*
 @Composable
 fun AdvanceSettingScreen(
     onBack: () -> Unit,
+    // Screen-on duration
+    wakeTimeText: String,
+    onWakeTimeClick: () -> Unit,
+    // Notification filter
+    currentModeText: String,
+    onCurrentModeClick: () -> Unit,
+    showWhiteListEntry: Boolean,
+    onWhiteListClick: () -> Unit,
+    showBlackListEntry: Boolean,
+    onBlackListClick: () -> Unit,
     // Switch states
     proximityChecked: Boolean,
     proximitySubtitle: String,
@@ -60,10 +70,52 @@ fun AdvanceSettingScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
+            // Screen-on duration
+            SectionLabel(
+                text = stringResource(R.string.section_general),
+                modifier = Modifier.padding(start = 4.dp, top = 8.dp, bottom = 10.dp),
+            )
+            GroupCard {
+                SettingRow(
+                    title = stringResource(R.string.time_of_wake_up_screen),
+                    subtitle = wakeTimeText,
+                    onClick = onWakeTimeClick,
+                )
+            }
+
+            // Which apps are allowed to wake the screen
+            SectionLabel(
+                text = stringResource(R.string.section_notification_filter),
+                modifier = Modifier.padding(start = 4.dp, top = 24.dp, bottom = 10.dp),
+            )
+            GroupCard {
+                SettingRow(
+                    title = stringResource(R.string.current_mode),
+                    subtitle = currentModeText,
+                    onClick = onCurrentModeClick,
+                )
+                if (showWhiteListEntry) {
+                    FlatDivider()
+                    SettingRow(
+                        title = stringResource(R.string.white_list),
+                        subtitle = stringResource(R.string.click_to_enter_white_list_page),
+                        onClick = onWhiteListClick,
+                    )
+                }
+                if (showBlackListEntry) {
+                    FlatDivider()
+                    SettingRow(
+                        title = stringResource(R.string.black_list),
+                        subtitle = stringResource(R.string.click_to_enter_black_list_page),
+                        onClick = onBlackListClick,
+                    )
+                }
+            }
+
             // Which notifications count
             SectionLabel(
                 text = stringResource(R.string.section_notification_rules),
-                modifier = Modifier.padding(start = 4.dp, top = 8.dp, bottom = 10.dp),
+                modifier = Modifier.padding(start = 4.dp, top = 24.dp, bottom = 10.dp),
             )
             GroupCard {
                 SettingSwitchRow(

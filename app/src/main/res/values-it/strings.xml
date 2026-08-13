@@ -77,6 +77,10 @@
     <string name="setting_search_hint">Cerca nelle impostazioni</string>
     <string name="setting_search_no_result">Nessuna impostazione trovata</string>
     <string name="section_general">Generali</string>
+    <string name="dark_mode">Modalità scura</string>
+    <string name="dark_mode_follow_system">Segui il sistema</string>
+    <string name="dark_mode_light">Chiaro</string>
+    <string name="dark_mode_dark">Scuro</string>
     <string name="section_notification_filter">Filtro notifiche</string>
     <string name="section_advanced">Avanzate</string>
     <string name="section_notification_rules">Regole di notifica</string>
@@ -233,7 +237,7 @@
     <string name="discard_changes">Annulla</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">Catena di blocco</string>
+    <string name="chain_title">Panoramica della catena di notifica</string>
     <string name="chain_entry_subtitle">Vedi ogni controllo che una notifica attraversa</string>
     <string name="chain_live_hint">In base alle impostazioni attuali e allo stato del dispositivo: ecco cosa incontrerebbe una notifica in arrivo adesso.</string>
     <string name="chain_live_footer">Il filtro app, l\'importanza della notifica e il filtro delle notifiche persistenti dipendono dalla notifica stessa, quindi non si possono decidere qui.</string>

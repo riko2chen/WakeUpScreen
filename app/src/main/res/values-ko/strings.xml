@@ -67,6 +67,10 @@
     <string name="setting_search_hint">설정 검색</string>
     <string name="setting_search_no_result">일치하는 설정이 없습니다</string>
     <string name="section_general">일반</string>
+    <string name="dark_mode">다크 모드</string>
+    <string name="dark_mode_follow_system">시스템 설정 따르기</string>
+    <string name="dark_mode_light">라이트</string>
+    <string name="dark_mode_dark">다크</string>
     <string name="section_notification_filter">알림 필터</string>
     <string name="section_advanced">고급</string>
     <string name="section_notification_rules">알림 규칙</string>
@@ -219,7 +223,7 @@
     <string name="discard_changes">취소</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">차단 경로</string>
+    <string name="chain_title">알림 체인 개요</string>
     <string name="chain_entry_subtitle">알림이 거치는 모든 판정 보기</string>
     <string name="chain_live_hint">현재 설정과 기기 상태를 기준으로, 지금 알림이 도착하면 거치게 될 판정입니다.</string>
     <string name="chain_live_footer">앱 필터, 알림 중요도, 상시 알림 필터는 알림 자체에 따라 달라지므로 여기서는 판정할 수 없습니다.</string>

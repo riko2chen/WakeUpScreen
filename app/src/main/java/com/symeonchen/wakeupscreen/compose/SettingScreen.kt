@@ -48,19 +48,16 @@ private data class SettingsSearchEntry(
 
 @Composable
 fun SettingScreen(
-    currentModeText: String,
     languageText: String,
-    wakeTimeText: String,
+    darkModeText: String,
     showWhiteListEntry: Boolean,
     showBlackListEntry: Boolean,
     onLanguageClick: () -> Unit,
-    onWakeTimeClick: () -> Unit,
-    onCurrentModeClick: () -> Unit,
-    onWhiteListClick: () -> Unit,
-    onBlackListClick: () -> Unit,
+    onDarkModeClick: () -> Unit,
     onAdvancedSettingClick: () -> Unit,
     onBlockChainClick: () -> Unit,
     onFunctionTestClick: () -> Unit,
+    onViewLogsClick: () -> Unit,
     onAddressClick: () -> Unit,
     onFeedbackClick: () -> Unit,
     onGiveStarClick: () -> Unit,
@@ -76,16 +73,17 @@ fun SettingScreen(
 
     val searchEntries = listOfNotNull(
         SettingsSearchEntry(stringResource(R.string.language), settingsPage, onLanguageClick),
-        SettingsSearchEntry(stringResource(R.string.time_of_wake_up_screen), settingsPage, onWakeTimeClick),
-        SettingsSearchEntry(stringResource(R.string.current_mode), settingsPage, onCurrentModeClick),
-        if (showWhiteListEntry) {
-            SettingsSearchEntry(stringResource(R.string.white_list), settingsPage, onWhiteListClick)
-        } else null,
-        if (showBlackListEntry) {
-            SettingsSearchEntry(stringResource(R.string.black_list), settingsPage, onBlackListClick)
-        } else null,
+        SettingsSearchEntry(stringResource(R.string.dark_mode), settingsPage, onDarkModeClick),
         SettingsSearchEntry(stringResource(R.string.chain_title), settingsPage, onBlockChainClick),
         SettingsSearchEntry(stringResource(R.string.advanced_setting), settingsPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.time_of_wake_up_screen), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.current_mode), advancedPage, onAdvancedSettingClick),
+        if (showWhiteListEntry) {
+            SettingsSearchEntry(stringResource(R.string.white_list), advancedPage, onAdvancedSettingClick)
+        } else null,
+        if (showBlackListEntry) {
+            SettingsSearchEntry(stringResource(R.string.black_list), advancedPage, onAdvancedSettingClick)
+        } else null,
         SettingsSearchEntry(stringResource(R.string.pocket_mode), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.ongoing_status), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.radical_ongoing_detact), advancedPage, onAdvancedSettingClick),
@@ -97,9 +95,9 @@ fun SettingScreen(
         SettingsSearchEntry(stringResource(R.string.repeat_reminder), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.repeat_reminder_detail), advancedPage, onAdvancedSettingClick),
         SettingsSearchEntry(stringResource(R.string.function_test), settingsPage, onFunctionTestClick),
+        SettingsSearchEntry(stringResource(R.string.view_logs), settingsPage, onViewLogsClick),
         SettingsSearchEntry(stringResource(R.string.delay_to_wakeup), functionTestPage, onFunctionTestClick),
         SettingsSearchEntry(stringResource(R.string.reminder_test), functionTestPage, onFunctionTestClick),
-        SettingsSearchEntry(stringResource(R.string.view_logs), functionTestPage, onFunctionTestClick),
         SettingsSearchEntry(stringResource(R.string.project_address), aboutPage, onAddressClick),
         SettingsSearchEntry(stringResource(R.string.feedback), aboutPage, onFeedbackClick),
         SettingsSearchEntry(stringResource(R.string.check_update), aboutPage, onCheckUpdateClick),
@@ -200,45 +198,9 @@ fun SettingScreen(
                 )
                 FlatDivider()
                 SettingRow(
-                    title = stringResource(R.string.time_of_wake_up_screen),
-                    subtitle = wakeTimeText,
-                    onClick = onWakeTimeClick,
-                )
-            }
-
-            // NOTIFICATION FILTER section
-            SectionLabel(
-                text = stringResource(R.string.section_notification_filter),
-                modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
-            )
-
-            SettingsCard {
-                SettingRow(
-                    title = stringResource(R.string.current_mode),
-                    subtitle = currentModeText,
-                    onClick = onCurrentModeClick,
-                )
-                if (showWhiteListEntry) {
-                    FlatDivider()
-                    SettingRow(
-                        title = stringResource(R.string.white_list),
-                        subtitle = stringResource(R.string.click_to_enter_white_list_page),
-                        onClick = onWhiteListClick,
-                    )
-                }
-                if (showBlackListEntry) {
-                    FlatDivider()
-                    SettingRow(
-                        title = stringResource(R.string.black_list),
-                        subtitle = stringResource(R.string.click_to_enter_black_list_page),
-                        onClick = onBlackListClick,
-                    )
-                }
-                FlatDivider()
-                SettingRow(
-                    title = stringResource(R.string.chain_title),
-                    subtitle = stringResource(R.string.chain_entry_subtitle),
-                    onClick = onBlockChainClick,
+                    title = stringResource(R.string.dark_mode),
+                    subtitle = darkModeText,
+                    onClick = onDarkModeClick,
                 )
             }
 
@@ -250,13 +212,33 @@ fun SettingScreen(
 
             SettingsCard {
                 SettingRow(
-                    title = stringResource(R.string.advanced_setting),
-                    onClick = onAdvancedSettingClick,
+                    title = stringResource(R.string.chain_title),
+                    subtitle = stringResource(R.string.chain_entry_subtitle),
+                    onClick = onBlockChainClick,
                 )
                 FlatDivider()
                 SettingRow(
+                    title = stringResource(R.string.advanced_setting),
+                    onClick = onAdvancedSettingClick,
+                )
+            }
+
+            // DEBUG section
+            SectionLabel(
+                text = stringResource(R.string.debug),
+                modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
+            )
+
+            SettingsCard {
+                SettingRow(
                     title = stringResource(R.string.function_test),
                     onClick = onFunctionTestClick,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.view_logs),
+                    subtitle = stringResource(R.string.view_logs_subtitle),
+                    onClick = onViewLogsClick,
                 )
             }
 

@@ -1,6 +1,7 @@
 package com.symeonchen.wakeupscreen.utils
 
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_BLACK_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_LIST_FLAG
@@ -9,6 +10,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.APP_NOTIFY_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_SAVER_FAKE_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.CHARGING_ONLY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.CUSTOM_STATUS
+import com.symeonchen.wakeupscreen.data.ScConstant.DARK_MODE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEBUG_MODE_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_BLACK_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_NOTIFY_MODE
@@ -18,6 +20,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_CHARGING_ONLY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DARK_MODE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
@@ -206,6 +209,19 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV()?.putInt(LANGUAGE_SELECTED, value.ordinal)
+        }
+
+    var darkModeSelected: DarkModeInfo
+        get() {
+            return DarkModeInfo.getModeFromValue(
+                MMKV.defaultMMKV()?.getInt(
+                    DARK_MODE_SELECTED,
+                    DEFAULT_DARK_MODE_SELECTED
+                ) ?: DEFAULT_DARK_MODE_SELECTED
+            )
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putInt(DARK_MODE_SELECTED, value.referenceNum)
         }
 
     var sleepModeBoolean: Boolean

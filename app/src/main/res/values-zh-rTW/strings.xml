@@ -67,6 +67,10 @@
     <string name="setting_search_hint">搜尋設定</string>
     <string name="setting_search_no_result">沒有找到相關設定</string>
     <string name="section_general">一般</string>
+    <string name="dark_mode">深色模式</string>
+    <string name="dark_mode_follow_system">跟隨系統</string>
+    <string name="dark_mode_light">淺色</string>
+    <string name="dark_mode_dark">深色</string>
     <string name="section_notification_filter">通知過濾</string>
     <string name="section_advanced">進階</string>
     <string name="section_notification_rules">通知規則</string>
@@ -219,7 +223,7 @@
     <string name="discard_changes">放棄修改</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">攔截鏈路</string>
+    <string name="chain_title">通知鏈路總覽</string>
     <string name="chain_entry_subtitle">看一則通知要經過哪些判斷</string>
     <string name="chain_live_hint">依據目前設定與手機狀態 —— 此刻來一則通知，會遇到下面這些判斷。</string>
     <string name="chain_live_footer">應用程式過濾、通知重要性和持續通知過濾取決於通知本身，這裡無法預先判定。</string>
