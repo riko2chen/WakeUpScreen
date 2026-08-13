@@ -119,6 +119,10 @@ object SettingsBackup {
         CatalogEntry(ScConstant.REPEAT_REMINDER_MAX_ROUNDS, SettingType.INT),
         CatalogEntry(ScConstant.PRECISE_SCREEN_ON_SWITCH, SettingType.BOOL),
         CatalogEntry(ScConstant.IGNORE_SILENT_NOTIFICATION_SWITCH, SettingType.BOOL),
+        CatalogEntry(ScConstant.BATTERY_LEVEL_SWITCH, SettingType.BOOL),
+        CatalogEntry(ScConstant.BATTERY_LEVEL_THRESHOLD, SettingType.INT),
+        CatalogEntry(ScConstant.FACE_DOWN_SWITCH, SettingType.BOOL),
+        CatalogEntry(ScConstant.NIGHT_GLOW_SWITCH, SettingType.BOOL),
     )
 
     sealed class ImportResult {
