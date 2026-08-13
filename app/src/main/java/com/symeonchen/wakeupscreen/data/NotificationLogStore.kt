@@ -101,6 +101,13 @@ object NotificationLogStore {
         return list.asReversed()
     }
 
+    /**
+     * When the screen last lit up for a notification or reminder, or null if no
+     * wake has been recorded (or the log has since been cleared).
+     */
+    fun lastWakeTimestamp(): Long? =
+        loadLogs().firstOrNull { it.status == LogStatus.WAKED_UP }?.timestamp
+
     fun clearLogs() {
         MMKV.defaultMMKV()?.putString(KEY_NOTIFICATION_LOGS, "[]")
     }

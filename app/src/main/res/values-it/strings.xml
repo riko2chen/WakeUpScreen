@@ -289,4 +289,11 @@
     <string name="chain_config_granted">Concesso</string>
     <string name="chain_config_not_granted">Non concesso</string>
     <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- Ultima accensione riuscita, nella pagina iniziale -->
+    <string name="last_wake_just_now">Ultima accensione riuscita: adesso</string>
+    <string name="last_wake_minutes_ago">Ultima accensione riuscita: %1$d min fa</string>
+    <string name="last_wake_hours_ago">Ultima accensione riuscita: %1$d h fa</string>
+    <string name="last_wake_days_ago">Ultima accensione riuscita: %1$d g fa</string>
+    <string name="last_wake_never">Nessuna accensione riuscita registrata. Tocca per aprire i log.</string>
 </resources>

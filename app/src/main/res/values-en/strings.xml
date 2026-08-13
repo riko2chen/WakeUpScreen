@@ -289,4 +289,11 @@
     <string name="chain_config_granted">Granted</string>
     <string name="chain_config_not_granted">Not granted</string>
     <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- Last successful wake, shown on the home page -->
+    <string name="last_wake_just_now">Last successful wake: just now</string>
+    <string name="last_wake_minutes_ago">Last successful wake: %1$d min ago</string>
+    <string name="last_wake_hours_ago">Last successful wake: %1$d h ago</string>
+    <string name="last_wake_days_ago">Last successful wake: %1$d d ago</string>
+    <string name="last_wake_never">No successful wake recorded yet. Tap to open the logs.</string>
 </resources>

@@ -275,4 +275,11 @@
     <string name="chain_config_granted">ได้รับสิทธิ์แล้ว</string>
     <string name="chain_config_not_granted">ยังไม่ได้รับสิทธิ์</string>
     <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- การปลุกหน้าจอสำเร็จล่าสุดบนหน้าแรก -->
+    <string name="last_wake_just_now">ปลุกหน้าจอสำเร็จล่าสุด: เมื่อสักครู่</string>
+    <string name="last_wake_minutes_ago">ปลุกหน้าจอสำเร็จล่าสุด: %1$d นาทีที่แล้ว</string>
+    <string name="last_wake_hours_ago">ปลุกหน้าจอสำเร็จล่าสุด: %1$d ชั่วโมงที่แล้ว</string>
+    <string name="last_wake_days_ago">ปลุกหน้าจอสำเร็จล่าสุด: %1$d วันที่แล้ว</string>
+    <string name="last_wake_never">ยังไม่มีบันทึกการปลุกที่สำเร็จ แตะเพื่อเปิดบันทึก</string>
 </resources>

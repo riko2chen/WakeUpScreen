@@ -275,4 +275,11 @@
     <string name="chain_config_granted">허용됨</string>
     <string name="chain_config_not_granted">허용 안 됨</string>
     <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- 홈 화면의 마지막 성공 켜짐 -->
+    <string name="last_wake_just_now">마지막 화면 켜짐 성공: 방금 전</string>
+    <string name="last_wake_minutes_ago">마지막 화면 켜짐 성공: %1$d분 전</string>
+    <string name="last_wake_hours_ago">마지막 화면 켜짐 성공: %1$d시간 전</string>
+    <string name="last_wake_days_ago">마지막 화면 켜짐 성공: %1$d일 전</string>
+    <string name="last_wake_never">아직 성공 기록이 없습니다. 눌러서 로그를 확인하세요.</string>
 </resources>

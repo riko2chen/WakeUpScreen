@@ -277,4 +277,11 @@
     <string name="chain_config_granted">已授予</string>
     <string name="chain_config_not_granted">未授予</string>
     <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- 首页的上次成功唤醒 -->
+    <string name="last_wake_just_now">上次成功唤醒：刚刚</string>
+    <string name="last_wake_minutes_ago">上次成功唤醒：%1$d 分钟前</string>
+    <string name="last_wake_hours_ago">上次成功唤醒：%1$d 小时前</string>
+    <string name="last_wake_days_ago">上次成功唤醒：%1$d 天前</string>
+    <string name="last_wake_never">暂无成功唤醒记录，点击查看日志。</string>
 </resources>

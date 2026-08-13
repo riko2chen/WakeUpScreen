@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,7 @@ import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.compose.MainScreen
 import com.symeonchen.wakeupscreen.compose.StatusDisplayState
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
+import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.StatusViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
@@ -30,6 +32,7 @@ import com.symeonchen.wakeupscreen.states.NotificationState.Companion.closeNotif
 import com.symeonchen.wakeupscreen.states.NotificationState.Companion.openNotificationService
 import com.symeonchen.wakeupscreen.states.PermissionState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
+import com.symeonchen.wakeupscreen.utils.ElapsedTimeBucket
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.coroutines.launch
 
@@ -38,6 +41,12 @@ class ScMainFragment : ScBaseFragment() {
     private lateinit var statusModel: StatusViewModel
     private lateinit var settingModel: SettingViewModel
     private var alertDialog: AlertDialog? = null
+
+    /**
+     * Timestamp of the last successful wake, refreshed on resume rather than
+     * observed: it only moves while this screen is not in front.
+     */
+    private val lastWakeTimestamp = mutableStateOf<Long?>(null)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -105,6 +114,11 @@ class ScMainFragment : ScBaseFragment() {
                     onNotifPermBtnClick = {
                         openNotificationService(context)
                         PermissionState.openSendNotificationSetting(context, settingModel)
+                    },
+
+                    lastWakeText = lastWakeText(lastWakeTimestamp.value),
+                    onLastWakeClick = {
+                        context?.quickStartActivity<NotificationLogPageActivity>()
                     },
 
                     noticeText = getString(R.string.still_have_problem),
@@ -226,6 +240,17 @@ class ScMainFragment : ScBaseFragment() {
         checkBatteryOptimization()
         registerProximitySensor()
         checkNotificationPermission()
+        lastWakeTimestamp.value = NotificationLogStore.lastWakeTimestamp()
+    }
+
+    private fun lastWakeText(timestamp: Long?): String {
+        timestamp ?: return getString(R.string.last_wake_never)
+        return when (val bucket = ElapsedTimeBucket.between(timestamp, System.currentTimeMillis())) {
+            is ElapsedTimeBucket.JustNow -> getString(R.string.last_wake_just_now)
+            is ElapsedTimeBucket.Minutes -> getString(R.string.last_wake_minutes_ago, bucket.minutes)
+            is ElapsedTimeBucket.Hours -> getString(R.string.last_wake_hours_ago, bucket.hours)
+            is ElapsedTimeBucket.Days -> getString(R.string.last_wake_days_ago, bucket.days)
+        }
     }
 
     private fun checkPermission(): Boolean {

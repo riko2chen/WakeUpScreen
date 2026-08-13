@@ -275,4 +275,11 @@
     <string name="chain_config_granted">許可済み</string>
     <string name="chain_config_not_granted">未許可</string>
     <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- ホームに表示する前回の点灯 -->
+    <string name="last_wake_just_now">前回の点灯成功：たった今</string>
+    <string name="last_wake_minutes_ago">前回の点灯成功：%1$d分前</string>
+    <string name="last_wake_hours_ago">前回の点灯成功：%1$d時間前</string>
+    <string name="last_wake_days_ago">前回の点灯成功：%1$d日前</string>
+    <string name="last_wake_never">点灯成功の記録はまだありません。タップしてログを開きます。</string>
 </resources>
