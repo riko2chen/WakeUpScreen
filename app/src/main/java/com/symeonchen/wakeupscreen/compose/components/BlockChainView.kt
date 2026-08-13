@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.symeonchen.wakeupscreen.services.notification.ChainNodeState
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 /**
  * One node of the chain, already resolved to display text by the caller.
@@ -163,7 +164,9 @@ private fun ChainDot(state: ChainNodeState, color: Color) {
 
 @Composable
 private fun chainStateColor(state: ChainNodeState): Color = when (state) {
-    ChainNodeState.PASSED, ChainNodeState.REACHED -> MaterialTheme.colorScheme.tertiary
+    // Bound to the success role, not to tertiary: tertiary is a brand slot and
+    // is currently pink, which made "passed" indistinguishable from "blocked".
+    ChainNodeState.PASSED, ChainNodeState.REACHED -> WakeUpTheme.colors.success
     ChainNodeState.BLOCKED -> MaterialTheme.colorScheme.error
     ChainNodeState.DEPENDS -> MaterialTheme.colorScheme.primary
     ChainNodeState.SKIPPED, ChainNodeState.NOT_EVALUATED ->

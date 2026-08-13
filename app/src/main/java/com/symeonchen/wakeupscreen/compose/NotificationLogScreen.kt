@@ -20,6 +20,7 @@ import com.symeonchen.wakeupscreen.compose.components.BlockChainView
 import com.symeonchen.wakeupscreen.compose.components.ChainRow
 import com.symeonchen.wakeupscreen.compose.components.ChainSurface
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 import com.symeonchen.wakeupscreen.data.LogStatus
 import com.symeonchen.wakeupscreen.data.LogTrigger
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
@@ -335,7 +336,8 @@ private fun logStatusText(status: LogStatus): String = when (status) {
 @Composable
 private fun logStatusColor(status: LogStatus) = when (status) {
     LogStatus.WAKED_UP -> MaterialTheme.colorScheme.primary
-    LogStatus.SCREEN_ALREADY_ON -> MaterialTheme.colorScheme.tertiary
+    // Success role, not tertiary: tertiary is pink and reads as error-red.
+    LogStatus.SCREEN_ALREADY_ON -> WakeUpTheme.colors.success
     LogStatus.BLOCKED -> MaterialTheme.colorScheme.error
     // Not a failure — the streak simply ran its course, so keep it neutral.
     LogStatus.REMINDER_STOPPED -> MaterialTheme.colorScheme.onSurfaceVariant
