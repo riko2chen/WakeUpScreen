@@ -9,8 +9,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.symeonchen.wakeupscreen.R
 
 @Composable
 fun SelectionDialog(
@@ -67,7 +69,10 @@ fun SelectionDialog(
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text(text = "Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(
+                    text = stringResource(R.string.cancel),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
         },
     )

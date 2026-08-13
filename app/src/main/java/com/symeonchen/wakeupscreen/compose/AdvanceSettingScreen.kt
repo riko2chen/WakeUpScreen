@@ -72,7 +72,7 @@ fun AdvanceSettingScreen(
         ) {
             // Screen-on duration
             SectionLabel(
-                text = stringResource(R.string.section_general),
+                text = stringResource(R.string.section_screen_on_duration),
                 modifier = Modifier.padding(start = 4.dp, top = 8.dp, bottom = 10.dp),
             )
             GroupCard {

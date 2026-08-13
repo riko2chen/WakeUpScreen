@@ -5,6 +5,7 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="language">Language</string>
     <string name="language_zh_cn">简体中文</string>
     <string name="language_en">English</string>
@@ -46,7 +47,7 @@
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
     <string name="pocket_mode">Pocket Mode</string>
     <string name="ongoing_status">Optimize Ongoing Notify</string>
-    <string name="current_mode">Current Mode</string>
+    <string name="current_mode">Filter Mode</string>
     <string name="all_pass">All Notify</string>
     <string name="white_list">Whitelist mode</string>
     <string name="white_list_page">Whitelist Setting Page</string>
@@ -72,17 +73,19 @@
     <string name="custom">Custom</string>
     <string name="about">About</string>
     <string name="debug">Debug</string>
-    <string name="advanced_setting">Advanced Setting</string>
+    <string name="advanced_setting">Wake Rules</string>
     <string name="setting_search_hint">Search settings</string>
     <string name="setting_search_no_result">No matching settings</string>
     <string name="section_general">General</string>
+    <string name="section_diagnostics">Diagnostics</string>
+    <string name="section_screen_on_duration">Screen-on Duration</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="dark_mode_follow_system">Follow System</string>
+    <string name="follow_system">Follow System</string>
     <string name="dark_mode_light">Light</string>
     <string name="dark_mode_dark">Dark</string>
-    <string name="section_notification_filter">Notification Filter</string>
+    <string name="section_notification_filter">Filter by App</string>
     <string name="section_advanced">Advanced</string>
-    <string name="section_notification_rules">Notification Rules</string>
+    <string name="section_notification_rules">Filter by Notification Type</string>
     <string name="section_device_state">Device State</string>
     <string name="about_this_app">About Wake Up Screen</string>
     <string name="app_info">App Info</string>
@@ -115,7 +118,7 @@
     <string name="ignore_silent_notification_desc">Notifications on channels set to Low, Min or None importance no longer wake the screen.</string>
     <string name="send_notification_permission">Permission to send notifications</string>
 
-    <string name="function_test">Function Test</string>
+    <string name="function_test">Wake Test</string>
     <string name="view_logs">View Logs</string>
     <string name="view_logs_subtitle">Notification records and screen wake-up history</string>
     <string name="log_empty">No logs yet</string>
@@ -237,8 +240,8 @@
     <string name="discard_changes">Discard</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">Notification Chain Overview</string>
-    <string name="chain_entry_subtitle">See every check a notification goes through</string>
+    <string name="chain_title">Notification Check Process</string>
+    <string name="chain_entry_subtitle">Shows where a notification would stop under the current settings</string>
     <string name="chain_live_hint">Based on your current settings and device state — this is what a notification arriving right now would run into.</string>
     <string name="chain_live_footer">App filter, notification importance and ongoing notification filter depend on the notification itself, so they cannot be decided here.</string>
     <string name="chain_log_section_title">What it went through</string>

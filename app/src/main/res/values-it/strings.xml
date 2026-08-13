@@ -5,6 +5,7 @@
     <string name="open">apri</string>
     <string name="close">chiudi</string>
     <string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
     <string name="language">Lingua</string>
     <string name="language_zh_cn">Cinese Semplificato</string>
     <string name="language_en">Inglese</string>
@@ -47,7 +48,7 @@
     <string name="optimize_of_battery_saver">Disattiva l\'ottimizzazione della batteria</string>
     <string name="pocket_mode">Pocket Mode</string>
     <string name="ongoing_status">Optimize Ongoing Notify</string>
-    <string name="current_mode">Modalità</string>
+    <string name="current_mode">Modalità filtro</string>
     <string name="all_pass">Tutte le notifiche</string>
     <string name="white_list">Modalità whitelist</string>
     <string name="white_list_page">Whitelist Setting Page</string>
@@ -73,17 +74,19 @@
     <string name="custom">Custom</string>
     <string name="about">Info</string>
     <string name="debug">Debug</string>
-    <string name="advanced_setting">Impostazioni avanzate</string>
+    <string name="advanced_setting">Regole di accensione</string>
     <string name="setting_search_hint">Cerca nelle impostazioni</string>
     <string name="setting_search_no_result">Nessuna impostazione trovata</string>
     <string name="section_general">Generali</string>
+    <string name="section_diagnostics">Diagnostica</string>
+    <string name="section_screen_on_duration">Durata schermo acceso</string>
     <string name="dark_mode">Modalità scura</string>
-    <string name="dark_mode_follow_system">Segui il sistema</string>
+    <string name="follow_system">Segui il sistema</string>
     <string name="dark_mode_light">Chiaro</string>
     <string name="dark_mode_dark">Scuro</string>
-    <string name="section_notification_filter">Filtro notifiche</string>
+    <string name="section_notification_filter">Filtra per app</string>
     <string name="section_advanced">Avanzate</string>
-    <string name="section_notification_rules">Regole di notifica</string>
+    <string name="section_notification_rules">Filtra per tipo di notifica</string>
     <string name="section_device_state">Stato del dispositivo</string>
     <string name="about_this_app">info su Wake Up Screen</string>
     <string name="app_info">App Info</string>
@@ -111,7 +114,7 @@
     <string name="ignore_silent_notification_desc">Le notifiche dei canali con importanza Bassa, Minima o Nessuna non accendono più lo schermo.</string>
     <string name="send_notification_permission">Permesso di inviare notifiche</string>
 
-    <string name="function_test">Test funzionale</string>
+    <string name="function_test">Test di accensione</string>
     <string name="view_logs">Visualizza log</string>
     <string name="view_logs_subtitle">Registrazioni delle notifiche e cronologia accensione schermo</string>
     <string name="log_empty">Nessun log</string>
@@ -237,8 +240,8 @@
     <string name="discard_changes">Annulla</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">Panoramica della catena di notifica</string>
-    <string name="chain_entry_subtitle">Vedi ogni controllo che una notifica attraversa</string>
+    <string name="chain_title">Processo di verifica delle notifiche</string>
+    <string name="chain_entry_subtitle">Mostra dove si fermerebbe una notifica con le impostazioni attuali</string>
     <string name="chain_live_hint">In base alle impostazioni attuali e allo stato del dispositivo: ecco cosa incontrerebbe una notifica in arrivo adesso.</string>
     <string name="chain_live_footer">Il filtro app, l\'importanza della notifica e il filtro delle notifiche persistenti dipendono dalla notifica stessa, quindi non si possono decidere qui.</string>
     <string name="chain_log_section_title">Cosa ha attraversato</string>

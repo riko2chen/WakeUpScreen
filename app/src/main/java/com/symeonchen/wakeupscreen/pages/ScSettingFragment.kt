@@ -54,7 +54,7 @@ class ScSettingFragment : ScBaseFragment() {
                 var showDarkModeDialog by remember { mutableStateOf(false) }
 
                 SettingScreen(
-                    languageText = language.desc,
+                    languageText = language.labelRes?.let { stringResource(it) } ?: language.desc,
                     darkModeText = stringResource(darkMode.labelRes),
                     showWhiteListEntry = currentMode == CurrentMode.MODE_WHITE_LIST,
                     showBlackListEntry = currentMode == CurrentMode.MODE_BLACK_LIST,
@@ -78,7 +78,9 @@ class ScSettingFragment : ScBaseFragment() {
                     val currentIdx = languageArray.indexOfFirst { it.referenceNum == language.referenceNum }
                     SelectionDialog(
                         title = stringResource(R.string.language),
-                        options = languageArray.map { it.desc },
+                        options = languageArray.map { item ->
+                            item.labelRes?.let { stringResource(it) } ?: item.desc
+                        },
                         selectedIndex = if (currentIdx >= 0) currentIdx else 0,
                         confirmText = stringResource(R.string.ok),
                         onSelect = { idx ->

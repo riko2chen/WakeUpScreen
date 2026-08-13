@@ -7,6 +7,7 @@
     <string name="open">オン</string>
     <string name="close">オフ</string>
     <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
     <string name="language">言語</string>
     <string name="language_zh_cn">簡体字中国語</string>
     <string name="language_en">英語</string>
@@ -43,7 +44,7 @@
     <string name="optimize_of_battery_saver">電力最適化をオフにする</string>
     <string name="pocket_mode">ポケットモード</string>
     <string name="ongoing_status">継続通知の最適化</string>
-    <string name="current_mode">現在のモード</string>
+    <string name="current_mode">フィルターモード</string>
     <string name="all_pass">すべての通知</string>
     <string name="white_list">ホワイトリストモード</string>
     <string name="white_list_page">ホワイトリスト設定ページ</string>
@@ -63,17 +64,19 @@
     <string name="custom">カスタム</string>
     <string name="about">概要</string>
     <string name="debug">デバッグ</string>
-    <string name="advanced_setting">詳細設定</string>
+    <string name="advanced_setting">点灯ルール</string>
     <string name="setting_search_hint">設定を検索</string>
     <string name="setting_search_no_result">一致する設定が見つかりません</string>
     <string name="section_general">一般</string>
+    <string name="section_diagnostics">診断</string>
+    <string name="section_screen_on_duration">点灯時間</string>
     <string name="dark_mode">ダークモード</string>
-    <string name="dark_mode_follow_system">システムに従う</string>
+    <string name="follow_system">システムに従う</string>
     <string name="dark_mode_light">ライト</string>
     <string name="dark_mode_dark">ダーク</string>
-    <string name="section_notification_filter">通知フィルター</string>
+    <string name="section_notification_filter">アプリで絞り込み</string>
     <string name="section_advanced">詳細</string>
-    <string name="section_notification_rules">通知ルール</string>
+    <string name="section_notification_rules">通知の種類で絞り込み</string>
     <string name="section_device_state">デバイスの状態</string>
     <string name="about_this_app">Wake Up Screenについて</string>
     <string name="app_info">アプリ情報</string>
@@ -101,7 +104,7 @@
     <string name="ignore_silent_notification_desc">重要度が「低」「最小」「なし」のチャンネルの通知では画面を点灯しません。</string>
     <string name="send_notification_permission">通知送信の権限</string>
 
-    <string name="function_test">機能テスト</string>
+    <string name="function_test">点灯テスト</string>
     <string name="view_logs">ログを表示</string>
     <string name="view_logs_subtitle">通知記録と画面点灯履歴</string>
     <string name="log_empty">ログはまだありません</string>
@@ -223,8 +226,8 @@
     <string name="discard_changes">破棄する</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">通知チェーンの概要</string>
-    <string name="chain_entry_subtitle">通知が通るすべての判定を見る</string>
+    <string name="chain_title">通知の判定プロセス</string>
+    <string name="chain_entry_subtitle">現在の設定で通知がどこで止まるかを表示</string>
     <string name="chain_live_hint">現在の設定と端末の状態にもとづく表示です。今この瞬間に通知が届いた場合に通る判定です。</string>
     <string name="chain_live_footer">アプリフィルター、通知の重要度、常駐通知フィルターは通知そのものに依存するため、ここでは判定できません。</string>
     <string name="chain_log_section_title">通過した判定</string>

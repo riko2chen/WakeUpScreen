@@ -9,7 +9,7 @@ enum class DarkModeInfo(
     @StringRes val labelRes: Int,
     private val nightMode: Int,
 ) {
-    FOLLOW_SYSTEM(0, R.string.dark_mode_follow_system, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
+    FOLLOW_SYSTEM(0, R.string.follow_system, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
     LIGHT(1, R.string.dark_mode_light, AppCompatDelegate.MODE_NIGHT_NO),
     DARK(2, R.string.dark_mode_dark, AppCompatDelegate.MODE_NIGHT_YES);
 

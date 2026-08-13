@@ -7,6 +7,7 @@
     <string name="open">开启</string>
     <string name="close">关闭</string>
     <string name="ok">确定</string>
+    <string name="cancel">取消</string>
     <string name="language">语言</string>
     <string name="language_zh_cn">简体中文</string>
     <string name="language_en">English</string>
@@ -39,7 +40,7 @@
     <string name="optimize_of_battery_saver">关闭电量优化</string>
     <string name="pocket_mode">口袋防误触</string>
     <string name="ongoing_status">持续通知优化(如微信视频、QQ电话)</string>
-    <string name="current_mode">当前模式</string>
+    <string name="current_mode">过滤模式</string>
     <string name="all_pass">全应用通知</string>
     <string name="white_list">白名单模式</string>
     <string name="white_list_page">白名单模式设置页面</string>
@@ -59,17 +60,19 @@
     <string name="custom">自定义</string>
     <string name="about">关于</string>
     <string name="debug">调试</string>
-    <string name="advanced_setting">高级设置</string>
+    <string name="advanced_setting">亮屏规则</string>
     <string name="setting_search_hint">搜索设置</string>
     <string name="setting_search_no_result">没有找到相关设置</string>
     <string name="section_general">通用</string>
-    <string name="dark_mode">暗黑模式</string>
-    <string name="dark_mode_follow_system">跟随系统</string>
+    <string name="section_diagnostics">诊断</string>
+    <string name="section_screen_on_duration">亮屏时长</string>
+    <string name="dark_mode">深色模式</string>
+    <string name="follow_system">跟随系统</string>
     <string name="dark_mode_light">浅色</string>
     <string name="dark_mode_dark">深色</string>
-    <string name="section_notification_filter">通知过滤</string>
+    <string name="section_notification_filter">按应用过滤</string>
     <string name="section_advanced">高级</string>
-    <string name="section_notification_rules">通知规则</string>
+    <string name="section_notification_rules">按通知类型过滤</string>
     <string name="section_device_state">设备状态</string>
     <string name="about_this_app">关于通知亮屏</string>
     <string name="app_info">应用信息</string>
@@ -103,7 +106,7 @@
     <string name="ignore_silent_notification_desc">重要性为「低 / 最低 / 无」的通知不再亮屏。</string>
     <string name="send_notification_permission">发送通知的权限</string>
 
-    <string name="function_test">功能测试</string>
+    <string name="function_test">亮屏测试</string>
     <string name="view_logs">查看日志</string>
     <string name="view_logs_subtitle">通知记录及屏幕点亮情况</string>
     <string name="log_empty">暂无日志</string>
@@ -119,7 +122,7 @@
     <string name="log_status_already_on_desc">收到该通知时屏幕已经处于点亮状态，无需操作。</string>
     <string name="log_status_waked_up_desc">屏幕已由本应用成功点亮。</string>
     <string name="log_reason_app_switch_off">应用总开关已关闭。</string>
-    <string name="log_reason_pocket_mode">口袋模式已激活——距离传感器检测到设备在口袋中。</string>
+    <string name="log_reason_pocket_mode">口袋模式已激活：距离传感器检测到设备在口袋中。</string>
     <string name="log_reason_filter_list">该应用被白名单/黑名单规则过滤。</string>
     <string name="log_reason_ongoing">持续通知被过滤。</string>
     <string name="log_reason_low_importance">该通知属于静音通知，所在渠道的重要性过低。</string>
@@ -225,9 +228,9 @@
     <string name="discard_changes">放弃修改</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">通知链路总览</string>
-    <string name="chain_entry_subtitle">看一条通知要经过哪些判断</string>
-    <string name="chain_live_hint">依据当前设置与手机状态 —— 此刻来一条通知，会遇到下面这些判断。</string>
+    <string name="chain_title">通知判断过程</string>
+    <string name="chain_entry_subtitle">显示当前设置下通知会在哪一步被拦住</string>
+    <string name="chain_live_hint">依据当前设置与手机状态，此刻来一条通知会遇到下面这些判断。</string>
     <string name="chain_live_footer">应用过滤、通知重要性和持续通知过滤取决于通知本身，这里无法预先判定。</string>
     <string name="chain_log_section_title">它经过了什么</string>
     <string name="chain_show_notification_fields">展开通知字段</string>

@@ -12,7 +12,7 @@ import com.symeonchen.wakeupscreen.utils.DataInjection
  * The app filter node's destination.
  *
  * Unlike every other gate, this one is not configured by a switch on a page
- * that can be opened — the mode lives in a dialog on the settings screen, and
+ * that can be opened: the mode lives in a dialog on the wake rules screen, and
  * the list pages only mean anything once a mode is chosen. Sending the reader
  * straight to a list would skip the decision that actually matters, so the
  * chain opens the mode picker itself and follows through to the list when the

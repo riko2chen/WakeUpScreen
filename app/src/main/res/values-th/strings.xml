@@ -7,6 +7,7 @@
     <string name="open">เปิด</string>
     <string name="close">ปิด</string>
     <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
     <string name="language">ภาษา</string>
     <string name="language_zh_cn">จีนตัวย่อ</string>
     <string name="language_en">อังกฤษ</string>
@@ -43,7 +44,7 @@
     <string name="optimize_of_battery_saver">ปิดการเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="pocket_mode">โหมดกระเป๋า</string>
     <string name="ongoing_status">เพิ่มประสิทธิภาพการแจ้งเตือนต่อเนื่อง</string>
-    <string name="current_mode">โหมดปัจจุบัน</string>
+    <string name="current_mode">โหมดตัวกรอง</string>
     <string name="all_pass">แจ้งเตือนทั้งหมด</string>
     <string name="white_list">โหมดรายการที่อนุญาต</string>
     <string name="white_list_page">หน้าตั้งค่ารายการที่อนุญาต</string>
@@ -63,17 +64,19 @@
     <string name="custom">กำหนดเอง</string>
     <string name="about">เกี่ยวกับ</string>
     <string name="debug">ดีบัก</string>
-    <string name="advanced_setting">ตั้งค่าขั้นสูง</string>
+    <string name="advanced_setting">กฎการเปิดหน้าจอ</string>
     <string name="setting_search_hint">ค้นหาการตั้งค่า</string>
     <string name="setting_search_no_result">ไม่พบการตั้งค่าที่ตรงกัน</string>
     <string name="section_general">ทั่วไป</string>
+    <string name="section_diagnostics">การวินิจฉัย</string>
+    <string name="section_screen_on_duration">ระยะเวลาเปิดหน้าจอ</string>
     <string name="dark_mode">โหมดมืด</string>
-    <string name="dark_mode_follow_system">ตามระบบ</string>
+    <string name="follow_system">ตามระบบ</string>
     <string name="dark_mode_light">สว่าง</string>
     <string name="dark_mode_dark">มืด</string>
-    <string name="section_notification_filter">ตัวกรองการแจ้งเตือน</string>
+    <string name="section_notification_filter">กรองตามแอป</string>
     <string name="section_advanced">ขั้นสูง</string>
-    <string name="section_notification_rules">กฎการแจ้งเตือน</string>
+    <string name="section_notification_rules">กรองตามประเภทการแจ้งเตือน</string>
     <string name="section_device_state">สถานะอุปกรณ์</string>
     <string name="about_this_app">เกี่ยวกับ Wake Up Screen</string>
     <string name="app_info">ข้อมูลแอป</string>
@@ -101,7 +104,7 @@
     <string name="ignore_silent_notification_desc">การแจ้งเตือนจากช่องที่ตั้งความสำคัญเป็นต่ำ ต่ำสุด หรือไม่มี จะไม่ปลุกหน้าจอ</string>
     <string name="send_notification_permission">สิทธิ์ในการส่งการแจ้งเตือน</string>
 
-    <string name="function_test">ทดสอบฟังก์ชัน</string>
+    <string name="function_test">ทดสอบการเปิดหน้าจอ</string>
     <string name="view_logs">ดูบันทึก</string>
     <string name="view_logs_subtitle">บันทึกการแจ้งเตือนและประวัติการเปิดหน้าจอ</string>
     <string name="log_empty">ยังไม่มีบันทึก</string>
@@ -223,8 +226,8 @@
     <string name="discard_changes">ยกเลิก</string>
 
     <!-- Block chain view -->
-    <string name="chain_title">ภาพรวมเส้นทางการแจ้งเตือน</string>
-    <string name="chain_entry_subtitle">ดูทุกเงื่อนไขที่การแจ้งเตือนต้องผ่าน</string>
+    <string name="chain_title">กระบวนการตรวจสอบการแจ้งเตือน</string>
+    <string name="chain_entry_subtitle">แสดงว่าการแจ้งเตือนจะหยุดที่จุดใดภายใต้การตั้งค่าปัจจุบัน</string>
     <string name="chain_live_hint">อ้างอิงจากการตั้งค่าปัจจุบันและสถานะเครื่อง นี่คือสิ่งที่การแจ้งเตือนที่เข้ามาตอนนี้จะต้องเจอ</string>
     <string name="chain_live_footer">ตัวกรองแอป ความสำคัญของการแจ้งเตือน และตัวกรองการแจ้งเตือนค้าง ขึ้นอยู่กับตัวการแจ้งเตือนเอง จึงตัดสินล่วงหน้าที่นี่ไม่ได้</string>
     <string name="chain_log_section_title">ผ่านอะไรมาบ้าง</string>

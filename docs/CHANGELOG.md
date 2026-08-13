@@ -6,12 +6,18 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ## [3.2.0]
 
+### Changes
+- Settings are regrouped into General, Advanced, Diagnostics and About. General holds language and the new dark mode; Advanced holds the notification check process and the wake rules page; Diagnostics holds the wake test and a direct entry to the log
+- New dark mode setting with three options: follow system, light, dark. It defaults to following the system, so appearance does not change on upgrade
+- Screen-on duration and the app filter (mode, whitelist, blacklist) moved from the settings home into the wake rules page, which now covers everything that decides whether the screen lights up
+- Several entries were renamed to say what they actually do: "Advanced Setting" is now "Wake Rules", "Block Chain" is now "Notification Check Process", "Function Test" is now "Wake Test", and "Current Mode" is now "Filter Mode". Only the labels changed, every setting keeps its value
+
 ### Fixes
-- Fixed "Radical Ongoing Detect" (Settings → Advanced Setting) writing to the wrong preference key: turning it on or off silently flipped the plain "Ongoing Detect" setting instead, and the radical switch itself was never saved — it reverted to on every time the page was reopened. Both switches are now independent and persist correctly
+- Fixed "Radical Ongoing Detect" (Settings → Wake Rules) writing to the wrong preference key: turning it on or off silently flipped the plain "Ongoing Detect" setting instead, and the radical switch itself was never saved — it reverted to on every time the page was reopened. Both switches are now independent and persist correctly
 
 ### Notes
 - Radical Ongoing Detect was effectively always on before this fix and stays on by default, so notification filtering does not change on upgrade
-- If you ever toggled the radical switch, the plain "Ongoing Detect" setting may have been changed without your knowing. Both switches are worth a quick check under Settings → Advanced Setting
+- If you ever toggled the radical switch, the plain "Ongoing Detect" setting may have been changed without your knowing. Both switches are worth a quick check under Settings → Wake Rules
 
 ---
 

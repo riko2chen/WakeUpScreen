@@ -223,9 +223,9 @@ fun SettingScreen(
                 )
             }
 
-            // DEBUG section
+            // DIAGNOSTICS section
             SectionLabel(
-                text = stringResource(R.string.debug),
+                text = stringResource(R.string.section_diagnostics),
                 modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
             )
 
