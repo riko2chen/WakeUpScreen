@@ -30,7 +30,7 @@ class FeedbackPageActivity : ScBaseActivity() {
                         startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse("https://x.com/rikolabdotcom")
+                                Uri.parse("https://x.com/intent/follow?screen_name=rikolabdotcom")
                             )
                         )
                     },
