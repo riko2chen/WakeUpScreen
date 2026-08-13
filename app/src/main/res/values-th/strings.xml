@@ -317,4 +317,16 @@
     <string name="night_glow_desc">ในช่วงเวลานอน แสดงแสงแดงสลัวชั่วครู่แทนการปิดหน้าจอสนิท</string>
     <string name="log_status_night_glow">แสงแดงกลางคืน</string>
     <string name="log_status_night_glow_desc">ช่วงเวลานอนหยุดการปลุกหน้าจอตามปกติ และแสดงแสงแดงสลัวแทน</string>
+    <!-- สถิติความสนใจ -->
+    <string name="attention_stats_title">สถิติความสนใจ</string>
+    <string name="attention_stats_subtitle">แอปใดปลุกหน้าจอบ่อยแต่ไม่เคยถูกเปิดดู</string>
+    <string name="attention_stats_list_title">30 วันที่ผ่านมา</string>
+    <string name="attention_stats_row">ปลุกหน้าจอ %1$d ครั้ง · ติดตาม %2$d ครั้ง</string>
+    <string name="attention_stats_empty">ยังไม่มีบันทึก เมื่อการแจ้งเตือนปลุกหน้าจอ ข้อมูลจะแสดงที่นี่</string>
+    <string name="attention_suggestion_title">ข้อเสนอแนะ</string>
+    <string name="attention_suggestion_body">%1$s ปลุกหน้าจอ %2$d ครั้งใน 30 วันที่ผ่านมา แต่ไม่เคยมีการปลดล็อกตามมาเลย ต้องการเพิ่มลงบัญชีดำหรือไม่</string>
+    <string name="attention_add_blacklist">เพิ่มลงบัญชีดำ</string>
+    <string name="attention_added_blacklist">เพิ่มลงบัญชีดำแล้ว</string>
+    <string name="attention_added_blacklist_mode_hint">เพิ่มลงบัญชีดำแล้ว หมายเหตุ: โหมดกรองปัจจุบันยังไม่ใช่โหมดบัญชีดำ</string>
+    <string name="attention_stats_note">การนับทั้งหมดทำในเครื่องนี้เท่านั้น จากสองเหตุการณ์: หน้าจอถูกปลุก และมีการปลดล็อกตามมาหรือไม่ ไม่อ่านเนื้อหาการแจ้งเตือน และข้อมูลไม่ออกจากอุปกรณ์</string>
 </resources>

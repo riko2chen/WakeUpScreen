@@ -317,4 +317,16 @@
     <string name="night_glow_desc">수면 시간대에 완전히 꺼두는 대신 어두운 붉은 빛을 잠시 표시합니다</string>
     <string name="log_status_night_glow">붉은 빛 알림</string>
     <string name="log_status_night_glow_desc">수면 시간대가 일반 화면 켜짐을 막고 대신 어두운 붉은 빛을 표시했습니다.</string>
+    <!-- 주의력 통계 -->
+    <string name="attention_stats_title">주의력 통계</string>
+    <string name="attention_stats_subtitle">화면만 켜고 결국 확인되지 않는 앱 찾기</string>
+    <string name="attention_stats_list_title">최근 30일</string>
+    <string name="attention_stats_row">화면 켜짐 %1$d회 · 확인 %2$d회</string>
+    <string name="attention_stats_empty">아직 기록이 없습니다. 알림이 화면을 켜면 여기에 표시됩니다.</string>
+    <string name="attention_suggestion_title">제안</string>
+    <string name="attention_suggestion_body">%1$s이(가) 최근 30일 동안 화면을 %2$d번 켰지만 이후 잠금 해제로 이어진 적이 없습니다. 블랙리스트에 추가할까요?</string>
+    <string name="attention_add_blacklist">블랙리스트에 추가</string>
+    <string name="attention_added_blacklist">블랙리스트에 추가했습니다</string>
+    <string name="attention_added_blacklist_mode_hint">블랙리스트에 추가했습니다. 참고: 현재 필터 모드는 블랙리스트 모드가 아닙니다.</string>
+    <string name="attention_stats_note">모든 집계는 기기 안에서만 이루어지며 화면 켜짐과 직후 잠금 해제라는 두 가지 사실만 셉니다. 알림 내용은 읽지 않으며 데이터는 기기를 떠나지 않습니다.</string>
 </resources>

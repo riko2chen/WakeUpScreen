@@ -131,6 +131,7 @@ class ScSettingFragment : ScBaseFragment() {
                     onBackupImportClick = {
                         importBackupLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
                     },
+                    onAttentionStatsClick = { context?.quickStartActivity<AttentionStatsActivity>() },
                     onAddressClick = {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/riko2chen/WakeUpScreen")))
                     },

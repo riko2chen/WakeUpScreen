@@ -35,11 +35,15 @@ class ScNotificationListenerService : NotificationListenerService() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        // The attention statistic needs the unlock broadcast in the same
+        // process that records the wakes; this service is that process.
+        AttentionTracker.register(applicationContext)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         instance = null
+        AttentionTracker.unregister(applicationContext)
     }
 
     override fun onListenerConnected() {
@@ -115,6 +119,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         ScreenWakeUtils.wakeUpScreen(applicationContext, pm)
 
         logNotification(sbn.packageName, LogStatus.WAKED_UP, "", channelInfo)
+        AttentionTracker.onScreenWoken(sbn.packageName)
     }
 
     private fun safeActiveNotifications(): Array<StatusBarNotification>? {

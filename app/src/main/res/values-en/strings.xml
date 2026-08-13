@@ -331,4 +331,16 @@
     <string name="night_glow_desc">During sleep windows, show a dim red glow for a moment instead of staying dark</string>
     <string name="log_status_night_glow">Night glow</string>
     <string name="log_status_night_glow_desc">The sleep window stopped the normal wake, and the dim red night glow was shown instead.</string>
+    <!-- Attention statistics -->
+    <string name="attention_stats_title">Attention Statistics</string>
+    <string name="attention_stats_subtitle">Which apps wake the screen and never get looked at</string>
+    <string name="attention_stats_list_title">Last 30 days</string>
+    <string name="attention_stats_row">Woke the screen %1$d times · followed up %2$d times</string>
+    <string name="attention_stats_empty">No wakes recorded yet. Data appears here as notifications wake the screen.</string>
+    <string name="attention_suggestion_title">Suggestions</string>
+    <string name="attention_suggestion_body">%1$s woke the screen %2$d times in the last 30 days and was never followed by an unlock. Add it to the blacklist?</string>
+    <string name="attention_add_blacklist">Add to blacklist</string>
+    <string name="attention_added_blacklist">Added to the blacklist</string>
+    <string name="attention_added_blacklist_mode_hint">Added to the blacklist. Note: blacklist mode is not the active filter mode yet.</string>
+    <string name="attention_stats_note">Counted entirely on this device from two events: the screen being woken, and the device being unlocked shortly after. Notification content is never read, and nothing leaves the device.</string>
 </resources>

@@ -331,4 +331,16 @@
     <string name="night_glow_desc">Nelle finestre di sonno, mostra per un attimo un debole bagliore rosso invece di restare spento</string>
     <string name="log_status_night_glow">Bagliore notturno</string>
     <string name="log_status_night_glow_desc">La finestra di sonno ha fermato l\'accensione normale e ha mostrato il debole bagliore rosso notturno.</string>
+    <!-- Statistiche di attenzione -->
+    <string name="attention_stats_title">Statistiche di attenzione</string>
+    <string name="attention_stats_subtitle">Quali app accendono lo schermo senza mai essere guardate</string>
+    <string name="attention_stats_list_title">Ultimi 30 giorni</string>
+    <string name="attention_stats_row">Schermo acceso %1$d volte · seguito %2$d volte</string>
+    <string name="attention_stats_empty">Nessuna accensione registrata. I dati compaiono qui quando le notifiche accendono lo schermo.</string>
+    <string name="attention_suggestion_title">Suggerimenti</string>
+    <string name="attention_suggestion_body">%1$s ha acceso lo schermo %2$d volte negli ultimi 30 giorni senza mai essere seguita da uno sblocco. Aggiungerla alla blacklist?</string>
+    <string name="attention_add_blacklist">Aggiungi alla blacklist</string>
+    <string name="attention_added_blacklist">Aggiunta alla blacklist</string>
+    <string name="attention_added_blacklist_mode_hint">Aggiunta alla blacklist. Nota: la modalità blacklist non è la modalità filtro attiva.</string>
+    <string name="attention_stats_note">Il conteggio avviene interamente sul dispositivo, da due soli eventi: lo schermo acceso e l\'eventuale sblocco subito dopo. Il contenuto delle notifiche non viene letto e nulla lascia il dispositivo.</string>
 </resources>

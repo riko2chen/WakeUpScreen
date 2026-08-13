@@ -317,4 +317,16 @@
     <string name="night_glow_desc">睡眠時間帯は消灯したままにせず、薄暗い赤い光を短く表示します</string>
     <string name="log_status_night_glow">ナイトグロー</string>
     <string name="log_status_night_glow_desc">睡眠時間帯が通常の点灯を止め、代わりに薄暗い赤い光を表示しました。</string>
+    <!-- アテンション統計 -->
+    <string name="attention_stats_title">アテンション統計</string>
+    <string name="attention_stats_subtitle">画面を点灯させるのに見られないアプリはどれか</string>
+    <string name="attention_stats_list_title">過去 30 日間</string>
+    <string name="attention_stats_row">画面を %1$d 回点灯 · %2$d 回フォロー</string>
+    <string name="attention_stats_empty">まだ記録がありません。通知が画面を点灯するとここに表示されます。</string>
+    <string name="attention_suggestion_title">提案</string>
+    <string name="attention_suggestion_body">%1$s は過去 30 日間に %2$d 回画面を点灯しましたが、その後ロック解除されたことは一度もありません。ブラックリストに追加しますか？</string>
+    <string name="attention_add_blacklist">ブラックリストに追加</string>
+    <string name="attention_added_blacklist">ブラックリストに追加しました</string>
+    <string name="attention_added_blacklist_mode_hint">ブラックリストに追加しました。注意：現在のフィルターはブラックリストモードではありません。</string>
+    <string name="attention_stats_note">集計はすべて端末内で行われ、「画面が点灯した」「直後にロック解除された」の 2 つの事実のみを数えます。通知内容は読まず、データが端末の外に出ることはありません。</string>
 </resources>

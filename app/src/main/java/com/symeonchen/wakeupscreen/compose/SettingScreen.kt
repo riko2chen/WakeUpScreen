@@ -58,6 +58,7 @@ fun SettingScreen(
     onViewLogsClick: () -> Unit,
     onBackupExportClick: () -> Unit,
     onBackupImportClick: () -> Unit,
+    onAttentionStatsClick: () -> Unit,
     onAddressClick: () -> Unit,
     onFeedbackClick: () -> Unit,
     onGiveStarClick: () -> Unit,
@@ -101,6 +102,7 @@ fun SettingScreen(
         SettingsSearchEntry(stringResource(R.string.view_logs), settingsPage, onViewLogsClick),
         SettingsSearchEntry(stringResource(R.string.backup_export_title), settingsPage, onBackupExportClick),
         SettingsSearchEntry(stringResource(R.string.backup_import_title), settingsPage, onBackupImportClick),
+        SettingsSearchEntry(stringResource(R.string.attention_stats_title), settingsPage, onAttentionStatsClick),
         SettingsSearchEntry(stringResource(R.string.delay_to_wakeup), functionTestPage, onFunctionTestClick),
         SettingsSearchEntry(stringResource(R.string.reminder_test), functionTestPage, onFunctionTestClick),
         SettingsSearchEntry(stringResource(R.string.project_address), aboutPage, onAddressClick),
@@ -238,6 +240,12 @@ fun SettingScreen(
                     title = stringResource(R.string.view_logs),
                     subtitle = stringResource(R.string.view_logs_subtitle),
                     onClick = onViewLogsClick,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.attention_stats_title),
+                    subtitle = stringResource(R.string.attention_stats_subtitle),
+                    onClick = onAttentionStatsClick,
                 )
             }
 

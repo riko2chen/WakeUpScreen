@@ -319,4 +319,16 @@
     <string name="night_glow_desc">睡眠时段内不再完全黑屏，改为短暂显示微弱红光</string>
     <string name="log_status_night_glow">红光提示</string>
     <string name="log_status_night_glow_desc">睡眠时段拦截了正常亮屏，改为显示微弱的夜间红光。</string>
+    <!-- 注意力统计 -->
+    <string name="attention_stats_title">注意力统计</string>
+    <string name="attention_stats_subtitle">哪些应用频繁亮屏却从不被理会</string>
+    <string name="attention_stats_list_title">最近 30 天</string>
+    <string name="attention_stats_row">唤醒屏幕 %1$d 次 · 跟进 %2$d 次</string>
+    <string name="attention_stats_empty">暂无唤醒记录。当通知唤醒屏幕后，数据会显示在这里。</string>
+    <string name="attention_suggestion_title">建议</string>
+    <string name="attention_suggestion_body">%1$s 在过去 30 天唤醒了 %2$d 次屏幕，但从未在唤醒后被解锁跟进。要加入黑名单吗？</string>
+    <string name="attention_add_blacklist">加入黑名单</string>
+    <string name="attention_added_blacklist">已加入黑名单</string>
+    <string name="attention_added_blacklist_mode_hint">已加入黑名单。注意：当前过滤模式还不是黑名单模式。</string>
+    <string name="attention_stats_note">统计完全在本机进行，仅基于两个事件：屏幕被唤醒、以及随后是否解锁。不读取任何通知内容，数据不会离开设备。</string>
 </resources>
