@@ -118,7 +118,15 @@ object ScConstant {
      * free-text setting used, where nothing ever validated it, and a leftover
      * value must not be able to ask for a twenty-minute wake lock.
      */
-    const val MIN_PRECISE_SCREEN_ON_SECOND: Long = 1
+    /**
+     * The floor is 5s rather than 1s because expiry now consults
+     * `KeyguardManager.isKeyguardLocked` before locking, and One UI is known to
+     * misreport it as "unlocked" for a second or two right after a wake-lock
+     * wake (see PreciseScreenOnManager). Five seconds keeps every window's
+     * expiry safely past that flaky period; a stored shorter value is clamped
+     * up on read.
+     */
+    const val MIN_PRECISE_SCREEN_ON_SECOND: Long = 5
     const val MAX_PRECISE_SCREEN_ON_SECOND: Long = 300
 
     /**
@@ -126,7 +134,7 @@ object ScConstant {
      * rather than free text: every value a user would realistically pick is
      * here, and the field only ever invited numbers the engine clamps away.
      */
-    val PRECISE_SCREEN_ON_PRESET_SECONDS = listOf(3L, 5L, 10L, 15L, 30L)
+    val PRECISE_SCREEN_ON_PRESET_SECONDS = listOf(5L, 10L, 15L, 30L)
 
     /**
      * Longest gap between two wake-lock refreshes while a precise window is

@@ -90,6 +90,15 @@ class ScreenOnWindowCalculatorTest {
     }
 
     @Test
+    fun everyPresetSurvivesTheClampUnchanged() {
+        // A preset the clamp would alter is a lie in the UI: the user picks it
+        // and silently gets a different window.
+        for (preset in ScConstant.PRECISE_SCREEN_ON_PRESET_SECONDS) {
+            assertEquals(preset, ScreenOnWindowCalculator.clampSeconds(preset))
+        }
+    }
+
+    @Test
     fun wakeLockOutlivesASingleTick() {
         assertTrue(ScreenOnWindowCalculator.wakeLockTimeoutMs() > tick)
     }
