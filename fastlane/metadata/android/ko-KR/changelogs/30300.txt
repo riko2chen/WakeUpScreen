@@ -1,0 +1,3 @@
+• F-Droid 첫 출시
+• F-Droid용 fastlane 메타데이터 추가
+• 3.0.2와 기능 차이 없음
