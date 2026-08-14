@@ -356,4 +356,11 @@
     <string name="changelog_v30600_1">移除特殊用途前台服务权限与常驻通知设置</string>
     <string name="changelog_v30500_1">新增「检查更新」页面（设置 → 关于）</string>
     <string name="changelog_v30500_2">修复 Android 15+ 全面屏适配问题</string>
+
+    <!-- 自定义亮屏时长页的无障碍权限拦截 -->
+    <string name="accessibility_required_title">需要无障碍权限</string>
+    <string name="accessibility_not_enabled_title">无障碍权限未开启</string>
+    <string name="accessibility_not_enabled_message">自定义亮屏时长依赖无障碍服务中的「锁定屏幕」动作来熄屏。在开启之前，这个功能不会生效。</string>
+    <string name="accessibility_dialog_grant">去开启</string>
+    <string name="accessibility_dialog_leave_anyway">仍然返回</string>
 </resources>

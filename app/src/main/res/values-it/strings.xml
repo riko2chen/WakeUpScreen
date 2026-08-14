@@ -368,4 +368,11 @@
     <string name="changelog_v30600_1">Rimossi il permesso di servizio in primo piano a uso speciale e l\'opzione di notifica persistente</string>
     <string name="changelog_v30500_1">Nuova pagina "Controlla aggiornamenti" in Impostazioni → Info</string>
     <string name="changelog_v30500_2">Corretti i problemi di layout edge-to-edge su Android 15+</string>
+
+    <!-- Blocco accessibilità nella pagina della durata schermo acceso -->
+    <string name="accessibility_required_title">Permesso di accessibilità richiesto</string>
+    <string name="accessibility_not_enabled_title">Accessibilità non attiva</string>
+    <string name="accessibility_not_enabled_message">La durata schermo acceso personalizzata usa l\'azione di accessibilità \"blocca schermo\" per spegnere il display. Finché non è attiva, questa funzione non avrà effetto.</string>
+    <string name="accessibility_dialog_grant">Attiva ora</string>
+    <string name="accessibility_dialog_leave_anyway">Esci comunque</string>
 </resources>

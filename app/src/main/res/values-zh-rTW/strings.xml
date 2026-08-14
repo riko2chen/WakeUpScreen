@@ -354,4 +354,11 @@
     <string name="changelog_v30600_1">移除特殊用途前台服務權限與常駐通知設定</string>
     <string name="changelog_v30500_1">新增「檢查更新」頁面（設定 → 關於）</string>
     <string name="changelog_v30500_2">修復 Android 15+ 全螢幕適配問題</string>
+
+    <!-- 自訂亮螢幕時長頁的無障礙權限攔截 -->
+    <string name="accessibility_required_title">需要無障礙權限</string>
+    <string name="accessibility_not_enabled_title">無障礙權限未開啟</string>
+    <string name="accessibility_not_enabled_message">自訂亮螢幕時長依賴無障礙服務中的「鎖定螢幕」動作來熄滅螢幕。在開啟之前，這個功能不會生效。</string>
+    <string name="accessibility_dialog_grant">前往開啟</string>
+    <string name="accessibility_dialog_leave_anyway">仍然返回</string>
 </resources>

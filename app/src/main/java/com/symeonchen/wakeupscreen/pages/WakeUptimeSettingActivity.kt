@@ -65,7 +65,6 @@ class WakeUptimeSettingActivity : ScBaseActivity() {
                     onSave = { save(pendingTime) },
                     onDiscard = {
                         viewModel?.temporaryTimeOfWakeUpScreen?.postValue(savedTime)
-                        finish()
                     },
                     accessibilitySupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P,
                     accessibilityGranted = accessibilityGranted.value,
@@ -81,11 +80,15 @@ class WakeUptimeSettingActivity : ScBaseActivity() {
             ScLockScreenAccessibilityService.isEnabledInSettings(applicationContext)
     }
 
+    /**
+     * Saving no longer finishes the activity: whether the screen may actually
+     * be left is the screen's decision, because it holds the exit guard that
+     * warns when the feature is on without its accessibility grant.
+     */
     private fun save(pendingTime: Long) {
         viewModel?.timeOfWakeUpScreen?.postValue(pendingTime)
         ScLog.i(MODULE, "precise screen-on duration saved: ${pendingTime / 1000}s")
         ToastUtils.showLong(getString(R.string.saved_successfully))
-        finish()
     }
 
     private fun openAccessibilitySettings() {

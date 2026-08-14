@@ -368,4 +368,11 @@
     <string name="changelog_v30600_1">Removed the special-use foreground service permission and the persistent notification option</string>
     <string name="changelog_v30500_1">New check-for-updates page under Settings → About</string>
     <string name="changelog_v30500_2">Fixed edge-to-edge layout issues on Android 15+</string>
+
+    <!-- Accessibility guard on the custom screen-on duration page -->
+    <string name="accessibility_required_title">Accessibility permission required</string>
+    <string name="accessibility_not_enabled_title">Accessibility not enabled</string>
+    <string name="accessibility_not_enabled_message">Custom screen-on duration relies on the accessibility \"lock screen\" action to turn the display off. Until it is enabled, this feature will not take effect.</string>
+    <string name="accessibility_dialog_grant">Enable now</string>
+    <string name="accessibility_dialog_leave_anyway">Leave anyway</string>
 </resources>

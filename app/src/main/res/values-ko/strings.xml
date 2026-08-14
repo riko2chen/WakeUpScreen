@@ -354,4 +354,11 @@
     <string name="changelog_v30600_1">특수 용도 포그라운드 서비스 권한과 상주 알림 설정 제거</string>
     <string name="changelog_v30500_1">\'업데이트 확인\' 페이지 추가 (설정 → 정보)</string>
     <string name="changelog_v30500_2">Android 15+ 전체 화면 레이아웃 문제 수정</string>
+
+    <!-- 화면 켜짐 시간 페이지의 접근성 가드 -->
+    <string name="accessibility_required_title">접근성 권한 필요</string>
+    <string name="accessibility_not_enabled_title">접근성이 켜져 있지 않음</string>
+    <string name="accessibility_not_enabled_message">화면 켜짐 시간 지정은 접근성의 \'화면 잠금\' 동작으로 화면을 끕니다. 켜기 전까지 이 기능은 동작하지 않습니다.</string>
+    <string name="accessibility_dialog_grant">지금 켜기</string>
+    <string name="accessibility_dialog_leave_anyway">그냥 나가기</string>
 </resources>

@@ -354,4 +354,11 @@
     <string name="changelog_v30600_1">นำสิทธิ์ foreground service แบบใช้งานพิเศษและการตั้งค่าการแจ้งเตือนถาวรออก</string>
     <string name="changelog_v30500_1">เพิ่มหน้า "ตรวจสอบการอัปเดต" (การตั้งค่า → เกี่ยวกับ)</string>
     <string name="changelog_v30500_2">แก้ไขปัญหาเลย์เอาต์เต็มหน้าจอบน Android 15+</string>
+
+    <!-- ตัวป้องกันสิทธิ์การช่วยเหลือการเข้าถึงในหน้ากำหนดเวลาเปิดหน้าจอ -->
+    <string name="accessibility_required_title">ต้องใช้สิทธิ์การช่วยเหลือการเข้าถึง</string>
+    <string name="accessibility_not_enabled_title">ยังไม่ได้เปิดการช่วยเหลือการเข้าถึง</string>
+    <string name="accessibility_not_enabled_message">การกำหนดเวลาเปิดหน้าจอเองต้องใช้การดำเนินการ \"ล็อกหน้าจอ\" ของบริการช่วยเหลือการเข้าถึงเพื่อดับหน้าจอ ก่อนที่จะเปิดใช้ ฟีเจอร์นี้จะยังไม่ทำงาน</string>
+    <string name="accessibility_dialog_grant">เปิดเลย</string>
+    <string name="accessibility_dialog_leave_anyway">ออกต่อไป</string>
 </resources>

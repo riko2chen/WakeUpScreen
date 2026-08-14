@@ -354,4 +354,11 @@
     <string name="changelog_v30600_1">特殊用途のフォアグラウンドサービス権限と常駐通知設定を削除</string>
     <string name="changelog_v30500_1">「アップデートを確認」ページを追加（設定 → 概要）</string>
     <string name="changelog_v30500_2">Android 15 以降の全面表示レイアウト問題を修正</string>
+
+    <!-- 画面点灯時間ページのユーザー補助ガード -->
+    <string name="accessibility_required_title">ユーザー補助の許可が必要です</string>
+    <string name="accessibility_not_enabled_title">ユーザー補助が有効になっていません</string>
+    <string name="accessibility_not_enabled_message">画面点灯時間の指定は、ユーザー補助の「画面ロック」操作で画面を消灯します。有効にするまで、この機能は動作しません。</string>
+    <string name="accessibility_dialog_grant">設定する</string>
+    <string name="accessibility_dialog_leave_anyway">このまま戻る</string>
 </resources>
