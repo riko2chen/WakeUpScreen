@@ -1,7 +1,8 @@
 • La home mostra l'ultima accensione riuscita dello schermo
 • Finestre di sonno per giorni scelti della settimana
 • Nuove regole: silenzio con batteria scarica e a telefono capovolto
-• Bagliore notturno: debole luce rossa opzionale nelle finestre di sonno
-• Le statistiche di attenzione suggeriscono quali app mettere in blacklist
-• Impostazioni esportabili e importabili su un altro dispositivo
-• La durata schermo personalizzata non blocca più dopo lo sblocco
+• Bagliore notturno: luce rossa opzionale nelle finestre di sonno
+• Statistiche di attenzione con suggerimenti di blacklist
+• Impostazioni esportabili e importabili
+• Changelog integrato nell'app
+• La durata schermo personalizzata non blocca più dopo lo sblocco e avvisa se manca l'accessibilità

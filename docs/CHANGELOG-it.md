@@ -14,12 +14,13 @@ Tutte le modifiche rilevanti di WakeUpScreen sono documentate qui, organizzate p
 - "Bagliore notturno": durante le finestre di sonno, un debole bagliore rosso opzionale (luminosità minima, sfondo nero) appare per un attimo invece del buio totale, per chi è reperibile o ha un neonato. Rosso perché è il colore che disturba meno gli occhi abituati al buio; registrato nel log con un suo stato dedicato
 - Statistiche di attenzione: conteggiate interamente sul dispositivo a partire da due soli eventi — l'accensione dello schermo e lo sblocco del dispositivo entro mezzo minuto — l'app mostra quali app accendono lo schermo senza mai essere guardate negli ultimi 30 giorni, e offre l'aggiunta alla blacklist con un tocco per le peggiori. Il contenuto delle notifiche non viene mai letto
 - Esportazione e importazione delle impostazioni come file JSON, tramite il selettore di file di sistema, senza nuovi permessi. Il formato del file include un numero di versione: le impostazioni più recenti vengono semplicemente ignorate dalle build più vecchie, e un file in un formato più nuovo viene rifiutato con un messaggio chiaro invece di essere applicato a metà
-- Changelog nell'app: dopo un aggiornamento, il primo avvio mostra un breve riepilogo di cosa è cambiato — coprendo ogni versione saltata, non solo l'ultima. Si può riaprire in qualsiasi momento da Impostazioni → Info → Changelog, e le voci delle impostazioni aggiunte da un aggiornamento portano un puntino finché non vengono visitate
+- Changelog nell'app: dopo un aggiornamento, il primo avvio mostra un breve riepilogo di cosa è cambiato — coprendo ogni versione saltata, non solo l'ultima. Si può riaprire in qualsiasi momento da Impostazioni → Info → Cronologia versioni, e le voci delle impostazioni aggiunte da un aggiornamento portano un puntino finché non vengono visitate
 
 ### Modifiche
 - Entrambe le nuove regole compaiono nel diagramma del processo di verifica delle notifiche e nel log delle notifiche, come ogni altra regola
 - La durata schermo acceso personalizzata non spegne più lo schermo quando il blocco schermo è già stato tolto: se hai sbloccato durante la finestra (o il tuo blocco schermo è impostato su "Nessuno"), la finestra termina senza bloccare. In precedenza un broadcast di sblocco perso poteva bloccare il telefono mentre lo si stava usando
 - La durata minima dello schermo acceso personalizzata è ora di 5 secondi (era 3). Il controllo del blocco schermo descritto sopra ha bisogno che passino i primi istanti dopo un'accensione prima di essere affidabile su alcuni dispositivi; le impostazioni esistenti più brevi vengono portate a 5 automaticamente
+- Durata schermo acceso personalizzata: il permesso di accessibilità mancante è ora segnalato con un avviso rosso ben visibile, e uscendo dalla pagina con l'interruttore attivo ma senza permesso compare una finestra che propone di attivarlo o di uscire comunque
 
 ### Note
 - Nessun nuovo permesso

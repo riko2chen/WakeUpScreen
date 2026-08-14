@@ -20,6 +20,7 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 - Both new rules appear in the notification check process diagram and the notification log, like every other rule
 - The custom screen-on window no longer turns the screen off when the keyguard is already gone: if you unlocked during the window (or your lock screen is set to "None"), the window ends without locking. Previously a missed unlock broadcast could lock the phone while it was in use
 - The minimum custom screen-on duration is now 5 seconds (was 3). The keyguard check above needs the first moments after a wake to pass before it can be trusted on some devices; existing shorter settings are raised to 5 automatically
+- Custom screen-on duration: the missing accessibility grant is now flagged with a prominent red warning, and leaving the page with the switch on but the grant absent brings up a dialog offering to enable it or leave anyway
 
 ### Notes
 - No new permissions

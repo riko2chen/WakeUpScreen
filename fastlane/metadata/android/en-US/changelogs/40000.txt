@@ -1,7 +1,8 @@
 • Home shows when the screen last woke successfully
 • Sleep windows can apply to chosen weekdays
 • New rules: low-battery silence and face-down silence
-• Night Glow: an optional dim red pulse during sleep windows instead of darkness
+• Night Glow: optional dim red pulse during sleep windows
 • Attention statistics reveal apps that wake the screen and never get looked at
-• Settings can be exported to a file and imported on another device
-• The custom screen-on window no longer locks after you unlock
+• Settings export and import as a file
+• In-app changelog shown once after each update
+• Custom screen-on no longer locks after you unlock, and warns if its accessibility grant is missing
