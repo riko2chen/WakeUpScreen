@@ -4,6 +4,28 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [4.0.0]
+
+### Added
+- The home page shows when the screen last woke successfully ("just now", minutes, hours or days ago), read straight from the notification log; tapping it opens the log
+- Sleep windows can apply to chosen weekdays, with Every day / Weekdays / Weekend presets. A window that runs over midnight belongs to the evening it starts on, so Friday 23:00 - 07:00 still covers Saturday morning. Existing windows keep applying every day
+- New rule "Low Battery Silence": below a chosen battery level (5-50%) and not charging, notifications stop waking the screen. Charging always passes
+- New rule "Face-down Silence": while the phone lies screen-down — detected by the accelerometer, the same arrangement pocket mode has with the proximity sensor — notifications do not wake the screen
+- "Night Glow": during sleep windows, an optional dim red glow (minimum brightness, black background) shows for a moment instead of total darkness, for people on call or with a baby. Red because it disturbs dark-adapted eyes least; logged under its own status
+- Attention statistics: counted entirely on-device from two events — the screen being woken and the device being unlocked within half a minute — the app shows which apps wake the screen and never get looked at over the last 30 days, and offers one-tap blacklisting for the worst offenders. Notification content is never read
+- Settings export and import as a JSON file, through the system file picker, with no new permissions. The file format carries a version number: newer settings are simply ignored by older builds, and a file from a newer format is refused with a clear message instead of half-applied
+
+### Changes
+- Both new rules appear in the notification check process diagram and the notification log, like every other rule
+- The custom screen-on window no longer turns the screen off when the keyguard is already gone: if you unlocked during the window (or your lock screen is set to "None"), the window ends without locking. Previously a missed unlock broadcast could lock the phone while it was in use
+- The minimum custom screen-on duration is now 5 seconds (was 3). The keyguard check above needs the first moments after a wake to pass before it can be trusted on some devices; existing shorter settings are raised to 5 automatically
+
+### Notes
+- No new permissions
+- Sleep windows saved by this version without weekday restrictions remain readable by 3.2.0; windows restricted to certain weekdays are dropped by older versions rather than misread
+
+---
+
 ## [3.2.0]
 
 ### Added
