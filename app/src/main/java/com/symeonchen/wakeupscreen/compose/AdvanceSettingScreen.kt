@@ -78,6 +78,10 @@ fun AdvanceSettingScreen(
     showRepeatReminderDetail: Boolean,
     repeatReminderDetailSubtitle: String,
     onRepeatReminderDetailClick: () -> Unit,
+    faceDownBadge: Boolean = false,
+    batteryLevelBadge: Boolean = false,
+    nightGlowBadge: Boolean = false,
+    sleepWeekdayBadge: Boolean = false,
 ) {
     var helpTopic by remember { mutableStateOf<HelpTopic?>(null) }
 
@@ -191,6 +195,7 @@ fun AdvanceSettingScreen(
                     subtitle = stringResource(R.string.face_down_desc),
                     checked = faceDownChecked,
                     onCheckedChange = onFaceDownToggle,
+                    showBadge = faceDownBadge,
                 )
                 FlatDivider()
                 SettingSwitchRow(
@@ -212,6 +217,7 @@ fun AdvanceSettingScreen(
                     subtitle = stringResource(R.string.battery_level_desc),
                     checked = batteryLevelChecked,
                     onCheckedChange = onBatteryLevelToggle,
+                    showBadge = batteryLevelBadge,
                 )
                 if (showBatteryLevelDetail) {
                     FlatDivider()
@@ -234,6 +240,7 @@ fun AdvanceSettingScreen(
                         title = stringResource(R.string.sleep_time),
                         subtitle = sleepDetailSubtitle,
                         onClick = onSleepDetailClick,
+                        showBadge = sleepWeekdayBadge,
                     )
                     FlatDivider()
                     SettingSwitchRow(
@@ -241,6 +248,7 @@ fun AdvanceSettingScreen(
                         subtitle = stringResource(R.string.night_glow_desc),
                         checked = nightGlowChecked,
                         onCheckedChange = onNightGlowToggle,
+                        showBadge = nightGlowBadge,
                     )
                 }
             }

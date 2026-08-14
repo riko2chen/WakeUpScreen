@@ -14,6 +14,7 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 - "Night Glow": during sleep windows, an optional dim red glow (minimum brightness, black background) shows for a moment instead of total darkness, for people on call or with a baby. Red because it disturbs dark-adapted eyes least; logged under its own status
 - Attention statistics: counted entirely on-device from two events — the screen being woken and the device being unlocked within half a minute — the app shows which apps wake the screen and never get looked at over the last 30 days, and offers one-tap blacklisting for the worst offenders. Notification content is never read
 - Settings export and import as a JSON file, through the system file picker, with no new permissions. The file format carries a version number: newer settings are simply ignored by older builds, and a file from a newer format is refused with a clear message instead of half-applied
+- In-app changelog: after an update, the first launch shows a short summary of what changed — covering every version skipped, not just the latest. It can be reopened any time from Settings → About → Changelog, and settings rows added by an update carry a small dot until visited
 
 ### Changes
 - Both new rules appear in the notification check process diagram and the notification log, like every other rule

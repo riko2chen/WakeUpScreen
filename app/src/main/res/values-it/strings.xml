@@ -343,4 +343,29 @@
     <string name="attention_added_blacklist">Aggiunta alla blacklist</string>
     <string name="attention_added_blacklist_mode_hint">Aggiunta alla blacklist. Nota: la modalità blacklist non è la modalità filtro attiva.</string>
     <string name="attention_stats_note">Il conteggio avviene interamente sul dispositivo, da due soli eventi: lo schermo acceso e l\'eventuale sblocco subito dopo. Il contenuto delle notifiche non viene letto e nulla lascia il dispositivo.</string>
+
+    <!-- Changelog in-app -->
+    <string name="changelog">Cronologia versioni</string>
+    <string name="changelog_subtitle">Le principali novità di ogni versione</string>
+    <string name="whats_new_title">Novità</string>
+    <string name="changelog_view_full">Vedi il changelog completo</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-it.md</string>
+    <string name="changelog_v40000_1">La home mostra quanto tempo fa è avvenuta l\'ultima accensione riuscita</string>
+    <string name="changelog_v40000_2">Le finestre di sonno possono valere solo in certi giorni della settimana</string>
+    <string name="changelog_v40000_3">Nuove regole: Silenzio con batteria scarica e Silenzio a faccia in giù</string>
+    <string name="changelog_v40000_4">Bagliore notturno: debole luce rossa opzionale nelle finestre di sonno</string>
+    <string name="changelog_v40000_5">Statistiche di attenzione: trova le app che accendono lo schermo senza mai essere guardate</string>
+    <string name="changelog_v40000_6">Esportazione e importazione delle impostazioni come file</string>
+    <string name="changelog_v40000_7">Changelog integrato nell\'app — quello che stai leggendo ora</string>
+    <string name="changelog_v32000_1">La modalità sonno supporta più finestre, precise al minuto</string>
+    <string name="changelog_v32000_2">Nuova modalità scura: sistema, chiara o scura</string>
+    <string name="changelog_v32000_3">Colori rifatti su Material 3, impostazioni riorganizzate</string>
+    <string name="changelog_v32000_4">Corretto il filtro delle notifiche non cancellabili che non veniva salvato</string>
+    <string name="changelog_v31100_1">Ora punta ad Android 16 (API 36)</string>
+    <string name="changelog_v31100_2">Le pagine secondarie usano l\'animazione di ritorno predittiva del sistema</string>
+    <string name="changelog_v31000_1">Promemoria ripetuto: lo schermo si riaccende finché la notifica resta non letta</string>
+    <string name="changelog_v31000_2">Nuova durata schermo acceso personalizzata</string>
+    <string name="changelog_v30600_1">Rimossi il permesso di servizio in primo piano a uso speciale e l\'opzione di notifica persistente</string>
+    <string name="changelog_v30500_1">Nuova pagina "Controlla aggiornamenti" in Impostazioni → Info</string>
+    <string name="changelog_v30500_2">Corretti i problemi di layout edge-to-edge su Android 15+</string>
 </resources>

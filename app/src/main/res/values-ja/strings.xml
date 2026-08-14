@@ -329,4 +329,29 @@
     <string name="attention_added_blacklist">ブラックリストに追加しました</string>
     <string name="attention_added_blacklist_mode_hint">ブラックリストに追加しました。注意：現在のフィルターはブラックリストモードではありません。</string>
     <string name="attention_stats_note">集計はすべて端末内で行われ、「画面が点灯した」「直後にロック解除された」の 2 つの事実のみを数えます。通知内容は読まず、データが端末の外に出ることはありません。</string>
+
+    <!-- アプリ内更新履歴 -->
+    <string name="changelog">更新履歴</string>
+    <string name="changelog_subtitle">各バージョンの主な変更点</string>
+    <string name="whats_new_title">更新内容</string>
+    <string name="changelog_view_full">完全な更新履歴を見る</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-ja.md</string>
+    <string name="changelog_v40000_1">ホームに前回の点灯成功からの経過時間を表示</string>
+    <string name="changelog_v40000_2">睡眠時間帯を曜日ごとに設定可能に</string>
+    <string name="changelog_v40000_3">新ルール：低電池サイレント・伏せ置きサイレント</string>
+    <string name="changelog_v40000_4">ナイトグロー：睡眠時間帯に微かな赤い光を表示可能</string>
+    <string name="changelog_v40000_5">アテンション統計：画面を点けても見られないアプリを特定</string>
+    <string name="changelog_v40000_6">設定のエクスポート / インポートに対応</string>
+    <string name="changelog_v40000_7">アプリ内更新履歴 — いまご覧のこの画面</string>
+    <string name="changelog_v32000_1">スリープモードが複数の時間帯に対応、分単位で設定可能</string>
+    <string name="changelog_v32000_2">ダークモードを追加：システムに従う / ライト / ダーク</string>
+    <string name="changelog_v32000_3">Material 3 ベースの配色に刷新、設定画面を再編成</string>
+    <string name="changelog_v32000_4">「常駐通知をブロック」の設定が保存されない問題を修正</string>
+    <string name="changelog_v31100_1">ターゲット API を Android 16（API 36）に更新</string>
+    <string name="changelog_v31100_2">下層ページの戻る操作をシステムの予測型アニメーションに変更</string>
+    <string name="changelog_v31000_1">繰り返し通知：未読の通知がある間、画面を定期的に再点灯</string>
+    <string name="changelog_v31000_2">画面点灯時間の指定に対応</string>
+    <string name="changelog_v30600_1">特殊用途のフォアグラウンドサービス権限と常駐通知設定を削除</string>
+    <string name="changelog_v30500_1">「アップデートを確認」ページを追加（設定 → 概要）</string>
+    <string name="changelog_v30500_2">Android 15 以降の全面表示レイアウト問題を修正</string>
 </resources>

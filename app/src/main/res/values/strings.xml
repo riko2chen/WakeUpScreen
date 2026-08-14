@@ -343,4 +343,29 @@
     <string name="attention_added_blacklist">Added to the blacklist</string>
     <string name="attention_added_blacklist_mode_hint">Added to the blacklist. Note: blacklist mode is not the active filter mode yet.</string>
     <string name="attention_stats_note">Counted entirely on this device from two events: the screen being woken, and the device being unlocked shortly after. Notification content is never read, and nothing leaves the device.</string>
+
+    <!-- In-app changelog / What's New sheet -->
+    <string name="changelog">Changelog</string>
+    <string name="changelog_subtitle">What changed in recent versions</string>
+    <string name="whats_new_title">What\'s new</string>
+    <string name="changelog_view_full">View full changelog</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG.md</string>
+    <string name="changelog_v40000_1">Home shows how long ago the screen last woke</string>
+    <string name="changelog_v40000_2">Sleep windows can apply only on chosen weekdays</string>
+    <string name="changelog_v40000_3">New rules: Low Battery Silence and Face-down Silence</string>
+    <string name="changelog_v40000_4">Night Glow: optional dim red light during sleep windows</string>
+    <string name="changelog_v40000_5">Attention Statistics: spot apps that wake the screen but never get looked at</string>
+    <string name="changelog_v40000_6">Settings export and import as a file</string>
+    <string name="changelog_v40000_7">In-app changelog — the one you are reading now</string>
+    <string name="changelog_v32000_1">Sleep Mode supports multiple windows, precise to the minute</string>
+    <string name="changelog_v32000_2">New Dark Mode setting: system, light or dark</string>
+    <string name="changelog_v32000_3">Colors rebuilt on Material 3; settings regrouped</string>
+    <string name="changelog_v32000_4">Fixed the non-clearable notification filter never being saved</string>
+    <string name="changelog_v31100_1">Now targets Android 16 (API 36)</string>
+    <string name="changelog_v31100_2">Sub-pages use the system predictive back animation</string>
+    <string name="changelog_v31000_1">Repeat Reminder: the screen lights up again while a notification stays unread</string>
+    <string name="changelog_v31000_2">New custom screen-on duration</string>
+    <string name="changelog_v30600_1">Removed the special-use foreground service permission and the persistent notification option</string>
+    <string name="changelog_v30500_1">New check-for-updates page under Settings → About</string>
+    <string name="changelog_v30500_2">Fixed edge-to-edge layout issues on Android 15+</string>
 </resources>

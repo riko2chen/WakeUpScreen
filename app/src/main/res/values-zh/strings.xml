@@ -331,4 +331,29 @@
     <string name="attention_added_blacklist">已加入黑名单</string>
     <string name="attention_added_blacklist_mode_hint">已加入黑名单。注意：当前过滤模式还不是黑名单模式。</string>
     <string name="attention_stats_note">统计完全在本机进行，仅基于两个事件：屏幕被唤醒、以及随后是否解锁。不读取任何通知内容，数据不会离开设备。</string>
+
+    <!-- 应用内更新日志 -->
+    <string name="changelog">更新日志</string>
+    <string name="changelog_subtitle">历次版本的主要变化</string>
+    <string name="whats_new_title">更新内容</string>
+    <string name="changelog_view_full">查看完整更新日志</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-zh.md</string>
+    <string name="changelog_v40000_1">首页显示上次成功唤醒于多久之前</string>
+    <string name="changelog_v40000_2">睡眠时段支持按星期几生效</string>
+    <string name="changelog_v40000_3">新规则：低电量静默、面朝下静默</string>
+    <string name="changelog_v40000_4">夜间红光：睡眠时段内可选微弱红光提示</string>
+    <string name="changelog_v40000_5">注意力统计：找出频繁亮屏却从不被查看的应用</string>
+    <string name="changelog_v40000_6">设置支持导出、导入</string>
+    <string name="changelog_v40000_7">应用内更新日志——就是你正在看的这个</string>
+    <string name="changelog_v32000_1">睡眠模式支持多个时段，精确到分钟</string>
+    <string name="changelog_v32000_2">新增深色模式：跟随系统、浅色、深色</string>
+    <string name="changelog_v32000_3">配色按 Material 3 重做，设置页重新分组</string>
+    <string name="changelog_v32000_4">修复「拦截常驻通知」开关不保存的问题</string>
+    <string name="changelog_v31100_1">目标 API 升级到 Android 16（API 36）</string>
+    <string name="changelog_v31100_2">二级页面改用系统预测式返回动画</string>
+    <string name="changelog_v31000_1">重复提醒：通知未处理时屏幕定时再次亮起</string>
+    <string name="changelog_v31000_2">新增自定义亮屏时长</string>
+    <string name="changelog_v30600_1">移除特殊用途前台服务权限与常驻通知设置</string>
+    <string name="changelog_v30500_1">新增「检查更新」页面（设置 → 关于）</string>
+    <string name="changelog_v30500_2">修复 Android 15+ 全面屏适配问题</string>
 </resources>

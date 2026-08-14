@@ -16,14 +16,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.compose.SettingScreen
+import com.symeonchen.wakeupscreen.compose.WhatsNewSheet
 import com.symeonchen.wakeupscreen.compose.components.SelectionDialog
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
 import com.blankj.utilcode.util.ToastUtils
+import com.symeonchen.wakeupscreen.data.ChangelogCatalog
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.DarkModeInfo
+import com.symeonchen.wakeupscreen.data.FeatureBadge
 import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.SettingsBackup
 import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.WhatsNewTracker
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.utils.PlayStoreTools
@@ -90,6 +94,14 @@ class ScSettingFragment : ScBaseFragment() {
         }
     }
 
+    private fun openFullChangelog() {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.changelog_url))))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -113,6 +125,19 @@ class ScSettingFragment : ScBaseFragment() {
 
                 var showLanguageDialog by remember { mutableStateOf(false) }
                 var showDarkModeDialog by remember { mutableStateOf(false) }
+                var showChangelogSheet by remember { mutableStateOf(false) }
+
+                // Read once per composition; flipped locally so the dot
+                // disappears the moment the row is tapped, not on re-entry.
+                var attentionStatsBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.ATTENTION_STATS))
+                }
+                var backupExportBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.BACKUP_EXPORT))
+                }
+                var backupImportBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.BACKUP_IMPORT))
+                }
 
                 SettingScreen(
                     languageText = language.labelRes?.let { stringResource(it) } ?: language.desc,
@@ -126,19 +151,41 @@ class ScSettingFragment : ScBaseFragment() {
                     onFunctionTestClick = { context?.quickStartActivity<FunctionTestPageActivity>() },
                     onViewLogsClick = { context?.quickStartActivity<NotificationLogPageActivity>() },
                     onBackupExportClick = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.BACKUP_EXPORT)
+                        backupExportBadge = false
                         exportBackupLauncher.launch("wakeupscreen-backup.json")
                     },
                     onBackupImportClick = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.BACKUP_IMPORT)
+                        backupImportBadge = false
                         importBackupLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
                     },
-                    onAttentionStatsClick = { context?.quickStartActivity<AttentionStatsActivity>() },
+                    onAttentionStatsClick = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.ATTENTION_STATS)
+                        attentionStatsBadge = false
+                        context?.quickStartActivity<AttentionStatsActivity>()
+                    },
                     onAddressClick = {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/riko2chen/WakeUpScreen")))
                     },
                     onFeedbackClick = { context?.quickStartActivity<FeedbackPageActivity>() },
                     onGiveStarClick = { PlayStoreTools.openPlayStoreWithUrl(context) },
                     onCheckUpdateClick = { context?.quickStartActivity<CheckUpdatePageActivity>() },
+                    onChangelogClick = { showChangelogSheet = true },
+                    attentionStatsBadge = attentionStatsBadge,
+                    backupExportBadge = backupExportBadge,
+                    backupImportBadge = backupImportBadge,
                 )
+
+                // From here the sheet always lists every catalogued version;
+                // scrolling is how a reader walks further back in time.
+                if (showChangelogSheet) {
+                    WhatsNewSheet(
+                        versions = ChangelogCatalog.versions,
+                        onDismiss = { showChangelogSheet = false },
+                        onViewFullChangelog = { openFullChangelog() },
+                    )
+                }
 
                 // Language dialog
                 if (showLanguageDialog) {

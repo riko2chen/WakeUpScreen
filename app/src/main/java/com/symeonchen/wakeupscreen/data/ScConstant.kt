@@ -37,6 +37,9 @@ object ScConstant {
     const val IGNORE_SILENT_NOTIFICATION_SWITCH = "ignore_silent_notification_switch"
     const val BATTERY_LEVEL_SWITCH = "battery_level_switch"
     const val BATTERY_LEVEL_THRESHOLD = "battery_level_threshold"
+    const val LAST_SEEN_VERSION_CODE = "last_seen_version_code"
+    const val UPDATED_FROM_VERSION_CODE = "updated_from_version_code"
+    const val CLICKED_FEATURE_BADGES = "clicked_feature_badges"
 
     const val DEFAULT_SWITCH_OF_APP: Boolean = true
     const val DEFAULT_SWITCH_OF_PROXIMITY: Boolean = true
@@ -106,6 +109,15 @@ object ScConstant {
     /** Off by default: same rule — updates never start blocking wakes on their own. */
     const val DEFAULT_BATTERY_LEVEL_SWITCH: Boolean = false
     const val DEFAULT_BATTERY_LEVEL_THRESHOLD: Int = 20
+
+    /**
+     * Zero means "never recorded". On a fresh install the tracker writes the
+     * current version immediately, so zero afterwards can only mean an update
+     * from a build that predates the What's New tracker.
+     */
+    const val DEFAULT_LAST_SEEN_VERSION_CODE: Int = 0
+    const val DEFAULT_UPDATED_FROM_VERSION_CODE: Int = 0
+    const val DEFAULT_CLICKED_FEATURE_BADGES: String = ""
 
     /** Thresholds offered in the picker, in percent. */
     val BATTERY_LEVEL_THRESHOLD_OPTIONS = listOf(5, 10, 15, 20, 30, 50)

@@ -20,6 +20,7 @@ fun SettingSwitchRow(
     onCheckedChange: () -> Unit,
     modifier: Modifier = Modifier,
     onHelpClick: (() -> Unit)? = null,
+    showBadge: Boolean = false,
 ) {
     Row(
         modifier = modifier
@@ -35,6 +36,9 @@ fun SettingSwitchRow(
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
+                if (showBadge) {
+                    NewFeatureDot(modifier = Modifier.padding(start = 6.dp))
+                }
                 if (onHelpClick != null) {
                     // Its own clickable wins over the row's, so tapping the
                     // badge opens the explanation instead of flipping the switch.

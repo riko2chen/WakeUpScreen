@@ -329,4 +329,29 @@
     <string name="attention_added_blacklist">เพิ่มลงบัญชีดำแล้ว</string>
     <string name="attention_added_blacklist_mode_hint">เพิ่มลงบัญชีดำแล้ว หมายเหตุ: โหมดกรองปัจจุบันยังไม่ใช่โหมดบัญชีดำ</string>
     <string name="attention_stats_note">การนับทั้งหมดทำในเครื่องนี้เท่านั้น จากสองเหตุการณ์: หน้าจอถูกปลุก และมีการปลดล็อกตามมาหรือไม่ ไม่อ่านเนื้อหาการแจ้งเตือน และข้อมูลไม่ออกจากอุปกรณ์</string>
+
+    <!-- บันทึกการเปลี่ยนแปลงในแอป -->
+    <string name="changelog">บันทึกการเปลี่ยนแปลง</string>
+    <string name="changelog_subtitle">การเปลี่ยนแปลงสำคัญในแต่ละเวอร์ชัน</string>
+    <string name="whats_new_title">มีอะไรใหม่</string>
+    <string name="changelog_view_full">ดูบันทึกการเปลี่ยนแปลงฉบับเต็ม</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-th.md</string>
+    <string name="changelog_v40000_1">หน้าแรกแสดงว่าปลุกหน้าจอสำเร็จครั้งล่าสุดเมื่อใด</string>
+    <string name="changelog_v40000_2">ช่วงเวลานอนกำหนดตามวันในสัปดาห์ได้</string>
+    <string name="changelog_v40000_3">กฎใหม่: ปิดเสียงเมื่อแบตต่ำ และเงียบเมื่อคว่ำหน้าจอ</string>
+    <string name="changelog_v40000_4">แสงแดงกลางคืน: เลือกแสดงแสงแดงจาง ๆ ในช่วงเวลานอนได้</string>
+    <string name="changelog_v40000_5">สถิติความสนใจ: หาแอปที่ปลุกหน้าจอบ่อยแต่ไม่เคยถูกเปิดดู</string>
+    <string name="changelog_v40000_6">ส่งออกและนำเข้าการตั้งค่าเป็นไฟล์ได้</string>
+    <string name="changelog_v40000_7">บันทึกการเปลี่ยนแปลงในแอป — หน้าที่คุณกำลังอ่านอยู่นี้</string>
+    <string name="changelog_v32000_1">โหมดพักผ่อนรองรับหลายช่วงเวลา ละเอียดถึงนาที</string>
+    <string name="changelog_v32000_2">เพิ่มโหมดมืด: ตามระบบ / สว่าง / มืด</string>
+    <string name="changelog_v32000_3">ปรับสีใหม่ตาม Material 3 และจัดกลุ่มหน้าการตั้งค่าใหม่</string>
+    <string name="changelog_v32000_4">แก้ไขสวิตช์บล็อกการแจ้งเตือนที่ลบไม่ได้ซึ่งไม่ถูกบันทึก</string>
+    <string name="changelog_v31100_1">อัปเกรดเป้าหมาย API เป็น Android 16 (API 36)</string>
+    <string name="changelog_v31100_2">หน้าย่อยใช้แอนิเมชันย้อนกลับแบบคาดการณ์ของระบบ</string>
+    <string name="changelog_v31000_1">การเตือนซ้ำ: หน้าจอสว่างขึ้นอีกเป็นระยะจนกว่าจะจัดการการแจ้งเตือน</string>
+    <string name="changelog_v31000_2">เพิ่มการกำหนดเวลาเปิดหน้าจอเอง</string>
+    <string name="changelog_v30600_1">นำสิทธิ์ foreground service แบบใช้งานพิเศษและการตั้งค่าการแจ้งเตือนถาวรออก</string>
+    <string name="changelog_v30500_1">เพิ่มหน้า "ตรวจสอบการอัปเดต" (การตั้งค่า → เกี่ยวกับ)</string>
+    <string name="changelog_v30500_2">แก้ไขปัญหาเลย์เอาต์เต็มหน้าจอบน Android 15+</string>
 </resources>

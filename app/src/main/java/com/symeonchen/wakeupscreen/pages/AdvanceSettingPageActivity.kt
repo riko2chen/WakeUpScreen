@@ -15,6 +15,7 @@ import com.symeonchen.wakeupscreen.compose.AdvanceSettingScreen
 import com.symeonchen.wakeupscreen.compose.components.SelectionDialog
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.FeatureBadge
 import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.model.SettingViewModel
@@ -24,6 +25,7 @@ import com.symeonchen.wakeupscreen.states.FaceDownSensorState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.TimeOfDayFormatter
+import com.symeonchen.wakeupscreen.utils.WhatsNewTracker
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
 class AdvanceSettingPageActivity : ScBaseActivity() {
@@ -70,6 +72,21 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 var showModeDialog by remember { mutableStateOf(false) }
                 var showBatteryThresholdDialog by remember { mutableStateOf(false) }
 
+                // Read once per composition; flipped locally so a dot
+                // disappears the moment its row is used, not on re-entry.
+                var faceDownBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.FACE_DOWN))
+                }
+                var batteryLevelBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.BATTERY_LEVEL))
+                }
+                var nightGlowBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.NIGHT_GLOW))
+                }
+                var sleepWeekdayBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.SLEEP_WEEKDAY))
+                }
+
                 val currentModeText = stringResource(
                     when (currentMode) {
                         CurrentMode.MODE_BLACK_LIST -> R.string.black_list
@@ -107,6 +124,8 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     },
                     faceDownChecked = faceDown,
                     onFaceDownToggle = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.FACE_DOWN)
+                        faceDownBadge = false
                         val enabled = !faceDown
                         settingModel.switchOfFaceDown.postValue(enabled)
                         if (enabled) {
@@ -131,7 +150,11 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     chargingOnlySubtitle = statusText(chargingOnly),
                     onChargingOnlyToggle = { settingModel.chargingOnlySwitch.postValue(!chargingOnly) },
                     batteryLevelChecked = batteryLevel,
-                    onBatteryLevelToggle = { settingModel.batteryLevelSwitch.postValue(!batteryLevel) },
+                    onBatteryLevelToggle = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.BATTERY_LEVEL)
+                        batteryLevelBadge = false
+                        settingModel.batteryLevelSwitch.postValue(!batteryLevel)
+                    },
                     showBatteryLevelDetail = batteryLevel,
                     batteryLevelDetailSubtitle = getString(
                         R.string.battery_level_threshold_value, batteryThreshold
@@ -142,9 +165,17 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     onSleepToggle = { settingModel.sleepModeBoolean.postValue(!sleep) },
                     showSleepDetail = sleep,
                     sleepDetailSubtitle = sleepSummary(sleepSegments),
-                    onSleepDetailClick = { quickStartActivity<SleepTimeSettingActivity>() },
+                    onSleepDetailClick = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.SLEEP_WEEKDAY)
+                        sleepWeekdayBadge = false
+                        quickStartActivity<SleepTimeSettingActivity>()
+                    },
                     nightGlowChecked = nightGlow,
-                    onNightGlowToggle = { settingModel.nightGlowSwitch.postValue(!nightGlow) },
+                    onNightGlowToggle = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.NIGHT_GLOW)
+                        nightGlowBadge = false
+                        settingModel.nightGlowSwitch.postValue(!nightGlow)
+                    },
                     repeatReminderChecked = repeatReminder,
                     repeatReminderSubtitle = getString(R.string.repeat_reminder_desc),
                     onRepeatReminderToggle = {
@@ -155,6 +186,10 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     showRepeatReminderDetail = repeatReminder,
                     repeatReminderDetailSubtitle = reminderIntervalText(reminderInterval),
                     onRepeatReminderDetailClick = { quickStartActivity<ReminderSettingActivity>() },
+                    faceDownBadge = faceDownBadge,
+                    batteryLevelBadge = batteryLevelBadge,
+                    nightGlowBadge = nightGlowBadge,
+                    sleepWeekdayBadge = sleepWeekdayBadge,
                 )
 
                 // Battery threshold dialog

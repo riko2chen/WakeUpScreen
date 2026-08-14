@@ -71,6 +71,12 @@ import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_SEGMENTS
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_BEGIN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_END
 import com.symeonchen.wakeupscreen.data.ScConstant.WAKE_SCREEN_SECOND
+import com.symeonchen.wakeupscreen.data.ScConstant.LAST_SEEN_VERSION_CODE
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_SEEN_VERSION_CODE
+import com.symeonchen.wakeupscreen.data.ScConstant.UPDATED_FROM_VERSION_CODE
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_UPDATED_FROM_VERSION_CODE
+import com.symeonchen.wakeupscreen.data.ScConstant.CLICKED_FEATURE_BADGES
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_CLICKED_FEATURE_BADGES
 import com.tencent.mmkv.MMKV
 
 /**
@@ -472,6 +478,52 @@ object DataInjection {
                 return
             }
             MMKV.defaultMMKV()?.putInt(BATTERY_LEVEL_THRESHOLD, value)
+        }
+
+    /**
+     * The versionCode whose What's New content the user has already been shown.
+     * Runtime state like [lastInAppReviewTime], so none of these three keys
+     * belong in the settings backup: importing them onto another device would
+     * suppress (or replay) the What's New sheet there for no reason.
+     */
+    var lastSeenVersionCode: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                LAST_SEEN_VERSION_CODE,
+                DEFAULT_LAST_SEEN_VERSION_CODE
+            ) ?: DEFAULT_LAST_SEEN_VERSION_CODE
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putInt(LAST_SEEN_VERSION_CODE, value)
+        }
+
+    /**
+     * The versionCode the user updated from, kept so the NEW badges can outlive
+     * the one-shot What's New sheet: a badge stays until its row is visited,
+     * not until the sheet is dismissed. On a fresh install this is the current
+     * version, which makes every badge test false.
+     */
+    var updatedFromVersionCode: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                UPDATED_FROM_VERSION_CODE,
+                DEFAULT_UPDATED_FROM_VERSION_CODE
+            ) ?: DEFAULT_UPDATED_FROM_VERSION_CODE
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putInt(UPDATED_FROM_VERSION_CODE, value)
+        }
+
+    /** Comma-joined [com.symeonchen.wakeupscreen.data.FeatureBadge] keys already visited. */
+    var clickedFeatureBadges: String
+        get() {
+            return MMKV.defaultMMKV()?.getString(
+                CLICKED_FEATURE_BADGES,
+                DEFAULT_CLICKED_FEATURE_BADGES
+            ) ?: DEFAULT_CLICKED_FEATURE_BADGES
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putString(CLICKED_FEATURE_BADGES, value)
         }
 
     var ignoreSilentNotificationSwitch: Boolean

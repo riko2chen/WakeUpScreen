@@ -390,6 +390,11 @@ body {
           <div class="lang-dropdown" id="langDropdown">
             <button class="lang-option active" data-lang="en">English <span class="lang-code">EN</span></button>
             <button class="lang-option" data-lang="zh">简体中文 <span class="lang-code">ZH</span></button>
+            <button class="lang-option" data-lang="zh-TW">繁體中文 <span class="lang-code">TW</span></button>
+            <button class="lang-option" data-lang="it">Italiano <span class="lang-code">IT</span></button>
+            <button class="lang-option" data-lang="ja">日本語 <span class="lang-code">JA</span></button>
+            <button class="lang-option" data-lang="ko">한국어 <span class="lang-code">KO</span></button>
+            <button class="lang-option" data-lang="th">ไทย <span class="lang-code">TH</span></button>
           </div>
         </div>
       </div>
@@ -436,11 +441,64 @@ var translations = {
     loading: "\u52a0\u8f7d\u4e2d\u2026",
     error: "\u66f4\u65b0\u65e5\u5fd7\u52a0\u8f7d\u5931\u8d25\u3002",
     back_home: "\u2190 \u8fd4\u56de\u9996\u9875"
+  },
+  "zh-TW": {
+    nav_home: "\u9996\u9801",
+    nav_changelog: "\u66f4\u65b0\u65e5\u8a8c",
+    page_title: "\u66f4\u65b0\u65e5\u8a8c",
+    page_subtitle: "\u6bcf\u4e00\u500b\u7248\u672c\uff0c\u6bcf\u4e00\u6b21\u8b8a\u5316\uff0c\u5b8c\u5168\u900f\u660e\u3002",
+    loading: "\u8f09\u5165\u4e2d\u2026",
+    error: "\u66f4\u65b0\u65e5\u8a8c\u8f09\u5165\u5931\u6557\u3002",
+    back_home: "\u2190 \u8fd4\u56de\u9996\u9801"
+  },
+  it: {
+    nav_home: "Home",
+    nav_changelog: "Changelog",
+    page_title: "Changelog",
+    page_subtitle: "Ogni versione, ogni modifica, alla luce del sole.",
+    loading: "Caricamento\u2026",
+    error: "Impossibile caricare il changelog.",
+    back_home: "\u2190 Torna alla home"
+  },
+  ja: {
+    nav_home: "\u30db\u30fc\u30e0",
+    nav_changelog: "\u66f4\u65b0\u5c65\u6b74",
+    page_title: "\u66f4\u65b0\u5c65\u6b74",
+    page_subtitle: "\u3059\u3079\u3066\u306e\u30d0\u30fc\u30b8\u30e7\u30f3\u3001\u3059\u3079\u3066\u306e\u5909\u66f4\u3092\u30aa\u30fc\u30d7\u30f3\u306b\u3002",
+    loading: "\u8aad\u307f\u8fbc\u307f\u4e2d\u2026",
+    error: "\u66f4\u65b0\u5c65\u6b74\u306e\u8aad\u307f\u8fbc\u307f\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002",
+    back_home: "\u2190 \u30db\u30fc\u30e0\u306b\u623b\u308b"
+  },
+  ko: {
+    nav_home: "\ud648",
+    nav_changelog: "\uc5c5\ub370\uc774\ud2b8 \ub0b4\uc5ed",
+    page_title: "\uc5c5\ub370\uc774\ud2b8 \ub0b4\uc5ed",
+    page_subtitle: "\ubaa8\ub4e0 \ubc84\uc804, \ubaa8\ub4e0 \ubcc0\uacbd\uc744 \ud22c\uba85\ud558\uac8c.",
+    loading: "\ubd88\ub7ec\uc624\ub294 \uc911\u2026",
+    error: "\uc5c5\ub370\uc774\ud2b8 \ub0b4\uc5ed\uc744 \ubd88\ub7ec\uc624\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4.",
+    back_home: "\u2190 \ud648\uc73c\ub85c"
+  },
+  th: {
+    nav_home: "\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e23\u0e01",
+    nav_changelog: "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07",
+    page_title: "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07",
+    page_subtitle: "\u0e17\u0e38\u0e01\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19 \u0e17\u0e38\u0e01\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07 \u0e2d\u0e22\u0e48\u0e32\u0e07\u0e42\u0e1b\u0e23\u0e48\u0e07\u0e43\u0e2a",
+    loading: "\u0e01\u0e33\u0e25\u0e31\u0e07\u0e42\u0e2b\u0e25\u0e14\u2026",
+    error: "\u0e42\u0e2b\u0e25\u0e14\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08",
+    back_home: "\u2190 \u0e01\u0e25\u0e31\u0e1a\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e23\u0e01"
   }
 };
 
-var langLabels = { en: "EN", zh: "ZH" };
-var changelogFiles = { en: "CHANGELOG.md", zh: "CHANGELOG-zh.md" };
+var langLabels = { en: "EN", zh: "ZH", "zh-TW": "TW", it: "IT", ja: "JA", ko: "KO", th: "TH" };
+var changelogFiles = {
+  en: "CHANGELOG.md",
+  zh: "CHANGELOG-zh.md",
+  "zh-TW": "CHANGELOG-zh-TW.md",
+  it: "CHANGELOG-it.md",
+  ja: "CHANGELOG-ja.md",
+  ko: "CHANGELOG-ko.md",
+  th: "CHANGELOG-th.md"
+};
 
 // ---- Minimal markdown renderer (headers, lists, hr, paragraphs, inline code) ----
 function escapeHtml(s) {
@@ -544,7 +602,15 @@ function detectLanguage() {
   var langs = navigator.languages || [navigator.language || navigator.userLanguage || "en"];
   for (var i = 0; i < langs.length; i++) {
     var lang = langs[i].toLowerCase();
-    if (lang.indexOf("zh") === 0) return "zh";
+    if (lang.indexOf("zh") === 0) {
+      // Traditional-script locales get the zh-TW file; every other zh, the simplified one.
+      if (lang.indexOf("zh-tw") === 0 || lang.indexOf("zh-hant") === 0 || lang.indexOf("zh-hk") === 0) return "zh-TW";
+      return "zh";
+    }
+    if (lang.indexOf("it") === 0) return "it";
+    if (lang.indexOf("ja") === 0) return "ja";
+    if (lang.indexOf("ko") === 0) return "ko";
+    if (lang.indexOf("th") === 0) return "th";
     if (lang.indexOf("en") === 0) return "en";
   }
   return "en";

@@ -63,6 +63,10 @@ fun SettingScreen(
     onFeedbackClick: () -> Unit,
     onGiveStarClick: () -> Unit,
     onCheckUpdateClick: () -> Unit,
+    onChangelogClick: () -> Unit,
+    attentionStatsBadge: Boolean = false,
+    backupExportBadge: Boolean = false,
+    backupImportBadge: Boolean = false,
 ) {
     var appInfoExpanded by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
@@ -108,6 +112,7 @@ fun SettingScreen(
         SettingsSearchEntry(stringResource(R.string.project_address), aboutPage, onAddressClick),
         SettingsSearchEntry(stringResource(R.string.feedback), aboutPage, onFeedbackClick),
         SettingsSearchEntry(stringResource(R.string.check_update), aboutPage, onCheckUpdateClick),
+        SettingsSearchEntry(stringResource(R.string.changelog), aboutPage, onChangelogClick),
         SettingsSearchEntry(stringResource(R.string.give_star), aboutPage, onGiveStarClick),
     )
 
@@ -246,6 +251,7 @@ fun SettingScreen(
                     title = stringResource(R.string.attention_stats_title),
                     subtitle = stringResource(R.string.attention_stats_subtitle),
                     onClick = onAttentionStatsClick,
+                    showBadge = attentionStatsBadge,
                 )
             }
 
@@ -260,12 +266,14 @@ fun SettingScreen(
                     title = stringResource(R.string.backup_export_title),
                     subtitle = stringResource(R.string.backup_export_subtitle),
                     onClick = onBackupExportClick,
+                    showBadge = backupExportBadge,
                 )
                 FlatDivider()
                 SettingRow(
                     title = stringResource(R.string.backup_import_title),
                     subtitle = stringResource(R.string.backup_import_subtitle),
                     onClick = onBackupImportClick,
+                    showBadge = backupImportBadge,
                 )
             }
 
@@ -334,6 +342,12 @@ fun SettingScreen(
                     title = stringResource(R.string.check_update),
                     subtitle = stringResource(R.string.check_update_subtitle),
                     onClick = onCheckUpdateClick,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.changelog),
+                    subtitle = stringResource(R.string.changelog_subtitle),
+                    onClick = onChangelogClick,
                 )
                 FlatDivider()
                 SettingRow(
