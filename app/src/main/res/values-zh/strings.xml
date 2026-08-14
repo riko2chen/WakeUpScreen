@@ -22,7 +22,8 @@
     <string name="how_to_set">如何设置</string>
     <string name="already_open">已开启</string>
     <string name="already_close">已关闭</string>
-    <string name="i_already_close">我已关闭</string>
+    <string name="status_running">运行中</string>
+    <string name="status_paused">已暂停</string>
     <string name="not_open">未开启</string>
     <string name="not_close">未关闭</string>
     <string name="wanna_close">我要关闭</string>

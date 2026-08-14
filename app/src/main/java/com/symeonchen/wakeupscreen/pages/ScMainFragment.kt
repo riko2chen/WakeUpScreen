@@ -134,7 +134,7 @@ class ScMainFragment : ScBaseFragment() {
         serviceOk: Boolean,
         appSwitch: Boolean,
     ): StatusDisplayState {
-        var statusText = getString(R.string.already_open)
+        var statusText = getString(R.string.status_running)
         var isError = false
         var isToggleVisible = true
         var isNoticeVisible = true
@@ -152,7 +152,7 @@ class ScMainFragment : ScBaseFragment() {
             isNoticeVisible = false
         }
         if (appSwitch != true) {
-            statusText = getString(R.string.already_close)
+            statusText = getString(R.string.status_paused)
             isError = true
             isNoticeVisible = false
         }

@@ -25,9 +25,10 @@
     <string name="click_to_open">탭하여 켜기</string>
     <string name="to_setting">설정으로</string>
     <string name="how_to_set">설정 방법</string>
-    <string name="already_open">이미 켜짐</string>
-    <string name="already_close">이미 꺼짐</string>
-    <string name="i_already_close">이미 꺼짐</string>
+    <string name="already_open">켜짐</string>
+    <string name="already_close">꺼짐</string>
+    <string name="status_running">작동 중</string>
+    <string name="status_paused">일시 중지됨</string>
     <string name="not_open">켜지지 않음</string>
     <string name="not_close">꺼지지 않음</string>
     <string name="wanna_close">끄고 싶어요</string>
@@ -40,7 +41,7 @@
     <string name="developing">개발 중</string>
     <string name="permission_of_read_notification">알림 읽기 권한</string>
     <string name="service_of_background">백그라운드 서비스</string>
-    <string name="time_of_wake_up_screen">화면 켜기 시간</string>
+    <string name="time_of_wake_up_screen">화면 켜짐 시간 지정</string>
     <string name="optimize_of_battery_saver">전력 최적화 끄기</string>
     <string name="pocket_mode">주머니 모드</string>
     <string name="ongoing_status">진행 중 알림 차단</string>

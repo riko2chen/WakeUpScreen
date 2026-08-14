@@ -20,9 +20,10 @@
     <string name="click_to_open">Click to open</string>
     <string name="to_setting">To setting</string>
     <string name="how_to_set">How to set</string>
-    <string name="already_open">Already open</string>
-    <string name="already_close">Already close</string>
-    <string name="i_already_close">Already close</string>
+    <string name="already_open">On</string>
+    <string name="already_close">Off</string>
+    <string name="status_running">Running</string>
+    <string name="status_paused">Paused</string>
     <string name="not_open">not open</string>
     <string name="not_close">not close</string>
     <string name="wanna_close">I want to close</string>
@@ -43,7 +44,7 @@
     <string name="developing">Developing</string>
     <string name="permission_of_read_notification">Read notification permission</string>
     <string name="service_of_background">Background Services</string>
-    <string name="time_of_wake_up_screen">Bright screen time</string>
+    <string name="time_of_wake_up_screen">Custom screen-on duration</string>
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
     <string name="pocket_mode">Pocket Mode</string>
     <string name="ongoing_status">Block Ongoing Notifications</string>

@@ -27,7 +27,8 @@
     <string name="how_to_set">如何設定</string>
     <string name="already_open">已開啟</string>
     <string name="already_close">已關閉</string>
-    <string name="i_already_close">已關閉</string>
+    <string name="status_running">運作中</string>
+    <string name="status_paused">已暫停</string>
     <string name="not_open">未開啟</string>
     <string name="not_close">未關閉</string>
     <string name="wanna_close">我要關閉</string>
@@ -40,7 +41,7 @@
     <string name="developing">開發中</string>
     <string name="permission_of_read_notification">讀取通知權限</string>
     <string name="service_of_background">背景服務</string>
-    <string name="time_of_wake_up_screen">自訂亮屏時間</string>
+    <string name="time_of_wake_up_screen">自訂亮螢幕時長</string>
     <string name="optimize_of_battery_saver">關閉電量最佳化</string>
     <string name="pocket_mode">口袋防誤觸</string>
     <string name="ongoing_status">攔截持續通知</string>

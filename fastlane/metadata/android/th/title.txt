@@ -1,1 +1,1 @@
-WakeUpScreen
+ปลุกหน้าจอ

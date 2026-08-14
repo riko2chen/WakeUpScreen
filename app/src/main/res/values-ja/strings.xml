@@ -25,9 +25,10 @@
     <string name="click_to_open">タップしてオンにする</string>
     <string name="to_setting">設定へ</string>
     <string name="how_to_set">設定方法</string>
-    <string name="already_open">オン済み</string>
-    <string name="already_close">オフ済み</string>
-    <string name="i_already_close">オフ済み</string>
+    <string name="already_open">オン</string>
+    <string name="already_close">オフ</string>
+    <string name="status_running">動作中</string>
+    <string name="status_paused">一時停止中</string>
     <string name="not_open">未オン</string>
     <string name="not_close">未オフ</string>
     <string name="wanna_close">オフにする</string>
@@ -40,7 +41,7 @@
     <string name="developing">開発中</string>
     <string name="permission_of_read_notification">通知読み取り権限</string>
     <string name="service_of_background">バックグラウンドサービス</string>
-    <string name="time_of_wake_up_screen">画面点灯時間</string>
+    <string name="time_of_wake_up_screen">画面点灯時間の指定</string>
     <string name="optimize_of_battery_saver">電力最適化をオフにする</string>
     <string name="pocket_mode">ポケットモード</string>
     <string name="ongoing_status">進行中の通知をブロック</string>

@@ -25,9 +25,10 @@
     <string name="click_to_open">แตะเพื่อเปิด</string>
     <string name="to_setting">ไปที่ตั้งค่า</string>
     <string name="how_to_set">วิธีตั้งค่า</string>
-    <string name="already_open">เปิดอยู่แล้ว</string>
-    <string name="already_close">ปิดอยู่แล้ว</string>
-    <string name="i_already_close">ปิดอยู่แล้ว</string>
+    <string name="already_open">เปิด</string>
+    <string name="already_close">ปิด</string>
+    <string name="status_running">กำลังทำงาน</string>
+    <string name="status_paused">หยุดชั่วคราว</string>
     <string name="not_open">ยังไม่เปิด</string>
     <string name="not_close">ยังไม่ปิด</string>
     <string name="wanna_close">ต้องการปิด</string>
@@ -40,7 +41,7 @@
     <string name="developing">กำลังพัฒนา</string>
     <string name="permission_of_read_notification">สิทธิ์อ่านการแจ้งเตือน</string>
     <string name="service_of_background">บริการเบื้องหลัง</string>
-    <string name="time_of_wake_up_screen">ระยะเวลาเปิดหน้าจอ</string>
+    <string name="time_of_wake_up_screen">กำหนดเวลาเปิดหน้าจอเอง</string>
     <string name="optimize_of_battery_saver">ปิดการเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="pocket_mode">โหมดกระเป๋า</string>
     <string name="ongoing_status">บล็อกการแจ้งเตือนที่กำลังดำเนินอยู่</string>
