@@ -93,11 +93,25 @@ object DataInjection {
             MMKV.defaultMMKV()?.putBoolean(CUSTOM_STATUS, value)
         }
 
+    /**
+     * Reading it the first time after an upgrade brings a value left by an
+     * older build — the free-text setting allowed anything, and 4.0.0 raised
+     * the floor from 3 to 5 seconds — into the supported range and writes the
+     * result, so the raise happens once instead
+     * of being re-applied by every reader. Without the write-back the settings
+     * page compares a legacy 3s against the presets and highlights none of
+     * them, while everything else already reports the clamped 5s.
+     */
     var milliSecondOfWakeUpScreen: Long
         get() {
-            return MMKV.defaultMMKV()
+            val stored = MMKV.defaultMMKV()
                 ?.getLong(WAKE_SCREEN_SECOND, DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS)
                 ?: DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
+            val clamped = ScreenOnWindowCalculator.clampSeconds(stored / 1000L) * 1000L
+            if (clamped != stored) {
+                milliSecondOfWakeUpScreen = clamped
+            }
+            return clamped
         }
         set(millisSec) {
             if (millisSec < 0) {

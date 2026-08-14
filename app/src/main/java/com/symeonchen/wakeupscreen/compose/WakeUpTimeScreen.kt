@@ -18,8 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -251,18 +249,9 @@ private fun DurationCard(
                             .weight(1f)
                             .height(56.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .then(
-                                if (isSelected) Modifier.background(
-                                    Brush.linearGradient(
-                                        listOf(
-                            MaterialTheme.colorScheme.primaryContainer,
-                            MaterialTheme.colorScheme.primaryContainer,
-                        ),
-                                        start = Offset(0f, 0f),
-                                        end = Offset(56f, 56f),
-                                    )
-                                )
-                                else Modifier.background(MaterialTheme.colorScheme.surfaceVariant)
+                            .background(
+                                if (isSelected) MaterialTheme.colorScheme.primaryContainer
+                                else MaterialTheme.colorScheme.surfaceVariant
                             )
                             .clickable { onPresetClick(preset) },
                         contentAlignment = Alignment.Center,
@@ -271,7 +260,8 @@ private fun DurationCard(
                             text = stringResource(R.string.precise_wake_preset_seconds, preset),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
-                            color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface,
+                            color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
+                            else MaterialTheme.colorScheme.onSurface,
                         )
                     }
                 }
