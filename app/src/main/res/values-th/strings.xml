@@ -162,6 +162,7 @@
     <string name="feedback_send_email">อีเมล</string>
     <string name="feedback_copy_email">คัดลอกอีเมล</string>
     <string name="feedback_email_copied">คัดลอกอีเมลแล้ว</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">เสี่ยวหงซู</string>
 

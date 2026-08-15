@@ -164,6 +164,7 @@
     <string name="feedback_send_email">发邮件</string>
     <string name="feedback_copy_email">复制邮箱</string>
     <string name="feedback_email_copied">邮箱已复制</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X（Twitter）</string>
     <string name="feedback_contact_xiaohongshu">小红书</string>
 

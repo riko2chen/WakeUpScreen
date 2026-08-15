@@ -162,6 +162,7 @@
     <string name="feedback_send_email">이메일</string>
     <string name="feedback_copy_email">이메일 복사</string>
     <string name="feedback_email_copied">이메일 복사됨</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">샤오홍슈</string>
 

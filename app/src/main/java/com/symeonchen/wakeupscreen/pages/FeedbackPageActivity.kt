@@ -26,6 +26,14 @@ class FeedbackPageActivity : ScBaseActivity() {
                     onBack = { finish() },
                     onSendEmailClick = ::openFeedbackEmail,
                     onCopyEmail = ::copyEmailToClipboard,
+                    onOpenGitHubIssues = {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://github.com/riko2chen/WakeUpScreen/issues")
+                            )
+                        )
+                    },
                     onContactX = {
                         startActivity(
                             Intent(

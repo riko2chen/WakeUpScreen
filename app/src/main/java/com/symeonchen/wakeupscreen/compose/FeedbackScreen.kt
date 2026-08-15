@@ -19,6 +19,7 @@ fun FeedbackScreen(
     onBack: () -> Unit,
     onSendEmailClick: () -> Unit,
     onCopyEmail: () -> Unit,
+    onOpenGitHubIssues: () -> Unit,
     onContactX: () -> Unit,
     onContactXiaohongshu: () -> Unit,
 ) {
@@ -99,7 +100,42 @@ fun FeedbackScreen(
                         color = MaterialTheme.colorScheme.outline,
                     )
 
-                    // Row 3: Contact on X
+                    // Row 3: GitHub Issues
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(onClick = onOpenGitHubIssues)
+                            .padding(horizontal = 20.dp, vertical = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = stringResource(R.string.feedback_github_issues),
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onSurface,
+                            )
+                            Text(
+                                text = "riko2chen/WakeUpScreen",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(top = 2.dp),
+                            )
+                        }
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f),
+                            modifier = Modifier.size(20.dp),
+                        )
+                    }
+
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                        thickness = 0.5.dp,
+                        color = MaterialTheme.colorScheme.outline,
+                    )
+
+                    // Row 4: Contact on X
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -134,7 +170,7 @@ fun FeedbackScreen(
                         color = MaterialTheme.colorScheme.outline,
                     )
 
-                    // Row 4: Xiaohongshu
+                    // Row 5: Xiaohongshu
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

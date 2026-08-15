@@ -172,6 +172,7 @@
     <string name="feedback_send_email">Email</string>
     <string name="feedback_copy_email">Copia email</string>
     <string name="feedback_email_copied">Email copiato</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">Xiaohongshu</string>
     <string name="language_ja">Giapponese</string>

@@ -162,6 +162,7 @@
     <string name="feedback_send_email">メール</string>
     <string name="feedback_copy_email">メールをコピー</string>
     <string name="feedback_email_copied">メールをコピーしました</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X（Twitter）</string>
     <string name="feedback_contact_xiaohongshu">小紅書</string>
 
