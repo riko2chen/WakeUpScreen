@@ -23,18 +23,18 @@ Mantenuta dal 2019, con oltre 10.000 utenti in 119 paesi e regioni.
 
 ## Funzionalità
 
-| | Funzione | Descrizione |
-|---|---|---|
-| :bell: | **Attivazione Istantanea** | Lo schermo si illumina nel momento in cui arriva una notifica. |
-| :sun_with_face: | **Modalità Tasca** | Rileva quando il telefono è in tasca o in borsa e lascia lo schermo spento. |
-| :repeat: | **Promemoria Ripetuto** | Si riaccende ogni 5–60 minuti finché le notifiche restano non lette. |
-| :hourglass_flowing_sand: | **Durata Schermo Personalizzata** | Tiene lo schermo acceso da 5 a 30 secondi invece di affidarsi al timeout di sistema. |
-| :mag: | **Filtro App** | Scegli esattamente quali app possono attivare lo schermo. |
-| :chart_with_upwards_trend: | **Statistiche di Attenzione** | Mostra quali app accendono lo schermo senza mai essere guardate, contate sul dispositivo negli ultimi 30 giorni. |
-| :clipboard: | **Registro Notifiche** | Registra ogni notifica e quale regola l'ha fermata, con un diagramma dal vivo del processo di controllo. |
-| :new_moon: | **Modalità Scura** | Un'interfaccia scura perfetta per qualsiasi display AMOLED. |
-| :closed_lock_with_key: | **Nessun Internet** | Funziona interamente sul dispositivo, senza raccogliere dati né contattare server. |
-| :zap: | **Leggera** | Impatto minimo e consumo di batteria trascurabile. |
+| Funzione | Descrizione |
+|---|---|
+| **Attivazione Istantanea** | Lo schermo si illumina nel momento in cui arriva una notifica. |
+| **Modalità Tasca** | Rileva quando il telefono è in tasca o in borsa e lascia lo schermo spento. |
+| **Promemoria Ripetuto** | Si riaccende ogni 5–60 minuti finché le notifiche restano non lette. |
+| **Durata Schermo Personalizzata** | Tiene lo schermo acceso da 5 a 30 secondi invece di affidarsi al timeout di sistema. |
+| **Filtro App** | Scegli esattamente quali app possono attivare lo schermo. |
+| **Statistiche di Attenzione** | Mostra quali app accendono lo schermo senza mai essere guardate, contate sul dispositivo negli ultimi 30 giorni. |
+| **Registro Notifiche** | Registra ogni notifica e quale regola l'ha fermata, con un diagramma dal vivo del processo di controllo. |
+| **Modalità Scura** | Un'interfaccia scura perfetta per qualsiasi display AMOLED. |
+| **Nessun Internet** | Funziona interamente sul dispositivo, senza raccogliere dati né contattare server. |
+| **Leggera** | Impatto minimo e consumo di batteria trascurabile. |
 
 ## Come Funziona
 

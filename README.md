@@ -23,18 +23,18 @@ Maintained since 2019, with more than 10,000 users across 119 countries and regi
 
 ## Features
 
-| | Feature | Description |
-|---|---|---|
-| :bell: | **Instant Wake** | The screen lights up the moment a notification arrives. |
-| :sun_with_face: | **Pocket Mode** | Detects when the phone is in a pocket or bag and leaves the screen off. |
-| :repeat: | **Repeat Reminder** | Wakes again every 5–60 minutes while notifications sit unread. |
-| :hourglass_flowing_sand: | **Custom Screen-On Duration** | Holds the screen on for 5 to 30 seconds instead of the system timeout. |
-| :mag: | **App Filtering** | Choose exactly which apps can wake your screen. |
-| :chart_with_upwards_trend: | **Attention Statistics** | Shows which apps wake the screen and never get looked at, counted on-device over 30 days. |
-| :clipboard: | **Notification Log** | Records every notification and which rule stopped it, with a live diagram of the check process. |
-| :new_moon: | **Dark Mode** | A dark interface that feels at home on any AMOLED display. |
-| :closed_lock_with_key: | **No Internet** | Runs entirely on your device, collecting nothing and contacting no server. |
-| :zap: | **Lightweight** | Minimal footprint and negligible battery impact. |
+| Feature | Description |
+|---|---|
+| **Instant Wake** | The screen lights up the moment a notification arrives. |
+| **Pocket Mode** | Detects when the phone is in a pocket or bag and leaves the screen off. |
+| **Repeat Reminder** | Wakes again every 5–60 minutes while notifications sit unread. |
+| **Custom Screen-On Duration** | Holds the screen on for 5 to 30 seconds instead of the system timeout. |
+| **App Filtering** | Choose exactly which apps can wake your screen. |
+| **Attention Statistics** | Shows which apps wake the screen and never get looked at, counted on-device over 30 days. |
+| **Notification Log** | Records every notification and which rule stopped it, with a live diagram of the check process. |
+| **Dark Mode** | A dark interface that feels at home on any AMOLED display. |
+| **No Internet** | Runs entirely on your device, collecting nothing and contacting no server. |
+| **Lightweight** | Minimal footprint and negligible battery impact. |
 
 ## How It Works
 
