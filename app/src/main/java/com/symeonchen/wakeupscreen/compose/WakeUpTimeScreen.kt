@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.R
@@ -56,6 +57,9 @@ fun WakeUpTimeScreen(
 ) {
     var showUnsavedDialog by remember { mutableStateOf(false) }
     var showAccessibilityDialog by remember { mutableStateOf(false) }
+    // Every route to the system settings screen goes through the disclosure
+    // first, so the grant is never one tap away from anywhere in this screen.
+    var showDisclosureDialog by remember { mutableStateOf(false) }
 
     // With the switch on but the accessibility service off, the feature the
     // user just configured cannot actually turn the screen off.
@@ -145,7 +149,7 @@ fun WakeUpTimeScreen(
                     ScreenOffMethodCard(
                         accessibilitySupported = accessibilitySupported,
                         accessibilityGranted = accessibilityGranted,
-                        onGrantAccessibilityClick = onGrantAccessibilityClick,
+                        onGrantAccessibilityClick = { showDisclosureDialog = true },
                     )
 
                     Spacer(Modifier.height(16.dp))
@@ -204,7 +208,7 @@ fun WakeUpTimeScreen(
             confirmButton = {
                 TextButton(onClick = {
                     showAccessibilityDialog = false
-                    onGrantAccessibilityClick()
+                    showDisclosureDialog = true
                 }) {
                     Text(stringResource(R.string.accessibility_dialog_grant))
                 }
@@ -218,6 +222,106 @@ fun WakeUpTimeScreen(
                 }
             },
         )
+    }
+
+    if (showDisclosureDialog) {
+        AccessibilityDisclosureDialog(
+            onAgree = {
+                showDisclosureDialog = false
+                onGrantAccessibilityClick()
+            },
+            onDismiss = { showDisclosureDialog = false },
+        )
+    }
+}
+
+/**
+ * The consent gate in front of the system accessibility settings.
+ *
+ * Google Play requires an app that uses the accessibility APIs without being an
+ * accessibility tool to disclose, prominently and inside the app, what the
+ * service does with the access — and to obtain an affirmative acknowledgement
+ * before the access begins. That is what this dialog is: the same three facts
+ * the card states, restated where the user cannot miss them, with the jump to
+ * settings behind an explicit "agree".
+ */
+@Composable
+private fun AccessibilityDisclosureDialog(
+    onAgree: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(text = stringResource(R.string.accessibility_disclosure_title)) },
+        text = {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                Text(
+                    text = stringResource(R.string.accessibility_disclosure_intro),
+                    style = MaterialTheme.typography.bodyMedium,
+                    lineHeight = 20.sp,
+                )
+                Spacer(Modifier.height(12.dp))
+                DisclosureBullets(lineHeight = 20.sp)
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onAgree) {
+                Text(stringResource(R.string.accessibility_disclosure_agree))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.cancel))
+            }
+        },
+    )
+}
+
+/**
+ * The purpose / data / control triple, in that order. Shared by the card and
+ * the dialog so the two can never drift apart.
+ */
+@Composable
+private fun DisclosureBullets(lineHeight: TextUnit) {
+    val points = listOf(
+        R.string.accessibility_disclosure_purpose,
+        R.string.accessibility_disclosure_data,
+        R.string.accessibility_disclosure_control,
+    )
+    points.forEachIndexed { index, point ->
+        Text(
+            text = stringResource(point),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            lineHeight = lineHeight,
+            modifier = Modifier.padding(bottom = if (index == points.lastIndex) 0.dp else 8.dp),
+        )
+    }
+}
+
+/**
+ * Shown whatever the grant state is, including after the service is on: the
+ * disclosure is a standing statement of what the access is used for, not a
+ * prompt that disappears once the user has said yes.
+ */
+@Composable
+private fun AccessibilityDisclosureCard() {
+    Surface(
+        shape = RoundedCornerShape(12.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        tonalElevation = 0.dp,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(modifier = Modifier.padding(14.dp)) {
+            Text(
+                text = stringResource(R.string.accessibility_disclosure_title),
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Spacer(Modifier.height(8.dp))
+            DisclosureBullets(lineHeight = 19.sp)
+        }
     }
 }
 
@@ -303,6 +407,13 @@ private fun ScreenOffMethodCard(
             )
 
             Spacer(Modifier.height(14.dp))
+
+            // Below Android 9 the service is never used, so a disclosure about
+            // it would describe something that cannot happen on this device.
+            if (accessibilitySupported) {
+                AccessibilityDisclosureCard()
+                Spacer(Modifier.height(14.dp))
+            }
 
             when {
                 !accessibilitySupported -> NoticeCard(

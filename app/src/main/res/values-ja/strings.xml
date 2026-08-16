@@ -363,4 +363,12 @@
     <string name="accessibility_not_enabled_message">画面点灯時間の指定は、ユーザー補助の「画面ロック」操作で画面を消灯します。有効にするまで、この機能は動作しません。</string>
     <string name="accessibility_dialog_grant">設定する</string>
     <string name="accessibility_dialog_leave_anyway">このまま戻る</string>
+
+    <!-- Prominent disclosure shown before the accessibility service is enabled -->
+    <string name="accessibility_disclosure_title">ユーザー補助へのアクセスの用途</string>
+    <string name="accessibility_disclosure_intro">このアプリはユーザー補助ツールではありません。ユーザー補助へのアクセスは、以下の 1 つの目的だけに使います。オンにする前にお読みください。</string>
+    <string name="accessibility_disclosure_purpose">行うこと: 設定した画面点灯時間が終わったときに、システム標準の「画面ロック」操作を実行して画面を消します。それ以外は何もしません。</string>
+    <string name="accessibility_disclosure_data">アクセスするもの: ありません。このサービスはユーザー補助イベントを一切購読せず、画面の内容を読み取ることもできません。個人情報や機密情報の収集・保存・共有・送信は一切行いません。</string>
+    <string name="accessibility_disclosure_control">あなたの選択: この許可は任意です。許可しなくても他の機能は使え、システムのユーザー補助設定からいつでもオフに戻せます。</string>
+    <string name="accessibility_disclosure_agree">同意して設定を開く</string>
 </resources>

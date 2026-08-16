@@ -363,4 +363,12 @@
     <string name="accessibility_not_enabled_message">การกำหนดเวลาเปิดหน้าจอเองต้องใช้การดำเนินการ \"ล็อกหน้าจอ\" ของบริการช่วยเหลือการเข้าถึงเพื่อดับหน้าจอ ก่อนที่จะเปิดใช้ ฟีเจอร์นี้จะยังไม่ทำงาน</string>
     <string name="accessibility_dialog_grant">เปิดเลย</string>
     <string name="accessibility_dialog_leave_anyway">ออกต่อไป</string>
+
+    <!-- Prominent disclosure shown before the accessibility service is enabled -->
+    <string name="accessibility_disclosure_title">แอปนี้ใช้สิทธิ์การช่วยเหลือพิเศษอย่างไร</string>
+    <string name="accessibility_disclosure_intro">แอปนี้ไม่ใช่เครื่องมือช่วยเหลือพิเศษ แต่ขอสิทธิ์การช่วยเหลือพิเศษเพื่อวัตถุประสงค์เดียวตามที่อธิบายด้านล่าง โปรดอ่านก่อนเปิดใช้</string>
+    <string name="accessibility_disclosure_purpose">ทำอะไร: เมื่อครบระยะเวลาเปิดหน้าจอที่คุณตั้งไว้ แอปจะสั่งการทำงาน \"ล็อกหน้าจอ\" ของระบบเพื่อปิดหน้าจอ เท่านั้น ไม่ทำอย่างอื่น</string>
+    <string name="accessibility_disclosure_data">เข้าถึงอะไร: ไม่เข้าถึงสิ่งใดเลย บริการนี้ไม่รับเหตุการณ์การช่วยเหลือพิเศษใด ๆ และอ่านเนื้อหาบนหน้าจอไม่ได้ ไม่มีการเก็บ บันทึก แชร์ หรือส่งข้อมูลส่วนบุคคลหรือข้อมูลอ่อนไหวไปที่ใด</string>
+    <string name="accessibility_disclosure_control">คุณเลือกได้: สิทธิ์นี้เป็นทางเลือก ฟีเจอร์อื่นของแอปใช้งานได้ตามปกติแม้ไม่ให้สิทธิ์ และคุณปิดสิทธิ์นี้ได้ทุกเมื่อในการตั้งค่าการช่วยเหลือพิเศษของระบบ</string>
+    <string name="accessibility_disclosure_agree">ยอมรับและไปที่การตั้งค่า</string>
 </resources>

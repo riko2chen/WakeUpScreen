@@ -377,4 +377,12 @@
     <string name="accessibility_not_enabled_message">La durata schermo acceso personalizzata usa l\'azione di accessibilità \"blocca schermo\" per spegnere il display. Finché non è attiva, questa funzione non avrà effetto.</string>
     <string name="accessibility_dialog_grant">Attiva ora</string>
     <string name="accessibility_dialog_leave_anyway">Esci comunque</string>
+
+    <!-- Prominent disclosure shown before the accessibility service is enabled -->
+    <string name="accessibility_disclosure_title">Come l\'app usa l\'accessibilità</string>
+    <string name="accessibility_disclosure_intro">Questa app non è uno strumento di accessibilità. Usa l\'accesso all\'accessibilità per il solo scopo descritto qui sotto. Leggi prima di attivarlo.</string>
+    <string name="accessibility_disclosure_purpose">Cosa fa: quando la durata di accensione dello schermo che hai impostato termina, esegue l\'azione di sistema \"blocca schermo\" per spegnere il display. Nient\'altro.</string>
+    <string name="accessibility_disclosure_data">A cosa accede: a nulla. Il servizio non si iscrive ad alcun evento di accessibilità e non può leggere il contenuto dello schermo. Nessun dato personale o sensibile viene raccolto, memorizzato, condiviso o trasmesso.</string>
+    <string name="accessibility_disclosure_control">La scelta è tua: questa autorizzazione è facoltativa. Tutto il resto dell\'app funziona senza, e puoi disattivarla in qualsiasi momento nelle impostazioni di accessibilità del sistema.</string>
+    <string name="accessibility_disclosure_agree">Accetto, apri le impostazioni</string>
 </resources>
