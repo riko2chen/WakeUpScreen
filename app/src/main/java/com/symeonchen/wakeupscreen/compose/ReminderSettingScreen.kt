@@ -20,9 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
-import com.symeonchen.wakeupscreen.compose.components.GlyphBadge
-import com.symeonchen.wakeupscreen.compose.theme.Indigo
-import com.symeonchen.wakeupscreen.compose.theme.IndigoDark
+import com.symeonchen.wakeupscreen.compose.components.HelpButton
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 @Composable
 fun ReminderSettingScreen(
@@ -100,7 +99,7 @@ private fun IntervalCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -165,25 +164,12 @@ private fun IntervalCard(
                 )
                 HelpButton(
                     onClick = onHelpClick,
+                    onClickLabel = stringResource(R.string.reminder_delay_help_title),
                     modifier = Modifier.padding(start = 8.dp),
                 )
             }
         }
     }
-}
-
-@Composable
-private fun HelpButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    GlyphBadge(
-        text = "?",
-        size = 20.dp,
-        fontSize = 13.sp,
-        background = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.15f),
-        contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = modifier,
-        onClick = onClick,
-        onClickLabel = stringResource(R.string.reminder_delay_help_title),
-    )
 }
 
 @Composable
@@ -195,7 +181,7 @@ private fun MaxRoundsCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -224,7 +210,10 @@ private fun MaxRoundsCard(
                             .then(
                                 if (isSelected) Modifier.background(
                                     Brush.linearGradient(
-                                        listOf(IndigoDark, Indigo),
+                                        listOf(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            MaterialTheme.colorScheme.primaryContainer,
+                        ),
                                         start = Offset(0f, 0f),
                                         end = Offset(56f, 56f),
                                     )
@@ -255,7 +244,7 @@ private fun MaxRoundsCard(
 private fun PriorityCard() {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {

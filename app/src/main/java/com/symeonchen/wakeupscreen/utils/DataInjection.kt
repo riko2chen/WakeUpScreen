@@ -1,14 +1,22 @@
 package com.symeonchen.wakeupscreen.utils
 
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
+import com.symeonchen.wakeupscreen.data.SleepSchedule
+import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_BLACK_LIST_STRING
+import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_LEVEL_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_LEVEL_THRESHOLD
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_LEVEL_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_LEVEL_THRESHOLD
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_LIST_FLAG
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_NOTIFY_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_SAVER_FAKE_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.CHARGING_ONLY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.CUSTOM_STATUS
+import com.symeonchen.wakeupscreen.data.ScConstant.DARK_MODE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEBUG_MODE_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_BLACK_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_NOTIFY_MODE
@@ -17,13 +25,14 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_APP_WHITE_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_CHARGING_ONLY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DARK_MODE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PERMISSION_OF_SEND_NOTIFICATION
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_PRECISE_SCREEN_ON_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_DETECT
-import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_MAX_ROUNDS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_REPEAT_REMINDER_ROUND_COUNT
@@ -36,7 +45,14 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_DEBUG_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_VALUE_OF_PROXIMITY
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_STATUS_OF_FACE_DOWN
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_FACE_DOWN
 import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.FACE_DOWN_STATUS
+import com.symeonchen.wakeupscreen.data.ScConstant.FACE_DOWN_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_NIGHT_GLOW_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.NIGHT_GLOW_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.IGNORE_SILENT_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
@@ -44,16 +60,23 @@ import com.symeonchen.wakeupscreen.data.ScConstant.PRECISE_SCREEN_ON_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
-import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_NOTIFICATION_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_INTERVAL_MINUTES
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_MAX_ROUNDS
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_ROUND_COUNT
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.SEND_NOTIFICATION_PERMISSION
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SLEEP_MODE_SEGMENTS
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_BOOLEAN
+import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_SEGMENTS
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_BEGIN
 import com.symeonchen.wakeupscreen.data.ScConstant.SLEEP_MODE_TIME_END
 import com.symeonchen.wakeupscreen.data.ScConstant.WAKE_SCREEN_SECOND
+import com.symeonchen.wakeupscreen.data.ScConstant.LAST_SEEN_VERSION_CODE
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_SEEN_VERSION_CODE
+import com.symeonchen.wakeupscreen.data.ScConstant.UPDATED_FROM_VERSION_CODE
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_UPDATED_FROM_VERSION_CODE
+import com.symeonchen.wakeupscreen.data.ScConstant.CLICKED_FEATURE_BADGES
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_CLICKED_FEATURE_BADGES
 import com.tencent.mmkv.MMKV
 
 /**
@@ -70,11 +93,25 @@ object DataInjection {
             MMKV.defaultMMKV()?.putBoolean(CUSTOM_STATUS, value)
         }
 
+    /**
+     * Reading it the first time after an upgrade brings a value left by an
+     * older build — the free-text setting allowed anything, and 4.0.0 raised
+     * the floor from 3 to 5 seconds — into the supported range and writes the
+     * result, so the raise happens once instead
+     * of being re-applied by every reader. Without the write-back the settings
+     * page compares a legacy 3s against the presets and highlights none of
+     * them, while everything else already reports the clamped 5s.
+     */
     var milliSecondOfWakeUpScreen: Long
         get() {
-            return MMKV.defaultMMKV()
+            val stored = MMKV.defaultMMKV()
                 ?.getLong(WAKE_SCREEN_SECOND, DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS)
                 ?: DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
+            val clamped = ScreenOnWindowCalculator.clampSeconds(stored / 1000L) * 1000L
+            if (clamped != stored) {
+                milliSecondOfWakeUpScreen = clamped
+            }
+            return clamped
         }
         set(millisSec) {
             if (millisSec < 0) {
@@ -100,6 +137,25 @@ object DataInjection {
         }
         set(switch) {
             MMKV.defaultMMKV()?.putBoolean(PROXIMITY_SWITCH, switch)
+        }
+
+    var switchOfFaceDown: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(FACE_DOWN_SWITCH, DEFAULT_SWITCH_OF_FACE_DOWN)
+                ?: DEFAULT_SWITCH_OF_FACE_DOWN
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(FACE_DOWN_SWITCH, value)
+        }
+
+    /** Last posture the accelerometer reported; written by the sensor listener alone. */
+    var statusOfFaceDown: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(FACE_DOWN_STATUS, DEFAULT_STATUS_OF_FACE_DOWN)
+                ?: DEFAULT_STATUS_OF_FACE_DOWN
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(FACE_DOWN_STATUS, value)
         }
 
     var fakeSwitchOfBatterySaver: Boolean
@@ -192,18 +248,7 @@ object DataInjection {
                 ?: DEFAULT_RADICAL_ONGOING_DETECT
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(ONGOING_STATUS_DETECT, value)
-        }
-
-    var radicalOngoingNotificationSwitch: Boolean
-        get() {
-            return MMKV.defaultMMKV()?.getBoolean(
-                RADICAL_ONGOING_NOTIFICATION_SWITCH,
-                DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
-            ) ?: DEFAULT_RADICAL_ONGOING_NOTIFICATION_SWITCH
-        }
-        set(value) {
-            MMKV.defaultMMKV()?.putBoolean(RADICAL_ONGOING_NOTIFICATION_SWITCH, value)
+            MMKV.defaultMMKV()?.putBoolean(RADICAL_ONGOING_DETECT, value)
         }
 
     var languageSelected: LanguageInfo
@@ -219,6 +264,19 @@ object DataInjection {
             MMKV.defaultMMKV()?.putInt(LANGUAGE_SELECTED, value.ordinal)
         }
 
+    var darkModeSelected: DarkModeInfo
+        get() {
+            return DarkModeInfo.getModeFromValue(
+                MMKV.defaultMMKV()?.getInt(
+                    DARK_MODE_SELECTED,
+                    DEFAULT_DARK_MODE_SELECTED
+                ) ?: DEFAULT_DARK_MODE_SELECTED
+            )
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putInt(DARK_MODE_SELECTED, value.referenceNum)
+        }
+
     var sleepModeBoolean: Boolean
         get() {
             return MMKV.defaultMMKV()?.getBoolean(SLEEP_MODE_BOOLEAN, DEFAULT_SLEEP_MODE_BOOLEAN)
@@ -228,6 +286,35 @@ object DataInjection {
             MMKV.defaultMMKV()?.putBoolean(SLEEP_MODE_BOOLEAN, value)
         }
 
+    /**
+     * Every sleep window, as `[start, end)` minute pairs.
+     *
+     * Reading it the first time after an upgrade migrates the old hour-only
+     * pair into a single window and writes the result, so the migration runs
+     * once and the legacy keys are never consulted again. Clearing every window
+     * writes an empty string, which is a value like any other: the getter must
+     * not mistake it for "not migrated yet" and resurrect the old range.
+     */
+    var sleepModeSegments: List<SleepSegment>
+        get() {
+            val stored = MMKV.defaultMMKV()?.getString(SLEEP_MODE_SEGMENTS, DEFAULT_SLEEP_MODE_SEGMENTS)
+            if (stored == null) {
+                val migrated = listOf(
+                    SleepSchedule.fromLegacyHours(sleepModeTimeBeginHour, sleepModeTimeEndHour)
+                )
+                sleepModeSegments = migrated
+                return migrated
+            }
+            return SleepSchedule.parse(stored)
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putString(SLEEP_MODE_SEGMENTS, SleepSchedule.serialize(value))
+        }
+
+    /**
+     * Pre-3.2.0 sleep window, kept only so [sleepModeSegments] can migrate an
+     * existing install once. Nothing reads it to decide anything any more.
+     */
     var sleepModeTimeBeginHour: Int
         get() {
             return MMKV.defaultMMKV()?.getInt(
@@ -248,6 +335,19 @@ object DataInjection {
         }
         set(value) {
             MMKV.defaultMMKV()?.putInt(SLEEP_MODE_TIME_END, value)
+        }
+
+    /**
+     * While on, a notification stopped by the sleep gate still shows the dim
+     * red night glow instead of leaving the display dark.
+     */
+    var nightGlowSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(NIGHT_GLOW_SWITCH, DEFAULT_NIGHT_GLOW_SWITCH)
+                ?: DEFAULT_NIGHT_GLOW_SWITCH
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(NIGHT_GLOW_SWITCH, value)
         }
 
     var dndDetectSwitch: Boolean
@@ -362,5 +462,93 @@ object DataInjection {
      */
     val preciseScreenOnSecond: Long
         get() = ScreenOnWindowCalculator.clampSeconds(milliSecondOfWakeUpScreen / 1000L)
+
+    /**
+     * Whether notifications the system itself treats as silent should be
+     * ignored. See [com.symeonchen.wakeupscreen.services.notification.ImportancePolicy]
+     * for what counts as silent.
+     */
+    var batteryLevelSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(
+                BATTERY_LEVEL_SWITCH,
+                DEFAULT_BATTERY_LEVEL_SWITCH
+            ) ?: DEFAULT_BATTERY_LEVEL_SWITCH
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(BATTERY_LEVEL_SWITCH, value)
+        }
+
+    /** Battery percentage below which the screen stays dark, while not charging. */
+    var batteryLevelThreshold: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                BATTERY_LEVEL_THRESHOLD,
+                DEFAULT_BATTERY_LEVEL_THRESHOLD
+            ) ?: DEFAULT_BATTERY_LEVEL_THRESHOLD
+        }
+        set(value) {
+            if (value !in 1..99) {
+                return
+            }
+            MMKV.defaultMMKV()?.putInt(BATTERY_LEVEL_THRESHOLD, value)
+        }
+
+    /**
+     * The versionCode whose What's New content the user has already been shown.
+     * Runtime state like [lastInAppReviewTime], so none of these three keys
+     * belong in the settings backup: importing them onto another device would
+     * suppress (or replay) the What's New sheet there for no reason.
+     */
+    var lastSeenVersionCode: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                LAST_SEEN_VERSION_CODE,
+                DEFAULT_LAST_SEEN_VERSION_CODE
+            ) ?: DEFAULT_LAST_SEEN_VERSION_CODE
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putInt(LAST_SEEN_VERSION_CODE, value)
+        }
+
+    /**
+     * The versionCode the user updated from, kept so the NEW badges can outlive
+     * the one-shot What's New sheet: a badge stays until its row is visited,
+     * not until the sheet is dismissed. On a fresh install this is the current
+     * version, which makes every badge test false.
+     */
+    var updatedFromVersionCode: Int
+        get() {
+            return MMKV.defaultMMKV()?.getInt(
+                UPDATED_FROM_VERSION_CODE,
+                DEFAULT_UPDATED_FROM_VERSION_CODE
+            ) ?: DEFAULT_UPDATED_FROM_VERSION_CODE
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putInt(UPDATED_FROM_VERSION_CODE, value)
+        }
+
+    /** Comma-joined [com.symeonchen.wakeupscreen.data.FeatureBadge] keys already visited. */
+    var clickedFeatureBadges: String
+        get() {
+            return MMKV.defaultMMKV()?.getString(
+                CLICKED_FEATURE_BADGES,
+                DEFAULT_CLICKED_FEATURE_BADGES
+            ) ?: DEFAULT_CLICKED_FEATURE_BADGES
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putString(CLICKED_FEATURE_BADGES, value)
+        }
+
+    var ignoreSilentNotificationSwitch: Boolean
+        get() {
+            return MMKV.defaultMMKV()?.getBoolean(
+                IGNORE_SILENT_NOTIFICATION_SWITCH,
+                DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
+            ) ?: DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
+        }
+        set(value) {
+            MMKV.defaultMMKV()?.putBoolean(IGNORE_SILENT_NOTIFICATION_SWITCH, value)
+        }
 
 }

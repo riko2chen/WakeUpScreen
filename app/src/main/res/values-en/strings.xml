@@ -5,11 +5,13 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="language">Language</string>
     <string name="language_zh_cn">简体中文</string>
     <string name="language_en">English</string>
     <string name="clear_all">Clear</string>
     <string name="save">Save</string>
+    <string name="back">Back</string>
     <string name="mail_title">[Question] [Wake Up Screen] write title here</string>
 
 
@@ -18,9 +20,10 @@
     <string name="click_to_open">Click to open</string>
     <string name="to_setting">To setting</string>
     <string name="how_to_set">How to set</string>ß
-    <string name="already_open">Already open</string>
-    <string name="already_close">Already close</string>
-    <string name="i_already_close">Already close</string>
+    <string name="already_open">On</string>
+    <string name="already_close">Off</string>
+    <string name="status_running">Running</string>
+    <string name="status_paused">Paused</string>
     <string name="not_open">not open</string>
     <string name="not_close">not close</string>
     <string name="wanna_close">I want to close</string>
@@ -41,11 +44,11 @@
     <string name="developing">Developing</string>
     <string name="permission_of_read_notification">Read notification permission</string>
     <string name="service_of_background">Background Services</string>
-    <string name="time_of_wake_up_screen">Bright screen time</string>
+    <string name="time_of_wake_up_screen">Custom screen-on duration</string>
     <string name="optimize_of_battery_saver">Turn off power optimization</string>
     <string name="pocket_mode">Pocket Mode</string>
-    <string name="ongoing_status">Optimize Ongoing Notify</string>
-    <string name="current_mode">Current Mode</string>
+    <string name="ongoing_status">Block Ongoing Notifications</string>
+    <string name="current_mode">Filter Mode</string>
     <string name="all_pass">All Notify</string>
     <string name="white_list">Whitelist mode</string>
     <string name="white_list_page">Whitelist Setting Page</string>
@@ -71,7 +74,20 @@
     <string name="custom">Custom</string>
     <string name="about">About</string>
     <string name="debug">Debug</string>
-    <string name="advanced_setting">Advanced Setting</string>
+    <string name="advanced_setting">Wake Rules</string>
+    <string name="setting_search_hint">Search settings</string>
+    <string name="setting_search_no_result">No matching settings</string>
+    <string name="section_general">General</string>
+    <string name="section_diagnostics">Diagnostics</string>
+    <string name="section_screen_on_duration">Screen-on Duration</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="follow_system">Follow System</string>
+    <string name="dark_mode_light">Light</string>
+    <string name="dark_mode_dark">Dark</string>
+    <string name="section_notification_filter">Filter by App</string>
+    <string name="section_advanced">Advanced</string>
+    <string name="section_notification_rules">Filter by Notification Type</string>
+    <string name="section_device_state">Device State</string>
     <string name="about_this_app">About Wake Up Screen</string>
     <string name="app_info">App Info</string>
     <string name="info">Info</string>
@@ -80,11 +96,26 @@
     <string name="click_here_to_open_google_play_store">Click here to open Google Play Store</string>
 
     <string name="app_intro_full">This is an Android app that allows the phone to wake up when it receives a notification.\nSpecially for Samsung S10 optimization. Also compatible with other devices.\nIt\'s open source, no internet access, and free.</string>
-    <string name="sleep_mode_open_desc">"The screen will not wake between "</string>
     <string name="sleep_mode">Sleep Mode</string>
     <string name="delay_to_wakeup">Click here to begin wake test</string>
     <string name="click_here_and_press_power_button_within_10_sec">Click here and press power button within 5 seconds</string>
     <string name="sleep_time">Sleep Time</string>
+    <string name="sleep_ring_asleep">Sleep window</string>
+    <string name="sleep_ring_awake">Screen wakes</string>
+    <string name="sleep_segments_count">%1$d windows</string>
+    <string name="sleep_segments_empty">No window set</string>
+    <string name="sleep_segments_empty_hint">The screen wakes all day until a window is added.</string>
+    <string name="sleep_add_segment">Add window</string>
+    <string name="sleep_delete_segment">Delete window</string>
+    <string name="sleep_start_time">Starts</string>
+    <string name="sleep_end_time">Ends</string>
+    <string name="sleep_overlap_error">Overlaps an existing window (%1$s). Pick a different time.</string>
+    <string name="sleep_same_time_error">Start and end cannot be the same.</string>
+    <string name="sleep_max_segments_reached">At most %1$d windows.</string>
+    <string name="sleep_range_note">The start minute is inside the window, the end minute is outside it, so 02:00 - 04:00 stops at 03:59 and one window may start where another ends.</string>
+    <string name="sleep_crosses_midnight">over midnight</string>
+    <string name="sleep_duration_hm">%1$dh %2$dm</string>
+    <string name="sleep_duration_m">%1$dm</string>
     <string name="dnd_detect_title">Detection of Do Not Disturb</string>
     <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
     <string name="charging_only_title">Charging Only Mode</string>
@@ -98,10 +129,14 @@
     <string name="still_have_problem">Still having problems? Click here to open setting</string>
     <string name="close_app_notice">This action will close Application, please reopen the APP after that.</string>
     <string name="include_system_app">Include system APP</string>
-    <string name="radical_ongoing_detact">Radical Ongoing Detect (unstable)</string>
+    <string name="radical_ongoing_detact">Block Non-clearable Notifications</string>
+    <string name="ongoing_status_help">Notifications an app marks as ongoing are stopped, and the screen stays dark.\n\nAn ongoing notification stands for something still in progress: a WeChat video call, a QQ call, music that is playing, navigation that is running. It stays in the shade until the event ends and may update many times on the way, and every update would otherwise be a chance to wake the screen.</string>
+    <string name="radical_ongoing_help">Notifications an app marks as non-clearable are stopped.\n\nThis reaches wider than \"Block Ongoing Notifications\": besides notifications marked as ongoing, it also catches ones that carry no such mark yet still cannot be swiped away, such as some background service reminders.\n\nWith both switches on, this one decides the outcome and the ongoing switch adds nothing on top.\n\nA few apps mark ordinary messages as non-clearable as well. Those messages are stopped too, which is why this one is experimental.</string>
+    <string name="ignore_silent_notification">Ignore Silent Notifications</string>
+    <string name="ignore_silent_notification_desc">Notifications on channels set to Low, Min or None importance no longer wake the screen.</string>
     <string name="send_notification_permission">Permission to send notifications</string>
 
-    <string name="function_test">Function Test</string>
+    <string name="function_test">Wake Test</string>
     <string name="view_logs">View Logs</string>
     <string name="view_logs_subtitle">Notification records and screen wake-up history</string>
     <string name="log_empty">No logs yet</string>
@@ -120,6 +155,7 @@
     <string name="log_reason_pocket_mode">Pocket mode is active — the proximity sensor detected the device is in a pocket.</string>
     <string name="log_reason_filter_list">The app was filtered by whitelist/blacklist rules.</string>
     <string name="log_reason_ongoing">Ongoing notification was filtered.</string>
+    <string name="log_reason_low_importance">The notification is silent — its channel importance is too low.</string>
     <string name="log_reason_sleep_mode">Currently in sleep mode time period.</string>
     <string name="log_reason_dnd">Do Not Disturb mode is active.</string>
     <string name="log_reason_charging">Device is not charging.</string>
@@ -140,6 +176,7 @@
     <string name="feedback_send_email">Email</string>
     <string name="feedback_copy_email">Copy email</string>
     <string name="feedback_email_copied">Email copied</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">Xiaohongshu</string>
 
@@ -220,4 +257,124 @@
     <string name="unsaved_changes_message">The screen-on duration has been changed but not saved yet.</string>
     <string name="save_and_back">Save and go back</string>
     <string name="discard_changes">Discard</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">Notification Check Process</string>
+    <string name="chain_entry_subtitle">Shows where a notification would stop under the current settings</string>
+    <string name="chain_live_hint">Based on your current settings and device state — this is what a notification arriving right now would run into.</string>
+    <string name="chain_live_footer">App filter, notification importance and ongoing notification filter depend on the notification itself, so they cannot be decided here.</string>
+    <string name="chain_log_section_title">What it went through</string>
+    <string name="chain_show_notification_fields">Show notification fields</string>
+    <string name="chain_current_setting">now set to %1$s</string>
+    <string name="chain_node_notification_access">Notification access</string>
+    <string name="chain_node_master_switch">Main switch</string>
+    <string name="chain_node_pocket_mode">Pocket mode</string>
+    <string name="chain_node_interactive">Screen state</string>
+    <string name="chain_node_filter_list">App filter</string>
+    <string name="chain_node_low_importance">Notification importance</string>
+    <string name="chain_node_ongoing">Ongoing notifications</string>
+    <string name="chain_node_sleep_mode">Sleep mode</string>
+    <string name="chain_node_dnd">Do Not Disturb</string>
+    <string name="chain_node_charging">Charging only</string>
+    <string name="chain_node_wake_up">Wake the screen</string>
+    <string name="chain_state_passed">Passed</string>
+    <string name="chain_state_blocked">Stopped here</string>
+    <string name="chain_state_skipped">Off, not applied</string>
+    <string name="chain_state_depends">Depends on the notification</string>
+    <string name="chain_state_not_evaluated">Not reached</string>
+    <string name="chain_state_reached">Screen woken</string>
+    <string name="chain_state_not_reached">Never got here</string>
+    <string name="chain_legend_pass">Passing</string>
+    <string name="chain_legend_block">Blocking now</string>
+    <string name="chain_legend_depends">Depends</string>
+    <string name="chain_legend_off">Off</string>
+    <string name="chain_config_granted">Granted</string>
+    <string name="chain_config_not_granted">Not granted</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- Last successful wake, shown on the home page -->
+    <string name="last_wake_just_now">Last successful wake: just now</string>
+    <string name="last_wake_minutes_ago">Last successful wake: %1$d min ago</string>
+    <string name="last_wake_hours_ago">Last successful wake: %1$d h ago</string>
+    <string name="last_wake_days_ago">Last successful wake: %1$d d ago</string>
+    <string name="last_wake_never">No successful wake recorded yet. Tap to open the logs.</string>
+    <!-- Sleep window weekdays -->
+    <string name="sleep_days_label">Active days</string>
+    <string name="sleep_days_every_day">Every day</string>
+    <string name="sleep_days_weekdays">Weekdays</string>
+    <string name="sleep_days_weekend">Weekend</string>
+    <string name="sleep_days_empty_error">Pick at least one day.</string>
+    <!-- Battery level gate -->
+    <string name="battery_level_title">Low Battery Silence</string>
+    <string name="battery_level_desc">Below the threshold and not charging, notifications stop waking the screen.</string>
+    <string name="battery_level_threshold_title">Battery threshold</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">Battery level</string>
+    <string name="chain_config_battery_threshold">below %1$d%%</string>
+    <string name="log_reason_battery_level">Battery was below the configured threshold and the device was not charging.</string>
+    <!-- Face-down silence gate -->
+    <string name="face_down_title">Face-down Silence</string>
+    <string name="face_down_desc">While the phone lies screen-down, notifications do not wake the screen.</string>
+    <string name="chain_node_face_down">Face down</string>
+    <string name="log_reason_face_down">The phone was lying face down.</string>
+    <!-- Settings backup -->
+    <string name="section_backup">Backup</string>
+    <string name="backup_export_title">Export settings</string>
+    <string name="backup_export_subtitle">Save every setting to a JSON file</string>
+    <string name="backup_import_title">Import settings</string>
+    <string name="backup_import_subtitle">Restore settings from a backup file</string>
+    <string name="backup_export_success">Settings exported</string>
+    <string name="backup_export_failed">Could not write the backup file</string>
+    <string name="backup_import_success">Imported %1$d settings</string>
+    <string name="backup_import_failed_corrupt">Not a WakeUpScreen backup file</string>
+    <string name="backup_import_failed_newer">This backup was made by a newer version of the app. Update the app, then import again.</string>
+    <!-- Night glow -->
+    <string name="night_glow_title">Night Glow</string>
+    <string name="night_glow_desc">During sleep windows, show a dim red glow for a moment instead of staying dark</string>
+    <string name="log_status_night_glow">Night glow</string>
+    <string name="log_status_night_glow_desc">The sleep window stopped the normal wake, and the dim red night glow was shown instead.</string>
+    <!-- Attention statistics -->
+    <string name="attention_stats_title">Attention Statistics</string>
+    <string name="attention_stats_subtitle">Which apps wake the screen and never get looked at</string>
+    <string name="attention_stats_list_title">Last 30 days</string>
+    <string name="attention_stats_row">Woke the screen %1$d times · followed up %2$d times</string>
+    <string name="attention_stats_empty">No wakes recorded yet. Data appears here as notifications wake the screen.</string>
+    <string name="attention_suggestion_title">Suggestions</string>
+    <string name="attention_suggestion_body">%1$s woke the screen %2$d times in the last 30 days and was never followed by an unlock. Add it to the blacklist?</string>
+    <string name="attention_add_blacklist">Add to blacklist</string>
+    <string name="attention_added_blacklist">Added to the blacklist</string>
+    <string name="attention_added_blacklist_mode_hint">Added to the blacklist. Note: blacklist mode is not the active filter mode yet.</string>
+    <string name="attention_stats_note">Counted entirely on this device from two events: the screen being woken, and the device being unlocked shortly after. Notification content is never read, and nothing leaves the device.</string>
+
+    <!-- In-app changelog / What's New sheet -->
+    <string name="changelog">Changelog</string>
+    <string name="changelog_subtitle">What changed in recent versions</string>
+    <string name="whats_new_title">What\'s new</string>
+    <string name="changelog_view_full">View full changelog</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG.md</string>
+    <string name="changelog_v40000_1">Home shows how long ago the screen last woke</string>
+    <string name="changelog_v40000_2">Sleep windows can apply only on chosen weekdays</string>
+    <string name="changelog_v40000_3">New rules: Low Battery Silence and Face-down Silence</string>
+    <string name="changelog_v40000_4">Night Glow: optional dim red light during sleep windows</string>
+    <string name="changelog_v40000_5">Attention Statistics: spot apps that wake the screen but never get looked at</string>
+    <string name="changelog_v40000_6">Settings export and import as a file</string>
+    <string name="changelog_v40000_7">In-app changelog — the one you are reading now</string>
+    <string name="changelog_v32000_1">Sleep Mode supports multiple windows, precise to the minute</string>
+    <string name="changelog_v32000_2">New Dark Mode setting: system, light or dark</string>
+    <string name="changelog_v32000_3">Colors rebuilt on Material 3; settings regrouped</string>
+    <string name="changelog_v32000_4">Fixed the non-clearable notification filter never being saved</string>
+    <string name="changelog_v31100_1">Now targets Android 16 (API 36)</string>
+    <string name="changelog_v31100_2">Sub-pages use the system predictive back animation</string>
+    <string name="changelog_v31000_1">Repeat Reminder: the screen lights up again while a notification stays unread</string>
+    <string name="changelog_v31000_2">New custom screen-on duration</string>
+    <string name="changelog_v30600_1">Removed the special-use foreground service permission and the persistent notification option</string>
+    <string name="changelog_v30500_1">New check-for-updates page under Settings → About</string>
+    <string name="changelog_v30500_2">Fixed edge-to-edge layout issues on Android 15+</string>
+
+    <!-- Accessibility guard on the custom screen-on duration page -->
+    <string name="accessibility_required_title">Accessibility permission required</string>
+    <string name="accessibility_not_enabled_title">Accessibility not enabled</string>
+    <string name="accessibility_not_enabled_message">Custom screen-on duration relies on the accessibility \"lock screen\" action to turn the display off. Until it is enabled, this feature will not take effect.</string>
+    <string name="accessibility_dialog_grant">Enable now</string>
+    <string name="accessibility_dialog_leave_anyway">Leave anyway</string>
 </resources>

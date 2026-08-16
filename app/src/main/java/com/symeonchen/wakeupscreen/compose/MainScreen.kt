@@ -12,8 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.symeonchen.wakeupscreen.compose.components.HeroSection
 import com.symeonchen.wakeupscreen.compose.components.StatusCard
-import com.symeonchen.wakeupscreen.compose.theme.Amber
-import com.symeonchen.wakeupscreen.compose.theme.AmberSoft
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 data class StatusDisplayState(
     val statusText: String,
@@ -49,6 +48,9 @@ fun MainScreen(
     notifPermBtn: String,
     onNotifPermItemClick: () -> Unit,
     onNotifPermBtnClick: () -> Unit,
+    // Last successful wake, as ready-to-show text
+    lastWakeText: String,
+    onLastWakeClick: () -> Unit,
     // Notice
     noticeText: String,
     onNoticeClick: () -> Unit,
@@ -103,6 +105,27 @@ fun MainScreen(
             )
         }
 
+        // Last successful wake, straight from the notification log. Tapping it
+        // opens the log so "X minutes ago" can be checked against the entries
+        // it was computed from.
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 24.dp),
+            shape = RoundedCornerShape(12.dp),
+            color = MaterialTheme.colorScheme.surfaceContainerLow,
+            tonalElevation = 0.dp,
+            onClick = onLastWakeClick,
+        ) {
+            Text(
+                text = lastWakeText,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(14.dp),
+            )
+        }
+
         // Notice card
         if (statusDisplay.isNoticeVisible) {
             Surface(
@@ -111,13 +134,13 @@ fun MainScreen(
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 24.dp),
                 shape = RoundedCornerShape(12.dp),
-                color = AmberSoft,
+                color = WakeUpTheme.colors.noticeContainer,
                 tonalElevation = 0.dp,
                 onClick = onNoticeClick,
             ) {
                 Text(
                     text = noticeText,
-                    color = Amber,
+                    color = WakeUpTheme.colors.onNoticeContainer,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(14.dp),
                 )

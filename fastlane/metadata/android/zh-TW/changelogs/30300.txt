@@ -1,0 +1,3 @@
+• 首次發布到 F-Droid
+• 新增 fastlane metadata 以支援 F-Droid
+• 相較 3.0.2 無功能變動

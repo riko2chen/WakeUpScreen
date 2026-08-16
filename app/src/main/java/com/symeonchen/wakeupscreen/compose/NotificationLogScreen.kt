@@ -4,7 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,11 +16,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import android.app.NotificationManager
 import com.symeonchen.wakeupscreen.R
+import com.symeonchen.wakeupscreen.compose.components.BlockChainView
+import com.symeonchen.wakeupscreen.compose.components.ChainRow
+import com.symeonchen.wakeupscreen.compose.components.ChainSurface
 import com.symeonchen.wakeupscreen.compose.components.ComposeToolbar
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 import com.symeonchen.wakeupscreen.data.LogStatus
 import com.symeonchen.wakeupscreen.data.LogTrigger
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
+import com.symeonchen.wakeupscreen.services.notification.BlockChain
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
+import com.symeonchen.wakeupscreen.services.notification.ChainNodeState
+import com.symeonchen.wakeupscreen.services.notification.ChainStep
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,6 +36,8 @@ fun NotificationLogScreen(
     logs: List<NotificationLogEntry>,
     onBack: () -> Unit,
     onClear: () -> Unit,
+    onChainNodeClick: (String) -> Unit = {},
+    isChainNodeNavigable: (String) -> Boolean = { false },
 ) {
     var selectedEntry by remember { mutableStateOf<NotificationLogEntry?>(null) }
 
@@ -69,7 +80,12 @@ fun NotificationLogScreen(
     }
 
     selectedEntry?.let { entry ->
-        LogDetailDialog(entry = entry, onDismiss = { selectedEntry = null })
+        LogDetailDialog(
+            entry = entry,
+            onDismiss = { selectedEntry = null },
+            onChainNodeClick = onChainNodeClick,
+            isChainNodeNavigable = isChainNodeNavigable,
+        )
     }
 }
 
@@ -83,7 +99,7 @@ private fun LogEntryCard(entry: NotificationLogEntry, onClick: () -> Unit) {
 
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier
             .fillMaxWidth()
@@ -128,11 +144,22 @@ private fun LogEntryCard(entry: NotificationLogEntry, onClick: () -> Unit) {
 }
 
 @Composable
-private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) {
+private fun LogDetailDialog(
+    entry: NotificationLogEntry,
+    onDismiss: () -> Unit,
+    onChainNodeClick: (String) -> Unit,
+    isChainNodeNavigable: (String) -> Boolean,
+) {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     val timeStr = dateFormat.format(Date(entry.timestamp))
 
     val statusText = logStatusText(entry.status)
+
+    // Empty whenever the entry is not a chain outcome (a reminder streak
+    // ending, or a reason this build does not know); the plain rows below take
+    // over in that case.
+    val chainSteps = remember(entry) { BlockChain.forLogEntry(entry) }
+    var showRawFields by remember { mutableStateOf(chainSteps.isEmpty()) }
 
     val isReminder = entry.trigger == LogTrigger.REMINDER
     val description = when (entry.status) {
@@ -143,6 +170,7 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
             if (isReminder) stringResource(R.string.log_status_reminder_waked_up_desc)
             else stringResource(R.string.log_status_waked_up_desc)
         LogStatus.BLOCKED -> blockReasonToString(entry.blockReason)
+        LogStatus.NIGHT_GLOW -> stringResource(R.string.log_status_night_glow_desc)
         LogStatus.REMINDER_STOPPED -> blockReasonToString(entry.blockReason)
     }
 
@@ -166,7 +194,10 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
             Text(text = stringResource(R.string.log_detail_title))
         },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
                 DetailRow(
                     label = stringResource(R.string.log_detail_source_app),
                     value = entry.packageName.ifEmpty { stringResource(R.string.log_no_source_app) },
@@ -175,43 +206,63 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
                     label = stringResource(R.string.log_detail_time),
                     value = timeStr,
                 )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_trigger),
-                    value = if (isReminder) stringResource(R.string.log_trigger_reminder)
-                    else stringResource(R.string.log_trigger_notification),
-                )
-                if (isReminder && entry.reminderRound > 0) {
-                    DetailRow(
-                        label = stringResource(R.string.log_detail_reminder_round),
-                        value = stringResource(R.string.log_reminder_round_value, entry.reminderRound),
-                    )
-                }
                 if (isReminder) {
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_trigger),
+                        value = if (entry.reminderRound > 0) {
+                            stringResource(R.string.log_trigger_reminder) + " · " +
+                                stringResource(R.string.log_reminder_round_value, entry.reminderRound)
+                        } else {
+                            stringResource(R.string.log_trigger_reminder)
+                        },
+                    )
                     DetailRow(
                         label = stringResource(R.string.log_detail_unread_count),
                         value = entry.unreadCount.toString(),
                     )
                 }
-                DetailRow(
-                    label = stringResource(R.string.log_detail_status),
-                    value = statusText,
-                )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_reason),
-                    value = description,
-                )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_importance),
-                    value = importanceText,
-                )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_sound),
-                    value = soundText,
-                )
-                DetailRow(
-                    label = stringResource(R.string.log_detail_vibration),
-                    value = vibrationText,
-                )
+
+                if (chainSteps.isNotEmpty()) {
+                    ChainSection(
+                        steps = chainSteps,
+                        onChainNodeClick = onChainNodeClick,
+                        isChainNodeNavigable = isChainNodeNavigable,
+                    )
+                } else {
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_status),
+                        value = statusText,
+                    )
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_reason),
+                        value = description,
+                    )
+                }
+
+                if (showRawFields) {
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_importance),
+                        value = importanceText,
+                    )
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_sound),
+                        value = soundText,
+                    )
+                    DetailRow(
+                        label = stringResource(R.string.log_detail_vibration),
+                        value = vibrationText,
+                    )
+                } else {
+                    TextButton(
+                        onClick = { showRawFields = true },
+                        contentPadding = PaddingValues(0.dp),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.chain_show_notification_fields),
+                            style = MaterialTheme.typography.labelMedium,
+                        )
+                    }
+                }
             }
         },
         confirmButton = {
@@ -222,19 +273,75 @@ private fun LogDetailDialog(entry: NotificationLogEntry, onDismiss: () -> Unit) 
     )
 }
 
+/**
+ * The recorded outcome drawn as the chain the notification actually walked.
+ *
+ * Everything shown here is replayed from what was written at the time, so the
+ * verdicts are exact. The one thing that is not history is the configuration
+ * under the blocking node — the log never recorded the values behind a gate,
+ * only which gate it was — so that line is labelled as the current setting.
+ */
+@Composable
+private fun ChainSection(
+    steps: List<ChainStep>,
+    onChainNodeClick: (String) -> Unit,
+    isChainNodeNavigable: (String) -> Boolean,
+) {
+    Column {
+        Text(
+            text = stringResource(R.string.chain_log_section_title),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        ChainSurface(modifier = Modifier.padding(top = 6.dp)) {
+            BlockChainView(
+                rows = steps.map { step ->
+                    val navigable = step.state == ChainNodeState.BLOCKED &&
+                        isChainNodeNavigable(step.key)
+                    ChainRow(
+                        key = step.key,
+                        title = chainNodeTitle(step.key),
+                        subtitle = logSubtitle(step),
+                        state = step.state,
+                        onClick = if (navigable) {
+                            { onChainNodeClick(step.key) }
+                        } else {
+                            null
+                        },
+                    )
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun logSubtitle(step: ChainStep): String {
+    val stateLabel = chainStateLabel(step.key, step.state)
+    if (step.state != ChainNodeState.BLOCKED) {
+        return stateLabel
+    }
+    val config = chainConfigSummary(step.key, hasNotificationAccess = true)
+        ?: return stateLabel
+    return stateLabel + " · " + stringResource(R.string.chain_current_setting, config)
+}
+
 @Composable
 private fun logStatusText(status: LogStatus): String = when (status) {
     LogStatus.SCREEN_ALREADY_ON -> stringResource(R.string.log_screen_already_on)
     LogStatus.WAKED_UP -> stringResource(R.string.log_screen_waked_up)
     LogStatus.BLOCKED -> stringResource(R.string.log_screen_blocked)
+    LogStatus.NIGHT_GLOW -> stringResource(R.string.log_status_night_glow)
     LogStatus.REMINDER_STOPPED -> stringResource(R.string.log_reminder_stopped)
 }
 
 @Composable
 private fun logStatusColor(status: LogStatus) = when (status) {
     LogStatus.WAKED_UP -> MaterialTheme.colorScheme.primary
-    LogStatus.SCREEN_ALREADY_ON -> MaterialTheme.colorScheme.tertiary
+    // Success role, not tertiary: tertiary is pink and reads as error-red.
+    LogStatus.SCREEN_ALREADY_ON -> WakeUpTheme.colors.success
     LogStatus.BLOCKED -> MaterialTheme.colorScheme.error
+    LogStatus.NIGHT_GLOW -> MaterialTheme.colorScheme.tertiary
     // Not a failure — the streak simply ran its course, so keep it neutral.
     LogStatus.REMINDER_STOPPED -> MaterialTheme.colorScheme.onSurfaceVariant
 }
@@ -289,11 +396,14 @@ private fun blockReasonToString(reason: String): String {
     return when (reason) {
         BlockReason.APP_SWITCH_OFF -> stringResource(R.string.log_reason_app_switch_off)
         BlockReason.POCKET_MODE -> stringResource(R.string.log_reason_pocket_mode)
+        BlockReason.FACE_DOWN -> stringResource(R.string.log_reason_face_down)
         BlockReason.FILTER_LIST -> stringResource(R.string.log_reason_filter_list)
+        BlockReason.LOW_IMPORTANCE -> stringResource(R.string.log_reason_low_importance)
         BlockReason.ONGOING -> stringResource(R.string.log_reason_ongoing)
         BlockReason.SLEEP_MODE -> stringResource(R.string.log_reason_sleep_mode)
         BlockReason.DND -> stringResource(R.string.log_reason_dnd)
         BlockReason.CHARGING -> stringResource(R.string.log_reason_charging)
+        BlockReason.BATTERY_LEVEL -> stringResource(R.string.log_reason_battery_level)
         BlockReason.INTERACTIVE -> stringResource(R.string.log_status_already_on_desc)
         BlockReason.REMINDER_ALL_READ -> stringResource(R.string.log_reason_reminder_all_read)
         BlockReason.REMINDER_MAX_ROUNDS -> stringResource(R.string.log_reason_reminder_max_rounds)

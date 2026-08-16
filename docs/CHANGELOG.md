@@ -4,6 +4,72 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [4.0.0]
+
+### Added
+- The home page shows when the screen last woke successfully ("just now", minutes, hours or days ago), read straight from the notification log; tapping it opens the log
+- Sleep windows can apply to chosen weekdays, with Every day / Weekdays / Weekend presets. A window that runs over midnight belongs to the evening it starts on, so Friday 23:00 - 07:00 still covers Saturday morning. Existing windows keep applying every day
+- New rule "Low Battery Silence": below a chosen battery level (5-50%) and not charging, notifications stop waking the screen. Charging always passes
+- New rule "Face-down Silence": while the phone lies screen-down — detected by the accelerometer, the same arrangement pocket mode has with the proximity sensor — notifications do not wake the screen
+- "Night Glow": during sleep windows, an optional dim red glow (minimum brightness, black background) shows for a moment instead of total darkness, for people on call or with a baby. Red because it disturbs dark-adapted eyes least; logged under its own status
+- Attention statistics: counted entirely on-device from two events — the screen being woken and the device being unlocked within half a minute — the app shows which apps wake the screen and never get looked at over the last 30 days, and offers one-tap blacklisting for the worst offenders. Notification content is never read
+- Settings export and import as a JSON file, through the system file picker, with no new permissions. The file format carries a version number: newer settings are simply ignored by older builds, and a file from a newer format is refused with a clear message instead of half-applied
+- In-app changelog: after an update, the first launch shows a short summary of what changed — covering every version skipped, not just the latest. It can be reopened any time from Settings → About → Changelog, and settings rows added by an update carry a small dot until visited
+
+### Changes
+- Both new rules appear in the notification check process diagram and the notification log, like every other rule
+- The custom screen-on window no longer turns the screen off when the keyguard is already gone: if you unlocked during the window (or your lock screen is set to "None"), the window ends without locking. Previously a missed unlock broadcast could lock the phone while it was in use
+- The minimum custom screen-on duration is now 5 seconds (was 3). The keyguard check above needs the first moments after a wake to pass before it can be trusted on some devices; existing shorter settings are raised to 5 automatically
+- Custom screen-on duration: the missing accessibility grant is now flagged with a prominent red warning, and leaving the page with the switch on but the grant absent brings up a dialog offering to enable it or leave anyway
+
+### Notes
+- No new permissions
+- Sleep windows saved by this version without weekday restrictions remain readable by 3.2.0; windows restricted to certain weekdays are dropped by older versions rather than misread
+
+---
+
+## [3.2.0]
+
+### Added
+- Sleep mode accepts several windows, added and removed one by one, so a night window and an afternoon nap can coexist
+- Sleep windows are set to the minute instead of the full hour
+- The sleep time page shows the day as a 24-hour ring, with sleep windows greyed out, the current moment marked, and ticks at 0, 6, 12 and 18
+- Adding a window checks it against the existing ones, naming the window it would collide with instead of silently accepting an overlap
+
+### Changes
+- Colours are rebuilt on Material 3. Rather than each value being written by hand, full tonal ranges are generated from the brand colours and light and dark each read the tones M3 prescribes, so the two can no longer drift apart
+- Top bars drop their gradient for a flat colour. The status bar's colour and glyph brightness follow the current page: the home hero keeps its deep gradient, everything else follows the light or dark theme
+- Cards, the search field and the top bar now use M3's surface levels, so they stay distinguishable from the background in dark mode
+- The 24-hour ring labels every hour from 0 to 23, where it previously marked only 0, 6, 12 and 18
+- A sleep window runs from its start up to but not including its end, so 02:00 - 04:00 stops at 03:59. Two windows can therefore meet end to end, one starting exactly where another finishes
+- An existing single window is converted automatically on upgrade and keeps behaving the same
+- "Optimize Ongoing Notify" is now "Block Ongoing Notifications" and "Radical Ongoing Detect" is now "Block Non-clearable Notifications". Both carry a "?" button explaining what each one stops and how they differ
+- Settings are regrouped into General, Advanced, Diagnostics and About. General holds language and the new dark mode; Advanced holds the notification check process and the wake rules page; Diagnostics holds the wake test and a direct entry to the log
+- New dark mode setting with three options: follow system, light, dark. It defaults to following the system, so appearance does not change on upgrade
+- Screen-on duration and the app filter (mode, whitelist, blacklist) moved from the settings home into the wake rules page, which now covers everything that decides whether the screen lights up
+- Several entries were renamed to say what they actually do: "Advanced Setting" is now "Wake Rules", "Block Chain" is now "Notification Check Process", "Function Test" is now "Wake Test", and "Current Mode" is now "Filter Mode". Only the labels changed, every setting keeps its value
+
+### Fixes
+- Fixed "Radical Ongoing Detect" (Settings → Wake Rules) writing to the wrong preference key: turning it on or off silently flipped the plain "Ongoing Detect" setting instead, and the radical switch itself was never saved — it reverted to on every time the page was reopened. Both switches are now independent and persist correctly
+
+### Notes
+- Radical Ongoing Detect was effectively always on before this fix and stays on by default, so notification filtering does not change on upgrade
+- If you ever toggled the radical switch, the plain "Ongoing Detect" setting may have been changed without your knowing. Both switches are worth a quick check under Settings → Wake Rules
+
+---
+
+## [3.1.1]
+
+### Changes
+- Now targets Android 16 (API 36). Verified on an Android 16 system image: precise screen-on windows, the accessibility lock-screen action and the permission-free fallback all behave exactly as before
+- Secondary pages now use Android's predictive back animation instead of the app's own slide transition. This comes with targeting Android 16 and is a visual change only — back navigation itself is unchanged
+
+### Notes
+- No new permissions, no functional changes
+- Verified on a device image using the new 16 KB memory page size
+
+---
+
 ## [3.1.0]
 
 ### Features

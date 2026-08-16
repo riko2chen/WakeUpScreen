@@ -7,6 +7,7 @@
     <string name="open">開啟</string>
     <string name="close">關閉</string>
     <string name="ok">確定</string>
+    <string name="cancel">取消</string>
     <string name="language">語言</string>
     <string name="language_zh_cn">簡體中文</string>
     <string name="language_en">英語</string>
@@ -26,7 +27,8 @@
     <string name="how_to_set">如何設定</string>
     <string name="already_open">已開啟</string>
     <string name="already_close">已關閉</string>
-    <string name="i_already_close">已關閉</string>
+    <string name="status_running">運作中</string>
+    <string name="status_paused">已暫停</string>
     <string name="not_open">未開啟</string>
     <string name="not_close">未關閉</string>
     <string name="wanna_close">我要關閉</string>
@@ -39,11 +41,11 @@
     <string name="developing">開發中</string>
     <string name="permission_of_read_notification">讀取通知權限</string>
     <string name="service_of_background">背景服務</string>
-    <string name="time_of_wake_up_screen">自訂亮屏時間</string>
+    <string name="time_of_wake_up_screen">自訂亮螢幕時長</string>
     <string name="optimize_of_battery_saver">關閉電量最佳化</string>
     <string name="pocket_mode">口袋防誤觸</string>
-    <string name="ongoing_status">持續通知最佳化</string>
-    <string name="current_mode">目前模式</string>
+    <string name="ongoing_status">攔截持續通知</string>
+    <string name="current_mode">過濾模式</string>
     <string name="all_pass">全部通知</string>
     <string name="white_list">白名單模式</string>
     <string name="white_list_page">白名單設定頁面</string>
@@ -63,7 +65,20 @@
     <string name="custom">自訂</string>
     <string name="about">關於</string>
     <string name="debug">偵錯</string>
-    <string name="advanced_setting">進階設定</string>
+    <string name="advanced_setting">亮屏規則</string>
+    <string name="setting_search_hint">搜尋設定</string>
+    <string name="setting_search_no_result">沒有找到相關設定</string>
+    <string name="section_general">一般</string>
+    <string name="section_diagnostics">診斷</string>
+    <string name="section_screen_on_duration">亮屏時間</string>
+    <string name="dark_mode">深色模式</string>
+    <string name="follow_system">跟隨系統</string>
+    <string name="dark_mode_light">淺色</string>
+    <string name="dark_mode_dark">深色</string>
+    <string name="section_notification_filter">按應用程式過濾</string>
+    <string name="section_advanced">進階</string>
+    <string name="section_notification_rules">按通知類型過濾</string>
+    <string name="section_device_state">裝置狀態</string>
     <string name="about_this_app">關於通知亮屏</string>
     <string name="app_info">應用程式資訊</string>
     <string name="info">資訊</string>
@@ -72,11 +87,26 @@
     <string name="click_here_to_open_google_play_store">點擊開啟Google Play商店</string>
 
     <string name="app_intro_full">這是一個可以在接收到通知時點亮螢幕的 Android APP。\n特別為三星S10最佳化，同樣相容其他裝置。\n本應用程式開源、無需網路連線、免費無廣告。</string>
-    <string name="sleep_mode_open_desc">螢幕在此時段將不會點亮：</string>
     <string name="sleep_mode">睡眠模式</string>
     <string name="delay_to_wakeup">點擊此處測試是否能正常點亮</string>
     <string name="click_here_and_press_power_button_within_10_sec">點擊之後，在十秒內關閉螢幕，觀察是否能點亮</string>
     <string name="sleep_time">睡眠時間</string>
+    <string name="sleep_ring_asleep">睡眠時段</string>
+    <string name="sleep_ring_awake">正常亮螢幕</string>
+    <string name="sleep_segments_count">%1$d 個時段</string>
+    <string name="sleep_segments_empty">尚未設定時段</string>
+    <string name="sleep_segments_empty_hint">未新增時段前，全天都會正常亮螢幕。</string>
+    <string name="sleep_add_segment">新增時段</string>
+    <string name="sleep_delete_segment">刪除時段</string>
+    <string name="sleep_start_time">開始</string>
+    <string name="sleep_end_time">結束</string>
+    <string name="sleep_overlap_error">與已有時段（%1$s）重疊，請另選時間。</string>
+    <string name="sleep_same_time_error">開始和結束時間不能相同。</string>
+    <string name="sleep_max_segments_reached">最多只能設定 %1$d 個時段。</string>
+    <string name="sleep_range_note">開始時間算在時段內，結束時間不算，因此 02:00 - 04:00 到 03:59 為止，一個時段可以從另一個時段的結束時間開始。</string>
+    <string name="sleep_crosses_midnight">跨午夜</string>
+    <string name="sleep_duration_hm">%1$d 小時 %2$d 分</string>
+    <string name="sleep_duration_m">%1$d 分鐘</string>
     <string name="dnd_detect_title">勿擾模式偵測</string>
     <string name="dnd_detect_desc">勿擾模式下將不會點亮螢幕</string>
     <string name="charging_only_title">僅充電時亮屏</string>
@@ -85,10 +115,14 @@
     <string name="still_have_problem">仍然有問題嗎？點擊這裡開啟通知開關。</string>
     <string name="close_app_notice">此操作將關閉應用程式，請在此之後重新開啟。</string>
     <string name="include_system_app">包含系統應用程式</string>
-    <string name="radical_ongoing_detact">嚴格的持續通知過濾（實驗功能）</string>
+    <string name="radical_ongoing_detact">攔截常駐通知</string>
+    <string name="ongoing_status_help">應用程式標記為「進行中」的通知會被攔下，螢幕不亮。\n\n這類通知代表一件仍在進行的事：微信視訊通話、QQ 電話、正在播放的音樂、正在進行的導航。它們在事件結束前一直留在通知欄，期間可能反覆更新，每次更新都可能觸發一次亮螢幕。</string>
+    <string name="radical_ongoing_help">應用程式標記為不可清除的通知會被攔下。\n\n涵蓋範圍比「攔截持續通知」更大：除了標記為進行中的通知，還包含那些沒有這個標記、但同樣滑不掉的通知，例如部分背景服務的常駐提示。\n\n兩項同時開啟時以本項為準，「攔截持續通知」不再產生額外效果。\n\n少數應用程式會給普通訊息也加上不可清除標記，這類訊息會被一併攔下，因此本項屬於實驗功能。</string>
+    <string name="ignore_silent_notification">忽略靜音通知</string>
+    <string name="ignore_silent_notification_desc">重要性為「低 / 最低 / 無」的通知不再亮螢幕。</string>
     <string name="send_notification_permission">傳送通知的權限</string>
 
-    <string name="function_test">功能測試</string>
+    <string name="function_test">亮屏測試</string>
     <string name="view_logs">檢視日誌</string>
     <string name="view_logs_subtitle">通知記錄及螢幕點亮情況</string>
     <string name="log_empty">暫無日誌</string>
@@ -104,9 +138,10 @@
     <string name="log_status_already_on_desc">收到該通知時螢幕已經處於點亮狀態，無需操作。</string>
     <string name="log_status_waked_up_desc">螢幕已由本應用程式成功點亮。</string>
     <string name="log_reason_app_switch_off">應用程式總開關已關閉。</string>
-    <string name="log_reason_pocket_mode">口袋模式已啟用——距離感測器偵測到裝置在口袋中。</string>
+    <string name="log_reason_pocket_mode">口袋模式已啟用：距離感測器偵測到裝置在口袋中。</string>
     <string name="log_reason_filter_list">該應用程式被白名單/黑名單規則過濾。</string>
     <string name="log_reason_ongoing">持續通知被過濾。</string>
+    <string name="log_reason_low_importance">此通知屬於靜音通知，所在頻道的重要性過低。</string>
     <string name="log_reason_sleep_mode">目前處於睡眠模式時段。</string>
     <string name="log_reason_dnd">勿擾模式已開啟。</string>
     <string name="log_reason_charging">裝置未在充電。</string>
@@ -127,6 +162,7 @@
     <string name="feedback_send_email">寄郵件</string>
     <string name="feedback_copy_email">複製信箱</string>
     <string name="feedback_email_copied">信箱已複製</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X（Twitter）</string>
     <string name="feedback_contact_xiaohongshu">小紅書</string>
 
@@ -207,4 +243,124 @@
     <string name="unsaved_changes_message">亮螢幕時長已修改，但還沒有儲存。</string>
     <string name="save_and_back">儲存並返回</string>
     <string name="discard_changes">放棄修改</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">通知判斷過程</string>
+    <string name="chain_entry_subtitle">顯示目前設定下通知會在哪一步被攔住</string>
+    <string name="chain_live_hint">依據目前設定與手機狀態，此刻來一則通知會遇到下面這些判斷。</string>
+    <string name="chain_live_footer">應用程式過濾、通知重要性和持續通知過濾取決於通知本身，這裡無法預先判定。</string>
+    <string name="chain_log_section_title">它經過了什麼</string>
+    <string name="chain_show_notification_fields">展開通知欄位</string>
+    <string name="chain_current_setting">目前設定為 %1$s</string>
+    <string name="chain_node_notification_access">通知使用權</string>
+    <string name="chain_node_master_switch">總開關</string>
+    <string name="chain_node_pocket_mode">口袋模式</string>
+    <string name="chain_node_interactive">螢幕狀態</string>
+    <string name="chain_node_filter_list">應用程式過濾</string>
+    <string name="chain_node_low_importance">通知重要性</string>
+    <string name="chain_node_ongoing">持續通知過濾</string>
+    <string name="chain_node_sleep_mode">睡眠模式</string>
+    <string name="chain_node_dnd">勿擾偵測</string>
+    <string name="chain_node_charging">僅充電時亮螢幕</string>
+    <string name="chain_node_wake_up">點亮螢幕</string>
+    <string name="chain_state_passed">通過</string>
+    <string name="chain_state_blocked">在這裡被攔下</string>
+    <string name="chain_state_skipped">未開啟，不參與判斷</string>
+    <string name="chain_state_depends">取決於實際通知</string>
+    <string name="chain_state_not_evaluated">未執行</string>
+    <string name="chain_state_reached">螢幕已點亮</string>
+    <string name="chain_state_not_reached">未到達</string>
+    <string name="chain_legend_pass">通過</string>
+    <string name="chain_legend_block">此刻攔截</string>
+    <string name="chain_legend_depends">看通知而定</string>
+    <string name="chain_legend_off">未開啟</string>
+    <string name="chain_config_granted">已授予</string>
+    <string name="chain_config_not_granted">未授予</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- 首頁的上次成功喚醒 -->
+    <string name="last_wake_just_now">上次成功喚醒：剛剛</string>
+    <string name="last_wake_minutes_ago">上次成功喚醒：%1$d 分鐘前</string>
+    <string name="last_wake_hours_ago">上次成功喚醒：%1$d 小時前</string>
+    <string name="last_wake_days_ago">上次成功喚醒：%1$d 天前</string>
+    <string name="last_wake_never">尚無成功喚醒紀錄，點擊查看日誌。</string>
+    <!-- 睡眠時段的生效日 -->
+    <string name="sleep_days_label">生效日</string>
+    <string name="sleep_days_every_day">每天</string>
+    <string name="sleep_days_weekdays">平日</string>
+    <string name="sleep_days_weekend">週末</string>
+    <string name="sleep_days_empty_error">至少選擇一天。</string>
+    <!-- 電量閾值過濾 -->
+    <string name="battery_level_title">低電量靜默</string>
+    <string name="battery_level_desc">電量低於閾值且未充電時，通知不再喚醒螢幕。</string>
+    <string name="battery_level_threshold_title">電量閾值</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">電量</string>
+    <string name="chain_config_battery_threshold">低於 %1$d%%</string>
+    <string name="log_reason_battery_level">電量低於設定閾值且裝置未在充電。</string>
+    <!-- 面朝下靜默 -->
+    <string name="face_down_title">面朝下靜默</string>
+    <string name="face_down_desc">手機螢幕朝下放置時，通知不喚醒螢幕。</string>
+    <string name="chain_node_face_down">面朝下</string>
+    <string name="log_reason_face_down">手機正面朝下放置。</string>
+    <!-- 設定備份 -->
+    <string name="section_backup">備份</string>
+    <string name="backup_export_title">匯出設定</string>
+    <string name="backup_export_subtitle">將全部設定儲存為 JSON 檔案</string>
+    <string name="backup_import_title">匯入設定</string>
+    <string name="backup_import_subtitle">從備份檔案還原設定</string>
+    <string name="backup_export_success">設定已匯出</string>
+    <string name="backup_export_failed">備份檔案寫入失敗</string>
+    <string name="backup_import_success">已匯入 %1$d 項設定</string>
+    <string name="backup_import_failed_corrupt">這不是 WakeUpScreen 的備份檔案</string>
+    <string name="backup_import_failed_newer">此備份來自較新版本的應用程式。請先更新應用程式，再重新匯入。</string>
+    <!-- 夜間紅光 -->
+    <string name="night_glow_title">夜間紅光</string>
+    <string name="night_glow_desc">睡眠時段內不再完全黑屏，改為短暫顯示微弱紅光</string>
+    <string name="log_status_night_glow">紅光提示</string>
+    <string name="log_status_night_glow_desc">睡眠時段攔截了正常喚醒，改為顯示微弱的夜間紅光。</string>
+    <!-- 注意力統計 -->
+    <string name="attention_stats_title">注意力統計</string>
+    <string name="attention_stats_subtitle">哪些應用頻繁亮屏卻從不被理會</string>
+    <string name="attention_stats_list_title">最近 30 天</string>
+    <string name="attention_stats_row">喚醒螢幕 %1$d 次 · 跟進 %2$d 次</string>
+    <string name="attention_stats_empty">尚無喚醒紀錄。當通知喚醒螢幕後，資料會顯示在這裡。</string>
+    <string name="attention_suggestion_title">建議</string>
+    <string name="attention_suggestion_body">%1$s 在過去 30 天喚醒了 %2$d 次螢幕，但從未在喚醒後被解鎖跟進。要加入黑名單嗎？</string>
+    <string name="attention_add_blacklist">加入黑名單</string>
+    <string name="attention_added_blacklist">已加入黑名單</string>
+    <string name="attention_added_blacklist_mode_hint">已加入黑名單。注意：目前的過濾模式還不是黑名單模式。</string>
+    <string name="attention_stats_note">統計完全在本機進行，僅基於兩個事件：螢幕被喚醒、以及隨後是否解鎖。不讀取任何通知內容，資料不會離開裝置。</string>
+
+    <!-- 應用內更新日誌 -->
+    <string name="changelog">更新日誌</string>
+    <string name="changelog_subtitle">歷次版本的主要變化</string>
+    <string name="whats_new_title">更新內容</string>
+    <string name="changelog_view_full">檢視完整更新日誌</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-zh-TW.md</string>
+    <string name="changelog_v40000_1">首頁顯示上次成功喚醒於多久之前</string>
+    <string name="changelog_v40000_2">睡眠時段支援按星期幾生效</string>
+    <string name="changelog_v40000_3">新規則：低電量靜默、面朝下靜默</string>
+    <string name="changelog_v40000_4">夜間紅光：睡眠時段內可選微弱紅光提示</string>
+    <string name="changelog_v40000_5">注意力統計：找出頻繁亮屏卻從不被查看的應用程式</string>
+    <string name="changelog_v40000_6">設定支援匯出、匯入</string>
+    <string name="changelog_v40000_7">應用內更新日誌——就是你正在看的這個</string>
+    <string name="changelog_v32000_1">睡眠模式支援多個時段，精確到分鐘</string>
+    <string name="changelog_v32000_2">新增深色模式：跟隨系統、淺色、深色</string>
+    <string name="changelog_v32000_3">配色按 Material 3 重做，設定頁重新分組</string>
+    <string name="changelog_v32000_4">修復「攔截常駐通知」開關不儲存的問題</string>
+    <string name="changelog_v31100_1">目標 API 升級到 Android 16（API 36）</string>
+    <string name="changelog_v31100_2">二級頁面改用系統預測式返回動畫</string>
+    <string name="changelog_v31000_1">重複提醒：通知未處理時螢幕定時再次亮起</string>
+    <string name="changelog_v31000_2">新增自訂亮螢幕時長</string>
+    <string name="changelog_v30600_1">移除特殊用途前台服務權限與常駐通知設定</string>
+    <string name="changelog_v30500_1">新增「檢查更新」頁面（設定 → 關於）</string>
+    <string name="changelog_v30500_2">修復 Android 15+ 全螢幕適配問題</string>
+
+    <!-- 自訂亮螢幕時長頁的無障礙權限攔截 -->
+    <string name="accessibility_required_title">需要無障礙權限</string>
+    <string name="accessibility_not_enabled_title">無障礙權限未開啟</string>
+    <string name="accessibility_not_enabled_message">自訂亮螢幕時長依賴無障礙服務中的「鎖定螢幕」動作來熄滅螢幕。在開啟之前，這個功能不會生效。</string>
+    <string name="accessibility_dialog_grant">前往開啟</string>
+    <string name="accessibility_dialog_leave_anyway">仍然返回</string>
 </resources>

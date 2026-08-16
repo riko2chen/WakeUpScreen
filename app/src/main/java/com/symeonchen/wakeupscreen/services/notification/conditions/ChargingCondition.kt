@@ -18,11 +18,24 @@ class ChargingCondition : LimitedCondition.AppContextCondition() {
         if (!DataInjection.chargingOnlySwitch) {
             return ConditionState.SUCCESS
         }
+        return if (isCharging(application)) ConditionState.SUCCESS else ConditionState.BLOCK
+    }
+
+    override fun isArmed(): Boolean = DataInjection.chargingOnlySwitch
+
+    override fun wouldBlockNow(application: Application?): Boolean? {
+        if (!DataInjection.chargingOnlySwitch) {
+            return false
+        }
+        application ?: return null
+        return !isCharging(application)
+    }
+
+    private fun isCharging(application: Application?): Boolean {
         val batteryStatus = application?.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         val status = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
-        val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING
+        return status == BatteryManager.BATTERY_STATUS_CHARGING
                 || status == BatteryManager.BATTERY_STATUS_FULL
-        return if (isCharging) ConditionState.SUCCESS else ConditionState.BLOCK
     }
 
 }

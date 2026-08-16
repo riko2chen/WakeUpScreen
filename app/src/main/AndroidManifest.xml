@@ -18,6 +18,8 @@
         <activity android:name=".pages.FeedbackPageActivity" />
         <activity android:name=".pages.FunctionTestPageActivity" />
         <activity android:name=".pages.NotificationLogPageActivity" />
+        <activity android:name=".pages.AttentionStatsActivity" />
+        <activity android:name=".pages.BlockChainPageActivity" />
         <activity android:name=".pages.CheckUpdatePageActivity" />
         <activity android:name=".pages.AboutThisPageActivity" />
         <activity android:name=".pages.FilterListActivity" />
@@ -31,6 +33,15 @@
             is granted. Its own task, so it never lands on top of the app's UI,
             and out of recents because the user is not meant to see it at all.
         -->
+        <activity
+            android:name=".pages.NightGlowActivity"
+            android:theme="@style/ScreenOffTheme"
+            android:taskAffinity=".ScreenOff"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:launchMode="singleInstance"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
         <activity
             android:name=".pages.ScreenOffActivity"
             android:theme="@style/ScreenOffTheme"

@@ -24,4 +24,14 @@ class DndCondition : LimitedCondition.AppContextCondition() {
         return ConditionState.SUCCESS
     }
 
+    override fun isArmed(): Boolean = DataInjection.dndDetectSwitch
+
+    override fun wouldBlockNow(application: Application?): Boolean? {
+        if (!DataInjection.dndDetectSwitch) {
+            return false
+        }
+        application ?: return null
+        return true != NotificationUtils(application).detectDnd()
+    }
+
 }

@@ -7,6 +7,7 @@
     <string name="open">オン</string>
     <string name="close">オフ</string>
     <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
     <string name="language">言語</string>
     <string name="language_zh_cn">簡体字中国語</string>
     <string name="language_en">英語</string>
@@ -24,9 +25,10 @@
     <string name="click_to_open">タップしてオンにする</string>
     <string name="to_setting">設定へ</string>
     <string name="how_to_set">設定方法</string>
-    <string name="already_open">オン済み</string>
-    <string name="already_close">オフ済み</string>
-    <string name="i_already_close">オフ済み</string>
+    <string name="already_open">オン</string>
+    <string name="already_close">オフ</string>
+    <string name="status_running">動作中</string>
+    <string name="status_paused">一時停止中</string>
     <string name="not_open">未オン</string>
     <string name="not_close">未オフ</string>
     <string name="wanna_close">オフにする</string>
@@ -39,11 +41,11 @@
     <string name="developing">開発中</string>
     <string name="permission_of_read_notification">通知読み取り権限</string>
     <string name="service_of_background">バックグラウンドサービス</string>
-    <string name="time_of_wake_up_screen">画面点灯時間</string>
+    <string name="time_of_wake_up_screen">画面点灯時間の指定</string>
     <string name="optimize_of_battery_saver">電力最適化をオフにする</string>
     <string name="pocket_mode">ポケットモード</string>
-    <string name="ongoing_status">継続通知の最適化</string>
-    <string name="current_mode">現在のモード</string>
+    <string name="ongoing_status">進行中の通知をブロック</string>
+    <string name="current_mode">フィルターモード</string>
     <string name="all_pass">すべての通知</string>
     <string name="white_list">ホワイトリストモード</string>
     <string name="white_list_page">ホワイトリスト設定ページ</string>
@@ -63,7 +65,20 @@
     <string name="custom">カスタム</string>
     <string name="about">概要</string>
     <string name="debug">デバッグ</string>
-    <string name="advanced_setting">詳細設定</string>
+    <string name="advanced_setting">点灯ルール</string>
+    <string name="setting_search_hint">設定を検索</string>
+    <string name="setting_search_no_result">一致する設定が見つかりません</string>
+    <string name="section_general">一般</string>
+    <string name="section_diagnostics">診断</string>
+    <string name="section_screen_on_duration">点灯時間</string>
+    <string name="dark_mode">ダークモード</string>
+    <string name="follow_system">システムに従う</string>
+    <string name="dark_mode_light">ライト</string>
+    <string name="dark_mode_dark">ダーク</string>
+    <string name="section_notification_filter">アプリで絞り込み</string>
+    <string name="section_advanced">詳細</string>
+    <string name="section_notification_rules">通知の種類で絞り込み</string>
+    <string name="section_device_state">デバイスの状態</string>
     <string name="about_this_app">Wake Up Screenについて</string>
     <string name="app_info">アプリ情報</string>
     <string name="info">情報</string>
@@ -72,11 +87,26 @@
     <string name="click_here_to_open_google_play_store">タップしてGoogle Playストアを開く</string>
 
     <string name="app_intro_full">通知を受信した際に画面を点灯させるAndroidアプリです。\nSamsung S10向けに最適化されており、他のデバイスにも対応しています。\nオープンソース、インターネット接続不要、無料です。</string>
-    <string name="sleep_mode_open_desc">この時間帯は画面が点灯しません：</string>
     <string name="sleep_mode">スリープモード</string>
     <string name="delay_to_wakeup">タップして画面点灯テストを開始</string>
     <string name="click_here_and_press_power_button_within_10_sec">タップした後、10秒以内に電源ボタンを押してください</string>
     <string name="sleep_time">スリープ時間</string>
+    <string name="sleep_ring_asleep">睡眠時間帯</string>
+    <string name="sleep_ring_awake">点灯する</string>
+    <string name="sleep_segments_count">%1$d 件の時間帯</string>
+    <string name="sleep_segments_empty">時間帯が未設定</string>
+    <string name="sleep_segments_empty_hint">時間帯を追加するまで、終日画面が点灯します。</string>
+    <string name="sleep_add_segment">時間帯を追加</string>
+    <string name="sleep_delete_segment">時間帯を削除</string>
+    <string name="sleep_start_time">開始</string>
+    <string name="sleep_end_time">終了</string>
+    <string name="sleep_overlap_error">既存の時間帯（%1$s）と重なっています。別の時刻を選んでください。</string>
+    <string name="sleep_same_time_error">開始と終了を同じ時刻にはできません。</string>
+    <string name="sleep_max_segments_reached">時間帯は最大 %1$d 件です。</string>
+    <string name="sleep_range_note">開始の分は時間帯に含まれ、終了の分は含まれません。02:00 - 04:00 は 03:59 までとなり、ある時間帯の終了時刻から次の時間帯を始められます。</string>
+    <string name="sleep_crosses_midnight">日をまたぐ</string>
+    <string name="sleep_duration_hm">%1$d時間%2$d分</string>
+    <string name="sleep_duration_m">%1$d分</string>
     <string name="dnd_detect_title">おやすみモード検出</string>
     <string name="dnd_detect_desc">おやすみモード中も画面を点灯させたい場合はオフにしてください。</string>
     <string name="charging_only_title">充電中のみ点灯</string>
@@ -85,10 +115,14 @@
     <string name="still_have_problem">まだ問題がありますか？タップして設定を開く</string>
     <string name="close_app_notice">この操作によりアプリが終了します。終了後にアプリを再度開いてください。</string>
     <string name="include_system_app">システムアプリを含む</string>
-    <string name="radical_ongoing_detact">厳格な継続通知フィルタリング（実験的機能）</string>
+    <string name="radical_ongoing_detact">常駐通知をブロック</string>
+    <string name="ongoing_status_help">アプリが「進行中」と設定した通知をブロックし、画面は点灯しません。\n\n進行中の通知は、まだ続いている出来事を表します。WeChat のビデオ通話、QQ の通話、再生中の音楽、案内中のナビなどです。出来事が終わるまで通知領域に残り、その間に何度も更新されることがあり、更新のたびに画面が点灯する可能性があります。</string>
+    <string name="radical_ongoing_help">アプリが「消去不可」と設定した通知をブロックします。\n\n「進行中の通知をブロック」より範囲が広く、進行中と設定された通知に加えて、その設定はないのにスワイプで消せない通知（一部のバックグラウンドサービスの常駐表示など）も対象になります。\n\n両方を有効にした場合はこちらが結果を決めるため、進行中の通知の設定は追加の効果を持ちません。\n\n一部のアプリは通常のメッセージにも消去不可を設定します。その場合はそれらもブロックされるため、この項目は実験的機能です。</string>
+    <string name="ignore_silent_notification">サイレント通知を無視</string>
+    <string name="ignore_silent_notification_desc">重要度が「低」「最小」「なし」のチャンネルの通知では画面を点灯しません。</string>
     <string name="send_notification_permission">通知送信の権限</string>
 
-    <string name="function_test">機能テスト</string>
+    <string name="function_test">点灯テスト</string>
     <string name="view_logs">ログを表示</string>
     <string name="view_logs_subtitle">通知記録と画面点灯履歴</string>
     <string name="log_empty">ログはまだありません</string>
@@ -107,6 +141,7 @@
     <string name="log_reason_pocket_mode">ポケットモードが有効です — 近接センサーがデバイスがポケット内にあることを検出しました。</string>
     <string name="log_reason_filter_list">このアプリはホワイトリスト/ブラックリストのルールによりフィルタリングされました。</string>
     <string name="log_reason_ongoing">継続通知がフィルタリングされました。</string>
+    <string name="log_reason_low_importance">サイレント通知です。チャンネルの重要度が低すぎます。</string>
     <string name="log_reason_sleep_mode">現在スリープモードの時間帯です。</string>
     <string name="log_reason_dnd">おやすみモードが有効です。</string>
     <string name="log_reason_charging">デバイスが充電されていません。</string>
@@ -127,6 +162,7 @@
     <string name="feedback_send_email">メール</string>
     <string name="feedback_copy_email">メールをコピー</string>
     <string name="feedback_email_copied">メールをコピーしました</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X（Twitter）</string>
     <string name="feedback_contact_xiaohongshu">小紅書</string>
 
@@ -207,4 +243,124 @@
     <string name="unsaved_changes_message">点灯時間を変更しましたが、まだ保存されていません。</string>
     <string name="save_and_back">保存して戻る</string>
     <string name="discard_changes">破棄する</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">通知の判定プロセス</string>
+    <string name="chain_entry_subtitle">現在の設定で通知がどこで止まるかを表示</string>
+    <string name="chain_live_hint">現在の設定と端末の状態にもとづく表示です。今この瞬間に通知が届いた場合に通る判定です。</string>
+    <string name="chain_live_footer">アプリフィルター、通知の重要度、常駐通知フィルターは通知そのものに依存するため、ここでは判定できません。</string>
+    <string name="chain_log_section_title">通過した判定</string>
+    <string name="chain_show_notification_fields">通知の項目を表示</string>
+    <string name="chain_current_setting">現在の設定は %1$s</string>
+    <string name="chain_node_notification_access">通知へのアクセス</string>
+    <string name="chain_node_master_switch">メインスイッチ</string>
+    <string name="chain_node_pocket_mode">ポケットモード</string>
+    <string name="chain_node_interactive">画面の状態</string>
+    <string name="chain_node_filter_list">アプリフィルター</string>
+    <string name="chain_node_low_importance">通知の重要度</string>
+    <string name="chain_node_ongoing">常駐通知フィルター</string>
+    <string name="chain_node_sleep_mode">スリープモード</string>
+    <string name="chain_node_dnd">サイレントモード検出</string>
+    <string name="chain_node_charging">充電中のみ点灯</string>
+    <string name="chain_node_wake_up">画面を点灯</string>
+    <string name="chain_state_passed">通過</string>
+    <string name="chain_state_blocked">ここで停止</string>
+    <string name="chain_state_skipped">オフのため対象外</string>
+    <string name="chain_state_depends">通知の内容による</string>
+    <string name="chain_state_not_evaluated">未実行</string>
+    <string name="chain_state_reached">画面が点灯</string>
+    <string name="chain_state_not_reached">到達せず</string>
+    <string name="chain_legend_pass">通過</string>
+    <string name="chain_legend_block">現在ブロック中</string>
+    <string name="chain_legend_depends">通知による</string>
+    <string name="chain_legend_off">オフ</string>
+    <string name="chain_config_granted">許可済み</string>
+    <string name="chain_config_not_granted">未許可</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- ホームに表示する前回の点灯 -->
+    <string name="last_wake_just_now">前回の点灯成功：たった今</string>
+    <string name="last_wake_minutes_ago">前回の点灯成功：%1$d分前</string>
+    <string name="last_wake_hours_ago">前回の点灯成功：%1$d時間前</string>
+    <string name="last_wake_days_ago">前回の点灯成功：%1$d日前</string>
+    <string name="last_wake_never">点灯成功の記録はまだありません。タップしてログを開きます。</string>
+    <!-- 睡眠時間帯の適用曜日 -->
+    <string name="sleep_days_label">適用する曜日</string>
+    <string name="sleep_days_every_day">毎日</string>
+    <string name="sleep_days_weekdays">平日</string>
+    <string name="sleep_days_weekend">週末</string>
+    <string name="sleep_days_empty_error">少なくとも1日選択してください。</string>
+    <!-- 電池残量ゲート -->
+    <string name="battery_level_title">低電池サイレント</string>
+    <string name="battery_level_desc">電池残量がしきい値を下回り充電していない間は、通知で画面を点灯しません。</string>
+    <string name="battery_level_threshold_title">電池残量のしきい値</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">電池残量</string>
+    <string name="chain_config_battery_threshold">%1$d%% 未満</string>
+    <string name="log_reason_battery_level">電池残量が設定したしきい値を下回り、充電もしていませんでした。</string>
+    <!-- 伏せ置きサイレント -->
+    <string name="face_down_title">伏せ置きサイレント</string>
+    <string name="face_down_desc">画面を下にして置いている間は、通知で画面を点灯しません。</string>
+    <string name="chain_node_face_down">伏せ置き</string>
+    <string name="log_reason_face_down">端末が画面を下にして置かれていました。</string>
+    <!-- 設定のバックアップ -->
+    <string name="section_backup">バックアップ</string>
+    <string name="backup_export_title">設定をエクスポート</string>
+    <string name="backup_export_subtitle">すべての設定を JSON ファイルに保存します</string>
+    <string name="backup_import_title">設定をインポート</string>
+    <string name="backup_import_subtitle">バックアップファイルから設定を復元します</string>
+    <string name="backup_export_success">設定をエクスポートしました</string>
+    <string name="backup_export_failed">バックアップファイルを書き込めませんでした</string>
+    <string name="backup_import_success">%1$d 件の設定をインポートしました</string>
+    <string name="backup_import_failed_corrupt">WakeUpScreen のバックアップファイルではありません</string>
+    <string name="backup_import_failed_newer">このバックアップは新しいバージョンのアプリで作成されています。アプリを更新してから再度インポートしてください。</string>
+    <!-- ナイトグロー -->
+    <string name="night_glow_title">ナイトグロー</string>
+    <string name="night_glow_desc">睡眠時間帯は消灯したままにせず、薄暗い赤い光を短く表示します</string>
+    <string name="log_status_night_glow">ナイトグロー</string>
+    <string name="log_status_night_glow_desc">睡眠時間帯が通常の点灯を止め、代わりに薄暗い赤い光を表示しました。</string>
+    <!-- アテンション統計 -->
+    <string name="attention_stats_title">アテンション統計</string>
+    <string name="attention_stats_subtitle">画面を点灯させるのに見られないアプリはどれか</string>
+    <string name="attention_stats_list_title">過去 30 日間</string>
+    <string name="attention_stats_row">画面を %1$d 回点灯 · %2$d 回フォロー</string>
+    <string name="attention_stats_empty">まだ記録がありません。通知が画面を点灯するとここに表示されます。</string>
+    <string name="attention_suggestion_title">提案</string>
+    <string name="attention_suggestion_body">%1$s は過去 30 日間に %2$d 回画面を点灯しましたが、その後ロック解除されたことは一度もありません。ブラックリストに追加しますか？</string>
+    <string name="attention_add_blacklist">ブラックリストに追加</string>
+    <string name="attention_added_blacklist">ブラックリストに追加しました</string>
+    <string name="attention_added_blacklist_mode_hint">ブラックリストに追加しました。注意：現在のフィルターはブラックリストモードではありません。</string>
+    <string name="attention_stats_note">集計はすべて端末内で行われ、「画面が点灯した」「直後にロック解除された」の 2 つの事実のみを数えます。通知内容は読まず、データが端末の外に出ることはありません。</string>
+
+    <!-- アプリ内更新履歴 -->
+    <string name="changelog">更新履歴</string>
+    <string name="changelog_subtitle">各バージョンの主な変更点</string>
+    <string name="whats_new_title">更新内容</string>
+    <string name="changelog_view_full">完全な更新履歴を見る</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-ja.md</string>
+    <string name="changelog_v40000_1">ホームに前回の点灯成功からの経過時間を表示</string>
+    <string name="changelog_v40000_2">睡眠時間帯を曜日ごとに設定可能に</string>
+    <string name="changelog_v40000_3">新ルール：低電池サイレント・伏せ置きサイレント</string>
+    <string name="changelog_v40000_4">ナイトグロー：睡眠時間帯に微かな赤い光を表示可能</string>
+    <string name="changelog_v40000_5">アテンション統計：画面を点けても見られないアプリを特定</string>
+    <string name="changelog_v40000_6">設定のエクスポート / インポートに対応</string>
+    <string name="changelog_v40000_7">アプリ内更新履歴 — いまご覧のこの画面</string>
+    <string name="changelog_v32000_1">スリープモードが複数の時間帯に対応、分単位で設定可能</string>
+    <string name="changelog_v32000_2">ダークモードを追加：システムに従う / ライト / ダーク</string>
+    <string name="changelog_v32000_3">Material 3 ベースの配色に刷新、設定画面を再編成</string>
+    <string name="changelog_v32000_4">「常駐通知をブロック」の設定が保存されない問題を修正</string>
+    <string name="changelog_v31100_1">ターゲット API を Android 16（API 36）に更新</string>
+    <string name="changelog_v31100_2">下層ページの戻る操作をシステムの予測型アニメーションに変更</string>
+    <string name="changelog_v31000_1">繰り返し通知：未読の通知がある間、画面を定期的に再点灯</string>
+    <string name="changelog_v31000_2">画面点灯時間の指定に対応</string>
+    <string name="changelog_v30600_1">特殊用途のフォアグラウンドサービス権限と常駐通知設定を削除</string>
+    <string name="changelog_v30500_1">「アップデートを確認」ページを追加（設定 → 概要）</string>
+    <string name="changelog_v30500_2">Android 15 以降の全面表示レイアウト問題を修正</string>
+
+    <!-- 画面点灯時間ページのユーザー補助ガード -->
+    <string name="accessibility_required_title">ユーザー補助の許可が必要です</string>
+    <string name="accessibility_not_enabled_title">ユーザー補助が有効になっていません</string>
+    <string name="accessibility_not_enabled_message">画面点灯時間の指定は、ユーザー補助の「画面ロック」操作で画面を消灯します。有効にするまで、この機能は動作しません。</string>
+    <string name="accessibility_dialog_grant">設定する</string>
+    <string name="accessibility_dialog_leave_anyway">このまま戻る</string>
 </resources>

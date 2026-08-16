@@ -18,7 +18,6 @@ import com.symeonchen.wakeupscreen.utils.ChannelLogInfo
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.ScreenWakeUtils
 import com.symeonchen.wakeupscreen.utils.UnreadNotificationUtils
-import com.symeonchen.wakeupscreen.utils.toLogInfo
 
 /**
  * Decides what happens each time the repeat-reminder alarm fires, and keeps the
@@ -68,10 +67,15 @@ object ReminderEngine {
         }
 
         val powerManager = appContext.getSystemService(Context.POWER_SERVICE) as? PowerManager
+        val channelInfo = service.channelInfoOf(representative)
         val result = ListenerManager.provideState(
-            ConditionParam(representative, powerManager, appContext as? Application)
+            ConditionParam(
+                representative,
+                powerManager,
+                appContext as? Application,
+                channelInfo,
+            )
         )
-        val channelInfo = service.channelOf(representative).toLogInfo()
 
         if (result.state == ConditionState.BLOCK) {
             val reason = result.blockingCondition ?: ""

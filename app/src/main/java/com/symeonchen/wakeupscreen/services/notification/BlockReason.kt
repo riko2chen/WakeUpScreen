@@ -12,12 +12,15 @@ package com.symeonchen.wakeupscreen.services.notification
 object BlockReason {
     const val APP_SWITCH_OFF = "app_switch_off"
     const val POCKET_MODE = "pocket_mode"
+    const val FACE_DOWN = "face_down"
     const val INTERACTIVE = "interactive"
     const val FILTER_LIST = "filter_list"
+    const val LOW_IMPORTANCE = "low_importance"
     const val ONGOING = "ongoing"
     const val SLEEP_MODE = "sleep_mode"
     const val DND = "dnd"
     const val CHARGING = "charging"
+    const val BATTERY_LEVEL = "battery_level"
 
     /**
      * Reasons a repeat-reminder streak ended. Same vocabulary and the same

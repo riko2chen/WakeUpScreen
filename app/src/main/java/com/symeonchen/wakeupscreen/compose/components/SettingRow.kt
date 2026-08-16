@@ -1,7 +1,9 @@
 package com.symeonchen.wakeupscreen.compose.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
@@ -22,6 +24,7 @@ fun SettingRow(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     trailingIcon: ImageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+    showBadge: Boolean = false,
 ) {
     Row(
         modifier = modifier
@@ -31,11 +34,16 @@ fun SettingRow(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                if (showBadge) {
+                    NewFeatureDot(modifier = Modifier.padding(start = 6.dp))
+                }
+            }
             if (!subtitle.isNullOrEmpty()) {
                 Text(
                     text = subtitle,
@@ -53,4 +61,17 @@ fun SettingRow(
             modifier = Modifier.size(20.dp),
         )
     }
+}
+
+/**
+ * The dot marking a row an update just added. A plain dot rather than a "NEW"
+ * label so nothing needs translating in eight locales.
+ */
+@Composable
+fun NewFeatureDot(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(7.dp)
+            .background(MaterialTheme.colorScheme.error, CircleShape),
+    )
 }

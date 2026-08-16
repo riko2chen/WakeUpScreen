@@ -10,14 +10,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +29,7 @@ import com.symeonchen.wakeupscreen.compose.components.GlyphBadge
 import com.symeonchen.wakeupscreen.compose.components.SettingSwitchRow
 import com.symeonchen.wakeupscreen.compose.theme.*
 import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 /**
  * The whole precise screen-on feature hangs off the switch at the top. With it
@@ -54,11 +55,22 @@ fun WakeUpTimeScreen(
     onGrantAccessibilityClick: () -> Unit,
 ) {
     var showUnsavedDialog by remember { mutableStateOf(false) }
+    var showAccessibilityDialog by remember { mutableStateOf(false) }
+
+    // With the switch on but the accessibility service off, the feature the
+    // user just configured cannot actually turn the screen off.
+    val accessibilityMissing = preciseEnabled && accessibilitySupported && !accessibilityGranted
+
+    // Every way off this screen funnels through here, so nobody leaves a
+    // configured-but-inert feature behind without being told once.
+    val guardedExit = {
+        if (accessibilityMissing) showAccessibilityDialog = true else onBack()
+    }
 
     // Leaving with a preset tapped but not saved would silently throw the choice
     // away, so both ways out of the screen run through the same check.
     val leave = {
-        if (hasUnsavedChanges) showUnsavedDialog = true else onBack()
+        if (hasUnsavedChanges) showUnsavedDialog = true else guardedExit()
     }
     BackHandler(enabled = true, onBack = leave)
 
@@ -72,12 +84,15 @@ fun WakeUpTimeScreen(
                 if (preciseEnabled) {
                     Text(
                         text = stringResource(R.string.save),
-                        color = PinkAccent,
+                        color = MaterialTheme.colorScheme.tertiary,
                         style = MaterialTheme.typography.labelLarge,
                         modifier = Modifier
                             .alpha(if (hasUnsavedChanges) 1f else 0.4f)
                             .clip(RoundedCornerShape(8.dp))
-                            .clickable(enabled = hasUnsavedChanges, onClick = onSave)
+                            .clickable(enabled = hasUnsavedChanges) {
+                                onSave()
+                                guardedExit()
+                            }
                             .padding(horizontal = 16.dp, vertical = 12.dp),
                     )
                 }
@@ -92,7 +107,7 @@ fun WakeUpTimeScreen(
         ) {
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
                 tonalElevation = 0.dp,
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -156,6 +171,7 @@ fun WakeUpTimeScreen(
                 TextButton(onClick = {
                     showUnsavedDialog = false
                     onSave()
+                    guardedExit()
                 }) {
                     Text(stringResource(R.string.save_and_back))
                 }
@@ -164,8 +180,41 @@ fun WakeUpTimeScreen(
                 TextButton(onClick = {
                     showUnsavedDialog = false
                     onDiscard()
+                    guardedExit()
                 }) {
                     Text(stringResource(R.string.discard_changes))
+                }
+            },
+        )
+    }
+
+    // The last stop before leaving: the feature is on but cannot work. Offered
+    // once per exit attempt, never looped — "leave anyway" really leaves.
+    if (showAccessibilityDialog) {
+        AlertDialog(
+            onDismissRequest = { showAccessibilityDialog = false },
+            title = { Text(text = stringResource(R.string.accessibility_not_enabled_title)) },
+            text = {
+                Text(
+                    text = stringResource(R.string.accessibility_not_enabled_message),
+                    style = MaterialTheme.typography.bodyMedium,
+                    lineHeight = 20.sp,
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    showAccessibilityDialog = false
+                    onGrantAccessibilityClick()
+                }) {
+                    Text(stringResource(R.string.accessibility_dialog_grant))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showAccessibilityDialog = false
+                    onBack()
+                }) {
+                    Text(stringResource(R.string.accessibility_dialog_leave_anyway))
                 }
             },
         )
@@ -179,7 +228,7 @@ private fun DurationCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -200,15 +249,9 @@ private fun DurationCard(
                             .weight(1f)
                             .height(56.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .then(
-                                if (isSelected) Modifier.background(
-                                    Brush.linearGradient(
-                                        listOf(IndigoDark, Indigo),
-                                        start = Offset(0f, 0f),
-                                        end = Offset(56f, 56f),
-                                    )
-                                )
-                                else Modifier.background(MaterialTheme.colorScheme.surfaceVariant)
+                            .background(
+                                if (isSelected) MaterialTheme.colorScheme.primaryContainer
+                                else MaterialTheme.colorScheme.surfaceVariant
                             )
                             .clickable { onPresetClick(preset) },
                         contentAlignment = Alignment.Center,
@@ -217,7 +260,8 @@ private fun DurationCard(
                             text = stringResource(R.string.precise_wake_preset_seconds, preset),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
-                            color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface,
+                            color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
+                            else MaterialTheme.colorScheme.onSurface,
                         )
                     }
                 }
@@ -240,7 +284,7 @@ private fun ScreenOffMethodCard(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -296,20 +340,41 @@ private fun GrantedRow() {
  * Spelled out step by step. The toggle lives several screens deep in system
  * settings, under a heading that is named differently on almost every vendor
  * build, and the intent can only get the user as far as the top of that tree.
+ *
+ * Drawn in the error palette rather than the softer notice one: without the
+ * grant the whole feature is inert, which is a malfunction, not a footnote.
  */
 @Composable
 private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = AmberSoft,
+        color = MaterialTheme.colorScheme.errorContainer,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.padding(14.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Rounded.Warning,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.size(20.dp),
+                )
+                Text(
+                    text = stringResource(R.string.accessibility_required_title),
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onErrorContainer,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
+            }
+
+            Spacer(Modifier.height(8.dp))
+
             Text(
                 text = stringResource(R.string.accessibility_required_warning),
                 style = MaterialTheme.typography.bodySmall,
-                color = Amber,
+                color = MaterialTheme.colorScheme.onErrorContainer,
                 lineHeight = 18.sp,
             )
 
@@ -326,13 +391,13 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
                         text = "${index + 1}",
                         size = 18.dp,
                         fontSize = 11.sp,
-                        background = Amber,
+                        background = MaterialTheme.colorScheme.error,
                         contentColor = Color.White,
                     )
                     Text(
                         text = stringResource(step),
                         style = MaterialTheme.typography.bodySmall,
-                        color = Amber,
+                        color = MaterialTheme.colorScheme.onErrorContainer,
                         lineHeight = 18.sp,
                         modifier = Modifier.padding(start = 8.dp),
                     )
@@ -343,7 +408,7 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
 
             Button(
                 onClick = onGrantAccessibilityClick,
-                colors = ButtonDefaults.buttonColors(containerColor = PinkAccent),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
                 shape = RoundedCornerShape(10.dp),
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -357,13 +422,13 @@ private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
 private fun NoticeCard(text: String) {
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = AmberSoft,
+        color = WakeUpTheme.colors.noticeContainer,
         tonalElevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
         Text(
             text = text,
-            color = Amber,
+            color = WakeUpTheme.colors.onNoticeContainer,
             style = MaterialTheme.typography.bodySmall,
             lineHeight = 18.sp,
             modifier = Modifier.padding(14.dp),

@@ -5,12 +5,14 @@
     <string name="open">apri</string>
     <string name="close">chiudi</string>
     <string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
     <string name="language">Lingua</string>
     <string name="language_zh_cn">Cinese Semplificato</string>
     <string name="language_en">Inglese</string>
     <string name="language_it">Italiano</string>
     <string name="clear_all">Cancella</string>
     <string name="save">Salva</string>
+    <string name="back">Indietro</string>
     <string name="mail_title">[Domanda] [Wake Up Screen] scrivi il titolo qui</string>
 
 
@@ -19,9 +21,10 @@
     <string name="click_to_open">Click per aprire</string>
     <string name="to_setting">All\'impostazione</string>
     <string name="how_to_set">Come impostare</string>ß
-    <string name="already_open">Già aperto</string>
-    <string name="already_close">Già chiuso</string>
-    <string name="i_already_close">Già chiuso</string>
+    <string name="already_open">Attivo</string>
+    <string name="already_close">Disattivo</string>
+    <string name="status_running">In funzione</string>
+    <string name="status_paused">In pausa</string>
     <string name="not_open">non aperto</string>
     <string name="not_close">non chiuso</string>
     <string name="wanna_close">Chiudi</string>
@@ -42,11 +45,11 @@
     <string name="developing">Developing</string>
     <string name="permission_of_read_notification">Leggi l\'autorizzazione di notifica</string>
     <string name="service_of_background">Background Services</string>
-    <string name="time_of_wake_up_screen">Tempo di schermo acceso</string>
+    <string name="time_of_wake_up_screen">Durata schermo acceso personalizzata</string>
     <string name="optimize_of_battery_saver">Disattiva l\'ottimizzazione della batteria</string>
     <string name="pocket_mode">Pocket Mode</string>
-    <string name="ongoing_status">Optimize Ongoing Notify</string>
-    <string name="current_mode">Modalità</string>
+    <string name="ongoing_status">Blocca notifiche in corso</string>
+    <string name="current_mode">Modalità filtro</string>
     <string name="all_pass">Tutte le notifiche</string>
     <string name="white_list">Modalità whitelist</string>
     <string name="white_list_page">Whitelist Setting Page</string>
@@ -72,7 +75,20 @@
     <string name="custom">Custom</string>
     <string name="about">Info</string>
     <string name="debug">Debug</string>
-    <string name="advanced_setting">Impostazioni avanzate</string>
+    <string name="advanced_setting">Regole di accensione</string>
+    <string name="setting_search_hint">Cerca nelle impostazioni</string>
+    <string name="setting_search_no_result">Nessuna impostazione trovata</string>
+    <string name="section_general">Generali</string>
+    <string name="section_diagnostics">Diagnostica</string>
+    <string name="section_screen_on_duration">Durata schermo acceso</string>
+    <string name="dark_mode">Modalità scura</string>
+    <string name="follow_system">Segui il sistema</string>
+    <string name="dark_mode_light">Chiaro</string>
+    <string name="dark_mode_dark">Scuro</string>
+    <string name="section_notification_filter">Filtra per app</string>
+    <string name="section_advanced">Avanzate</string>
+    <string name="section_notification_rules">Filtra per tipo di notifica</string>
+    <string name="section_device_state">Stato del dispositivo</string>
     <string name="about_this_app">info su Wake Up Screen</string>
     <string name="app_info">App Info</string>
     <string name="info">Info</string>
@@ -81,11 +97,26 @@
     <string name="click_here_to_open_google_play_store">Fai clic qui per aprire Google Play Store</string>
 
     <string name="app_intro_full">Questa è un applicazione Android che permette al telefono di risvegliarsi quando riceve una notifica.\nOttimizzato specialmente per il Samsung S10.\nCompatibile con altri dispositivi.E\' open source, senza accesso a internet, e gratis.</string>
-    <string name="sleep_mode_open_desc">"The screen will not wake between "</string>
     <string name="sleep_mode">Sleep Mode</string>
     <string name="delay_to_wakeup">Fare clic qui per iniziare il test di riattivazione</string>
     <string name="click_here_and_press_power_button_within_10_sec">Click here and press power button within 5 seconds</string>
     <string name="sleep_time">Sleep Time</string>
+    <string name="sleep_ring_asleep">Intervallo di sonno</string>
+    <string name="sleep_ring_awake">Schermo attivo</string>
+    <string name="sleep_segments_count">%1$d intervalli</string>
+    <string name="sleep_segments_empty">Nessun intervallo impostato</string>
+    <string name="sleep_segments_empty_hint">Senza intervalli lo schermo si accende a qualsiasi ora.</string>
+    <string name="sleep_add_segment">Aggiungi intervallo</string>
+    <string name="sleep_delete_segment">Elimina intervallo</string>
+    <string name="sleep_start_time">Inizio</string>
+    <string name="sleep_end_time">Fine</string>
+    <string name="sleep_overlap_error">Si sovrappone a un intervallo esistente (%1$s). Scegli un altro orario.</string>
+    <string name="sleep_same_time_error">Inizio e fine non possono coincidere.</string>
+    <string name="sleep_max_segments_reached">Al massimo %1$d intervalli.</string>
+    <string name="sleep_range_note">Il minuto iniziale è incluso, quello finale no: 02:00 - 04:00 termina alle 03:59 e un intervallo può iniziare dove ne finisce un altro.</string>
+    <string name="sleep_crosses_midnight">oltre la mezzanotte</string>
+    <string name="sleep_duration_hm">%1$d h %2$d min</string>
+    <string name="sleep_duration_m">%1$d min</string>
     <string name="dnd_detect_title">Rilevamento Non Disturbare</string>
     <string name="dnd_detect_desc">Close it if you want to wake up in DND mode.</string>
     <string name="charging_only_title">Solo in carica</string>
@@ -94,10 +125,14 @@
     <string name="still_have_problem">Hai ancora problemi?Clicca qui per aprire l\'impostazione</string>
     <string name="close_app_notice">Questa azione chiuderà l\'Applicazione, quindi riaprire l\'APP successivamente.</string>
     <string name="include_system_app">Includi APP di sistema</string>
-    <string name="radical_ongoing_detact">Detección continua radical (inestable)</string>
+    <string name="radical_ongoing_detact">Blocca notifiche non cancellabili</string>
+    <string name="ongoing_status_help">Le notifiche che un\'app contrassegna come in corso vengono bloccate e lo schermo resta spento.\n\nUna notifica in corso rappresenta qualcosa ancora in svolgimento: una videochiamata WeChat, una chiamata QQ, la musica in riproduzione, la navigazione attiva. Resta nel pannello finché l\'evento non finisce e può aggiornarsi molte volte, e ogni aggiornamento sarebbe altrimenti un\'occasione per accendere lo schermo.</string>
+    <string name="radical_ongoing_help">Le notifiche che un\'app contrassegna come non cancellabili vengono bloccate.\n\nCopre più di \"Blocca notifiche in corso\": oltre alle notifiche in corso, intercetta anche quelle prive di quel contrassegno che comunque non si possono scartare, come alcuni avvisi di servizi in background.\n\nCon entrambi gli interruttori attivi decide questo, e quello sulle notifiche in corso non aggiunge nulla.\n\nAlcune app contrassegnano come non cancellabili anche i messaggi normali, che vengono quindi bloccati: per questo l\'opzione è sperimentale.</string>
+    <string name="ignore_silent_notification">Ignora notifiche silenziose</string>
+    <string name="ignore_silent_notification_desc">Le notifiche dei canali con importanza Bassa, Minima o Nessuna non accendono più lo schermo.</string>
     <string name="send_notification_permission">Permesso di inviare notifiche</string>
 
-    <string name="function_test">Test funzionale</string>
+    <string name="function_test">Test di accensione</string>
     <string name="view_logs">Visualizza log</string>
     <string name="view_logs_subtitle">Registrazioni delle notifiche e cronologia accensione schermo</string>
     <string name="log_empty">Nessun log</string>
@@ -116,6 +151,7 @@
     <string name="log_reason_pocket_mode">Modalità tasca attiva — il sensore di prossimità ha rilevato che il dispositivo è in tasca.</string>
     <string name="log_reason_filter_list">L\'app è stata filtrata dalle regole whitelist/blacklist.</string>
     <string name="log_reason_ongoing">La notifica continua è stata filtrata.</string>
+    <string name="log_reason_low_importance">La notifica è silenziosa: l\'importanza del suo canale è troppo bassa.</string>
     <string name="log_reason_sleep_mode">Attualmente nel periodo della modalità sonno.</string>
     <string name="log_reason_dnd">La modalità Non Disturbare è attiva.</string>
     <string name="log_reason_charging">Il dispositivo non è in carica.</string>
@@ -136,6 +172,7 @@
     <string name="feedback_send_email">Email</string>
     <string name="feedback_copy_email">Copia email</string>
     <string name="feedback_email_copied">Email copiato</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">Xiaohongshu</string>
     <string name="language_ja">Giapponese</string>
@@ -220,4 +257,124 @@
     <string name="unsaved_changes_message">La durata dello schermo acceso è stata modificata ma non ancora salvata.</string>
     <string name="save_and_back">Salva ed esci</string>
     <string name="discard_changes">Annulla</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">Processo di verifica delle notifiche</string>
+    <string name="chain_entry_subtitle">Mostra dove si fermerebbe una notifica con le impostazioni attuali</string>
+    <string name="chain_live_hint">In base alle impostazioni attuali e allo stato del dispositivo: ecco cosa incontrerebbe una notifica in arrivo adesso.</string>
+    <string name="chain_live_footer">Il filtro app, l\'importanza della notifica e il filtro delle notifiche persistenti dipendono dalla notifica stessa, quindi non si possono decidere qui.</string>
+    <string name="chain_log_section_title">Cosa ha attraversato</string>
+    <string name="chain_show_notification_fields">Mostra i campi della notifica</string>
+    <string name="chain_current_setting">ora impostato su %1$s</string>
+    <string name="chain_node_notification_access">Accesso alle notifiche</string>
+    <string name="chain_node_master_switch">Interruttore principale</string>
+    <string name="chain_node_pocket_mode">Modalita tasca</string>
+    <string name="chain_node_interactive">Stato dello schermo</string>
+    <string name="chain_node_filter_list">Filtro app</string>
+    <string name="chain_node_low_importance">Importanza della notifica</string>
+    <string name="chain_node_ongoing">Notifiche persistenti</string>
+    <string name="chain_node_sleep_mode">Modalita sonno</string>
+    <string name="chain_node_dnd">Non disturbare</string>
+    <string name="chain_node_charging">Solo in carica</string>
+    <string name="chain_node_wake_up">Accendi lo schermo</string>
+    <string name="chain_state_passed">Superato</string>
+    <string name="chain_state_blocked">Fermata qui</string>
+    <string name="chain_state_skipped">Disattivato, non applicato</string>
+    <string name="chain_state_depends">Dipende dalla notifica</string>
+    <string name="chain_state_not_evaluated">Non raggiunto</string>
+    <string name="chain_state_reached">Schermo acceso</string>
+    <string name="chain_state_not_reached">Mai raggiunto</string>
+    <string name="chain_legend_pass">Passa</string>
+    <string name="chain_legend_block">Blocca ora</string>
+    <string name="chain_legend_depends">Dipende</string>
+    <string name="chain_legend_off">Disattivato</string>
+    <string name="chain_config_granted">Concesso</string>
+    <string name="chain_config_not_granted">Non concesso</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- Ultima accensione riuscita, nella pagina iniziale -->
+    <string name="last_wake_just_now">Ultima accensione riuscita: adesso</string>
+    <string name="last_wake_minutes_ago">Ultima accensione riuscita: %1$d min fa</string>
+    <string name="last_wake_hours_ago">Ultima accensione riuscita: %1$d h fa</string>
+    <string name="last_wake_days_ago">Ultima accensione riuscita: %1$d g fa</string>
+    <string name="last_wake_never">Nessuna accensione riuscita registrata. Tocca per aprire i log.</string>
+    <!-- Giorni della finestra di sonno -->
+    <string name="sleep_days_label">Giorni attivi</string>
+    <string name="sleep_days_every_day">Ogni giorno</string>
+    <string name="sleep_days_weekdays">Giorni feriali</string>
+    <string name="sleep_days_weekend">Fine settimana</string>
+    <string name="sleep_days_empty_error">Scegli almeno un giorno.</string>
+    <!-- Filtro livello batteria -->
+    <string name="battery_level_title">Silenzio con batteria scarica</string>
+    <string name="battery_level_desc">Sotto la soglia e senza carica, le notifiche non accendono più lo schermo.</string>
+    <string name="battery_level_threshold_title">Soglia batteria</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">Livello batteria</string>
+    <string name="chain_config_battery_threshold">sotto il %1$d%%</string>
+    <string name="log_reason_battery_level">La batteria era sotto la soglia impostata e il dispositivo non era in carica.</string>
+    <!-- Silenzio a faccia in giù -->
+    <string name="face_down_title">Silenzio a faccia in giù</string>
+    <string name="face_down_desc">Con il telefono appoggiato a schermo in giù, le notifiche non accendono lo schermo.</string>
+    <string name="chain_node_face_down">A faccia in giù</string>
+    <string name="log_reason_face_down">Il telefono era appoggiato con lo schermo verso il basso.</string>
+    <!-- Backup delle impostazioni -->
+    <string name="section_backup">Backup</string>
+    <string name="backup_export_title">Esporta impostazioni</string>
+    <string name="backup_export_subtitle">Salva tutte le impostazioni in un file JSON</string>
+    <string name="backup_import_title">Importa impostazioni</string>
+    <string name="backup_import_subtitle">Ripristina le impostazioni da un file di backup</string>
+    <string name="backup_export_success">Impostazioni esportate</string>
+    <string name="backup_export_failed">Impossibile scrivere il file di backup</string>
+    <string name="backup_import_success">Importate %1$d impostazioni</string>
+    <string name="backup_import_failed_corrupt">Non è un file di backup di WakeUpScreen</string>
+    <string name="backup_import_failed_newer">Questo backup proviene da una versione più recente dell\'app. Aggiorna l\'app e riprova.</string>
+    <!-- Bagliore notturno -->
+    <string name="night_glow_title">Bagliore notturno</string>
+    <string name="night_glow_desc">Nelle finestre di sonno, mostra per un attimo un debole bagliore rosso invece di restare spento</string>
+    <string name="log_status_night_glow">Bagliore notturno</string>
+    <string name="log_status_night_glow_desc">La finestra di sonno ha fermato l\'accensione normale e ha mostrato il debole bagliore rosso notturno.</string>
+    <!-- Statistiche di attenzione -->
+    <string name="attention_stats_title">Statistiche di attenzione</string>
+    <string name="attention_stats_subtitle">Quali app accendono lo schermo senza mai essere guardate</string>
+    <string name="attention_stats_list_title">Ultimi 30 giorni</string>
+    <string name="attention_stats_row">Schermo acceso %1$d volte · seguito %2$d volte</string>
+    <string name="attention_stats_empty">Nessuna accensione registrata. I dati compaiono qui quando le notifiche accendono lo schermo.</string>
+    <string name="attention_suggestion_title">Suggerimenti</string>
+    <string name="attention_suggestion_body">%1$s ha acceso lo schermo %2$d volte negli ultimi 30 giorni senza mai essere seguita da uno sblocco. Aggiungerla alla blacklist?</string>
+    <string name="attention_add_blacklist">Aggiungi alla blacklist</string>
+    <string name="attention_added_blacklist">Aggiunta alla blacklist</string>
+    <string name="attention_added_blacklist_mode_hint">Aggiunta alla blacklist. Nota: la modalità blacklist non è la modalità filtro attiva.</string>
+    <string name="attention_stats_note">Il conteggio avviene interamente sul dispositivo, da due soli eventi: lo schermo acceso e l\'eventuale sblocco subito dopo. Il contenuto delle notifiche non viene letto e nulla lascia il dispositivo.</string>
+
+    <!-- Changelog in-app -->
+    <string name="changelog">Cronologia versioni</string>
+    <string name="changelog_subtitle">Le principali novità di ogni versione</string>
+    <string name="whats_new_title">Novità</string>
+    <string name="changelog_view_full">Vedi il changelog completo</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-it.md</string>
+    <string name="changelog_v40000_1">La home mostra quanto tempo fa è avvenuta l\'ultima accensione riuscita</string>
+    <string name="changelog_v40000_2">Le finestre di sonno possono valere solo in certi giorni della settimana</string>
+    <string name="changelog_v40000_3">Nuove regole: Silenzio con batteria scarica e Silenzio a faccia in giù</string>
+    <string name="changelog_v40000_4">Bagliore notturno: debole luce rossa opzionale nelle finestre di sonno</string>
+    <string name="changelog_v40000_5">Statistiche di attenzione: trova le app che accendono lo schermo senza mai essere guardate</string>
+    <string name="changelog_v40000_6">Esportazione e importazione delle impostazioni come file</string>
+    <string name="changelog_v40000_7">Changelog integrato nell\'app — quello che stai leggendo ora</string>
+    <string name="changelog_v32000_1">La modalità sonno supporta più finestre, precise al minuto</string>
+    <string name="changelog_v32000_2">Nuova modalità scura: sistema, chiara o scura</string>
+    <string name="changelog_v32000_3">Colori rifatti su Material 3, impostazioni riorganizzate</string>
+    <string name="changelog_v32000_4">Corretto il filtro delle notifiche non cancellabili che non veniva salvato</string>
+    <string name="changelog_v31100_1">Ora punta ad Android 16 (API 36)</string>
+    <string name="changelog_v31100_2">Le pagine secondarie usano l\'animazione di ritorno predittiva del sistema</string>
+    <string name="changelog_v31000_1">Promemoria ripetuto: lo schermo si riaccende finché la notifica resta non letta</string>
+    <string name="changelog_v31000_2">Nuova durata schermo acceso personalizzata</string>
+    <string name="changelog_v30600_1">Rimossi il permesso di servizio in primo piano a uso speciale e l\'opzione di notifica persistente</string>
+    <string name="changelog_v30500_1">Nuova pagina "Controlla aggiornamenti" in Impostazioni → Info</string>
+    <string name="changelog_v30500_2">Corretti i problemi di layout edge-to-edge su Android 15+</string>
+
+    <!-- Blocco accessibilità nella pagina della durata schermo acceso -->
+    <string name="accessibility_required_title">Permesso di accessibilità richiesto</string>
+    <string name="accessibility_not_enabled_title">Accessibilità non attiva</string>
+    <string name="accessibility_not_enabled_message">La durata schermo acceso personalizzata usa l\'azione di accessibilità \"blocca schermo\" per spegnere il display. Finché non è attiva, questa funzione non avrà effetto.</string>
+    <string name="accessibility_dialog_grant">Attiva ora</string>
+    <string name="accessibility_dialog_leave_anyway">Esci comunque</string>
 </resources>

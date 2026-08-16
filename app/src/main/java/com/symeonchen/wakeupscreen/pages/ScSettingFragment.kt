@@ -3,6 +3,7 @@ package com.symeonchen.wakeupscreen.pages
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +16,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseFragment
 import com.symeonchen.wakeupscreen.compose.SettingScreen
+import com.symeonchen.wakeupscreen.compose.WhatsNewSheet
 import com.symeonchen.wakeupscreen.compose.components.SelectionDialog
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
+import com.blankj.utilcode.util.ToastUtils
+import com.symeonchen.wakeupscreen.data.ChangelogCatalog
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.DarkModeInfo
+import com.symeonchen.wakeupscreen.data.FeatureBadge
 import com.symeonchen.wakeupscreen.data.LanguageInfo
+import com.symeonchen.wakeupscreen.data.SettingsBackup
+import com.symeonchen.wakeupscreen.utils.DataInjection
+import com.symeonchen.wakeupscreen.utils.WhatsNewTracker
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
-import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.PlayStoreTools
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 
@@ -30,11 +38,69 @@ class ScSettingFragment : ScBaseFragment() {
     private lateinit var settingModel: SettingViewModel
 
     /**
-     * Mirrors the precise screen-on setting for the row subtitle. Refreshed on
-     * resume rather than observed: the setting lives in another screen's view
-     * model, and coming back from that screen is the only way it can change.
+     * SAF pickers for the settings backup. The user chooses the location both
+     * ways, so no storage permission is involved.
      */
-    private val preciseWakeState = mutableStateOf(preciseWakeSnapshot())
+    private val exportBackupLauncher =
+        registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
+            uri ?: return@registerForActivityResult
+            writeBackup(uri)
+        }
+
+    private val importBackupLauncher =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            uri ?: return@registerForActivityResult
+            readBackup(uri)
+        }
+
+    private fun writeBackup(uri: Uri) {
+        try {
+            val content = SettingsBackup.export()
+            requireContext().contentResolver.openOutputStream(uri, "wt")?.use { stream ->
+                stream.write(content.toByteArray(Charsets.UTF_8))
+            } ?: throw IllegalStateException("no stream")
+            ToastUtils.showShort(R.string.backup_export_success)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ToastUtils.showShort(R.string.backup_export_failed)
+        }
+    }
+
+    private fun readBackup(uri: Uri) {
+        val raw = try {
+            requireContext().contentResolver.openInputStream(uri)?.use { stream ->
+                stream.readBytes().toString(Charsets.UTF_8)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+        if (raw == null) {
+            ToastUtils.showShort(R.string.backup_import_failed_corrupt)
+            return
+        }
+        when (val result = SettingsBackup.import(raw)) {
+            is SettingsBackup.ImportResult.Success -> {
+                // Language and dark mode are the two settings whose effect is
+                // not read lazily; everything else applies on next read.
+                DataInjection.languageSelected.applyLanguage()
+                DataInjection.darkModeSelected.applyDarkMode()
+                ToastUtils.showShort(getString(R.string.backup_import_success, result.applied))
+            }
+            is SettingsBackup.ImportResult.NewerVersion ->
+                ToastUtils.showShort(R.string.backup_import_failed_newer)
+            is SettingsBackup.ImportResult.Corrupt ->
+                ToastUtils.showShort(R.string.backup_import_failed_corrupt)
+        }
+    }
+
+    private fun openFullChangelog() {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.changelog_url))))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,45 +121,71 @@ class ScSettingFragment : ScBaseFragment() {
             WakeUpScreenTheme {
                 val currentMode by settingModel.modeOfCurrent.observeAsState(CurrentMode.MODE_ALL_NOTIFY)
                 val language by settingModel.languageSelected.observeAsState(LanguageInfo.FOLLOW_SYSTEM)
+                val darkMode by settingModel.darkModeSelected.observeAsState(DarkModeInfo.FOLLOW_SYSTEM)
 
                 var showLanguageDialog by remember { mutableStateOf(false) }
-                var showModeDialog by remember { mutableStateOf(false) }
+                var showDarkModeDialog by remember { mutableStateOf(false) }
+                var showChangelogSheet by remember { mutableStateOf(false) }
 
-                val currentModeText = stringResource(
-                    when (currentMode) {
-                        CurrentMode.MODE_BLACK_LIST -> R.string.black_list
-                        CurrentMode.MODE_WHITE_LIST -> R.string.white_list
-                        else -> R.string.all_pass
-                    }
-                )
-
-                val (preciseEnabled, preciseSeconds) = preciseWakeState.value
-                val wakeTimeText = if (preciseEnabled) {
-                    stringResource(R.string.precise_wake_summary_on, preciseSeconds)
-                } else {
-                    stringResource(R.string.precise_wake_summary_off)
+                // Read once per composition; flipped locally so the dot
+                // disappears the moment the row is tapped, not on re-entry.
+                var attentionStatsBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.ATTENTION_STATS))
+                }
+                var backupExportBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.BACKUP_EXPORT))
+                }
+                var backupImportBadge by remember {
+                    mutableStateOf(WhatsNewTracker.isBadgeVisible(FeatureBadge.BACKUP_IMPORT))
                 }
 
                 SettingScreen(
-                    currentModeText = currentModeText,
-                    languageText = language.desc,
-                    wakeTimeText = wakeTimeText,
+                    languageText = language.labelRes?.let { stringResource(it) } ?: language.desc,
+                    darkModeText = stringResource(darkMode.labelRes),
                     showWhiteListEntry = currentMode == CurrentMode.MODE_WHITE_LIST,
                     showBlackListEntry = currentMode == CurrentMode.MODE_BLACK_LIST,
                     onLanguageClick = { showLanguageDialog = true },
-                    onWakeTimeClick = { context?.quickStartActivity<WakeUptimeSettingActivity>() },
-                    onCurrentModeClick = { showModeDialog = true },
-                    onWhiteListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_WHITE_LIST) },
-                    onBlackListClick = { FilterListActivity.actionStartWithMode(context, CurrentMode.MODE_BLACK_LIST) },
+                    onDarkModeClick = { showDarkModeDialog = true },
                     onAdvancedSettingClick = { context?.quickStartActivity<AdvanceSettingPageActivity>() },
+                    onBlockChainClick = { context?.quickStartActivity<BlockChainPageActivity>() },
                     onFunctionTestClick = { context?.quickStartActivity<FunctionTestPageActivity>() },
+                    onViewLogsClick = { context?.quickStartActivity<NotificationLogPageActivity>() },
+                    onBackupExportClick = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.BACKUP_EXPORT)
+                        backupExportBadge = false
+                        exportBackupLauncher.launch("wakeupscreen-backup.json")
+                    },
+                    onBackupImportClick = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.BACKUP_IMPORT)
+                        backupImportBadge = false
+                        importBackupLauncher.launch(arrayOf("application/json", "text/plain", "application/octet-stream"))
+                    },
+                    onAttentionStatsClick = {
+                        WhatsNewTracker.acknowledgeBadge(FeatureBadge.ATTENTION_STATS)
+                        attentionStatsBadge = false
+                        context?.quickStartActivity<AttentionStatsActivity>()
+                    },
                     onAddressClick = {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/riko2chen/WakeUpScreen")))
                     },
                     onFeedbackClick = { context?.quickStartActivity<FeedbackPageActivity>() },
                     onGiveStarClick = { PlayStoreTools.openPlayStoreWithUrl(context) },
                     onCheckUpdateClick = { context?.quickStartActivity<CheckUpdatePageActivity>() },
+                    onChangelogClick = { showChangelogSheet = true },
+                    attentionStatsBadge = attentionStatsBadge,
+                    backupExportBadge = backupExportBadge,
+                    backupImportBadge = backupImportBadge,
                 )
+
+                // From here the sheet always lists every catalogued version;
+                // scrolling is how a reader walks further back in time.
+                if (showChangelogSheet) {
+                    WhatsNewSheet(
+                        versions = ChangelogCatalog.versions,
+                        onDismiss = { showChangelogSheet = false },
+                        onViewFullChangelog = { openFullChangelog() },
+                    )
+                }
 
                 // Language dialog
                 if (showLanguageDialog) {
@@ -101,7 +193,9 @@ class ScSettingFragment : ScBaseFragment() {
                     val currentIdx = languageArray.indexOfFirst { it.referenceNum == language.referenceNum }
                     SelectionDialog(
                         title = stringResource(R.string.language),
-                        options = languageArray.map { it.desc },
+                        options = languageArray.map { item ->
+                            item.labelRes?.let { stringResource(it) } ?: item.desc
+                        },
                         selectedIndex = if (currentIdx >= 0) currentIdx else 0,
                         confirmText = stringResource(R.string.ok),
                         onSelect = { idx ->
@@ -114,42 +208,26 @@ class ScSettingFragment : ScBaseFragment() {
                     )
                 }
 
-                // Mode dialog
-                if (showModeDialog) {
-                    val modeLabels = listOf(
-                        stringResource(R.string.all_pass),
-                        stringResource(R.string.white_list),
-                        stringResource(R.string.black_list),
-                    )
-                    val currentIdx = when (currentMode) {
-                        CurrentMode.MODE_ALL_NOTIFY -> 0
-                        CurrentMode.MODE_WHITE_LIST -> 1
-                        else -> 2
-                    }
+                // Dark mode dialog
+                if (showDarkModeDialog) {
+                    val darkModeArray = DarkModeInfo.values()
+                    val currentIdx = darkModeArray.indexOfFirst { it.referenceNum == darkMode.referenceNum }
                     SelectionDialog(
-                        title = stringResource(R.string.current_mode),
-                        options = modeLabels,
-                        selectedIndex = currentIdx,
+                        title = stringResource(R.string.dark_mode),
+                        options = darkModeArray.map { stringResource(it.labelRes) },
+                        selectedIndex = if (currentIdx >= 0) currentIdx else 0,
                         confirmText = stringResource(R.string.ok),
                         onSelect = { idx ->
-                            showModeDialog = false
-                            settingModel.modeOfCurrent.postValue(
-                                CurrentMode.getModeFromValue(idx)
-                            )
+                            showDarkModeDialog = false
+                            val selected = darkModeArray[idx]
+                            settingModel.darkModeSelected.postValue(selected)
+                            selected.applyDarkMode()
                         },
-                        onDismiss = { showModeDialog = false },
+                        onDismiss = { showDarkModeDialog = false },
                     )
                 }
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        preciseWakeState.value = preciseWakeSnapshot()
-    }
-
-    private fun preciseWakeSnapshot(): Pair<Boolean, Long> =
-        DataInjection.preciseScreenOnSwitch to DataInjection.preciseScreenOnSecond
 
 }

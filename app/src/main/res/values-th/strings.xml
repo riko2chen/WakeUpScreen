@@ -7,6 +7,7 @@
     <string name="open">เปิด</string>
     <string name="close">ปิด</string>
     <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
     <string name="language">ภาษา</string>
     <string name="language_zh_cn">จีนตัวย่อ</string>
     <string name="language_en">อังกฤษ</string>
@@ -24,9 +25,10 @@
     <string name="click_to_open">แตะเพื่อเปิด</string>
     <string name="to_setting">ไปที่ตั้งค่า</string>
     <string name="how_to_set">วิธีตั้งค่า</string>
-    <string name="already_open">เปิดอยู่แล้ว</string>
-    <string name="already_close">ปิดอยู่แล้ว</string>
-    <string name="i_already_close">ปิดอยู่แล้ว</string>
+    <string name="already_open">เปิด</string>
+    <string name="already_close">ปิด</string>
+    <string name="status_running">กำลังทำงาน</string>
+    <string name="status_paused">หยุดชั่วคราว</string>
     <string name="not_open">ยังไม่เปิด</string>
     <string name="not_close">ยังไม่ปิด</string>
     <string name="wanna_close">ต้องการปิด</string>
@@ -39,11 +41,11 @@
     <string name="developing">กำลังพัฒนา</string>
     <string name="permission_of_read_notification">สิทธิ์อ่านการแจ้งเตือน</string>
     <string name="service_of_background">บริการเบื้องหลัง</string>
-    <string name="time_of_wake_up_screen">ระยะเวลาเปิดหน้าจอ</string>
+    <string name="time_of_wake_up_screen">กำหนดเวลาเปิดหน้าจอเอง</string>
     <string name="optimize_of_battery_saver">ปิดการเพิ่มประสิทธิภาพแบตเตอรี่</string>
     <string name="pocket_mode">โหมดกระเป๋า</string>
-    <string name="ongoing_status">เพิ่มประสิทธิภาพการแจ้งเตือนต่อเนื่อง</string>
-    <string name="current_mode">โหมดปัจจุบัน</string>
+    <string name="ongoing_status">บล็อกการแจ้งเตือนที่กำลังดำเนินอยู่</string>
+    <string name="current_mode">โหมดตัวกรอง</string>
     <string name="all_pass">แจ้งเตือนทั้งหมด</string>
     <string name="white_list">โหมดรายการที่อนุญาต</string>
     <string name="white_list_page">หน้าตั้งค่ารายการที่อนุญาต</string>
@@ -63,7 +65,20 @@
     <string name="custom">กำหนดเอง</string>
     <string name="about">เกี่ยวกับ</string>
     <string name="debug">ดีบัก</string>
-    <string name="advanced_setting">ตั้งค่าขั้นสูง</string>
+    <string name="advanced_setting">กฎการเปิดหน้าจอ</string>
+    <string name="setting_search_hint">ค้นหาการตั้งค่า</string>
+    <string name="setting_search_no_result">ไม่พบการตั้งค่าที่ตรงกัน</string>
+    <string name="section_general">ทั่วไป</string>
+    <string name="section_diagnostics">การวินิจฉัย</string>
+    <string name="section_screen_on_duration">ระยะเวลาเปิดหน้าจอ</string>
+    <string name="dark_mode">โหมดมืด</string>
+    <string name="follow_system">ตามระบบ</string>
+    <string name="dark_mode_light">สว่าง</string>
+    <string name="dark_mode_dark">มืด</string>
+    <string name="section_notification_filter">กรองตามแอป</string>
+    <string name="section_advanced">ขั้นสูง</string>
+    <string name="section_notification_rules">กรองตามประเภทการแจ้งเตือน</string>
+    <string name="section_device_state">สถานะอุปกรณ์</string>
     <string name="about_this_app">เกี่ยวกับ Wake Up Screen</string>
     <string name="app_info">ข้อมูลแอป</string>
     <string name="info">ข้อมูล</string>
@@ -72,11 +87,26 @@
     <string name="click_here_to_open_google_play_store">แตะเพื่อเปิด Google Play Store</string>
 
     <string name="app_intro_full">แอป Android ที่ทำให้หน้าจอเปิดเมื่อได้รับการแจ้งเตือน\nปรับแต่งเฉพาะสำหรับ Samsung S10 และรองรับอุปกรณ์อื่นด้วย\nเป็นโอเพนซอร์ส ไม่ต้องเชื่อมต่ออินเทอร์เน็ต และฟรี</string>
-    <string name="sleep_mode_open_desc">หน้าจอจะไม่เปิดในช่วงเวลา: </string>
     <string name="sleep_mode">โหมดพักผ่อน</string>
     <string name="delay_to_wakeup">แตะเพื่อเริ่มทดสอบการปลุกหน้าจอ</string>
     <string name="click_here_and_press_power_button_within_10_sec">แตะแล้วกดปุ่มเปิด/ปิดภายใน 10 วินาที</string>
     <string name="sleep_time">เวลาพักผ่อน</string>
+    <string name="sleep_ring_asleep">ช่วงเวลานอน</string>
+    <string name="sleep_ring_awake">หน้าจอสว่าง</string>
+    <string name="sleep_segments_count">%1$d ช่วงเวลา</string>
+    <string name="sleep_segments_empty">ยังไม่ได้ตั้งช่วงเวลา</string>
+    <string name="sleep_segments_empty_hint">หากยังไม่เพิ่มช่วงเวลา หน้าจอจะสว่างได้ตลอดทั้งวัน</string>
+    <string name="sleep_add_segment">เพิ่มช่วงเวลา</string>
+    <string name="sleep_delete_segment">ลบช่วงเวลา</string>
+    <string name="sleep_start_time">เริ่ม</string>
+    <string name="sleep_end_time">สิ้นสุด</string>
+    <string name="sleep_overlap_error">ทับซ้อนกับช่วงเวลาที่มีอยู่ (%1$s) โปรดเลือกเวลาอื่น</string>
+    <string name="sleep_same_time_error">เวลาเริ่มและสิ้นสุดต้องไม่เหมือนกัน</string>
+    <string name="sleep_max_segments_reached">ตั้งได้สูงสุด %1$d ช่วงเวลา</string>
+    <string name="sleep_range_note">นาทีเริ่มต้นอยู่ในช่วง ส่วนนาทีสิ้นสุดไม่อยู่ในช่วง ดังนั้น 02:00 - 04:00 จะสิ้นสุดที่ 03:59 และช่วงหนึ่งสามารถเริ่มต้นที่จุดสิ้นสุดของอีกช่วงได้</string>
+    <string name="sleep_crosses_midnight">ข้ามเที่ยงคืน</string>
+    <string name="sleep_duration_hm">%1$d ชม. %2$d น.</string>
+    <string name="sleep_duration_m">%1$d นาที</string>
     <string name="dnd_detect_title">ตรวจจับโหมดห้ามรบกวน</string>
     <string name="dnd_detect_desc">ปิดหากต้องการให้หน้าจอเปิดในโหมดห้ามรบกวน</string>
     <string name="charging_only_title">เปิดหน้าจอเฉพาะขณะชาร์จ</string>
@@ -85,10 +115,14 @@
     <string name="still_have_problem">ยังมีปัญหาอยู่? แตะเพื่อเปิดตั้งค่า</string>
     <string name="close_app_notice">การกระทำนี้จะปิดแอป กรุณาเปิดแอปอีกครั้งหลังจากนั้น</string>
     <string name="include_system_app">รวมแอประบบ</string>
-    <string name="radical_ongoing_detact">กรองการแจ้งเตือนต่อเนื่องแบบเข้มงวด (ทดลอง)</string>
+    <string name="radical_ongoing_detact">บล็อกการแจ้งเตือนที่ลบไม่ได้</string>
+    <string name="ongoing_status_help">การแจ้งเตือนที่แอปทำเครื่องหมายว่ากำลังดำเนินอยู่จะถูกบล็อก และหน้าจอจะไม่สว่าง\n\nการแจ้งเตือนประเภทนี้แทนสิ่งที่ยังดำเนินอยู่ เช่น การสนทนาผ่านวิดีโอ WeChat การโทร QQ เพลงที่กำลังเล่น หรือการนำทางที่กำลังทำงาน มันจะค้างอยู่ในแถบแจ้งเตือนจนกว่าจะจบ และอาจอัปเดตหลายครั้งระหว่างนั้น ซึ่งการอัปเดตแต่ละครั้งอาจทำให้หน้าจอสว่างได้</string>
+    <string name="radical_ongoing_help">การแจ้งเตือนที่แอปทำเครื่องหมายว่าลบไม่ได้จะถูกบล็อก\n\nครอบคลุมกว้างกว่า «บล็อกการแจ้งเตือนที่กำลังดำเนินอยู่» นอกจากการแจ้งเตือนที่ทำเครื่องหมายว่ากำลังดำเนินอยู่แล้ว ยังรวมถึงการแจ้งเตือนที่ไม่มีเครื่องหมายนั้นแต่ปัดทิ้งไม่ได้ เช่น การแจ้งเตือนค้างของบริการเบื้องหลังบางตัว\n\nเมื่อเปิดทั้งสองรายการ รายการนี้จะเป็นตัวกำหนดผล และรายการการแจ้งเตือนที่กำลังดำเนินอยู่จะไม่มีผลเพิ่มเติม\n\nบางแอปทำเครื่องหมายว่าลบไม่ได้กับข้อความทั่วไปด้วย ข้อความเหล่านั้นจะถูกบล็อกไปด้วย รายการนี้จึงเป็นฟีเจอร์ทดลอง</string>
+    <string name="ignore_silent_notification">ไม่สนใจการแจ้งเตือนแบบเงียบ</string>
+    <string name="ignore_silent_notification_desc">การแจ้งเตือนจากช่องที่ตั้งความสำคัญเป็นต่ำ ต่ำสุด หรือไม่มี จะไม่ปลุกหน้าจอ</string>
     <string name="send_notification_permission">สิทธิ์ในการส่งการแจ้งเตือน</string>
 
-    <string name="function_test">ทดสอบฟังก์ชัน</string>
+    <string name="function_test">ทดสอบการเปิดหน้าจอ</string>
     <string name="view_logs">ดูบันทึก</string>
     <string name="view_logs_subtitle">บันทึกการแจ้งเตือนและประวัติการเปิดหน้าจอ</string>
     <string name="log_empty">ยังไม่มีบันทึก</string>
@@ -107,6 +141,7 @@
     <string name="log_reason_pocket_mode">โหมดกระเป๋าเปิดอยู่ — เซ็นเซอร์ความใกล้ตรวจจับว่าอุปกรณ์อยู่ในกระเป๋า</string>
     <string name="log_reason_filter_list">แอปถูกกรองโดยกฎรายการที่อนุญาต/บล็อก</string>
     <string name="log_reason_ongoing">การแจ้งเตือนต่อเนื่องถูกกรอง</string>
+    <string name="log_reason_low_importance">เป็นการแจ้งเตือนแบบเงียบ ความสำคัญของช่องต่ำเกินไป</string>
     <string name="log_reason_sleep_mode">อยู่ในช่วงเวลาโหมดพักผ่อน</string>
     <string name="log_reason_dnd">โหมดห้ามรบกวนเปิดอยู่</string>
     <string name="log_reason_charging">อุปกรณ์ไม่ได้ชาร์จอยู่</string>
@@ -127,6 +162,7 @@
     <string name="feedback_send_email">อีเมล</string>
     <string name="feedback_copy_email">คัดลอกอีเมล</string>
     <string name="feedback_email_copied">คัดลอกอีเมลแล้ว</string>
+    <string name="feedback_github_issues">GitHub Issues</string>
     <string name="feedback_contact_x">X (Twitter)</string>
     <string name="feedback_contact_xiaohongshu">เสี่ยวหงซู</string>
 
@@ -207,4 +243,124 @@
     <string name="unsaved_changes_message">เวลาเปิดหน้าจอถูกแก้ไขแล้วแต่ยังไม่ได้บันทึก</string>
     <string name="save_and_back">บันทึกแล้วย้อนกลับ</string>
     <string name="discard_changes">ยกเลิก</string>
+
+    <!-- Block chain view -->
+    <string name="chain_title">กระบวนการตรวจสอบการแจ้งเตือน</string>
+    <string name="chain_entry_subtitle">แสดงว่าการแจ้งเตือนจะหยุดที่จุดใดภายใต้การตั้งค่าปัจจุบัน</string>
+    <string name="chain_live_hint">อ้างอิงจากการตั้งค่าปัจจุบันและสถานะเครื่อง นี่คือสิ่งที่การแจ้งเตือนที่เข้ามาตอนนี้จะต้องเจอ</string>
+    <string name="chain_live_footer">ตัวกรองแอป ความสำคัญของการแจ้งเตือน และตัวกรองการแจ้งเตือนค้าง ขึ้นอยู่กับตัวการแจ้งเตือนเอง จึงตัดสินล่วงหน้าที่นี่ไม่ได้</string>
+    <string name="chain_log_section_title">ผ่านอะไรมาบ้าง</string>
+    <string name="chain_show_notification_fields">แสดงข้อมูลการแจ้งเตือน</string>
+    <string name="chain_current_setting">ตั้งค่าปัจจุบันคือ %1$s</string>
+    <string name="chain_node_notification_access">สิทธิ์เข้าถึงการแจ้งเตือน</string>
+    <string name="chain_node_master_switch">สวิตช์หลัก</string>
+    <string name="chain_node_pocket_mode">โหมดกระเป๋า</string>
+    <string name="chain_node_interactive">สถานะหน้าจอ</string>
+    <string name="chain_node_filter_list">ตัวกรองแอป</string>
+    <string name="chain_node_low_importance">ความสำคัญของการแจ้งเตือน</string>
+    <string name="chain_node_ongoing">ตัวกรองการแจ้งเตือนค้าง</string>
+    <string name="chain_node_sleep_mode">โหมดนอนหลับ</string>
+    <string name="chain_node_dnd">ตรวจจับห้ามรบกวน</string>
+    <string name="chain_node_charging">เปิดจอเฉพาะตอนชาร์จ</string>
+    <string name="chain_node_wake_up">เปิดหน้าจอ</string>
+    <string name="chain_state_passed">ผ่าน</string>
+    <string name="chain_state_blocked">ถูกหยุดที่นี่</string>
+    <string name="chain_state_skipped">ปิดอยู่ ไม่มีผล</string>
+    <string name="chain_state_depends">ขึ้นอยู่กับการแจ้งเตือน</string>
+    <string name="chain_state_not_evaluated">ไม่ได้ทำงาน</string>
+    <string name="chain_state_reached">หน้าจอสว่างแล้ว</string>
+    <string name="chain_state_not_reached">ไปไม่ถึง</string>
+    <string name="chain_legend_pass">ผ่าน</string>
+    <string name="chain_legend_block">กำลังบล็อก</string>
+    <string name="chain_legend_depends">แล้วแต่การแจ้งเตือน</string>
+    <string name="chain_legend_off">ปิดอยู่</string>
+    <string name="chain_config_granted">ได้รับสิทธิ์แล้ว</string>
+    <string name="chain_config_not_granted">ยังไม่ได้รับสิทธิ์</string>
+    <string name="chain_config_sleep_window">%1$s - %2$s</string>
+
+    <!-- การปลุกหน้าจอสำเร็จล่าสุดบนหน้าแรก -->
+    <string name="last_wake_just_now">ปลุกหน้าจอสำเร็จล่าสุด: เมื่อสักครู่</string>
+    <string name="last_wake_minutes_ago">ปลุกหน้าจอสำเร็จล่าสุด: %1$d นาทีที่แล้ว</string>
+    <string name="last_wake_hours_ago">ปลุกหน้าจอสำเร็จล่าสุด: %1$d ชั่วโมงที่แล้ว</string>
+    <string name="last_wake_days_ago">ปลุกหน้าจอสำเร็จล่าสุด: %1$d วันที่แล้ว</string>
+    <string name="last_wake_never">ยังไม่มีบันทึกการปลุกที่สำเร็จ แตะเพื่อเปิดบันทึก</string>
+    <!-- วันที่ใช้ช่วงเวลานอน -->
+    <string name="sleep_days_label">วันที่มีผล</string>
+    <string name="sleep_days_every_day">ทุกวัน</string>
+    <string name="sleep_days_weekdays">วันธรรมดา</string>
+    <string name="sleep_days_weekend">สุดสัปดาห์</string>
+    <string name="sleep_days_empty_error">เลือกอย่างน้อยหนึ่งวัน</string>
+    <!-- ตัวกรองระดับแบตเตอรี่ -->
+    <string name="battery_level_title">ปิดเสียงเมื่อแบตต่ำ</string>
+    <string name="battery_level_desc">เมื่อแบตเตอรี่ต่ำกว่าเกณฑ์และไม่ได้ชาร์จ การแจ้งเตือนจะไม่ปลุกหน้าจอ</string>
+    <string name="battery_level_threshold_title">เกณฑ์แบตเตอรี่</string>
+    <string name="battery_level_threshold_value">%1$d%%</string>
+    <string name="chain_node_battery_level">ระดับแบตเตอรี่</string>
+    <string name="chain_config_battery_threshold">ต่ำกว่า %1$d%%</string>
+    <string name="log_reason_battery_level">แบตเตอรี่ต่ำกว่าเกณฑ์ที่ตั้งไว้และอุปกรณ์ไม่ได้ชาร์จอยู่</string>
+    <!-- ปิดเสียงเมื่อคว่ำหน้าจอ -->
+    <string name="face_down_title">เงียบเมื่อคว่ำหน้าจอ</string>
+    <string name="face_down_desc">ขณะวางโทรศัพท์คว่ำหน้าจอลง การแจ้งเตือนจะไม่ปลุกหน้าจอ</string>
+    <string name="chain_node_face_down">คว่ำหน้าจอ</string>
+    <string name="log_reason_face_down">โทรศัพท์ถูกวางคว่ำหน้าจอลง</string>
+    <!-- สำรองการตั้งค่า -->
+    <string name="section_backup">สำรองข้อมูล</string>
+    <string name="backup_export_title">ส่งออกการตั้งค่า</string>
+    <string name="backup_export_subtitle">บันทึกการตั้งค่าทั้งหมดเป็นไฟล์ JSON</string>
+    <string name="backup_import_title">นำเข้าการตั้งค่า</string>
+    <string name="backup_import_subtitle">กู้คืนการตั้งค่าจากไฟล์สำรอง</string>
+    <string name="backup_export_success">ส่งออกการตั้งค่าแล้ว</string>
+    <string name="backup_export_failed">เขียนไฟล์สำรองไม่สำเร็จ</string>
+    <string name="backup_import_success">นำเข้าการตั้งค่า %1$d รายการแล้ว</string>
+    <string name="backup_import_failed_corrupt">ไม่ใช่ไฟล์สำรองของ WakeUpScreen</string>
+    <string name="backup_import_failed_newer">ไฟล์สำรองนี้มาจากแอปเวอร์ชันใหม่กว่า โปรดอัปเดตแอปแล้วนำเข้าอีกครั้ง</string>
+    <!-- แสงแดงกลางคืน -->
+    <string name="night_glow_title">แสงแดงกลางคืน</string>
+    <string name="night_glow_desc">ในช่วงเวลานอน แสดงแสงแดงสลัวชั่วครู่แทนการปิดหน้าจอสนิท</string>
+    <string name="log_status_night_glow">แสงแดงกลางคืน</string>
+    <string name="log_status_night_glow_desc">ช่วงเวลานอนหยุดการปลุกหน้าจอตามปกติ และแสดงแสงแดงสลัวแทน</string>
+    <!-- สถิติความสนใจ -->
+    <string name="attention_stats_title">สถิติความสนใจ</string>
+    <string name="attention_stats_subtitle">แอปใดปลุกหน้าจอบ่อยแต่ไม่เคยถูกเปิดดู</string>
+    <string name="attention_stats_list_title">30 วันที่ผ่านมา</string>
+    <string name="attention_stats_row">ปลุกหน้าจอ %1$d ครั้ง · ติดตาม %2$d ครั้ง</string>
+    <string name="attention_stats_empty">ยังไม่มีบันทึก เมื่อการแจ้งเตือนปลุกหน้าจอ ข้อมูลจะแสดงที่นี่</string>
+    <string name="attention_suggestion_title">ข้อเสนอแนะ</string>
+    <string name="attention_suggestion_body">%1$s ปลุกหน้าจอ %2$d ครั้งใน 30 วันที่ผ่านมา แต่ไม่เคยมีการปลดล็อกตามมาเลย ต้องการเพิ่มลงบัญชีดำหรือไม่</string>
+    <string name="attention_add_blacklist">เพิ่มลงบัญชีดำ</string>
+    <string name="attention_added_blacklist">เพิ่มลงบัญชีดำแล้ว</string>
+    <string name="attention_added_blacklist_mode_hint">เพิ่มลงบัญชีดำแล้ว หมายเหตุ: โหมดกรองปัจจุบันยังไม่ใช่โหมดบัญชีดำ</string>
+    <string name="attention_stats_note">การนับทั้งหมดทำในเครื่องนี้เท่านั้น จากสองเหตุการณ์: หน้าจอถูกปลุก และมีการปลดล็อกตามมาหรือไม่ ไม่อ่านเนื้อหาการแจ้งเตือน และข้อมูลไม่ออกจากอุปกรณ์</string>
+
+    <!-- บันทึกการเปลี่ยนแปลงในแอป -->
+    <string name="changelog">บันทึกการเปลี่ยนแปลง</string>
+    <string name="changelog_subtitle">การเปลี่ยนแปลงสำคัญในแต่ละเวอร์ชัน</string>
+    <string name="whats_new_title">มีอะไรใหม่</string>
+    <string name="changelog_view_full">ดูบันทึกการเปลี่ยนแปลงฉบับเต็ม</string>
+    <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-th.md</string>
+    <string name="changelog_v40000_1">หน้าแรกแสดงว่าปลุกหน้าจอสำเร็จครั้งล่าสุดเมื่อใด</string>
+    <string name="changelog_v40000_2">ช่วงเวลานอนกำหนดตามวันในสัปดาห์ได้</string>
+    <string name="changelog_v40000_3">กฎใหม่: ปิดเสียงเมื่อแบตต่ำ และเงียบเมื่อคว่ำหน้าจอ</string>
+    <string name="changelog_v40000_4">แสงแดงกลางคืน: เลือกแสดงแสงแดงจาง ๆ ในช่วงเวลานอนได้</string>
+    <string name="changelog_v40000_5">สถิติความสนใจ: หาแอปที่ปลุกหน้าจอบ่อยแต่ไม่เคยถูกเปิดดู</string>
+    <string name="changelog_v40000_6">ส่งออกและนำเข้าการตั้งค่าเป็นไฟล์ได้</string>
+    <string name="changelog_v40000_7">บันทึกการเปลี่ยนแปลงในแอป — หน้าที่คุณกำลังอ่านอยู่นี้</string>
+    <string name="changelog_v32000_1">โหมดพักผ่อนรองรับหลายช่วงเวลา ละเอียดถึงนาที</string>
+    <string name="changelog_v32000_2">เพิ่มโหมดมืด: ตามระบบ / สว่าง / มืด</string>
+    <string name="changelog_v32000_3">ปรับสีใหม่ตาม Material 3 และจัดกลุ่มหน้าการตั้งค่าใหม่</string>
+    <string name="changelog_v32000_4">แก้ไขสวิตช์บล็อกการแจ้งเตือนที่ลบไม่ได้ซึ่งไม่ถูกบันทึก</string>
+    <string name="changelog_v31100_1">อัปเกรดเป้าหมาย API เป็น Android 16 (API 36)</string>
+    <string name="changelog_v31100_2">หน้าย่อยใช้แอนิเมชันย้อนกลับแบบคาดการณ์ของระบบ</string>
+    <string name="changelog_v31000_1">การเตือนซ้ำ: หน้าจอสว่างขึ้นอีกเป็นระยะจนกว่าจะจัดการการแจ้งเตือน</string>
+    <string name="changelog_v31000_2">เพิ่มการกำหนดเวลาเปิดหน้าจอเอง</string>
+    <string name="changelog_v30600_1">นำสิทธิ์ foreground service แบบใช้งานพิเศษและการตั้งค่าการแจ้งเตือนถาวรออก</string>
+    <string name="changelog_v30500_1">เพิ่มหน้า "ตรวจสอบการอัปเดต" (การตั้งค่า → เกี่ยวกับ)</string>
+    <string name="changelog_v30500_2">แก้ไขปัญหาเลย์เอาต์เต็มหน้าจอบน Android 15+</string>
+
+    <!-- ตัวป้องกันสิทธิ์การช่วยเหลือการเข้าถึงในหน้ากำหนดเวลาเปิดหน้าจอ -->
+    <string name="accessibility_required_title">ต้องใช้สิทธิ์การช่วยเหลือการเข้าถึง</string>
+    <string name="accessibility_not_enabled_title">ยังไม่ได้เปิดการช่วยเหลือการเข้าถึง</string>
+    <string name="accessibility_not_enabled_message">การกำหนดเวลาเปิดหน้าจอเองต้องใช้การดำเนินการ \"ล็อกหน้าจอ\" ของบริการช่วยเหลือการเข้าถึงเพื่อดับหน้าจอ ก่อนที่จะเปิดใช้ ฟีเจอร์นี้จะยังไม่ทำงาน</string>
+    <string name="accessibility_dialog_grant">เปิดเลย</string>
+    <string name="accessibility_dialog_leave_anyway">ออกต่อไป</string>
 </resources>

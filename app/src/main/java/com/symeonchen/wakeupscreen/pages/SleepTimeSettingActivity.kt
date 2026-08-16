@@ -9,8 +9,10 @@ import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.compose.SleepTimeScreen
 import com.symeonchen.wakeupscreen.compose.theme.WakeUpScreenTheme
 import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.data.SleepSchedule
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
+import com.symeonchen.wakeupscreen.utils.DataInjection
 
 class SleepTimeSettingActivity : ScBaseActivity() {
 
@@ -23,22 +25,29 @@ class SleepTimeSettingActivity : ScBaseActivity() {
 
         setContent {
             WakeUpScreenTheme {
-                val range by settingModel.sleepModeTimeRange.observeAsState(
-                    Pair(ScConstant.DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR, ScConstant.DEFAULT_SLEEP_MODE_TIME_END_HOUR)
-                )
+                val segments by settingModel.sleepModeSegments.observeAsState(emptyList())
 
                 SleepTimeScreen(
                     onBack = { finish() },
-                    beginHour = range.first,
-                    endHour = range.second,
-                    onBeginHourChange = { hour ->
-                        settingModel.sleepModeTimeRange.postValue(Pair(hour, range.second))
+                    segments = segments,
+                    maxSegments = ScConstant.MAX_SLEEP_SEGMENTS,
+                    onAdd = { segment ->
+                        settingModel.sleepModeSegments.postValue(
+                            SleepSchedule.add(segments, segment)
+                        )
                     },
-                    onEndHourChange = { hour ->
-                        settingModel.sleepModeTimeRange.postValue(Pair(range.first, hour))
+                    onDelete = { segment ->
+                        settingModel.sleepModeSegments.postValue(
+                            SleepSchedule.remove(segments, segment)
+                        )
                     },
                 )
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        settingModel.sleepModeSegments.postValue(DataInjection.sleepModeSegments)
     }
 }

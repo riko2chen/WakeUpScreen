@@ -27,4 +27,10 @@ class OnGoingNotificationCondition : LimitedCondition.AbstractSbnCondition() {
         }
         return ConditionState.SUCCESS
     }
+
+    override fun isArmed(): Boolean =
+        DataInjection.ongoingOptimize || DataInjection.radicalOngoingOptimize
+
+    // wouldBlockNow stays null: the verdict depends on the notification's own
+    // ongoing / clearable flags.
 }

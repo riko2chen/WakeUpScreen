@@ -28,30 +28,103 @@ import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.SectionLabel
 import com.symeonchen.wakeupscreen.compose.components.SettingRow
-import com.symeonchen.wakeupscreen.compose.theme.GradientEnd
-import com.symeonchen.wakeupscreen.compose.theme.GradientMid
-import com.symeonchen.wakeupscreen.compose.theme.GradientStart
+import com.symeonchen.wakeupscreen.compose.components.SettingsSearchField
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
+
+/**
+ * One searchable settings item: its localized title, the localized name of the
+ * page it lives on (shown as the result subtitle), and the click action that
+ * brings the user to that page. Items on second-level pages navigate to their
+ * parent page rather than deep into a widget, so search never bypasses the
+ * conditions (e.g. sleep mode enabled) that gate the detail screens.
+ */
+private data class SettingsSearchEntry(
+    val title: String,
+    val page: String,
+    val onClick: () -> Unit,
+)
 
 @Composable
 fun SettingScreen(
-    currentModeText: String,
     languageText: String,
-    wakeTimeText: String,
+    darkModeText: String,
     showWhiteListEntry: Boolean,
     showBlackListEntry: Boolean,
     onLanguageClick: () -> Unit,
-    onWakeTimeClick: () -> Unit,
-    onCurrentModeClick: () -> Unit,
-    onWhiteListClick: () -> Unit,
-    onBlackListClick: () -> Unit,
+    onDarkModeClick: () -> Unit,
     onAdvancedSettingClick: () -> Unit,
+    onBlockChainClick: () -> Unit,
     onFunctionTestClick: () -> Unit,
+    onViewLogsClick: () -> Unit,
+    onBackupExportClick: () -> Unit,
+    onBackupImportClick: () -> Unit,
+    onAttentionStatsClick: () -> Unit,
     onAddressClick: () -> Unit,
     onFeedbackClick: () -> Unit,
     onGiveStarClick: () -> Unit,
     onCheckUpdateClick: () -> Unit,
+    onChangelogClick: () -> Unit,
+    attentionStatsBadge: Boolean = false,
+    backupExportBadge: Boolean = false,
+    backupImportBadge: Boolean = false,
 ) {
     var appInfoExpanded by remember { mutableStateOf(false) }
+    var searchQuery by remember { mutableStateOf("") }
+
+    val settingsPage = stringResource(R.string.setting)
+    val advancedPage = stringResource(R.string.advanced_setting)
+    val functionTestPage = stringResource(R.string.function_test)
+    val aboutPage = stringResource(R.string.about)
+
+    val searchEntries = listOfNotNull(
+        SettingsSearchEntry(stringResource(R.string.language), settingsPage, onLanguageClick),
+        SettingsSearchEntry(stringResource(R.string.dark_mode), settingsPage, onDarkModeClick),
+        SettingsSearchEntry(stringResource(R.string.chain_title), settingsPage, onBlockChainClick),
+        SettingsSearchEntry(stringResource(R.string.advanced_setting), settingsPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.time_of_wake_up_screen), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.current_mode), advancedPage, onAdvancedSettingClick),
+        if (showWhiteListEntry) {
+            SettingsSearchEntry(stringResource(R.string.white_list), advancedPage, onAdvancedSettingClick)
+        } else null,
+        if (showBlackListEntry) {
+            SettingsSearchEntry(stringResource(R.string.black_list), advancedPage, onAdvancedSettingClick)
+        } else null,
+        SettingsSearchEntry(stringResource(R.string.pocket_mode), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.face_down_title), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.ongoing_status), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.radical_ongoing_detact), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.ignore_silent_notification), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.dnd_detect_title), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.charging_only_title), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.battery_level_title), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.sleep_mode), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.sleep_time), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.night_glow_title), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.repeat_reminder), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.repeat_reminder_detail), advancedPage, onAdvancedSettingClick),
+        SettingsSearchEntry(stringResource(R.string.function_test), settingsPage, onFunctionTestClick),
+        SettingsSearchEntry(stringResource(R.string.view_logs), settingsPage, onViewLogsClick),
+        SettingsSearchEntry(stringResource(R.string.backup_export_title), settingsPage, onBackupExportClick),
+        SettingsSearchEntry(stringResource(R.string.backup_import_title), settingsPage, onBackupImportClick),
+        SettingsSearchEntry(stringResource(R.string.attention_stats_title), settingsPage, onAttentionStatsClick),
+        SettingsSearchEntry(stringResource(R.string.delay_to_wakeup), functionTestPage, onFunctionTestClick),
+        SettingsSearchEntry(stringResource(R.string.reminder_test), functionTestPage, onFunctionTestClick),
+        SettingsSearchEntry(stringResource(R.string.project_address), aboutPage, onAddressClick),
+        SettingsSearchEntry(stringResource(R.string.feedback), aboutPage, onFeedbackClick),
+        SettingsSearchEntry(stringResource(R.string.check_update), aboutPage, onCheckUpdateClick),
+        SettingsSearchEntry(stringResource(R.string.changelog), aboutPage, onChangelogClick),
+        SettingsSearchEntry(stringResource(R.string.give_star), aboutPage, onGiveStarClick),
+    )
+
+    val trimmedQuery = searchQuery.trim()
+    val searchResults = if (trimmedQuery.isEmpty()) {
+        emptyList()
+    } else {
+        searchEntries.filter {
+            it.title.contains(trimmedQuery, ignoreCase = true) ||
+                it.page.contains(trimmedQuery, ignoreCase = true)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -62,15 +135,9 @@ fun SettingScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(
-                    Brush.linearGradient(
-                        listOf(GradientStart, GradientMid, GradientEnd),
-                        start = Offset(0f, 0f),
-                        end = Offset(400f, 300f),
-                    )
-                )
-                // Gradient bleeds under the status bar; the title sits in a
-                // 64dp band below it (so the total header isn't over-inflated).
+                .background(MaterialTheme.colorScheme.surfaceContainer)
+                // Bleeds under the status bar; the title sits in a 64dp band
+                // below it (so the total header isn't over-inflated).
                 .statusBarsPadding()
                 .height(64.dp),
             contentAlignment = Alignment.BottomCenter,
@@ -78,26 +145,58 @@ fun SettingScreen(
             Text(
                 text = stringResource(R.string.setting),
                 style = MaterialTheme.typography.headlineMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(bottom = 20.dp),
             )
         }
 
-        // CUSTOMIZE section
-        SectionLabel(
-            text = stringResource(R.string.custom),
-            modifier = Modifier.padding(start = 20.dp, top = 20.dp, bottom = 10.dp),
+        SettingsSearchField(
+            query = searchQuery,
+            onQueryChange = { searchQuery = it },
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
         )
 
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            shape = RoundedCornerShape(16.dp),
-            color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 0.dp,
-        ) {
-            Column {
+        if (trimmedQuery.isNotEmpty()) {
+            // Search results replace the grouped list until the query is cleared.
+            if (searchResults.isEmpty()) {
+                Text(
+                    text = stringResource(R.string.setting_search_no_result),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 32.dp),
+                )
+            } else {
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 16.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                    tonalElevation = 0.dp,
+                ) {
+                    Column {
+                        searchResults.forEachIndexed { index, entry ->
+                            if (index > 0) FlatDivider()
+                            SettingRow(
+                                title = entry.title,
+                                subtitle = entry.page,
+                                onClick = entry.onClick,
+                            )
+                        }
+                    }
+                }
+            }
+        } else {
+            // GENERAL section
+            SectionLabel(
+                text = stringResource(R.string.section_general),
+                modifier = Modifier.padding(start = 20.dp, top = 20.dp, bottom = 10.dp),
+            )
+
+            SettingsCard {
                 SettingRow(
                     title = stringResource(R.string.language),
                     subtitle = languageText,
@@ -105,60 +204,86 @@ fun SettingScreen(
                 )
                 FlatDivider()
                 SettingRow(
-                    title = stringResource(R.string.time_of_wake_up_screen),
-                    subtitle = wakeTimeText,
-                    onClick = onWakeTimeClick,
+                    title = stringResource(R.string.dark_mode),
+                    subtitle = darkModeText,
+                    onClick = onDarkModeClick,
                 )
-                FlatDivider()
+            }
+
+            // ADVANCED section
+            SectionLabel(
+                text = stringResource(R.string.section_advanced),
+                modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
+            )
+
+            SettingsCard {
                 SettingRow(
-                    title = stringResource(R.string.current_mode),
-                    subtitle = currentModeText,
-                    onClick = onCurrentModeClick,
+                    title = stringResource(R.string.chain_title),
+                    subtitle = stringResource(R.string.chain_entry_subtitle),
+                    onClick = onBlockChainClick,
                 )
-                if (showWhiteListEntry) {
-                    FlatDivider()
-                    SettingRow(
-                        title = stringResource(R.string.white_list),
-                        subtitle = stringResource(R.string.click_to_enter_white_list_page),
-                        onClick = onWhiteListClick,
-                    )
-                }
-                if (showBlackListEntry) {
-                    FlatDivider()
-                    SettingRow(
-                        title = stringResource(R.string.black_list),
-                        subtitle = stringResource(R.string.click_to_enter_black_list_page),
-                        onClick = onBlackListClick,
-                    )
-                }
                 FlatDivider()
                 SettingRow(
                     title = stringResource(R.string.advanced_setting),
                     onClick = onAdvancedSettingClick,
                 )
-                FlatDivider()
+            }
+
+            // DIAGNOSTICS section
+            SectionLabel(
+                text = stringResource(R.string.section_diagnostics),
+                modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
+            )
+
+            SettingsCard {
                 SettingRow(
                     title = stringResource(R.string.function_test),
                     onClick = onFunctionTestClick,
                 )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.view_logs),
+                    subtitle = stringResource(R.string.view_logs_subtitle),
+                    onClick = onViewLogsClick,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.attention_stats_title),
+                    subtitle = stringResource(R.string.attention_stats_subtitle),
+                    onClick = onAttentionStatsClick,
+                    showBadge = attentionStatsBadge,
+                )
             }
-        }
 
-        // ABOUT section
-        SectionLabel(
-            text = stringResource(R.string.about),
-            modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
-        )
+            // BACKUP section
+            SectionLabel(
+                text = stringResource(R.string.section_backup),
+                modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
+            )
 
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            shape = RoundedCornerShape(16.dp),
-            color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 0.dp,
-        ) {
-            Column {
+            SettingsCard {
+                SettingRow(
+                    title = stringResource(R.string.backup_export_title),
+                    subtitle = stringResource(R.string.backup_export_subtitle),
+                    onClick = onBackupExportClick,
+                    showBadge = backupExportBadge,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.backup_import_title),
+                    subtitle = stringResource(R.string.backup_import_subtitle),
+                    onClick = onBackupImportClick,
+                    showBadge = backupImportBadge,
+                )
+            }
+
+            // ABOUT section
+            SectionLabel(
+                text = stringResource(R.string.about),
+                modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 10.dp),
+            )
+
+            SettingsCard {
                 SettingRow(
                     title = stringResource(R.string.app_info),
                     onClick = { appInfoExpanded = !appInfoExpanded },
@@ -220,6 +345,12 @@ fun SettingScreen(
                 )
                 FlatDivider()
                 SettingRow(
+                    title = stringResource(R.string.changelog),
+                    subtitle = stringResource(R.string.changelog_subtitle),
+                    onClick = onChangelogClick,
+                )
+                FlatDivider()
+                SettingRow(
                     title = stringResource(R.string.give_star),
                     subtitle = stringResource(R.string.click_here_to_open_google_play_store),
                     onClick = onGiveStarClick,
@@ -228,6 +359,20 @@ fun SettingScreen(
         }
 
         Spacer(Modifier.height(24.dp))
+    }
+}
+
+@Composable
+private fun SettingsCard(content: @Composable ColumnScope.() -> Unit) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 0.dp,
+    ) {
+        Column(content = content)
     }
 }
 

@@ -2,6 +2,7 @@ package com.symeonchen.wakeupscreen
 
 import android.app.Application
 import com.blankj.utilcode.util.LogUtils
+import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.tencent.mmkv.MMKV
 
 /**
@@ -13,6 +14,7 @@ class ScApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         MMKV.initialize(this)
+        DataInjection.darkModeSelected.applyDarkMode()
         filterLog()
     }
 

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.symeonchen.wakeupscreen.compose.theme.*
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 @Composable
 fun StatusCard(
@@ -28,7 +29,7 @@ fun StatusCard(
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
         tonalElevation = 0.dp,
     ) {
         Row(
@@ -42,13 +43,13 @@ fun StatusCard(
                 modifier = Modifier
                     .size(44.dp)
                     .clip(CircleShape)
-                    .background(if (isOk) MintGreenBg else CoralRedBg),
+                    .background(if (isOk) WakeUpTheme.colors.successContainer else MaterialTheme.colorScheme.errorContainer),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = if (isOk) Icons.Rounded.Check else Icons.Rounded.Close,
                     contentDescription = null,
-                    tint = if (isOk) MintGreen else CoralRed,
+                    tint = if (isOk) WakeUpTheme.colors.onSuccessContainer else MaterialTheme.colorScheme.onErrorContainer,
                     modifier = Modifier.size(22.dp),
                 )
             }

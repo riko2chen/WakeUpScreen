@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.services.screen
 
+import android.app.KeyguardManager
 import android.content.Context
 import android.media.AudioManager
 import android.os.Build
@@ -34,6 +35,16 @@ object ScreenOffController {
         if (isCallOngoing(appContext)) {
             // Blanking the screen mid-call would hide the in-call controls.
             ScLog.i(MODULE, "skipped: a call is in progress")
+            return
+        }
+
+        if (isKeyguardGone(appContext)) {
+            // No keyguard showing means the user's own session is on screen:
+            // either they unlocked and the USER_PRESENT broadcast never reached
+            // the window (it happens), or the lock screen is set to "None" and
+            // that broadcast was never coming. Locking now would slam the door
+            // on someone mid-use, which is worse than a screen that stays on.
+            ScLog.i(MODULE, "skipped: keyguard no longer showing")
             return
         }
 
@@ -80,6 +91,22 @@ object ScreenOffController {
             ScLog.w(MODULE, "accessibility lock rejected, falling back to ENFORCE")
             ScreenOffActivity.start(context)
         }
+    }
+
+    /**
+     * True only when the keyguard is positively known to be dismissed.
+     *
+     * An unreadable KeyguardManager counts as "still locked" so the window
+     * keeps its promise to end; the check only ever *skips* the lock, never
+     * forces one. One UI's habit of reporting "unlocked" for a moment right
+     * after a wake-lock wake is why the minimum window is 5 seconds — every
+     * expiry lands after that flaky period has passed.
+     */
+    private fun isKeyguardGone(context: Context): Boolean {
+        val keyguardManager =
+            context.getSystemService(Context.KEYGUARD_SERVICE) as? KeyguardManager
+                ?: return false
+        return !keyguardManager.isKeyguardLocked
     }
 
     /**

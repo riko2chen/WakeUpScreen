@@ -3,7 +3,9 @@ package com.symeonchen.wakeupscreen.model
 import androidx.lifecycle.ViewModel
 import com.symeonchen.wakeupscreen.ScLiveData
 import com.symeonchen.wakeupscreen.data.CurrentMode
+import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
+import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 /**
@@ -19,6 +21,11 @@ class SettingViewModel : ViewModel() {
     var switchOfProximity: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.switchOfProximity)
+        }
+
+    var switchOfFaceDown: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.switchOfFaceDown)
         }
 
     var fakeSwitchOfBatterySaver: ScLiveData<Boolean> = ScLiveData<Boolean>()
@@ -52,9 +59,9 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.radicalOngoingOptimize)
         }
 
-    var radicalOngoingNotificationSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+    var ignoreSilentNotificationSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
-            setValue(DataInjection.radicalOngoingNotificationSwitch)
+            setValue(DataInjection.ignoreSilentNotificationSwitch)
         }
 
     var languageSelected: ScLiveData<LanguageInfo> = ScLiveData<LanguageInfo>()
@@ -62,14 +69,24 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.languageSelected)
         }
 
+    var darkModeSelected: ScLiveData<DarkModeInfo> = ScLiveData<DarkModeInfo>()
+        .apply {
+            setValue(DataInjection.darkModeSelected)
+        }
+
     var sleepModeBoolean: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.sleepModeBoolean)
         }
 
-    var sleepModeTimeRange: ScLiveData<Pair<Int, Int>> = ScLiveData<Pair<Int, Int>>()
+    var sleepModeSegments: ScLiveData<List<SleepSegment>> = ScLiveData<List<SleepSegment>>()
         .apply {
-            setValue(Pair(DataInjection.sleepModeTimeBeginHour, DataInjection.sleepModeTimeEndHour))
+            setValue(DataInjection.sleepModeSegments)
+        }
+
+    var nightGlowSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.nightGlowSwitch)
         }
 
     var dndDetectBoolean: ScLiveData<Boolean> = ScLiveData<Boolean>()
@@ -80,6 +97,16 @@ class SettingViewModel : ViewModel() {
     var chargingOnlySwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.chargingOnlySwitch)
+        }
+
+    var batteryLevelSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
+        .apply {
+            setValue(DataInjection.batteryLevelSwitch)
+        }
+
+    var batteryLevelThreshold: ScLiveData<Int> = ScLiveData<Int>()
+        .apply {
+            setValue(DataInjection.batteryLevelThreshold)
         }
 
     var repeatReminderSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
@@ -112,6 +139,12 @@ class SettingViewModel : ViewModel() {
             }
         }
 
+        switchOfFaceDown.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.switchOfFaceDown = value
+            }
+        }
+
         fakeSwitchOfBatterySaver.listener = object :
             ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
@@ -137,15 +170,21 @@ class SettingViewModel : ViewModel() {
             }
         }
 
-        radicalOngoingNotificationSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+        ignoreSilentNotificationSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
-                DataInjection.radicalOngoingNotificationSwitch = value
+                DataInjection.ignoreSilentNotificationSwitch = value
             }
         }
 
         languageSelected.listener = object : ScLiveData.OnLiveDataValueInput<LanguageInfo> {
             override fun onValueInput(value: LanguageInfo) {
                 DataInjection.languageSelected = value
+            }
+        }
+
+        darkModeSelected.listener = object : ScLiveData.OnLiveDataValueInput<DarkModeInfo> {
+            override fun onValueInput(value: DarkModeInfo) {
+                DataInjection.darkModeSelected = value
             }
         }
 
@@ -156,10 +195,15 @@ class SettingViewModel : ViewModel() {
         }
 
 
-        sleepModeTimeRange.listener = object : ScLiveData.OnLiveDataValueInput<Pair<Int, Int>> {
-            override fun onValueInput(value: Pair<Int, Int>) {
-                DataInjection.sleepModeTimeBeginHour = value.first
-                DataInjection.sleepModeTimeEndHour = value.second
+        sleepModeSegments.listener = object : ScLiveData.OnLiveDataValueInput<List<SleepSegment>> {
+            override fun onValueInput(value: List<SleepSegment>) {
+                DataInjection.sleepModeSegments = value
+            }
+        }
+
+        nightGlowSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.nightGlowSwitch = value
             }
         }
 
@@ -172,6 +216,18 @@ class SettingViewModel : ViewModel() {
         chargingOnlySwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.chargingOnlySwitch = value
+            }
+        }
+
+        batteryLevelSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.batteryLevelSwitch = value
+            }
+        }
+
+        batteryLevelThreshold.listener = object : ScLiveData.OnLiveDataValueInput<Int> {
+            override fun onValueInput(value: Int) {
+                DataInjection.batteryLevelThreshold = value
             }
         }
 

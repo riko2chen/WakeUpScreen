@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.theme.*
+import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 
 @Composable
 fun HeroSection(
@@ -33,9 +34,9 @@ fun HeroSection(
     modifier: Modifier = Modifier,
 ) {
     val gradientColors = if (isError) {
-        listOf(ErrorGradientStart, ErrorGradientMid, ErrorGradientEnd)
+        WakeUpTheme.colors.errorGradient
     } else {
-        listOf(GradientStart, GradientMid, GradientEnd)
+        WakeUpTheme.colors.heroGradient
     }
 
     Box(
@@ -87,7 +88,7 @@ fun HeroSection(
                         onCheckedChange = { onToggleClick() },
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = Color.White,
-                            checkedTrackColor = PinkAccent,
+                            checkedTrackColor = WakeUpTheme.colors.heroAccent,
                             uncheckedThumbColor = Color.White.copy(alpha = 0.9f),
                             uncheckedTrackColor = Color.White.copy(alpha = 0.2f),
                             uncheckedBorderColor = Color.White.copy(alpha = 0.3f),
