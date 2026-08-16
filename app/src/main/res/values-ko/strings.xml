@@ -366,9 +366,9 @@
 
     <!-- Prominent disclosure shown before the accessibility service is enabled -->
     <string name="accessibility_disclosure_title">접근성 권한의 사용 목적</string>
-    <string name="accessibility_disclosure_intro">이 앱은 접근성 도구가 아닙니다. 접근성 권한은 아래에 적힌 한 가지 목적으로만 사용합니다. 켜기 전에 읽어 주세요.</string>
-    <string name="accessibility_disclosure_purpose">하는 일: 설정한 화면 켜짐 시간이 끝나면 시스템의 \"화면 잠금\" 동작을 실행해 화면을 끕니다. 그 외에는 아무것도 하지 않습니다.</string>
-    <string name="accessibility_disclosure_data">접근하는 정보: 없습니다. 이 서비스는 어떤 접근성 이벤트도 구독하지 않으며 화면 내용을 읽을 수 없습니다. 개인정보나 민감한 정보를 수집·저장·공유·전송하지 않습니다.</string>
-    <string name="accessibility_disclosure_control">선택은 자유입니다: 이 권한은 선택 사항입니다. 허용하지 않아도 나머지 기능은 그대로 작동하며, 시스템 접근성 설정에서 언제든 다시 끌 수 있습니다.</string>
+    <string name="accessibility_disclosure_intro">이 앱은 접근성 도구가 아닙니다. 접근성 권한은 아래 한 가지에만 사용합니다.</string>
+    <string name="accessibility_disclosure_purpose">하는 일: 화면 켜짐 시간이 끝나면 시스템의 \"화면 잠금\" 동작을 실행합니다.</string>
+    <string name="accessibility_disclosure_data">접근하는 정보: 없습니다. 화면 내용을 읽지 못하며 어떤 정보도 수집·전송하지 않습니다.</string>
+    <string name="accessibility_disclosure_control">선택 권한이며 언제든 다시 끌 수 있습니다.</string>
     <string name="accessibility_disclosure_agree">동의하고 설정 열기</string>
 </resources>

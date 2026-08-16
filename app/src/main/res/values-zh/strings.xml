@@ -368,9 +368,9 @@
 
     <!-- Prominent disclosure shown before the accessibility service is enabled -->
     <string name="accessibility_disclosure_title">无障碍权限用途说明</string>
-    <string name="accessibility_disclosure_intro">通知亮屏不是无障碍工具。它申请无障碍权限，只为实现下面这一件事。请在开启前阅读。</string>
-    <string name="accessibility_disclosure_purpose">做什么：在你设定的亮屏时长结束时，执行系统自带的「锁定屏幕」动作来熄灭屏幕。除此之外不做任何事。</string>
-    <string name="accessibility_disclosure_data">访问什么：不访问任何内容。该服务不订阅任何无障碍事件，也无法读取屏幕内容；不收集、不存储、不共享、不上传任何个人或敏感信息。</string>
-    <string name="accessibility_disclosure_control">由你决定：这项授权是可选的。不授权也不影响应用的其余功能，你可以随时在系统的无障碍设置中重新关闭它。</string>
+    <string name="accessibility_disclosure_intro">本应用不是无障碍工具，无障碍权限只用于下面这一件事。</string>
+    <string name="accessibility_disclosure_purpose">做什么：亮屏时长结束时，执行系统的「锁定屏幕」动作熄屏。</string>
+    <string name="accessibility_disclosure_data">访问什么：不读取屏幕内容，不收集、不上传任何信息。</string>
+    <string name="accessibility_disclosure_control">可选授权，随时可在系统设置中关闭。</string>
     <string name="accessibility_disclosure_agree">同意并前往设置</string>
 </resources>

@@ -380,9 +380,9 @@
 
     <!-- Prominent disclosure shown before the accessibility service is enabled -->
     <string name="accessibility_disclosure_title">How this app uses accessibility access</string>
-    <string name="accessibility_disclosure_intro">WakeUpScreen is not an accessibility tool. It uses accessibility access for the single purpose described below. Please read this before turning it on.</string>
-    <string name="accessibility_disclosure_purpose">What it does: when the screen-on duration you set runs out, it performs the system\'s own \"lock screen\" action to turn the display off. It does nothing else.</string>
-    <string name="accessibility_disclosure_data">What it accesses: nothing. The service subscribes to no accessibility events and cannot read screen content. No personal or sensitive data is collected, stored, shared or transmitted anywhere.</string>
-    <string name="accessibility_disclosure_control">Your choice: this access is optional. Everything else in the app works without it, and you can turn it off again at any time in the system accessibility settings.</string>
+    <string name="accessibility_disclosure_intro">This app is not an accessibility tool. It uses accessibility access for one thing only.</string>
+    <string name="accessibility_disclosure_purpose">What it does: performs the system\'s \"lock screen\" action when your screen-on time ends.</string>
+    <string name="accessibility_disclosure_data">What it accesses: nothing. It cannot read screen content, and collects or sends no data.</string>
+    <string name="accessibility_disclosure_control">Optional. You can turn it off again at any time.</string>
     <string name="accessibility_disclosure_agree">Agree and open settings</string>
 </resources>

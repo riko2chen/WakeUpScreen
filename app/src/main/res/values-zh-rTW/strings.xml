@@ -366,9 +366,9 @@
 
     <!-- Prominent disclosure shown before the accessibility service is enabled -->
     <string name="accessibility_disclosure_title">無障礙權限用途說明</string>
-    <string name="accessibility_disclosure_intro">通知亮螢幕不是無障礙工具。它申請無障礙權限，只為實現下面這一件事。請在開啟前閱讀。</string>
-    <string name="accessibility_disclosure_purpose">做什麼：在你設定的亮螢幕時長結束時，執行系統內建的「鎖定螢幕」動作來關閉螢幕。除此之外不做任何事。</string>
-    <string name="accessibility_disclosure_data">存取什麼：不存取任何內容。此服務不訂閱任何無障礙事件，也無法讀取螢幕內容；不收集、不儲存、不分享、不上傳任何個人或敏感資訊。</string>
-    <string name="accessibility_disclosure_control">由你決定：這項授權是選用的。不授權也不影響應用程式的其餘功能，你可以隨時在系統的無障礙設定中重新關閉它。</string>
+    <string name="accessibility_disclosure_intro">本應用程式不是無障礙工具，無障礙權限只用於下面這一件事。</string>
+    <string name="accessibility_disclosure_purpose">做什麼：亮螢幕時長結束時，執行系統的「鎖定螢幕」動作關閉螢幕。</string>
+    <string name="accessibility_disclosure_data">存取什麼：不讀取螢幕內容，不收集、不上傳任何資訊。</string>
+    <string name="accessibility_disclosure_control">選用授權，隨時可在系統設定中關閉。</string>
     <string name="accessibility_disclosure_agree">同意並前往設定</string>
 </resources>
