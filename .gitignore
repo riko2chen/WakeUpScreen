@@ -78,6 +78,9 @@ fastlane/readme.md
 # Version control
 vcs.xml
 
+# Internal research docs (not published)
+docs/research/
+
 # lint
 lint/intermediates/
 lint/generated/
