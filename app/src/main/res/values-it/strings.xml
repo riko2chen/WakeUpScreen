@@ -247,8 +247,7 @@
     <string name="accessibility_service_summary">Spegne lo schermo al termine della durata personalizzata</string>
 
     <string name="precise_wake_preset_seconds">%1$ds</string>
-    <string name="screen_off_method_accessibility_summary">Allo scadere del tempo lo schermo viene spento con l\'azione di sistema \"blocca schermo\", tramite un servizio di accessibilità. Da Android 9 in poi è l\'unico metodo che funziona.</string>
-    <string name="accessibility_required_warning">L\'accesso all\'accessibilità non è ancora stato concesso. Finché manca, lo schermo non può essere spento in tempo e resterà acceso fino al timeout di sistema.</string>
+    <string name="accessibility_required_warning">Finché non la concedi, lo schermo resta acceso fino al timeout di sistema.</string>
     <string name="accessibility_step_open_settings">Apri le impostazioni di accessibilità del sistema</string>
     <string name="accessibility_step_installed_apps">Vai all\'elenco delle app installate o dei servizi scaricati</string>
     <string name="accessibility_step_enable_service">Trova \"WakeUpScreen — blocco schermo\" e attivalo</string>
@@ -380,9 +379,8 @@
 
     <!-- Prominent disclosure shown before the accessibility service is enabled -->
     <string name="accessibility_disclosure_title">Come l\'app usa l\'accessibilità</string>
-    <string name="accessibility_disclosure_intro">Questa app non è uno strumento di accessibilità. Usa l\'accessibilità per una cosa sola.</string>
-    <string name="accessibility_disclosure_purpose">Cosa fa: esegue l\'azione di sistema \"blocca schermo\" allo scadere della durata impostata.</string>
-    <string name="accessibility_disclosure_data">A cosa accede: a nulla. Non può leggere lo schermo e non raccoglie né invia dati.</string>
-    <string name="accessibility_disclosure_control">È facoltativa e puoi disattivarla quando vuoi.</string>
+    <string name="accessibility_disclosure_intro">Questa app non è uno strumento di accessibilità.</string>
+    <string name="accessibility_disclosure_purpose">Da Android 9 in poi solo l\'azione di accessibilità \"blocca schermo\" spegne il display in tempo.</string>
+    <string name="accessibility_disclosure_data">Non legge il contenuto dello schermo, non raccoglie nulla e puoi disattivarla quando vuoi.</string>
     <string name="accessibility_disclosure_agree">Accetto, apri le impostazioni</string>
 </resources>

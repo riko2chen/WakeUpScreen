@@ -233,8 +233,7 @@
     <string name="accessibility_service_summary">ปิดหน้าจอเมื่อครบเวลาเปิดหน้าจอที่กำหนด</string>
 
     <string name="precise_wake_preset_seconds">%1$d วิ</string>
-    <string name="screen_off_method_accessibility_summary">เมื่อหมดเวลา หน้าจอจะถูกปิดด้วยคำสั่ง \"ล็อกหน้าจอ\" ของระบบผ่านบริการช่วยเหลือพิเศษ บน Android 9 ขึ้นไปนี่เป็นวิธีเดียวที่ใช้ได้</string>
-    <string name="accessibility_required_warning">ยังไม่ได้ให้สิทธิ์การช่วยเหลือพิเศษ ก่อนที่จะให้สิทธิ์ หน้าจอจะปิดตรงเวลาไม่ได้ และจะสว่างค้างจนกว่าจะหมดเวลาของระบบ</string>
+    <string name="accessibility_required_warning">หากยังไม่อนุญาต หน้าจอจะสว่างจนกว่าระบบจะหมดเวลา</string>
     <string name="accessibility_step_open_settings">เปิดการตั้งค่าการช่วยเหลือพิเศษของระบบ</string>
     <string name="accessibility_step_installed_apps">ไปที่รายการ \"แอปที่ติดตั้ง\" หรือบริการที่ดาวน์โหลด</string>
     <string name="accessibility_step_enable_service">หา \"ปลุกหน้าจอ — ล็อกหน้าจอ\" แล้วเปิดใช้งาน</string>
@@ -366,9 +365,8 @@
 
     <!-- Prominent disclosure shown before the accessibility service is enabled -->
     <string name="accessibility_disclosure_title">แอปนี้ใช้สิทธิ์การช่วยเหลือพิเศษอย่างไร</string>
-    <string name="accessibility_disclosure_intro">แอปนี้ไม่ใช่เครื่องมือช่วยเหลือพิเศษ ขอสิทธิ์นี้เพื่อสิ่งเดียวด้านล่าง</string>
-    <string name="accessibility_disclosure_purpose">ทำอะไร: สั่งการทำงาน \"ล็อกหน้าจอ\" ของระบบเมื่อครบเวลาเปิดหน้าจอ</string>
-    <string name="accessibility_disclosure_data">เข้าถึงอะไร: ไม่มี อ่านเนื้อหาบนหน้าจอไม่ได้ และไม่เก็บหรือส่งข้อมูลใด ๆ</string>
-    <string name="accessibility_disclosure_control">เป็นสิทธิ์ทางเลือก ปิดได้ทุกเมื่อ</string>
+    <string name="accessibility_disclosure_intro">แอปนี้ไม่ใช่เครื่องมือช่วยเหลือพิเศษ</string>
+    <string name="accessibility_disclosure_purpose">บน Android 9 ขึ้นไป มีเพียงการทำงาน \"ล็อกหน้าจอ\" ของการช่วยเหลือพิเศษที่ปิดหน้าจอได้ตรงเวลา</string>
+    <string name="accessibility_disclosure_data">ไม่อ่านเนื้อหาบนหน้าจอ ไม่เก็บข้อมูลใด ๆ และปิดได้ทุกเมื่อ</string>
     <string name="accessibility_disclosure_agree">ยอมรับและไปที่การตั้งค่า</string>
 </resources>

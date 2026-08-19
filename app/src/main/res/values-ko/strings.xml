@@ -233,8 +233,7 @@
     <string name="accessibility_service_summary">지정한 화면 켜짐 시간이 끝나면 화면을 끕니다</string>
 
     <string name="precise_wake_preset_seconds">%1$d초</string>
-    <string name="screen_off_method_accessibility_summary">시간이 다 되면 접근성 서비스를 통해 시스템의 \"화면 잠금\" 동작을 실행해 화면을 끕니다. Android 9 이상에서는 이 방법만 동작합니다.</string>
-    <string name="accessibility_required_warning">아직 접근성 권한이 없습니다. 허용하기 전까지는 화면을 제때 끌 수 없어 시스템 자동 꺼짐 시간까지 켜져 있습니다.</string>
+    <string name="accessibility_required_warning">허용하기 전까지는 화면이 시스템 시간 초과까지 켜져 있습니다.</string>
     <string name="accessibility_step_open_settings">시스템 접근성 설정을 엽니다</string>
     <string name="accessibility_step_installed_apps">\"설치된 앱\" 또는 다운로드한 서비스 목록으로 이동합니다</string>
     <string name="accessibility_step_enable_service">\"알림 화면 켜기 — 화면 잠금\"을 찾아 켭니다</string>
@@ -366,9 +365,8 @@
 
     <!-- Prominent disclosure shown before the accessibility service is enabled -->
     <string name="accessibility_disclosure_title">접근성 권한의 사용 목적</string>
-    <string name="accessibility_disclosure_intro">이 앱은 접근성 도구가 아닙니다. 접근성 권한은 아래 한 가지에만 사용합니다.</string>
-    <string name="accessibility_disclosure_purpose">하는 일: 화면 켜짐 시간이 끝나면 시스템의 \"화면 잠금\" 동작을 실행합니다.</string>
-    <string name="accessibility_disclosure_data">접근하는 정보: 없습니다. 화면 내용을 읽지 못하며 어떤 정보도 수집·전송하지 않습니다.</string>
-    <string name="accessibility_disclosure_control">선택 권한이며 언제든 다시 끌 수 있습니다.</string>
+    <string name="accessibility_disclosure_intro">이 앱은 접근성 도구가 아닙니다.</string>
+    <string name="accessibility_disclosure_purpose">Android 9 이상에서는 접근성의 \"화면 잠금\" 동작만이 화면을 제때 끌 수 있습니다.</string>
+    <string name="accessibility_disclosure_data">화면 내용을 읽지 않고 아무 정보도 수집하지 않으며, 언제든 끌 수 있습니다.</string>
     <string name="accessibility_disclosure_agree">동의하고 설정 열기</string>
 </resources>

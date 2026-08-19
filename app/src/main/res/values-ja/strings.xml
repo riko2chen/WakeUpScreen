@@ -233,8 +233,7 @@
     <string name="accessibility_service_summary">指定した点灯時間の終了時に画面を消します</string>
 
     <string name="precise_wake_preset_seconds">%1$d 秒</string>
-    <string name="screen_off_method_accessibility_summary">時間が来たら、ユーザー補助サービスからシステムの「画面ロック」操作を実行して消灯します。Android 9 以降ではこれが唯一有効な方法です。</string>
-    <string name="accessibility_required_warning">まだユーザー補助が許可されていません。許可するまで画面を時間どおりに消すことができず、システムの消灯時間まで点いたままになります。</string>
+    <string name="accessibility_required_warning">許可するまで、画面はシステムのタイムアウトまで点灯したままです。</string>
     <string name="accessibility_step_open_settings">システムの「ユーザー補助」設定を開く</string>
     <string name="accessibility_step_installed_apps">「インストール済みのアプリ」またはダウンロードしたサービスの一覧を開く</string>
     <string name="accessibility_step_enable_service">「通知画面点灯 — 画面ロック」を見つけてオンにする</string>
@@ -366,9 +365,8 @@
 
     <!-- Prominent disclosure shown before the accessibility service is enabled -->
     <string name="accessibility_disclosure_title">ユーザー補助へのアクセスの用途</string>
-    <string name="accessibility_disclosure_intro">このアプリはユーザー補助ツールではありません。ユーザー補助へのアクセスは次の 1 点だけに使います。</string>
-    <string name="accessibility_disclosure_purpose">行うこと: 画面点灯時間の終了時に、システムの「画面ロック」操作を実行します。</string>
-    <string name="accessibility_disclosure_data">アクセスするもの: ありません。画面の内容は読み取れず、情報の収集・送信も行いません。</string>
-    <string name="accessibility_disclosure_control">任意の許可です。いつでもオフに戻せます。</string>
+    <string name="accessibility_disclosure_intro">このアプリはユーザー補助ツールではありません。</string>
+    <string name="accessibility_disclosure_purpose">Android 9 以降では、ユーザー補助の「画面ロック」操作だけが画面を時間どおりに消せます。</string>
+    <string name="accessibility_disclosure_data">画面の内容は読み取らず、情報も一切収集しません。いつでもオフにできます。</string>
     <string name="accessibility_disclosure_agree">同意して設定を開く</string>
 </resources>

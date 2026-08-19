@@ -258,7 +258,6 @@ private fun AccessibilityDisclosureDialog(
                     R.string.accessibility_disclosure_intro,
                     R.string.accessibility_disclosure_purpose,
                     R.string.accessibility_disclosure_data,
-                    R.string.accessibility_disclosure_control,
                 )
                 lines.forEachIndexed { index, line ->
                     Text(
@@ -364,35 +363,27 @@ private fun ScreenOffMethodCard(
             )
             Spacer(Modifier.height(6.dp))
 
-            // The summary is also the disclosure's "what it does" line, so the
-            // two are stated once between them rather than twice.
-            Text(
-                text = stringResource(R.string.screen_off_method_accessibility_summary),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                lineHeight = 19.sp,
-            )
-
+            // Two sentences: why the access is needed at all, and that it
+            // reads nothing. Everything else was noise on a settings page.
             if (accessibilitySupported) {
-                Spacer(Modifier.height(8.dp))
                 Text(
-                    text = stringResource(R.string.accessibility_disclosure_data),
+                    text = stringResource(R.string.accessibility_disclosure_purpose),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 19.sp,
                 )
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    text = stringResource(R.string.accessibility_disclosure_control),
+                    text = stringResource(R.string.accessibility_disclosure_data),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 19.sp,
                 )
-            }
 
-            Spacer(Modifier.height(16.dp))
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(16.dp))
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                Spacer(Modifier.height(16.dp))
+            }
 
             when {
                 !accessibilitySupported -> Text(
