@@ -307,13 +307,16 @@ private fun DurationCard(
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 for (preset in ScConstant.PRECISE_SCREEN_ON_PRESET_SECONDS) {
                     val isSelected = selectedSecond == preset
+                    // The selected chip takes the full primary colour, not the
+                    // container tint: against four chips of the same size the
+                    // pale tint was easy to miss at a glance.
                     Box(
                         modifier = Modifier
                             .weight(1f)
                             .height(56.dp)
                             .clip(RoundedCornerShape(12.dp))
                             .background(
-                                if (isSelected) MaterialTheme.colorScheme.primaryContainer
+                                if (isSelected) MaterialTheme.colorScheme.primary
                                 else MaterialTheme.colorScheme.surfaceVariant
                             )
                             .clickable { onPresetClick(preset) },
@@ -321,10 +324,10 @@ private fun DurationCard(
                     ) {
                         Text(
                             text = stringResource(R.string.precise_wake_preset_seconds, preset),
-                            fontSize = 15.sp,
+                            fontSize = if (isSelected) 17.sp else 15.sp,
                             fontWeight = FontWeight.Bold,
-                            color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
-                            else MaterialTheme.colorScheme.onSurface,
+                            color = if (isSelected) MaterialTheme.colorScheme.onPrimary
+                            else MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 }
