@@ -183,7 +183,7 @@ class FilterListActivity : ScBaseActivity() {
         }
 
         override fun onBindViewHolder(holder: WhiteListHolder, position: Int) {
-            holder.binding.tvAppPackageName.text = this.dataList[position].simpleName
+            holder.binding.tvAppSimpleName.text = this.dataList[position].simpleName
             holder.binding.tvAppPackageName.text = this.dataList[position].packageName
             holder.binding.cbAppSelect.isChecked = this.dataList[position].selected
             try {
