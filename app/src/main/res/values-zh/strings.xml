@@ -235,8 +235,7 @@
     <string name="accessibility_service_summary">在自定义亮屏时长结束时熄灭屏幕</string>
 
     <string name="precise_wake_preset_seconds">%1$d 秒</string>
-    <string name="screen_off_method_accessibility_summary">计时结束时，通过无障碍服务执行系统自带的「锁定屏幕」动作来熄屏。在 Android 9 及以上，这是唯一能生效的方式。</string>
-    <string name="accessibility_required_warning">尚未授予无障碍权限。在授权之前，屏幕无法准时熄灭，会一直亮到系统超时为止。</string>
+    <string name="accessibility_required_warning">未授权时，屏幕会一直亮到系统超时。</string>
     <string name="accessibility_step_open_settings">打开系统的「无障碍」设置</string>
     <string name="accessibility_step_installed_apps">进入「已安装的应用」或「已下载的服务」</string>
     <string name="accessibility_step_enable_service">找到「通知亮屏 — 锁屏」并打开开关</string>
@@ -340,6 +339,10 @@
     <string name="whats_new_title">更新内容</string>
     <string name="changelog_view_full">查看完整更新日志</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-zh.md</string>
+    <string name="changelog_v41000_1">无障碍权限用途说明：开启前先讲清楚做什么、访问什么，并需你确认同意</string>
+    <string name="changelog_v41000_2">设置存储改用系统自带方案：修复 32 位设备闪退，已保存的内容自动迁移</string>
+    <string name="changelog_v41000_3">白名单 / 黑名单页面重新显示应用名称</string>
+    <string name="changelog_v41000_4">亮屏时长中选中的档位更醒目</string>
     <string name="changelog_v40000_1">首页显示上次成功唤醒于多久之前</string>
     <string name="changelog_v40000_2">睡眠时段支持按星期几生效</string>
     <string name="changelog_v40000_3">新规则：低电量静默、面朝下静默</string>
@@ -365,4 +368,11 @@
     <string name="accessibility_not_enabled_message">自定义亮屏时长依赖无障碍服务中的「锁定屏幕」动作来熄屏。在开启之前，这个功能不会生效。</string>
     <string name="accessibility_dialog_grant">去开启</string>
     <string name="accessibility_dialog_leave_anyway">仍然返回</string>
+
+    <!-- Prominent disclosure shown before the accessibility service is enabled -->
+    <string name="accessibility_disclosure_title">无障碍权限用途说明</string>
+    <string name="accessibility_disclosure_intro">本应用不是无障碍工具。</string>
+    <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有无障碍服务的「锁定屏幕」动作能让屏幕准时熄灭。</string>
+    <string name="accessibility_disclosure_data">它不读取屏幕内容，不收集任何信息，随时可以关闭。</string>
+    <string name="accessibility_disclosure_agree">同意并前往设置</string>
 </resources>

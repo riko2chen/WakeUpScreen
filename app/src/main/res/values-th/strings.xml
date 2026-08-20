@@ -233,8 +233,7 @@
     <string name="accessibility_service_summary">ปิดหน้าจอเมื่อครบเวลาเปิดหน้าจอที่กำหนด</string>
 
     <string name="precise_wake_preset_seconds">%1$d วิ</string>
-    <string name="screen_off_method_accessibility_summary">เมื่อหมดเวลา หน้าจอจะถูกปิดด้วยคำสั่ง \"ล็อกหน้าจอ\" ของระบบผ่านบริการช่วยเหลือพิเศษ บน Android 9 ขึ้นไปนี่เป็นวิธีเดียวที่ใช้ได้</string>
-    <string name="accessibility_required_warning">ยังไม่ได้ให้สิทธิ์การช่วยเหลือพิเศษ ก่อนที่จะให้สิทธิ์ หน้าจอจะปิดตรงเวลาไม่ได้ และจะสว่างค้างจนกว่าจะหมดเวลาของระบบ</string>
+    <string name="accessibility_required_warning">หากยังไม่อนุญาต หน้าจอจะสว่างจนกว่าระบบจะหมดเวลา</string>
     <string name="accessibility_step_open_settings">เปิดการตั้งค่าการช่วยเหลือพิเศษของระบบ</string>
     <string name="accessibility_step_installed_apps">ไปที่รายการ \"แอปที่ติดตั้ง\" หรือบริการที่ดาวน์โหลด</string>
     <string name="accessibility_step_enable_service">หา \"ปลุกหน้าจอ — ล็อกหน้าจอ\" แล้วเปิดใช้งาน</string>
@@ -338,6 +337,10 @@
     <string name="whats_new_title">มีอะไรใหม่</string>
     <string name="changelog_view_full">ดูบันทึกการเปลี่ยนแปลงฉบับเต็ม</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-th.md</string>
+    <string name="changelog_v41000_1">คำชี้แจงที่ชัดเจนว่าใช้สิทธิ์การช่วยเหลือการเข้าถึงทำอะไร และขอความยินยอมก่อนให้สิทธิ์</string>
+    <string name="changelog_v41000_2">เปลี่ยนที่เก็บการตั้งค่าไปใช้ของ Android เอง: แก้ปัญหาแอปปิดตัวบนอุปกรณ์ 32 บิต และข้อมูลเดิมถูกย้ายให้ทั้งหมด</string>
+    <string name="changelog_v41000_3">หน้าไวต์ลิสต์และแบล็กลิสต์แสดงชื่อแอปอีกครั้ง</string>
+    <string name="changelog_v41000_4">ตัวเลือกระยะเวลาเปิดหน้าจอที่เลือกอยู่เห็นชัดขึ้น</string>
     <string name="changelog_v40000_1">หน้าแรกแสดงว่าปลุกหน้าจอสำเร็จครั้งล่าสุดเมื่อใด</string>
     <string name="changelog_v40000_2">ช่วงเวลานอนกำหนดตามวันในสัปดาห์ได้</string>
     <string name="changelog_v40000_3">กฎใหม่: ปิดเสียงเมื่อแบตต่ำ และเงียบเมื่อคว่ำหน้าจอ</string>
@@ -363,4 +366,11 @@
     <string name="accessibility_not_enabled_message">การกำหนดเวลาเปิดหน้าจอเองต้องใช้การดำเนินการ \"ล็อกหน้าจอ\" ของบริการช่วยเหลือการเข้าถึงเพื่อดับหน้าจอ ก่อนที่จะเปิดใช้ ฟีเจอร์นี้จะยังไม่ทำงาน</string>
     <string name="accessibility_dialog_grant">เปิดเลย</string>
     <string name="accessibility_dialog_leave_anyway">ออกต่อไป</string>
+
+    <!-- Prominent disclosure shown before the accessibility service is enabled -->
+    <string name="accessibility_disclosure_title">แอปนี้ใช้สิทธิ์การช่วยเหลือพิเศษอย่างไร</string>
+    <string name="accessibility_disclosure_intro">แอปนี้ไม่ใช่เครื่องมือช่วยเหลือพิเศษ</string>
+    <string name="accessibility_disclosure_purpose">บน Android 9 ขึ้นไป มีเพียงการทำงาน \"ล็อกหน้าจอ\" ของการช่วยเหลือพิเศษที่ปิดหน้าจอได้ตรงเวลา</string>
+    <string name="accessibility_disclosure_data">ไม่อ่านเนื้อหาบนหน้าจอ ไม่เก็บข้อมูลใด ๆ และปิดได้ทุกเมื่อ</string>
+    <string name="accessibility_disclosure_agree">ยอมรับและไปที่การตั้งค่า</string>
 </resources>

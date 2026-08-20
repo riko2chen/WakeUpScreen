@@ -56,6 +56,9 @@ fun WakeUpTimeScreen(
 ) {
     var showUnsavedDialog by remember { mutableStateOf(false) }
     var showAccessibilityDialog by remember { mutableStateOf(false) }
+    // Every route to the system settings screen goes through the disclosure
+    // first, so the grant is never one tap away from anywhere in this screen.
+    var showDisclosureDialog by remember { mutableStateOf(false) }
 
     // With the switch on but the accessibility service off, the feature the
     // user just configured cannot actually turn the screen off.
@@ -145,7 +148,7 @@ fun WakeUpTimeScreen(
                     ScreenOffMethodCard(
                         accessibilitySupported = accessibilitySupported,
                         accessibilityGranted = accessibilityGranted,
-                        onGrantAccessibilityClick = onGrantAccessibilityClick,
+                        onGrantAccessibilityClick = { showDisclosureDialog = true },
                     )
 
                     Spacer(Modifier.height(16.dp))
@@ -204,7 +207,7 @@ fun WakeUpTimeScreen(
             confirmButton = {
                 TextButton(onClick = {
                     showAccessibilityDialog = false
-                    onGrantAccessibilityClick()
+                    showDisclosureDialog = true
                 }) {
                     Text(stringResource(R.string.accessibility_dialog_grant))
                 }
@@ -219,6 +222,66 @@ fun WakeUpTimeScreen(
             },
         )
     }
+
+    if (showDisclosureDialog) {
+        AccessibilityDisclosureDialog(
+            onAgree = {
+                showDisclosureDialog = false
+                onGrantAccessibilityClick()
+            },
+            onDismiss = { showDisclosureDialog = false },
+        )
+    }
+}
+
+/**
+ * The consent gate in front of the system accessibility settings.
+ *
+ * Google Play requires an app that uses the accessibility APIs without being an
+ * accessibility tool to disclose, prominently and inside the app, what the
+ * service does with the access — and to obtain an affirmative acknowledgement
+ * before the access begins. That is what this dialog is: the same three facts
+ * the card states, restated where the user cannot miss them, with the jump to
+ * settings behind an explicit "agree".
+ */
+@Composable
+private fun AccessibilityDisclosureDialog(
+    onAgree: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(text = stringResource(R.string.accessibility_disclosure_title)) },
+        text = {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                val lines = listOf(
+                    R.string.accessibility_disclosure_intro,
+                    R.string.accessibility_disclosure_purpose,
+                    R.string.accessibility_disclosure_data,
+                )
+                lines.forEachIndexed { index, line ->
+                    Text(
+                        text = stringResource(line),
+                        style = MaterialTheme.typography.bodyMedium,
+                        lineHeight = 20.sp,
+                        modifier = Modifier.padding(
+                            bottom = if (index == lines.lastIndex) 0.dp else 10.dp
+                        ),
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onAgree) {
+                Text(stringResource(R.string.accessibility_disclosure_agree))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.cancel))
+            }
+        },
+    )
 }
 
 @Composable
@@ -244,13 +307,16 @@ private fun DurationCard(
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 for (preset in ScConstant.PRECISE_SCREEN_ON_PRESET_SECONDS) {
                     val isSelected = selectedSecond == preset
+                    // The selected chip takes the full primary colour, not the
+                    // container tint: against four chips of the same size the
+                    // pale tint was easy to miss at a glance.
                     Box(
                         modifier = Modifier
                             .weight(1f)
                             .height(56.dp)
                             .clip(RoundedCornerShape(12.dp))
                             .background(
-                                if (isSelected) MaterialTheme.colorScheme.primaryContainer
+                                if (isSelected) MaterialTheme.colorScheme.primary
                                 else MaterialTheme.colorScheme.surfaceVariant
                             )
                             .clickable { onPresetClick(preset) },
@@ -258,10 +324,10 @@ private fun DurationCard(
                     ) {
                         Text(
                             text = stringResource(R.string.precise_wake_preset_seconds, preset),
-                            fontSize = 15.sp,
+                            fontSize = if (isSelected) 17.sp else 15.sp,
                             fontWeight = FontWeight.Bold,
-                            color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
-                            else MaterialTheme.colorScheme.onSurface,
+                            color = if (isSelected) MaterialTheme.colorScheme.onPrimary
+                            else MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 }
@@ -271,6 +337,10 @@ private fun DurationCard(
 }
 
 /**
+ * One block, not three. The turn-off method, what the accessibility access is
+ * used for, and the grant guide are the same subject, and stacking them as
+ * separate boxes made the page read as a wall of warnings.
+ *
  * There is no method picker any more. Below Android 9 the accessibility action
  * does not exist and the permission-free fallback is all there is; from Android
  * 9 up the fallback is ignored by the platform, so offering it as a choice only
@@ -295,18 +365,35 @@ private fun ScreenOffMethodCard(
                 color = MaterialTheme.colorScheme.onSurface,
             )
             Spacer(Modifier.height(6.dp))
-            Text(
-                text = stringResource(R.string.screen_off_method_accessibility_summary),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                lineHeight = 19.sp,
-            )
 
-            Spacer(Modifier.height(14.dp))
+            // Two sentences: why the access is needed at all, and that it
+            // reads nothing. Everything else was noise on a settings page.
+            if (accessibilitySupported) {
+                Text(
+                    text = stringResource(R.string.accessibility_disclosure_purpose),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    lineHeight = 19.sp,
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = stringResource(R.string.accessibility_disclosure_data),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    lineHeight = 19.sp,
+                )
+
+                Spacer(Modifier.height(16.dp))
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                Spacer(Modifier.height(16.dp))
+            }
 
             when {
-                !accessibilitySupported -> NoticeCard(
-                    text = stringResource(R.string.accessibility_unsupported_notice)
+                !accessibilitySupported -> Text(
+                    text = stringResource(R.string.accessibility_unsupported_notice),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = WakeUpTheme.colors.onNoticeContainer,
+                    lineHeight = 18.sp,
                 )
 
                 accessibilityGranted -> GrantedRow()
@@ -321,7 +408,7 @@ private fun ScreenOffMethodCard(
 private fun GrantedRow() {
     Row(verticalAlignment = Alignment.CenterVertically) {
         GlyphBadge(
-            text = "✓",
+            text = "\u2713",
             size = 20.dp,
             fontSize = 12.sp,
             background = MaterialTheme.colorScheme.primary,
@@ -341,79 +428,72 @@ private fun GrantedRow() {
  * settings, under a heading that is named differently on almost every vendor
  * build, and the intent can only get the user as far as the top of that tree.
  *
- * Drawn in the error palette rather than the softer notice one: without the
- * grant the whole feature is inert, which is a malfunction, not a footnote.
+ * No container of its own any more: it is the lower half of the method card,
+ * and the error palette is carried by the heading, the badges and the button.
  */
 @Composable
 private fun GrantGuide(onGrantAccessibilityClick: () -> Unit) {
-    Surface(
-        shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.errorContainer,
-        tonalElevation = 0.dp,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(modifier = Modifier.padding(14.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Rounded.Warning,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.size(20.dp),
+    Column {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = Icons.Rounded.Warning,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.error,
+                modifier = Modifier.size(20.dp),
+            )
+            Text(
+                text = stringResource(R.string.accessibility_required_title),
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(start = 8.dp),
+            )
+        }
+
+        Spacer(Modifier.height(8.dp))
+
+        Text(
+            text = stringResource(R.string.accessibility_required_warning),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            lineHeight = 18.sp,
+        )
+
+        Spacer(Modifier.height(12.dp))
+
+        val steps = listOf(
+            R.string.accessibility_step_open_settings,
+            R.string.accessibility_step_installed_apps,
+            R.string.accessibility_step_enable_service,
+        )
+        steps.forEachIndexed { index, step ->
+            Row(modifier = Modifier.padding(bottom = 6.dp)) {
+                GlyphBadge(
+                    text = "${index + 1}",
+                    size = 18.dp,
+                    fontSize = 11.sp,
+                    background = MaterialTheme.colorScheme.error,
+                    contentColor = Color.White,
                 )
                 Text(
-                    text = stringResource(R.string.accessibility_required_title),
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onErrorContainer,
+                    text = stringResource(step),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    lineHeight = 18.sp,
                     modifier = Modifier.padding(start = 8.dp),
                 )
             }
+        }
 
-            Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(10.dp))
 
-            Text(
-                text = stringResource(R.string.accessibility_required_warning),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onErrorContainer,
-                lineHeight = 18.sp,
-            )
-
-            Spacer(Modifier.height(12.dp))
-
-            val steps = listOf(
-                R.string.accessibility_step_open_settings,
-                R.string.accessibility_step_installed_apps,
-                R.string.accessibility_step_enable_service,
-            )
-            steps.forEachIndexed { index, step ->
-                Row(modifier = Modifier.padding(bottom = 6.dp)) {
-                    GlyphBadge(
-                        text = "${index + 1}",
-                        size = 18.dp,
-                        fontSize = 11.sp,
-                        background = MaterialTheme.colorScheme.error,
-                        contentColor = Color.White,
-                    )
-                    Text(
-                        text = stringResource(step),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onErrorContainer,
-                        lineHeight = 18.sp,
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
-                }
-            }
-
-            Spacer(Modifier.height(6.dp))
-
-            Button(
-                onClick = onGrantAccessibilityClick,
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text(text = stringResource(R.string.accessibility_grant_action))
-            }
+        Button(
+            onClick = onGrantAccessibilityClick,
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(text = stringResource(R.string.accessibility_grant_action))
         }
     }
 }

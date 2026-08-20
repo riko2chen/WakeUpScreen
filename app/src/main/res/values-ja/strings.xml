@@ -233,8 +233,7 @@
     <string name="accessibility_service_summary">指定した点灯時間の終了時に画面を消します</string>
 
     <string name="precise_wake_preset_seconds">%1$d 秒</string>
-    <string name="screen_off_method_accessibility_summary">時間が来たら、ユーザー補助サービスからシステムの「画面ロック」操作を実行して消灯します。Android 9 以降ではこれが唯一有効な方法です。</string>
-    <string name="accessibility_required_warning">まだユーザー補助が許可されていません。許可するまで画面を時間どおりに消すことができず、システムの消灯時間まで点いたままになります。</string>
+    <string name="accessibility_required_warning">許可するまで、画面はシステムのタイムアウトまで点灯したままです。</string>
     <string name="accessibility_step_open_settings">システムの「ユーザー補助」設定を開く</string>
     <string name="accessibility_step_installed_apps">「インストール済みのアプリ」またはダウンロードしたサービスの一覧を開く</string>
     <string name="accessibility_step_enable_service">「通知画面点灯 — 画面ロック」を見つけてオンにする</string>
@@ -338,6 +337,10 @@
     <string name="whats_new_title">更新内容</string>
     <string name="changelog_view_full">完全な更新履歴を見る</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-ja.md</string>
+    <string name="changelog_v41000_1">ユーザー補助の用途を明示し、許可の前に同意を求めるようになりました</string>
+    <string name="changelog_v41000_2">設定の保存を Android 標準の仕組みへ変更：32 ビット端末での強制終了を修正し、保存済みの内容はそのまま引き継ぎ</string>
+    <string name="changelog_v41000_3">ホワイトリスト・ブラックリストの画面にアプリ名を再び表示</string>
+    <string name="changelog_v41000_4">選択中の点灯時間が見分けやすくなりました</string>
     <string name="changelog_v40000_1">ホームに前回の点灯成功からの経過時間を表示</string>
     <string name="changelog_v40000_2">睡眠時間帯を曜日ごとに設定可能に</string>
     <string name="changelog_v40000_3">新ルール：低電池サイレント・伏せ置きサイレント</string>
@@ -363,4 +366,11 @@
     <string name="accessibility_not_enabled_message">画面点灯時間の指定は、ユーザー補助の「画面ロック」操作で画面を消灯します。有効にするまで、この機能は動作しません。</string>
     <string name="accessibility_dialog_grant">設定する</string>
     <string name="accessibility_dialog_leave_anyway">このまま戻る</string>
+
+    <!-- Prominent disclosure shown before the accessibility service is enabled -->
+    <string name="accessibility_disclosure_title">ユーザー補助へのアクセスの用途</string>
+    <string name="accessibility_disclosure_intro">このアプリはユーザー補助ツールではありません。</string>
+    <string name="accessibility_disclosure_purpose">Android 9 以降では、ユーザー補助の「画面ロック」操作だけが画面を時間どおりに消せます。</string>
+    <string name="accessibility_disclosure_data">画面の内容は読み取らず、情報も一切収集しません。いつでもオフにできます。</string>
+    <string name="accessibility_disclosure_agree">同意して設定を開く</string>
 </resources>

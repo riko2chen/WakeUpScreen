@@ -233,8 +233,7 @@
     <string name="accessibility_service_summary">在自訂亮螢幕時長結束時熄滅螢幕</string>
 
     <string name="precise_wake_preset_seconds">%1$d 秒</string>
-    <string name="screen_off_method_accessibility_summary">計時結束時，透過無障礙服務執行系統內建的「鎖定螢幕」動作來熄螢幕。在 Android 9 以上，這是唯一能生效的方式。</string>
-    <string name="accessibility_required_warning">尚未授予無障礙權限。在授權之前，螢幕無法準時熄滅，會一直亮到系統逾時為止。</string>
+    <string name="accessibility_required_warning">未授權時，螢幕會一直亮到系統逾時。</string>
     <string name="accessibility_step_open_settings">開啟系統的「無障礙」設定</string>
     <string name="accessibility_step_installed_apps">進入「已安裝的應用程式」或「已下載的服務」</string>
     <string name="accessibility_step_enable_service">找到「通知亮屏 — 鎖定螢幕」並開啟開關</string>
@@ -338,6 +337,10 @@
     <string name="whats_new_title">更新內容</string>
     <string name="changelog_view_full">檢視完整更新日誌</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-zh-TW.md</string>
+    <string name="changelog_v41000_1">無障礙權限用途說明：開啟前先講清楚做什麼、存取什麼，並需你確認同意</string>
+    <string name="changelog_v41000_2">設定儲存改用系統內建方案：修復 32 位元裝置閃退，已儲存的內容自動遷移</string>
+    <string name="changelog_v41000_3">白名單 / 黑名單頁面重新顯示應用程式名稱</string>
+    <string name="changelog_v41000_4">亮螢幕時長中選取的檔位更醒目</string>
     <string name="changelog_v40000_1">首頁顯示上次成功喚醒於多久之前</string>
     <string name="changelog_v40000_2">睡眠時段支援按星期幾生效</string>
     <string name="changelog_v40000_3">新規則：低電量靜默、面朝下靜默</string>
@@ -363,4 +366,11 @@
     <string name="accessibility_not_enabled_message">自訂亮螢幕時長依賴無障礙服務中的「鎖定螢幕」動作來熄滅螢幕。在開啟之前，這個功能不會生效。</string>
     <string name="accessibility_dialog_grant">前往開啟</string>
     <string name="accessibility_dialog_leave_anyway">仍然返回</string>
+
+    <!-- Prominent disclosure shown before the accessibility service is enabled -->
+    <string name="accessibility_disclosure_title">無障礙權限用途說明</string>
+    <string name="accessibility_disclosure_intro">本應用程式不是無障礙工具。</string>
+    <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有無障礙服務的「鎖定螢幕」動作能讓螢幕準時關閉。</string>
+    <string name="accessibility_disclosure_data">它不讀取螢幕內容，不收集任何資訊，隨時可以關閉。</string>
+    <string name="accessibility_disclosure_agree">同意並前往設定</string>
 </resources>

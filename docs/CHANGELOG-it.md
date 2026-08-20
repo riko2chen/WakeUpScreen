@@ -4,6 +4,24 @@ Tutte le modifiche rilevanti di WakeUpScreen sono documentate qui, organizzate p
 
 ---
 
+## [4.1.0]
+
+### Aggiunte
+- Un'informativa in evidenza su cosa serve l'accesso di accessibilità: cosa fa (esegue l'azione "blocca schermo" del sistema quando la durata schermo acceso impostata finisce), a cosa accede (a nulla — il servizio non si iscrive ad alcun evento di accessibilità e non può leggere il contenuto dello schermo) e che l'accesso è facoltativo e revocabile in qualsiasi momento. Compare nella scheda del metodo di spegnimento a prescindere dallo stato del permesso, e ogni percorso verso la schermata di accessibilità di sistema passa ora per una finestra che la ripete dietro un consenso esplicito
+
+### Modifiche
+- Impostazioni, log delle notifiche e statistiche di attenzione sono passati da MMKV all'archiviazione di Android. L'app non include più una libreria nativa propria: il crash sui dispositivi a 32 bit è sparito e non resta nulla da riallineare per le pagine di memoria da 16 KB. Tutto ciò che era già salvato viene trasferito al primo avvio dopo l'aggiornamento, e i vecchi file vengono eliminati una volta riuscito il trasferimento
+- Nella pagina della durata schermo acceso personalizzata, il preset selezionato si riempie del colore primario invece di essere solo contornato
+
+### Correzioni
+- Le pagine whitelist e blacklist mostrano di nuovo il nome di ogni app. Dalla 3.0.2 il nome veniva scritto nella stessa riga del nome del pacchetto e subito sovrascritto da quest'ultimo, lasciando vuota la riga del nome e il nome del pacchetto dove sarebbe dovuto stare il nome
+
+### Note
+- Nessun nuovo permesso
+- Il cambio di archiviazione è a senso unico: le impostazioni salvate da questa versione non vengono lette dalla 4.0.0 o precedenti. Esporta prima un file di backup se pensi di tornare indietro
+
+---
+
 ## [4.0.0]
 
 ### Aggiunte

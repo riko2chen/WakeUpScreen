@@ -1,12 +1,11 @@
 package com.symeonchen.wakeupscreen.data
 
-import com.tencent.mmkv.MMKV
 import org.json.JSONObject
 
 /**
  * The file format: a versioned envelope around a flat `settings` object.
  *
- * The envelope logic is separated from the MMKV reads so the version handling
+ * The envelope logic is separated from the store reads so the version handling
  * — the part that decides whether a file from another build can be trusted —
  * is plain string-in/string-out and unit-testable.
  */
@@ -133,20 +132,17 @@ object SettingsBackup {
 
     /** The complete backup file content. */
     fun export(nowMs: Long = System.currentTimeMillis()): String {
-        val mmkv = MMKV.defaultMMKV()
         val settings = JSONObject()
-        if (mmkv != null) {
-            for (entry in catalog) {
-                // Only keys that were ever written are exported; a fresh
-                // install's implicit defaults stay implicit, so a future
-                // build with different defaults is not pinned to today's.
-                if (!mmkv.containsKey(entry.key)) continue
-                when (entry.type) {
-                    SettingType.BOOL -> settings.put(entry.key, mmkv.getBoolean(entry.key, false))
-                    SettingType.INT -> settings.put(entry.key, mmkv.getInt(entry.key, 0))
-                    SettingType.LONG -> settings.put(entry.key, mmkv.getLong(entry.key, 0L))
-                    SettingType.STRING -> settings.put(entry.key, mmkv.getString(entry.key, "") ?: "")
-                }
+        for (entry in catalog) {
+            // Only keys that were ever written are exported; a fresh install's
+            // implicit defaults stay implicit, so a future build with different
+            // defaults is not pinned to today's.
+            if (!ScStore.containsKey(entry.key)) continue
+            when (entry.type) {
+                SettingType.BOOL -> settings.put(entry.key, ScStore.getBoolean(entry.key, false))
+                SettingType.INT -> settings.put(entry.key, ScStore.getInt(entry.key, 0))
+                SettingType.LONG -> settings.put(entry.key, ScStore.getLong(entry.key, 0L))
+                SettingType.STRING -> settings.put(entry.key, ScStore.getString(entry.key, "") ?: "")
             }
         }
         return BackupEnvelope.wrap(settings, nowMs).toString(2)
@@ -164,16 +160,15 @@ object SettingsBackup {
                 return ImportResult.NewerVersion(unwrapped.version)
             is BackupEnvelope.UnwrapResult.Success -> unwrapped.settings
         }
-        val mmkv = MMKV.defaultMMKV() ?: return ImportResult.Corrupt
         var applied = 0
         for (entry in catalog) {
             if (!settings.has(entry.key)) continue
             try {
                 when (entry.type) {
-                    SettingType.BOOL -> mmkv.putBoolean(entry.key, settings.getBoolean(entry.key))
-                    SettingType.INT -> mmkv.putInt(entry.key, settings.getInt(entry.key))
-                    SettingType.LONG -> mmkv.putLong(entry.key, settings.getLong(entry.key))
-                    SettingType.STRING -> mmkv.putString(entry.key, settings.getString(entry.key))
+                    SettingType.BOOL -> ScStore.putBoolean(entry.key, settings.getBoolean(entry.key))
+                    SettingType.INT -> ScStore.putInt(entry.key, settings.getInt(entry.key))
+                    SettingType.LONG -> ScStore.putLong(entry.key, settings.getLong(entry.key))
+                    SettingType.STRING -> ScStore.putString(entry.key, settings.getString(entry.key))
                 }
                 applied++
             } catch (_: Exception) {

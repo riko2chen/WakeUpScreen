@@ -247,8 +247,7 @@
     <string name="accessibility_service_summary">Spegne lo schermo al termine della durata personalizzata</string>
 
     <string name="precise_wake_preset_seconds">%1$ds</string>
-    <string name="screen_off_method_accessibility_summary">Allo scadere del tempo lo schermo viene spento con l\'azione di sistema \"blocca schermo\", tramite un servizio di accessibilità. Da Android 9 in poi è l\'unico metodo che funziona.</string>
-    <string name="accessibility_required_warning">L\'accesso all\'accessibilità non è ancora stato concesso. Finché manca, lo schermo non può essere spento in tempo e resterà acceso fino al timeout di sistema.</string>
+    <string name="accessibility_required_warning">Finché non la concedi, lo schermo resta acceso fino al timeout di sistema.</string>
     <string name="accessibility_step_open_settings">Apri le impostazioni di accessibilità del sistema</string>
     <string name="accessibility_step_installed_apps">Vai all\'elenco delle app installate o dei servizi scaricati</string>
     <string name="accessibility_step_enable_service">Trova \"WakeUpScreen — blocco schermo\" e attivalo</string>
@@ -352,6 +351,10 @@
     <string name="whats_new_title">Novità</string>
     <string name="changelog_view_full">Vedi il changelog completo</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-it.md</string>
+    <string name="changelog_v41000_1">Informativa chiara su come viene usato l\'accesso di accessibilità, con il tuo consenso prima di concederlo</string>
+    <string name="changelog_v41000_2">Archiviazione delle impostazioni ricostruita su quella di Android: niente più crash sui dispositivi a 32 bit, e tutto il salvato viene trasferito</string>
+    <string name="changelog_v41000_3">Le pagine whitelist e blacklist mostrano di nuovo i nomi delle app</string>
+    <string name="changelog_v41000_4">Il preset di durata schermo acceso selezionato si distingue meglio</string>
     <string name="changelog_v40000_1">La home mostra quanto tempo fa è avvenuta l\'ultima accensione riuscita</string>
     <string name="changelog_v40000_2">Le finestre di sonno possono valere solo in certi giorni della settimana</string>
     <string name="changelog_v40000_3">Nuove regole: Silenzio con batteria scarica e Silenzio a faccia in giù</string>
@@ -377,4 +380,11 @@
     <string name="accessibility_not_enabled_message">La durata schermo acceso personalizzata usa l\'azione di accessibilità \"blocca schermo\" per spegnere il display. Finché non è attiva, questa funzione non avrà effetto.</string>
     <string name="accessibility_dialog_grant">Attiva ora</string>
     <string name="accessibility_dialog_leave_anyway">Esci comunque</string>
+
+    <!-- Prominent disclosure shown before the accessibility service is enabled -->
+    <string name="accessibility_disclosure_title">Come l\'app usa l\'accessibilità</string>
+    <string name="accessibility_disclosure_intro">Questa app non è uno strumento di accessibilità.</string>
+    <string name="accessibility_disclosure_purpose">Da Android 9 in poi solo l\'azione di accessibilità \"blocca schermo\" spegne il display in tempo.</string>
+    <string name="accessibility_disclosure_data">Non legge il contenuto dello schermo, non raccoglie nulla e puoi disattivarla quando vuoi.</string>
+    <string name="accessibility_disclosure_agree">Accetto, apri le impostazioni</string>
 </resources>
