@@ -124,7 +124,13 @@ object LegacyMmkvFile {
     private class Cursor(private val bytes: ByteArray, private val end: Int) {
         var pos: Int = 0
 
-        fun has(count: Int): Boolean = count >= 0 && pos + count <= end
+        /**
+         * Widened on purpose: a length read straight out of the file can be
+         * anything up to [Int.MAX_VALUE], and adding that to the cursor in Int
+         * arithmetic wraps negative — which would pass the check and then throw
+         * on the read it was meant to prevent.
+         */
+        fun has(count: Int): Boolean = count >= 0 && pos.toLong() + count <= end
 
         /** LEB128, as protobuf writes it. Null when the bytes run out or never terminate. */
         fun readVarint(): Long? {
@@ -217,10 +223,10 @@ object LegacyMmkvStore {
         settings: SharedPreferences,
         history: SharedPreferences,
     ) {
-        if (settings.getBoolean(MIGRATED_FLAG, false)) {
-            return
-        }
         try {
+            if (settings.getBoolean(MIGRATED_FLAG, false)) {
+                return
+            }
             val legacyDir = File(context.filesDir, LEGACY_DIR)
             val entries = read(
                 File(legacyDir, LEGACY_FILE),

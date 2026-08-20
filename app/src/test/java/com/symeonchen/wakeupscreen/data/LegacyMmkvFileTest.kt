@@ -136,6 +136,24 @@ class LegacyMmkvFileTest {
         )
     }
 
+    /**
+     * A length big enough to overflow the bounds check when added to the
+     * cursor. Reachable from real bytes: the fallback layouts scan from a guess
+     * at the payload start, which can land mid-record.
+     */
+    @Test
+    fun `an absurd record length is refused, not thrown on`() {
+        val absurd = byteArrayOf(-1, -1, -1, -1, 7) // varint for Int.MAX_VALUE
+        val bytes = uint32(0) + uint32(0) + absurd + "junk".toByteArray(Charsets.UTF_8)
+
+        assertEquals(emptyMap<String, ByteArray>(), LegacyMmkvFile.parse(bytes))
+    }
+
+    @Test
+    fun `an absurd string length reads as null, not thrown on`() {
+        assertNull(LegacyMmkvFile.asString(byteArrayOf(-1, -1, -1, -1, 7)))
+    }
+
     @Test
     fun `a string blob that overruns its own length reads as null`() {
         assertNull(LegacyMmkvFile.asString(byteArrayOf(20, 'a'.code.toByte())))
