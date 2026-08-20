@@ -1,12 +1,11 @@
 package com.symeonchen.wakeupscreen.data
 
-import com.tencent.mmkv.MMKV
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 /**
- * MMKV persistence for [AttentionStats]. All the arithmetic lives there; this
- * is the disk round-trip plus the wall-clock-to-epoch-day conversion.
+ * Disk persistence for [AttentionStats]. All the arithmetic lives there; this
+ * is the round-trip plus the wall-clock-to-epoch-day conversion.
  */
 object AttentionStatsStore {
 
@@ -26,11 +25,11 @@ object AttentionStatsStore {
         AttentionStats.summarize(load(), epochDay(nowMs) - AttentionStats.RETENTION_DAYS + 1)
 
     fun clear() {
-        MMKV.defaultMMKV()?.putString(KEY_ATTENTION_STATS, "{}")
+        ScStore.putHistoryString(KEY_ATTENTION_STATS, "{}")
     }
 
     private fun load(): JSONObject {
-        val raw = MMKV.defaultMMKV()?.getString(KEY_ATTENTION_STATS, "{}") ?: "{}"
+        val raw = ScStore.getHistoryString(KEY_ATTENTION_STATS, "{}")
         return try {
             JSONObject(raw)
         } catch (_: Exception) {
@@ -39,9 +38,8 @@ object AttentionStatsStore {
     }
 
     private fun update(transform: (JSONObject) -> JSONObject) {
-        val mmkv = MMKV.defaultMMKV() ?: return
         try {
-            mmkv.putString(KEY_ATTENTION_STATS, transform(load()).toString())
+            ScStore.putHistoryString(KEY_ATTENTION_STATS, transform(load()).toString())
         } catch (_: Exception) {
         }
     }

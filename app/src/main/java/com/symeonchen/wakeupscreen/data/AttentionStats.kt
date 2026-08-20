@@ -15,7 +15,7 @@ data class AppAttention(
 }
 
 /**
- * The arithmetic of the attention statistics, kept free of Android and MMKV.
+ * The arithmetic of the attention statistics, kept free of Android and disk.
  *
  * The store is a JSON object of per-package day buckets:
  * `{"com.app": {"19700": [wakes, followed], ...}, ...}` with the day as epoch

@@ -2,8 +2,8 @@ package com.symeonchen.wakeupscreen
 
 import android.app.Application
 import com.blankj.utilcode.util.LogUtils
+import com.symeonchen.wakeupscreen.data.ScStore
 import com.symeonchen.wakeupscreen.utils.DataInjection
-import com.tencent.mmkv.MMKV
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -13,7 +13,7 @@ class ScApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        MMKV.initialize(this)
+        ScStore.init(this)
         DataInjection.darkModeSelected.applyDarkMode()
         filterLog()
     }

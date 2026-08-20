@@ -1,6 +1,5 @@
 package com.symeonchen.wakeupscreen.data
 
-import com.tencent.mmkv.MMKV
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -59,8 +58,7 @@ object NotificationLogStore {
     private const val MAX_LOGS = 500
 
     fun addLog(entry: NotificationLogEntry) {
-        val mmkv = MMKV.defaultMMKV() ?: return
-        val arr = loadRawArray(mmkv)
+        val arr = loadRawArray()
         val obj = JSONObject().apply {
             put("ts", entry.timestamp)
             put("pkg", entry.packageName)
@@ -81,12 +79,11 @@ object NotificationLogStore {
         while (arr.length() > MAX_LOGS) {
             arr.remove(0)
         }
-        mmkv.putString(KEY_NOTIFICATION_LOGS, arr.toString())
+        ScStore.putHistoryString(KEY_NOTIFICATION_LOGS, arr.toString())
     }
 
     fun loadLogs(): List<NotificationLogEntry> {
-        val mmkv = MMKV.defaultMMKV() ?: return emptyList()
-        val arr = loadRawArray(mmkv)
+        val arr = loadRawArray()
         val list = mutableListOf<NotificationLogEntry>()
         for (i in 0 until arr.length()) {
             val obj = arr.getJSONObject(i)
@@ -116,11 +113,11 @@ object NotificationLogStore {
         loadLogs().firstOrNull { it.status == LogStatus.WAKED_UP }?.timestamp
 
     fun clearLogs() {
-        MMKV.defaultMMKV()?.putString(KEY_NOTIFICATION_LOGS, "[]")
+        ScStore.putHistoryString(KEY_NOTIFICATION_LOGS, "[]")
     }
 
-    private fun loadRawArray(mmkv: MMKV): JSONArray {
-        val raw = mmkv.getString(KEY_NOTIFICATION_LOGS, "[]") ?: "[]"
+    private fun loadRawArray(): JSONArray {
+        val raw = ScStore.getHistoryString(KEY_NOTIFICATION_LOGS, "[]")
         return try {
             JSONArray(raw)
         } catch (_: Exception) {

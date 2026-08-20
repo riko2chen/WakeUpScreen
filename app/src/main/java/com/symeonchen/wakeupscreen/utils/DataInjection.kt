@@ -77,7 +77,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.UPDATED_FROM_VERSION_CODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_UPDATED_FROM_VERSION_CODE
 import com.symeonchen.wakeupscreen.data.ScConstant.CLICKED_FEATURE_BADGES
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_CLICKED_FEATURE_BADGES
-import com.tencent.mmkv.MMKV
+import com.symeonchen.wakeupscreen.data.ScStore
 
 /**
  * Created by SymeonChen on 2019-10-27.
@@ -86,11 +86,10 @@ object DataInjection {
 
     var switchOfApp: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(CUSTOM_STATUS, DEFAULT_SWITCH_OF_APP)
-                ?: DEFAULT_SWITCH_OF_APP
+            return ScStore.getBoolean(CUSTOM_STATUS, DEFAULT_SWITCH_OF_APP)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(CUSTOM_STATUS, value)
+            ScStore.putBoolean(CUSTOM_STATUS, value)
         }
 
     /**
@@ -104,9 +103,10 @@ object DataInjection {
      */
     var milliSecondOfWakeUpScreen: Long
         get() {
-            val stored = MMKV.defaultMMKV()
-                ?.getLong(WAKE_SCREEN_SECOND, DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS)
-                ?: DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
+            val stored = ScStore.getLong(
+                WAKE_SCREEN_SECOND,
+                DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
+            )
             val clamped = ScreenOnWindowCalculator.clampSeconds(stored / 1000L) * 1000L
             if (clamped != stored) {
                 milliSecondOfWakeUpScreen = clamped
@@ -117,173 +117,159 @@ object DataInjection {
             if (millisSec < 0) {
                 return
             }
-            MMKV.defaultMMKV()?.putLong(WAKE_SCREEN_SECOND, millisSec)
+            ScStore.putLong(WAKE_SCREEN_SECOND, millisSec)
         }
 
     var statueOfProximity: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(PROXIMITY_STATUS, DEFAULT_VALUE_OF_PROXIMITY)
-                ?: DEFAULT_VALUE_OF_PROXIMITY
+            return ScStore.getInt(PROXIMITY_STATUS, DEFAULT_VALUE_OF_PROXIMITY)
         }
         set(state) {
-            MMKV.defaultMMKV()?.putInt(PROXIMITY_STATUS, state)
+            ScStore.putInt(PROXIMITY_STATUS, state)
         }
 
 
     var switchOfProximity: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(PROXIMITY_SWITCH, DEFAULT_SWITCH_OF_PROXIMITY)
-                ?: DEFAULT_SWITCH_OF_PROXIMITY
+            return ScStore.getBoolean(PROXIMITY_SWITCH, DEFAULT_SWITCH_OF_PROXIMITY)
         }
         set(switch) {
-            MMKV.defaultMMKV()?.putBoolean(PROXIMITY_SWITCH, switch)
+            ScStore.putBoolean(PROXIMITY_SWITCH, switch)
         }
 
     var switchOfFaceDown: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(FACE_DOWN_SWITCH, DEFAULT_SWITCH_OF_FACE_DOWN)
-                ?: DEFAULT_SWITCH_OF_FACE_DOWN
+            return ScStore.getBoolean(FACE_DOWN_SWITCH, DEFAULT_SWITCH_OF_FACE_DOWN)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(FACE_DOWN_SWITCH, value)
+            ScStore.putBoolean(FACE_DOWN_SWITCH, value)
         }
 
     /** Last posture the accelerometer reported; written by the sensor listener alone. */
     var statusOfFaceDown: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(FACE_DOWN_STATUS, DEFAULT_STATUS_OF_FACE_DOWN)
-                ?: DEFAULT_STATUS_OF_FACE_DOWN
+            return ScStore.getBoolean(FACE_DOWN_STATUS, DEFAULT_STATUS_OF_FACE_DOWN)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(FACE_DOWN_STATUS, value)
+            ScStore.putBoolean(FACE_DOWN_STATUS, value)
         }
 
     var fakeSwitchOfBatterySaver: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(BATTERY_SAVER_FAKE_SWITCH, DEFAULT_BATTERY_SAVER)
-                ?: DEFAULT_BATTERY_SAVER
+            return ScStore.getBoolean(BATTERY_SAVER_FAKE_SWITCH, DEFAULT_BATTERY_SAVER)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(BATTERY_SAVER_FAKE_SWITCH, value)
+            ScStore.putBoolean(BATTERY_SAVER_FAKE_SWITCH, value)
         }
 
     var permissionOfSendNotification: Boolean
         get() {
-            return MMKV.defaultMMKV()
-                ?.getBoolean(SEND_NOTIFICATION_PERMISSION, DEFAULT_PERMISSION_OF_SEND_NOTIFICATION)
-                ?: DEFAULT_PERMISSION_OF_SEND_NOTIFICATION
+            return ScStore.getBoolean(SEND_NOTIFICATION_PERMISSION, DEFAULT_PERMISSION_OF_SEND_NOTIFICATION)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(SEND_NOTIFICATION_PERMISSION, value)
+            ScStore.putBoolean(SEND_NOTIFICATION_PERMISSION, value)
         }
 
     var switchOfDebugMode: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(DEBUG_MODE_SWITCH, DEFAULT_SWITCH_OF_DEBUG_MODE)
-                ?: DEFAULT_SWITCH_OF_DEBUG_MODE
+            return ScStore.getBoolean(DEBUG_MODE_SWITCH, DEFAULT_SWITCH_OF_DEBUG_MODE)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(DEBUG_MODE_SWITCH, value)
+            ScStore.putBoolean(DEBUG_MODE_SWITCH, value)
         }
 
     var modeOfCurrent: CurrentMode
         get() {
             return CurrentMode.getModeFromValue(
-                MMKV.defaultMMKV()?.getInt(
+                ScStore.getInt(
                     APP_NOTIFY_MODE,
                     DEFAULT_APP_NOTIFY_MODE
-                ) ?: DEFAULT_APP_NOTIFY_MODE
+                )
             )
 
         }
         set(value) {
-            MMKV.defaultMMKV()?.putInt(APP_NOTIFY_MODE, value.ordinal)
+            ScStore.putInt(APP_NOTIFY_MODE, value.ordinal)
         }
 
     var appWhiteListStringOfNotify: String
         get() {
-            return MMKV.defaultMMKV()?.getString(
+            return ScStore.getString(
                 APP_FILTER_WHITE_LIST_STRING,
                 DEFAULT_APP_WHITE_LIST_STRING
             ) ?: ""
         }
         set(value) {
-            MMKV.defaultMMKV()?.putString(APP_FILTER_WHITE_LIST_STRING, value)
+            ScStore.putString(APP_FILTER_WHITE_LIST_STRING, value)
         }
 
     var appBlackListStringOfNotify: String
         get() {
-            return MMKV.defaultMMKV()?.getString(
+            return ScStore.getString(
                 APP_FILTER_BLACK_LIST_STRING,
                 DEFAULT_APP_BLACK_LIST_STRING
             ) ?: ""
         }
         set(value) {
-            MMKV.defaultMMKV()?.putString(APP_FILTER_BLACK_LIST_STRING, value)
+            ScStore.putString(APP_FILTER_BLACK_LIST_STRING, value)
         }
 
     var appListUpdateFlag: Long
         get() {
-            return MMKV.defaultMMKV()?.getLong(APP_FILTER_LIST_FLAG, DEFAULT_APP_WHITE_LIST_FLAG)
-                ?: DEFAULT_APP_WHITE_LIST_FLAG
+            return ScStore.getLong(APP_FILTER_LIST_FLAG, DEFAULT_APP_WHITE_LIST_FLAG)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putLong(APP_FILTER_LIST_FLAG, value)
+            ScStore.putLong(APP_FILTER_LIST_FLAG, value)
         }
 
     var ongoingOptimize: Boolean
         get() {
-            return MMKV.defaultMMKV()
-                ?.getBoolean(ONGOING_STATUS_DETECT, DEFAULT_ONGOING_STATUS_DETECT)
-                ?: DEFAULT_ONGOING_STATUS_DETECT
+            return ScStore.getBoolean(ONGOING_STATUS_DETECT, DEFAULT_ONGOING_STATUS_DETECT)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(ONGOING_STATUS_DETECT, value)
+            ScStore.putBoolean(ONGOING_STATUS_DETECT, value)
         }
 
     var radicalOngoingOptimize: Boolean
         get() {
-            return MMKV.defaultMMKV()
-                ?.getBoolean(RADICAL_ONGOING_DETECT, DEFAULT_RADICAL_ONGOING_DETECT)
-                ?: DEFAULT_RADICAL_ONGOING_DETECT
+            return ScStore.getBoolean(RADICAL_ONGOING_DETECT, DEFAULT_RADICAL_ONGOING_DETECT)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(RADICAL_ONGOING_DETECT, value)
+            ScStore.putBoolean(RADICAL_ONGOING_DETECT, value)
         }
 
     var languageSelected: LanguageInfo
         get() {
             return LanguageInfo.getModeFromValue(
-                MMKV.defaultMMKV()?.getInt(
+                ScStore.getInt(
                     LANGUAGE_SELECTED,
                     DEFAULT_LANGUAGE_SELECTED
-                ) ?: DEFAULT_LANGUAGE_SELECTED
+                )
             )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putInt(LANGUAGE_SELECTED, value.ordinal)
+            ScStore.putInt(LANGUAGE_SELECTED, value.ordinal)
         }
 
     var darkModeSelected: DarkModeInfo
         get() {
             return DarkModeInfo.getModeFromValue(
-                MMKV.defaultMMKV()?.getInt(
+                ScStore.getInt(
                     DARK_MODE_SELECTED,
                     DEFAULT_DARK_MODE_SELECTED
-                ) ?: DEFAULT_DARK_MODE_SELECTED
+                )
             )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putInt(DARK_MODE_SELECTED, value.referenceNum)
+            ScStore.putInt(DARK_MODE_SELECTED, value.referenceNum)
         }
 
     var sleepModeBoolean: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(SLEEP_MODE_BOOLEAN, DEFAULT_SLEEP_MODE_BOOLEAN)
-                ?: DEFAULT_SLEEP_MODE_BOOLEAN
+            return ScStore.getBoolean(SLEEP_MODE_BOOLEAN, DEFAULT_SLEEP_MODE_BOOLEAN)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(SLEEP_MODE_BOOLEAN, value)
+            ScStore.putBoolean(SLEEP_MODE_BOOLEAN, value)
         }
 
     /**
@@ -297,7 +283,7 @@ object DataInjection {
      */
     var sleepModeSegments: List<SleepSegment>
         get() {
-            val stored = MMKV.defaultMMKV()?.getString(SLEEP_MODE_SEGMENTS, DEFAULT_SLEEP_MODE_SEGMENTS)
+            val stored = ScStore.getString(SLEEP_MODE_SEGMENTS, DEFAULT_SLEEP_MODE_SEGMENTS)
             if (stored == null) {
                 val migrated = listOf(
                     SleepSchedule.fromLegacyHours(sleepModeTimeBeginHour, sleepModeTimeEndHour)
@@ -308,7 +294,7 @@ object DataInjection {
             return SleepSchedule.parse(stored)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putString(SLEEP_MODE_SEGMENTS, SleepSchedule.serialize(value))
+            ScStore.putString(SLEEP_MODE_SEGMENTS, SleepSchedule.serialize(value))
         }
 
     /**
@@ -317,24 +303,24 @@ object DataInjection {
      */
     var sleepModeTimeBeginHour: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(
+            return ScStore.getInt(
                 SLEEP_MODE_TIME_BEGIN,
                 DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR
-            ) ?: DEFAULT_SLEEP_MODE_TIME_BEGIN_HOUR
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putInt(SLEEP_MODE_TIME_BEGIN, value)
+            ScStore.putInt(SLEEP_MODE_TIME_BEGIN, value)
         }
 
     var sleepModeTimeEndHour: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(
+            return ScStore.getInt(
                 SLEEP_MODE_TIME_END,
                 DEFAULT_SLEEP_MODE_TIME_END_HOUR
-            ) ?: DEFAULT_SLEEP_MODE_TIME_END_HOUR
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putInt(SLEEP_MODE_TIME_END, value)
+            ScStore.putInt(SLEEP_MODE_TIME_END, value)
         }
 
     /**
@@ -343,82 +329,80 @@ object DataInjection {
      */
     var nightGlowSwitch: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(NIGHT_GLOW_SWITCH, DEFAULT_NIGHT_GLOW_SWITCH)
-                ?: DEFAULT_NIGHT_GLOW_SWITCH
+            return ScStore.getBoolean(NIGHT_GLOW_SWITCH, DEFAULT_NIGHT_GLOW_SWITCH)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(NIGHT_GLOW_SWITCH, value)
+            ScStore.putBoolean(NIGHT_GLOW_SWITCH, value)
         }
 
     var dndDetectSwitch: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(DND_DETECT_SWITCH, DEFAULT_DND_DETECT_SWITCH)
-                ?: DEFAULT_DND_DETECT_SWITCH
+            return ScStore.getBoolean(DND_DETECT_SWITCH, DEFAULT_DND_DETECT_SWITCH)
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(DND_DETECT_SWITCH, value)
+            ScStore.putBoolean(DND_DETECT_SWITCH, value)
         }
 
     var lastInAppReviewTime: String
         get() {
-            return MMKV.defaultMMKV()?.getString(
+            return ScStore.getString(
                 LAST_IN_APP_REVIEW_TIMESTAMP,
                 DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
             ) ?: DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
         }
         set(value) {
-            MMKV.defaultMMKV()?.putString(LAST_IN_APP_REVIEW_TIMESTAMP, value)
+            ScStore.putString(LAST_IN_APP_REVIEW_TIMESTAMP, value)
         }
 
     var chargingOnlySwitch: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(
+            return ScStore.getBoolean(
                 CHARGING_ONLY_SWITCH,
                 DEFAULT_CHARGING_ONLY_SWITCH
-            ) ?: DEFAULT_CHARGING_ONLY_SWITCH
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(CHARGING_ONLY_SWITCH, value)
+            ScStore.putBoolean(CHARGING_ONLY_SWITCH, value)
         }
 
     var repeatReminderSwitch: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(
+            return ScStore.getBoolean(
                 REPEAT_REMINDER_SWITCH,
                 DEFAULT_REPEAT_REMINDER_SWITCH
-            ) ?: DEFAULT_REPEAT_REMINDER_SWITCH
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(REPEAT_REMINDER_SWITCH, value)
+            ScStore.putBoolean(REPEAT_REMINDER_SWITCH, value)
         }
 
     var repeatReminderIntervalMinutes: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(
+            return ScStore.getInt(
                 REPEAT_REMINDER_INTERVAL_MINUTES,
                 DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
-            ) ?: DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
+            )
         }
         set(value) {
             if (value <= 0) {
                 return
             }
-            MMKV.defaultMMKV()?.putInt(REPEAT_REMINDER_INTERVAL_MINUTES, value)
+            ScStore.putInt(REPEAT_REMINDER_INTERVAL_MINUTES, value)
         }
 
     /** Number of reminders allowed per unread streak. 0 means unlimited. */
     var repeatReminderMaxRounds: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(
+            return ScStore.getInt(
                 REPEAT_REMINDER_MAX_ROUNDS,
                 DEFAULT_REPEAT_REMINDER_MAX_ROUNDS
-            ) ?: DEFAULT_REPEAT_REMINDER_MAX_ROUNDS
+            )
         }
         set(value) {
             if (value < 0) {
                 return
             }
-            MMKV.defaultMMKV()?.putInt(REPEAT_REMINDER_MAX_ROUNDS, value)
+            ScStore.putInt(REPEAT_REMINDER_MAX_ROUNDS, value)
         }
 
     /**
@@ -428,13 +412,13 @@ object DataInjection {
      */
     var repeatReminderRoundCount: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(
+            return ScStore.getInt(
                 REPEAT_REMINDER_ROUND_COUNT,
                 DEFAULT_REPEAT_REMINDER_ROUND_COUNT
-            ) ?: DEFAULT_REPEAT_REMINDER_ROUND_COUNT
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putInt(REPEAT_REMINDER_ROUND_COUNT, value)
+            ScStore.putInt(REPEAT_REMINDER_ROUND_COUNT, value)
         }
 
     /**
@@ -444,13 +428,13 @@ object DataInjection {
      */
     var preciseScreenOnSwitch: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(
+            return ScStore.getBoolean(
                 PRECISE_SCREEN_ON_SWITCH,
                 DEFAULT_PRECISE_SCREEN_ON_SWITCH
-            ) ?: DEFAULT_PRECISE_SCREEN_ON_SWITCH
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(PRECISE_SCREEN_ON_SWITCH, value)
+            ScStore.putBoolean(PRECISE_SCREEN_ON_SWITCH, value)
         }
 
     /**
@@ -470,28 +454,28 @@ object DataInjection {
      */
     var batteryLevelSwitch: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(
+            return ScStore.getBoolean(
                 BATTERY_LEVEL_SWITCH,
                 DEFAULT_BATTERY_LEVEL_SWITCH
-            ) ?: DEFAULT_BATTERY_LEVEL_SWITCH
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(BATTERY_LEVEL_SWITCH, value)
+            ScStore.putBoolean(BATTERY_LEVEL_SWITCH, value)
         }
 
     /** Battery percentage below which the screen stays dark, while not charging. */
     var batteryLevelThreshold: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(
+            return ScStore.getInt(
                 BATTERY_LEVEL_THRESHOLD,
                 DEFAULT_BATTERY_LEVEL_THRESHOLD
-            ) ?: DEFAULT_BATTERY_LEVEL_THRESHOLD
+            )
         }
         set(value) {
             if (value !in 1..99) {
                 return
             }
-            MMKV.defaultMMKV()?.putInt(BATTERY_LEVEL_THRESHOLD, value)
+            ScStore.putInt(BATTERY_LEVEL_THRESHOLD, value)
         }
 
     /**
@@ -502,13 +486,13 @@ object DataInjection {
      */
     var lastSeenVersionCode: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(
+            return ScStore.getInt(
                 LAST_SEEN_VERSION_CODE,
                 DEFAULT_LAST_SEEN_VERSION_CODE
-            ) ?: DEFAULT_LAST_SEEN_VERSION_CODE
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putInt(LAST_SEEN_VERSION_CODE, value)
+            ScStore.putInt(LAST_SEEN_VERSION_CODE, value)
         }
 
     /**
@@ -519,36 +503,36 @@ object DataInjection {
      */
     var updatedFromVersionCode: Int
         get() {
-            return MMKV.defaultMMKV()?.getInt(
+            return ScStore.getInt(
                 UPDATED_FROM_VERSION_CODE,
                 DEFAULT_UPDATED_FROM_VERSION_CODE
-            ) ?: DEFAULT_UPDATED_FROM_VERSION_CODE
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putInt(UPDATED_FROM_VERSION_CODE, value)
+            ScStore.putInt(UPDATED_FROM_VERSION_CODE, value)
         }
 
     /** Comma-joined [com.symeonchen.wakeupscreen.data.FeatureBadge] keys already visited. */
     var clickedFeatureBadges: String
         get() {
-            return MMKV.defaultMMKV()?.getString(
+            return ScStore.getString(
                 CLICKED_FEATURE_BADGES,
                 DEFAULT_CLICKED_FEATURE_BADGES
             ) ?: DEFAULT_CLICKED_FEATURE_BADGES
         }
         set(value) {
-            MMKV.defaultMMKV()?.putString(CLICKED_FEATURE_BADGES, value)
+            ScStore.putString(CLICKED_FEATURE_BADGES, value)
         }
 
     var ignoreSilentNotificationSwitch: Boolean
         get() {
-            return MMKV.defaultMMKV()?.getBoolean(
+            return ScStore.getBoolean(
                 IGNORE_SILENT_NOTIFICATION_SWITCH,
                 DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
-            ) ?: DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
+            )
         }
         set(value) {
-            MMKV.defaultMMKV()?.putBoolean(IGNORE_SILENT_NOTIFICATION_SWITCH, value)
+            ScStore.putBoolean(IGNORE_SILENT_NOTIFICATION_SWITCH, value)
         }
 
 }
