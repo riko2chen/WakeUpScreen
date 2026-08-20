@@ -337,6 +337,10 @@
     <string name="whats_new_title">새로운 기능</string>
     <string name="changelog_view_full">전체 업데이트 내역 보기</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-ko.md</string>
+    <string name="changelog_v41000_1">접근성 권한의 용도를 분명히 밝히고, 허용 전에 동의를 받습니다</string>
+    <string name="changelog_v41000_2">설정 저장소를 안드로이드 자체 방식으로 교체: 32비트 기기 강제 종료를 해결했고 저장된 내용은 그대로 이어집니다</string>
+    <string name="changelog_v41000_3">화이트리스트·블랙리스트 화면에 앱 이름이 다시 표시됩니다</string>
+    <string name="changelog_v41000_4">선택한 화면 켜짐 시간이 더 뚜렷하게 보입니다</string>
     <string name="changelog_v40000_1">홈 화면에 마지막 화면 켜짐이 얼마나 전인지 표시</string>
     <string name="changelog_v40000_2">수면 시간대를 요일별로 적용 가능</string>
     <string name="changelog_v40000_3">새 규칙: 배터리 부족 무음, 엎어놓기 무음</string>

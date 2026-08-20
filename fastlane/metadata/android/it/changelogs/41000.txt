@@ -1,0 +1,5 @@
+• Informativa chiara su come viene usato l'accesso di accessibilità, con il tuo consenso prima di concederlo
+• Archiviazione delle impostazioni ricostruita su quella di Android: nessuna libreria nativa, niente più crash sui dispositivi a 32 bit
+• Tutto il salvato viene trasferito al primo avvio
+• Le pagine whitelist e blacklist mostrano di nuovo i nomi delle app
+• Il preset di durata schermo acceso selezionato si distingue meglio

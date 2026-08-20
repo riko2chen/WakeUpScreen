@@ -4,6 +4,24 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [4.1.0]
+
+### Added
+- A prominent disclosure of what the accessibility access is used for: what it does (performs the system's own "lock screen" action when a custom screen-on window ends), what it accesses (nothing — the service subscribes to no accessibility events and cannot read screen content), and that the access is optional and can be withdrawn at any time. It sits in the screen-off method card whatever the grant state is, and every route to the system accessibility screen now passes through a dialog that restates it behind an explicit agreement
+
+### Changes
+- Settings, the notification log and the attention statistics moved off MMKV onto Android's own storage. The app no longer ships a native library of its own: the crash on 32-bit devices is gone, and nothing is left that would need re-aligning for 16 KB memory pages. Everything already saved is carried over on the first launch after the update, and the old files are deleted once that has succeeded
+- On the custom screen-on duration page, the selected preset fills with the primary colour instead of only outlining it
+
+### Fixes
+- The whitelist and blacklist pages show each app's name again. Since 3.0.2 the name had been written into the same line as the package name and immediately overwritten by it, leaving the name line blank and the package name standing where the name belonged
+
+### Notes
+- No new permissions
+- The storage change is one-way: settings saved by this version are not read by 4.0.0 or earlier. Export a backup file first if you plan to go back
+
+---
+
 ## [4.0.0]
 
 ### Added

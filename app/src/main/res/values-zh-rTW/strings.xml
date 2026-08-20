@@ -337,6 +337,10 @@
     <string name="whats_new_title">更新內容</string>
     <string name="changelog_view_full">檢視完整更新日誌</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-zh-TW.md</string>
+    <string name="changelog_v41000_1">無障礙權限用途說明：開啟前先講清楚做什麼、存取什麼，並需你確認同意</string>
+    <string name="changelog_v41000_2">設定儲存改用系統內建方案：修復 32 位元裝置閃退，已儲存的內容自動遷移</string>
+    <string name="changelog_v41000_3">白名單 / 黑名單頁面重新顯示應用程式名稱</string>
+    <string name="changelog_v41000_4">亮螢幕時長中選取的檔位更醒目</string>
     <string name="changelog_v40000_1">首頁顯示上次成功喚醒於多久之前</string>
     <string name="changelog_v40000_2">睡眠時段支援按星期幾生效</string>
     <string name="changelog_v40000_3">新規則：低電量靜默、面朝下靜默</string>

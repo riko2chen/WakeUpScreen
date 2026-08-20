@@ -337,6 +337,10 @@
     <string name="whats_new_title">更新内容</string>
     <string name="changelog_view_full">完全な更新履歴を見る</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-ja.md</string>
+    <string name="changelog_v41000_1">ユーザー補助の用途を明示し、許可の前に同意を求めるようになりました</string>
+    <string name="changelog_v41000_2">設定の保存を Android 標準の仕組みへ変更：32 ビット端末での強制終了を修正し、保存済みの内容はそのまま引き継ぎ</string>
+    <string name="changelog_v41000_3">ホワイトリスト・ブラックリストの画面にアプリ名を再び表示</string>
+    <string name="changelog_v41000_4">選択中の点灯時間が見分けやすくなりました</string>
     <string name="changelog_v40000_1">ホームに前回の点灯成功からの経過時間を表示</string>
     <string name="changelog_v40000_2">睡眠時間帯を曜日ごとに設定可能に</string>
     <string name="changelog_v40000_3">新ルール：低電池サイレント・伏せ置きサイレント</string>

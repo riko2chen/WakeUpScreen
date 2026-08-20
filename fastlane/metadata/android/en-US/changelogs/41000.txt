@@ -1,0 +1,5 @@
+• Clear disclosure of what accessibility access is used for, agreed before it is granted
+• Settings storage rebuilt on Android's own: no native library, so the crash on 32-bit devices is gone
+• Everything already saved carries over on the first launch
+• Whitelist and blacklist pages show app names again
+• The selected screen-on duration stands out more clearly

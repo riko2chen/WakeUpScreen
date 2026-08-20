@@ -337,6 +337,10 @@
     <string name="whats_new_title">มีอะไรใหม่</string>
     <string name="changelog_view_full">ดูบันทึกการเปลี่ยนแปลงฉบับเต็ม</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-th.md</string>
+    <string name="changelog_v41000_1">คำชี้แจงที่ชัดเจนว่าใช้สิทธิ์การช่วยเหลือการเข้าถึงทำอะไร และขอความยินยอมก่อนให้สิทธิ์</string>
+    <string name="changelog_v41000_2">เปลี่ยนที่เก็บการตั้งค่าไปใช้ของ Android เอง: แก้ปัญหาแอปปิดตัวบนอุปกรณ์ 32 บิต และข้อมูลเดิมถูกย้ายให้ทั้งหมด</string>
+    <string name="changelog_v41000_3">หน้าไวต์ลิสต์และแบล็กลิสต์แสดงชื่อแอปอีกครั้ง</string>
+    <string name="changelog_v41000_4">ตัวเลือกระยะเวลาเปิดหน้าจอที่เลือกอยู่เห็นชัดขึ้น</string>
     <string name="changelog_v40000_1">หน้าแรกแสดงว่าปลุกหน้าจอสำเร็จครั้งล่าสุดเมื่อใด</string>
     <string name="changelog_v40000_2">ช่วงเวลานอนกำหนดตามวันในสัปดาห์ได้</string>
     <string name="changelog_v40000_3">กฎใหม่: ปิดเสียงเมื่อแบตต่ำ และเงียบเมื่อคว่ำหน้าจอ</string>
