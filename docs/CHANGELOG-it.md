@@ -4,6 +4,16 @@ Tutte le modifiche rilevanti di WakeUpScreen sono documentate qui, organizzate p
 
 ---
 
+## [4.1.1]
+
+### Correzioni
+- Aprire la whitelist o la blacklist non provoca più un crash sulle versioni più vecchie di Android e su alcune personalizzazioni dei produttori. Quei sistemi rifiutano un angolo di gradiente lineare se non è un multiplo di 45; l'intestazione della pagina usava 150, quindi il layout non finiva mai di essere creato. Lo stesso tipo di gradiente poteva fallire anche dopo, durante il disegno della schermata
+
+### Note
+- Nessun nuovo permesso
+
+---
+
 ## [4.1.0]
 
 ### Aggiunte

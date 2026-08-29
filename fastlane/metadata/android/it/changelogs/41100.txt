@@ -1,0 +1,1 @@
+• Aprire whitelist o blacklist non provoca più un crash su Android più vecchio e su alcune personalizzazioni dei produttori

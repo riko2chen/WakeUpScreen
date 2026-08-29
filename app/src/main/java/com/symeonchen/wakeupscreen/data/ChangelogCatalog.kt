@@ -47,6 +47,12 @@ object ChangelogCatalog {
      */
     val versions = listOf(
         ChangelogVersion(
+            41100, "4.1.1",
+            listOf(
+                R.string.changelog_v41100_1,
+            ),
+        ),
+        ChangelogVersion(
             41000, "4.1.0",
             listOf(
                 R.string.changelog_v41000_1,
