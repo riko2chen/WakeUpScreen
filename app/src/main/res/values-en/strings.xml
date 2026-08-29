@@ -351,6 +351,7 @@
     <string name="whats_new_title">What\'s new</string>
     <string name="changelog_view_full">View full changelog</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG.md</string>
+    <string name="changelog_v41100_1">Opening the whitelist or blacklist no longer crashes on older Android</string>
     <string name="changelog_v41000_1">A clear disclosure of what accessibility access is used for, agreed before it is granted</string>
     <string name="changelog_v41000_2">Settings storage rebuilt on Android\'s own — fixes the crash on 32-bit devices, and everything saved carries over</string>
     <string name="changelog_v41000_3">Whitelist and blacklist pages show app names again</string>

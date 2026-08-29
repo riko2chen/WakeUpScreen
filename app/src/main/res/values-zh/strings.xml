@@ -339,6 +339,7 @@
     <string name="whats_new_title">更新内容</string>
     <string name="changelog_view_full">查看完整更新日志</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-zh.md</string>
+    <string name="changelog_v41100_1">白名单 / 黑名单页面在较旧系统上不再闪退</string>
     <string name="changelog_v41000_1">无障碍权限用途说明：开启前先讲清楚做什么、访问什么，并需你确认同意</string>
     <string name="changelog_v41000_2">设置存储改用系统自带方案：修复 32 位设备闪退，已保存的内容自动迁移</string>
     <string name="changelog_v41000_3">白名单 / 黑名单页面重新显示应用名称</string>

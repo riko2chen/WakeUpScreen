@@ -337,6 +337,7 @@
     <string name="whats_new_title">更新內容</string>
     <string name="changelog_view_full">檢視完整更新日誌</string>
     <string name="changelog_url">https://github.com/riko2chen/WakeUpScreen/blob/master/docs/CHANGELOG-zh-TW.md</string>
+    <string name="changelog_v41100_1">白名單 / 黑名單頁面在較舊系統上不再閃退</string>
     <string name="changelog_v41000_1">無障礙權限用途說明：開啟前先講清楚做什麼、存取什麼，並需你確認同意</string>
     <string name="changelog_v41000_2">設定儲存改用系統內建方案：修復 32 位元裝置閃退，已儲存的內容自動遷移</string>
     <string name="changelog_v41000_3">白名單 / 黑名單頁面重新顯示應用程式名稱</string>

@@ -4,6 +4,16 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [4.1.1]
+
+### Fixes
+- Opening the whitelist or blacklist no longer crashes on older Android versions and some OEM skins. Those systems refuse a linear-gradient angle unless it is a multiple of 45; the page header used 150, so the layout never finished inflating. The same kind of gradient could also fail later, while the screen was being drawn
+
+### Notes
+- No new permissions
+
+---
+
 ## [4.1.0]
 
 ### Added
