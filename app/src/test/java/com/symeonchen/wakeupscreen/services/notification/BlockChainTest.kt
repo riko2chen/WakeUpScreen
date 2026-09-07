@@ -31,6 +31,7 @@ class BlockChainTest {
         assertEquals(
             listOf(
                 BlockReason.APP_SWITCH_OFF,
+                BlockReason.NOTIFICATION_DISMISSED,
                 BlockReason.POCKET_MODE,
                 BlockReason.FACE_DOWN,
                 BlockReason.INTERACTIVE,
@@ -94,6 +95,19 @@ class BlockChainTest {
         // Everything after it never ran.
         assertEquals(ChainNodeState.NOT_EVALUATED, byKey[BlockReason.DND])
         assertEquals(ChainNodeState.NOT_EVALUATED, byKey[BlockReason.CHARGING])
+        assertEquals(ChainNodeState.NOT_EVALUATED, byKey[BlockChain.KEY_WAKE_UP])
+    }
+
+    @Test
+    fun `a short lived notification stops before pocket mode`() {
+        val steps = BlockChain.forLogEntry(
+            entry(LogStatus.BLOCKED, BlockReason.NOTIFICATION_DISMISSED)
+        )
+        val byKey = states(steps)
+
+        assertEquals(ChainNodeState.PASSED, byKey[BlockReason.APP_SWITCH_OFF])
+        assertEquals(ChainNodeState.BLOCKED, byKey[BlockReason.NOTIFICATION_DISMISSED])
+        assertEquals(ChainNodeState.NOT_EVALUATED, byKey[BlockReason.POCKET_MODE])
         assertEquals(ChainNodeState.NOT_EVALUATED, byKey[BlockChain.KEY_WAKE_UP])
     }
 

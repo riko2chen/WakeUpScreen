@@ -11,6 +11,7 @@ package com.symeonchen.wakeupscreen.services.notification
  */
 object BlockReason {
     const val APP_SWITCH_OFF = "app_switch_off"
+    const val NOTIFICATION_DISMISSED = "notification_dismissed"
     const val POCKET_MODE = "pocket_mode"
     const val FACE_DOWN = "face_down"
     const val INTERACTIVE = "interactive"

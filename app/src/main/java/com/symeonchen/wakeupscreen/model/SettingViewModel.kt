@@ -64,6 +64,11 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.ignoreSilentNotificationSwitch)
         }
 
+    var notificationGracePeriodMs: ScLiveData<Long> = ScLiveData<Long>()
+        .apply {
+            setValue(DataInjection.notificationGracePeriodMs)
+        }
+
     var languageSelected: ScLiveData<LanguageInfo> = ScLiveData<LanguageInfo>()
         .apply {
             setValue(DataInjection.languageSelected)
@@ -173,6 +178,12 @@ class SettingViewModel : ViewModel() {
         ignoreSilentNotificationSwitch.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {
                 DataInjection.ignoreSilentNotificationSwitch = value
+            }
+        }
+
+        notificationGracePeriodMs.listener = object : ScLiveData.OnLiveDataValueInput<Long> {
+            override fun onValueInput(value: Long) {
+                DataInjection.notificationGracePeriodMs = value
             }
         }
 

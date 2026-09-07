@@ -57,6 +57,7 @@ object BlockChain {
      */
     fun gateKeys(): List<String> = buildList {
         add(BlockReason.APP_SWITCH_OFF)
+        add(BlockReason.NOTIFICATION_DISMISSED)
         addAll(ListenerManager.orderedKeys())
     }
 
@@ -74,6 +75,7 @@ object BlockChain {
     fun liveGateKeys(): List<String> = buildList {
         add(KEY_NOTIFICATION_ACCESS)
         add(BlockReason.APP_SWITCH_OFF)
+        add(BlockReason.NOTIFICATION_DISMISSED)
         addAll(ListenerManager.orderedKeys().filter(::isLiveGate))
     }
 
@@ -162,6 +164,11 @@ object BlockChain {
 
         walk(KEY_NOTIFICATION_ACCESS, armed = true, blocksNow = !hasNotificationAccess)
         walk(BlockReason.APP_SWITCH_OFF, armed = true, blocksNow = !DataInjection.switchOfApp)
+        walk(
+            BlockReason.NOTIFICATION_DISMISSED,
+            armed = DataInjection.notificationGracePeriodMs > 0L,
+            blocksNow = null,
+        )
         for (condition in ListenerManager.conditions().filter { isLiveGate(it.key) }) {
             walk(condition.key, condition.isArmed(), condition.wouldBlockNow(application))
         }

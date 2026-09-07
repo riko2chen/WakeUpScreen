@@ -134,6 +134,10 @@
     <string name="radical_ongoing_help">Notifications an app marks as non-clearable are stopped.\n\nThis reaches wider than \"Block Ongoing Notifications\": besides notifications marked as ongoing, it also catches ones that carry no such mark yet still cannot be swiped away, such as some background service reminders.\n\nWith both switches on, this one decides the outcome and the ongoing switch adds nothing on top.\n\nA few apps mark ordinary messages as non-clearable as well. Those messages are stopped too, which is why this one is experimental.</string>
     <string name="ignore_silent_notification">Ignore Silent Notifications</string>
     <string name="ignore_silent_notification_desc">Notifications on channels set to Low, Min or None importance no longer wake the screen.</string>
+    <string name="notification_grace_period_title">Ignore Short-Lived Notifications</string>
+    <string name="notification_grace_period_off">Off</string>
+    <string name="notification_grace_period_milliseconds">Wait %1$d ms</string>
+    <string name="notification_grace_period_seconds">Wait %1$d s</string>
     <string name="send_notification_permission">Permission to send notifications</string>
 
     <string name="function_test">Wake Test</string>
@@ -152,6 +156,7 @@
     <string name="log_status_already_on_desc">The screen was already on when this notification arrived, no action needed.</string>
     <string name="log_status_waked_up_desc">The screen was successfully woken up by this app.</string>
     <string name="log_reason_app_switch_off">App main switch is turned off.</string>
+    <string name="log_reason_notification_dismissed">The notification disappeared before the configured delay elapsed.</string>
     <string name="log_reason_pocket_mode">Pocket mode is active — the proximity sensor detected the device is in a pocket.</string>
     <string name="log_reason_filter_list">The app was filtered by whitelist/blacklist rules.</string>
     <string name="log_reason_ongoing">Ongoing notification was filtered.</string>
@@ -261,12 +266,13 @@
     <string name="chain_title">Notification Check Process</string>
     <string name="chain_entry_subtitle">Shows where a notification would stop under the current settings</string>
     <string name="chain_live_hint">Based on your current settings and device state — this is what a notification arriving right now would run into.</string>
-    <string name="chain_live_footer">App filter, notification importance and ongoing notification filter depend on the notification itself, so they cannot be decided here.</string>
+    <string name="chain_live_footer">Short-lived notification check, app filter, notification importance and ongoing notification filter depend on the notification itself, so they cannot be decided here.</string>
     <string name="chain_log_section_title">What it went through</string>
     <string name="chain_show_notification_fields">Show notification fields</string>
     <string name="chain_current_setting">now set to %1$s</string>
     <string name="chain_node_notification_access">Notification access</string>
     <string name="chain_node_master_switch">Main switch</string>
+    <string name="chain_node_short_lived">Short-lived notification</string>
     <string name="chain_node_pocket_mode">Pocket mode</string>
     <string name="chain_node_interactive">Screen state</string>
     <string name="chain_node_filter_list">App filter</string>
