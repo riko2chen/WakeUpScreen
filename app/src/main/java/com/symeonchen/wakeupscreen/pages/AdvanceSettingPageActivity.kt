@@ -52,6 +52,9 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                 val ongoing by settingModel.ongoingOptimize.observeAsState(false)
                 val radicalOngoing by settingModel.radicalOngoingOptimize.observeAsState(false)
                 val ignoreSilent by settingModel.ignoreSilentNotificationSwitch.observeAsState(false)
+                val notificationGracePeriodMs by settingModel.notificationGracePeriodMs.observeAsState(
+                    ScConstant.DEFAULT_NOTIFICATION_GRACE_PERIOD_MS
+                )
                 val dnd by settingModel.dndDetectBoolean.observeAsState(false)
                 val chargingOnly by settingModel.chargingOnlySwitch.observeAsState(false)
                 val batteryLevel by settingModel.batteryLevelSwitch.observeAsState(false)
@@ -71,6 +74,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
 
                 var showModeDialog by remember { mutableStateOf(false) }
                 var showBatteryThresholdDialog by remember { mutableStateOf(false) }
+                var showNotificationGraceDialog by remember { mutableStateOf(false) }
 
                 // Read once per composition; flipped locally so a dot
                 // disappears the moment its row is used, not on re-entry.
@@ -144,6 +148,8 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     onIgnoreSilentToggle = {
                         settingModel.ignoreSilentNotificationSwitch.postValue(!ignoreSilent)
                     },
+                    notificationGracePeriodText = notificationGracePeriodText(notificationGracePeriodMs),
+                    onNotificationGracePeriodClick = { showNotificationGraceDialog = true },
                     dndChecked = dnd,
                     onDndToggle = { settingModel.dndDetectBoolean.postValue(!dnd) },
                     chargingOnlyChecked = chargingOnly,
@@ -191,6 +197,24 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     nightGlowBadge = nightGlowBadge,
                     sleepWeekdayBadge = sleepWeekdayBadge,
                 )
+
+                if (showNotificationGraceDialog) {
+                    val options = ScConstant.NOTIFICATION_GRACE_PERIOD_OPTIONS_MS
+                    val currentIdx = options.indexOf(notificationGracePeriodMs).let {
+                        if (it >= 0) it else 0
+                    }
+                    SelectionDialog(
+                        title = stringResource(R.string.notification_grace_period_title),
+                        options = options.map(::notificationGracePeriodText),
+                        selectedIndex = currentIdx,
+                        confirmText = stringResource(R.string.ok),
+                        onSelect = { idx ->
+                            showNotificationGraceDialog = false
+                            settingModel.notificationGracePeriodMs.postValue(options[idx])
+                        },
+                        onDismiss = { showNotificationGraceDialog = false },
+                    )
+                }
 
                 // Battery threshold dialog
                 if (showBatteryThresholdDialog) {
@@ -264,4 +288,13 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
         } else {
             getString(R.string.reminder_interval_minutes_value, minutes)
         }
+
+    private fun notificationGracePeriodText(milliseconds: Long): String = when {
+        milliseconds <= 0L -> getString(R.string.notification_grace_period_off)
+        milliseconds < 1000L -> getString(
+            R.string.notification_grace_period_milliseconds,
+            milliseconds,
+        )
+        else -> getString(R.string.notification_grace_period_seconds, milliseconds / 1000L)
+    }
 }

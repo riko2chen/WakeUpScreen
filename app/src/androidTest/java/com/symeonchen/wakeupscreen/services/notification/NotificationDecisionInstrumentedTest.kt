@@ -50,6 +50,7 @@ class NotificationDecisionInstrumentedTest {
             "ongoing" to DataInjection.ongoingOptimize,
             "radical" to DataInjection.radicalOngoingOptimize,
             "silent" to DataInjection.ignoreSilentNotificationSwitch,
+            "grace" to DataInjection.notificationGracePeriodMs,
             "sleep" to DataInjection.sleepModeBoolean,
             "dnd" to DataInjection.dndDetectSwitch,
             "charging" to DataInjection.chargingOnlySwitch,
@@ -66,6 +67,7 @@ class NotificationDecisionInstrumentedTest {
         DataInjection.ongoingOptimize = true
         DataInjection.radicalOngoingOptimize = true
         DataInjection.ignoreSilentNotificationSwitch = false
+        DataInjection.notificationGracePeriodMs = 0L
     }
 
     @After
@@ -74,6 +76,7 @@ class NotificationDecisionInstrumentedTest {
         DataInjection.ongoingOptimize = saved["ongoing"] as Boolean
         DataInjection.radicalOngoingOptimize = saved["radical"] as Boolean
         DataInjection.ignoreSilentNotificationSwitch = saved["silent"] as Boolean
+        DataInjection.notificationGracePeriodMs = saved["grace"] as Long
         DataInjection.sleepModeBoolean = saved["sleep"] as Boolean
         DataInjection.dndDetectSwitch = saved["dnd"] as Boolean
         DataInjection.chargingOnlySwitch = saved["charging"] as Boolean
@@ -163,6 +166,28 @@ class NotificationDecisionInstrumentedTest {
         // Armed, but it takes a notification to know the verdict — the chain
         // view draws that as an outline rather than a pass or a block.
         assertEquals(ChainNodeState.DEPENDS, stateOf(BlockReason.LOW_IMPORTANCE))
+    }
+
+    @Test
+    fun shortLivedNotificationGateIsSkippedAtZeroAndDependsWhenEnabled() {
+        fun state() = BlockChain.liveSnapshot(null, hasNotificationAccess = true)
+            .first { it.key == BlockReason.NOTIFICATION_DISMISSED }
+            .state
+
+        DataInjection.notificationGracePeriodMs = 0L
+        assertEquals(ChainNodeState.SKIPPED, state())
+
+        DataInjection.notificationGracePeriodMs = 1000L
+        assertEquals(ChainNodeState.DEPENDS, state())
+    }
+
+    @Test
+    fun notificationGracePeriodOnlyAcceptsSupportedPresets() {
+        DataInjection.notificationGracePeriodMs = 500L
+        assertEquals(500L, DataInjection.notificationGracePeriodMs)
+
+        DataInjection.notificationGracePeriodMs = 1234L
+        assertEquals(500L, DataInjection.notificationGracePeriodMs)
     }
 
     // endregion

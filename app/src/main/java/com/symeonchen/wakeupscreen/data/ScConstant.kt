@@ -35,6 +35,7 @@ object ScConstant {
     const val REPEAT_REMINDER_ROUND_COUNT = "repeat_reminder_round_count"
     const val PRECISE_SCREEN_ON_SWITCH = "precise_screen_on_switch"
     const val IGNORE_SILENT_NOTIFICATION_SWITCH = "ignore_silent_notification_switch"
+    const val NOTIFICATION_GRACE_PERIOD_MS = "notification_grace_period_ms"
     const val BATTERY_LEVEL_SWITCH = "battery_level_switch"
     const val BATTERY_LEVEL_THRESHOLD = "battery_level_threshold"
     const val LAST_SEEN_VERSION_CODE = "last_seen_version_code"
@@ -105,6 +106,16 @@ object ScConstant {
      * suppressing notifications that used to wake the screen.
      */
     const val DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH: Boolean = false
+
+    /**
+     * Zero preserves the listener's historical behaviour exactly: process the
+     * notification immediately without waiting for, or querying, the active
+     * notification list.
+     */
+    const val DEFAULT_NOTIFICATION_GRACE_PERIOD_MS: Long = 0L
+
+    /** Delay presets offered by the settings screen, in milliseconds. */
+    val NOTIFICATION_GRACE_PERIOD_OPTIONS_MS = listOf(0L, 500L, 1000L, 2000L)
 
     /** Off by default: same rule — updates never start blocking wakes on their own. */
     const val DEFAULT_BATTERY_LEVEL_SWITCH: Boolean = false

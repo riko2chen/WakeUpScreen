@@ -21,6 +21,7 @@ import com.symeonchen.wakeupscreen.utils.TimeOfDayFormatter
 fun chainNodeTitle(key: String): String = when (key) {
     BlockChain.KEY_NOTIFICATION_ACCESS -> stringResource(R.string.chain_node_notification_access)
     BlockReason.APP_SWITCH_OFF -> stringResource(R.string.chain_node_master_switch)
+    BlockReason.NOTIFICATION_DISMISSED -> stringResource(R.string.chain_node_short_lived)
     BlockReason.POCKET_MODE -> stringResource(R.string.chain_node_pocket_mode)
     BlockReason.FACE_DOWN -> stringResource(R.string.chain_node_face_down)
     BlockReason.INTERACTIVE -> stringResource(R.string.chain_node_interactive)
@@ -79,6 +80,11 @@ fun chainConfigSummary(key: String, hasNotificationAccess: Boolean): String? {
             else R.string.chain_config_not_granted
         )
         BlockReason.APP_SWITCH_OFF -> onOff(DataInjection.switchOfApp)
+        BlockReason.NOTIFICATION_DISMISSED -> when (val delayMs = DataInjection.notificationGracePeriodMs) {
+            0L -> stringResource(R.string.notification_grace_period_off)
+            in 1L..999L -> stringResource(R.string.notification_grace_period_milliseconds, delayMs)
+            else -> stringResource(R.string.notification_grace_period_seconds, delayMs / 1000L)
+        }
         BlockReason.POCKET_MODE -> onOff(DataInjection.switchOfProximity)
         BlockReason.FACE_DOWN -> onOff(DataInjection.switchOfFaceDown)
         // No setting sits behind the screen check, so there is nothing to

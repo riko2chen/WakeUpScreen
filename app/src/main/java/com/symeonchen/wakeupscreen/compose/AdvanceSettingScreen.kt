@@ -52,6 +52,8 @@ fun AdvanceSettingScreen(
     onRadicalOngoingToggle: () -> Unit,
     ignoreSilentChecked: Boolean,
     onIgnoreSilentToggle: () -> Unit,
+    notificationGracePeriodText: String,
+    onNotificationGracePeriodClick: () -> Unit,
     dndChecked: Boolean,
     onDndToggle: () -> Unit,
     chargingOnlyChecked: Boolean,
@@ -153,6 +155,12 @@ fun AdvanceSettingScreen(
                 modifier = Modifier.padding(start = 4.dp, top = 24.dp, bottom = 10.dp),
             )
             GroupCard {
+                SettingRow(
+                    title = stringResource(R.string.notification_grace_period_title),
+                    subtitle = notificationGracePeriodText,
+                    onClick = onNotificationGracePeriodClick,
+                )
+                FlatDivider()
                 SettingSwitchRow(
                     title = stringResource(R.string.ongoing_status),
                     subtitle = ongoingSubtitle,

@@ -130,6 +130,10 @@
     <string name="radical_ongoing_help">Le notifiche che un\'app contrassegna come non cancellabili vengono bloccate.\n\nCopre più di \"Blocca notifiche in corso\": oltre alle notifiche in corso, intercetta anche quelle prive di quel contrassegno che comunque non si possono scartare, come alcuni avvisi di servizi in background.\n\nCon entrambi gli interruttori attivi decide questo, e quello sulle notifiche in corso non aggiunge nulla.\n\nAlcune app contrassegnano come non cancellabili anche i messaggi normali, che vengono quindi bloccati: per questo l\'opzione è sperimentale.</string>
     <string name="ignore_silent_notification">Ignora notifiche silenziose</string>
     <string name="ignore_silent_notification_desc">Le notifiche dei canali con importanza Bassa, Minima o Nessuna non accendono più lo schermo.</string>
+    <string name="notification_grace_period_title">Ignora notifiche di breve durata</string>
+    <string name="notification_grace_period_off">Disattivato</string>
+    <string name="notification_grace_period_milliseconds">Attendi %1$d ms</string>
+    <string name="notification_grace_period_seconds">Attendi %1$d s</string>
     <string name="send_notification_permission">Permesso di inviare notifiche</string>
 
     <string name="function_test">Test di accensione</string>
@@ -148,6 +152,7 @@
     <string name="log_status_already_on_desc">Lo schermo era già acceso quando è arrivata questa notifica, nessuna azione necessaria.</string>
     <string name="log_status_waked_up_desc">Lo schermo è stato acceso con successo da questa app.</string>
     <string name="log_reason_app_switch_off">L\'interruttore principale dell\'app è spento.</string>
+    <string name="log_reason_notification_dismissed">La notifica è scomparsa prima del termine del ritardo configurato.</string>
     <string name="log_reason_pocket_mode">Modalità tasca attiva — il sensore di prossimità ha rilevato che il dispositivo è in tasca.</string>
     <string name="log_reason_filter_list">L\'app è stata filtrata dalle regole whitelist/blacklist.</string>
     <string name="log_reason_ongoing">La notifica continua è stata filtrata.</string>
@@ -261,12 +266,13 @@
     <string name="chain_title">Processo di verifica delle notifiche</string>
     <string name="chain_entry_subtitle">Mostra dove si fermerebbe una notifica con le impostazioni attuali</string>
     <string name="chain_live_hint">In base alle impostazioni attuali e allo stato del dispositivo: ecco cosa incontrerebbe una notifica in arrivo adesso.</string>
-    <string name="chain_live_footer">Il filtro app, l\'importanza della notifica e il filtro delle notifiche persistenti dipendono dalla notifica stessa, quindi non si possono decidere qui.</string>
+    <string name="chain_live_footer">Il controllo delle notifiche di breve durata, il filtro app, l\'importanza della notifica e il filtro delle notifiche persistenti dipendono dalla notifica stessa, quindi non si possono decidere qui.</string>
     <string name="chain_log_section_title">Cosa ha attraversato</string>
     <string name="chain_show_notification_fields">Mostra i campi della notifica</string>
     <string name="chain_current_setting">ora impostato su %1$s</string>
     <string name="chain_node_notification_access">Accesso alle notifiche</string>
     <string name="chain_node_master_switch">Interruttore principale</string>
+    <string name="chain_node_short_lived">Notifica di breve durata</string>
     <string name="chain_node_pocket_mode">Modalita tasca</string>
     <string name="chain_node_interactive">Stato dello schermo</string>
     <string name="chain_node_filter_list">Filtro app</string>

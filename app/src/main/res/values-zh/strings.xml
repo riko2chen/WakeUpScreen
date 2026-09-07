@@ -122,6 +122,10 @@
     <string name="radical_ongoing_help">应用标记为不可清除的通知会被拦下。\n\n覆盖范围比「拦截持续通知」更大：除了标记为进行中的通知，还包含那些没有这个标记、但同样划不掉的通知，例如部分后台服务的常驻提示。\n\n两项同时开启时以本项为准，「拦截持续通知」不再产生额外效果。\n\n少数应用会给普通消息也加上不可清除标记，这类消息会被一并拦下，因此本项属于实验功能。</string>
     <string name="ignore_silent_notification">忽略静音通知</string>
     <string name="ignore_silent_notification_desc">重要性为「低 / 最低 / 无」的通知不再亮屏。</string>
+    <string name="notification_grace_period_title">忽略短暂通知</string>
+    <string name="notification_grace_period_off">关闭</string>
+    <string name="notification_grace_period_milliseconds">等待 %1$d 毫秒</string>
+    <string name="notification_grace_period_seconds">等待 %1$d 秒</string>
     <string name="send_notification_permission">发送通知的权限</string>
 
     <string name="function_test">亮屏测试</string>
@@ -140,6 +144,7 @@
     <string name="log_status_already_on_desc">收到该通知时屏幕已经处于点亮状态，无需操作。</string>
     <string name="log_status_waked_up_desc">屏幕已由本应用成功点亮。</string>
     <string name="log_reason_app_switch_off">应用总开关已关闭。</string>
+    <string name="log_reason_notification_dismissed">通知在设定的等待时间结束前已经消失。</string>
     <string name="log_reason_pocket_mode">口袋模式已激活：距离传感器检测到设备在口袋中。</string>
     <string name="log_reason_filter_list">该应用被白名单/黑名单规则过滤。</string>
     <string name="log_reason_ongoing">持续通知被过滤。</string>
@@ -249,12 +254,13 @@
     <string name="chain_title">通知判断过程</string>
     <string name="chain_entry_subtitle">显示当前设置下通知会在哪一步被拦住</string>
     <string name="chain_live_hint">依据当前设置与手机状态，此刻来一条通知会遇到下面这些判断。</string>
-    <string name="chain_live_footer">应用过滤、通知重要性和持续通知过滤取决于通知本身，这里无法预先判定。</string>
+    <string name="chain_live_footer">短暂通知检查、应用过滤、通知重要性和持续通知过滤取决于通知本身，这里无法预先判定。</string>
     <string name="chain_log_section_title">它经过了什么</string>
     <string name="chain_show_notification_fields">展开通知字段</string>
     <string name="chain_current_setting">当前设置为 %1$s</string>
     <string name="chain_node_notification_access">通知使用权</string>
     <string name="chain_node_master_switch">总开关</string>
+    <string name="chain_node_short_lived">短暂通知</string>
     <string name="chain_node_pocket_mode">口袋模式</string>
     <string name="chain_node_interactive">屏幕状态</string>
     <string name="chain_node_filter_list">应用过滤</string>

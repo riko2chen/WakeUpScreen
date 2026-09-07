@@ -120,6 +120,10 @@
     <string name="radical_ongoing_help">アプリが「消去不可」と設定した通知をブロックします。\n\n「進行中の通知をブロック」より範囲が広く、進行中と設定された通知に加えて、その設定はないのにスワイプで消せない通知（一部のバックグラウンドサービスの常駐表示など）も対象になります。\n\n両方を有効にした場合はこちらが結果を決めるため、進行中の通知の設定は追加の効果を持ちません。\n\n一部のアプリは通常のメッセージにも消去不可を設定します。その場合はそれらもブロックされるため、この項目は実験的機能です。</string>
     <string name="ignore_silent_notification">サイレント通知を無視</string>
     <string name="ignore_silent_notification_desc">重要度が「低」「最小」「なし」のチャンネルの通知では画面を点灯しません。</string>
+    <string name="notification_grace_period_title">短時間で消える通知を無視</string>
+    <string name="notification_grace_period_off">オフ</string>
+    <string name="notification_grace_period_milliseconds">%1$d ms 待機</string>
+    <string name="notification_grace_period_seconds">%1$d 秒待機</string>
     <string name="send_notification_permission">通知送信の権限</string>
 
     <string name="function_test">点灯テスト</string>
@@ -138,6 +142,7 @@
     <string name="log_status_already_on_desc">この通知を受信した時、画面は既に点灯していたため操作不要です。</string>
     <string name="log_status_waked_up_desc">このアプリにより画面が正常に点灯しました。</string>
     <string name="log_reason_app_switch_off">アプリのメインスイッチがオフです。</string>
+    <string name="log_reason_notification_dismissed">設定した待機時間が経過する前に通知が消えました。</string>
     <string name="log_reason_pocket_mode">ポケットモードが有効です — 近接センサーがデバイスがポケット内にあることを検出しました。</string>
     <string name="log_reason_filter_list">このアプリはホワイトリスト/ブラックリストのルールによりフィルタリングされました。</string>
     <string name="log_reason_ongoing">継続通知がフィルタリングされました。</string>
@@ -247,12 +252,13 @@
     <string name="chain_title">通知の判定プロセス</string>
     <string name="chain_entry_subtitle">現在の設定で通知がどこで止まるかを表示</string>
     <string name="chain_live_hint">現在の設定と端末の状態にもとづく表示です。今この瞬間に通知が届いた場合に通る判定です。</string>
-    <string name="chain_live_footer">アプリフィルター、通知の重要度、常駐通知フィルターは通知そのものに依存するため、ここでは判定できません。</string>
+    <string name="chain_live_footer">短時間通知の確認、アプリフィルター、通知の重要度、常駐通知フィルターは通知そのものに依存するため、ここでは判定できません。</string>
     <string name="chain_log_section_title">通過した判定</string>
     <string name="chain_show_notification_fields">通知の項目を表示</string>
     <string name="chain_current_setting">現在の設定は %1$s</string>
     <string name="chain_node_notification_access">通知へのアクセス</string>
     <string name="chain_node_master_switch">メインスイッチ</string>
+    <string name="chain_node_short_lived">短時間通知</string>
     <string name="chain_node_pocket_mode">ポケットモード</string>
     <string name="chain_node_interactive">画面の状態</string>
     <string name="chain_node_filter_list">アプリフィルター</string>

@@ -32,6 +32,9 @@ class ScNotificationListenerService : NotificationListenerService() {
         @Volatile var instance: ScNotificationListenerService? = null
     }
 
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private val pendingNotificationJobs = mutableMapOf<String, Job>()
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -41,6 +44,8 @@ class ScNotificationListenerService : NotificationListenerService() {
     }
 
     override fun onDestroy() {
+        serviceScope.cancel()
+        pendingNotificationJobs.clear()
         super.onDestroy()
         instance = null
         AttentionTracker.unregister(applicationContext)
@@ -73,11 +78,85 @@ class ScNotificationListenerService : NotificationListenerService() {
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
         sbn ?: return
 
+        val gracePeriodMs = DataInjection.notificationGracePeriodMs
+        if (gracePeriodMs <= 0L) {
+            // Keep the historical path byte-for-byte in spirit: no coroutine,
+            // no activeNotifications query, and no added latency.
+            processNotification(sbn)
+            return
+        }
+
+        val channelInfo = channelInfoOf(sbn)
+
+        // The master switch stays the first gate. There is no reason to keep a
+        // delayed job alive when the app is disabled already.
+        if (ConditionState.BLOCK == preCheckStatusOpen()) {
+            logNotification(
+                sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, channelInfo
+            )
+            return
+        }
+
+        val key = sbn.key
+        val job = serviceScope.launch {
+            try {
+                delay(gracePeriodMs)
+
+                // Re-check at execution time as well. The user may have
+                // disabled the app while this notification was waiting, and
+                // the master switch must remain the first gate in the chain.
+                if (ConditionState.BLOCK == preCheckStatusOpen()) {
+                    logNotification(
+                        sbn.packageName,
+                        LogStatus.BLOCKED,
+                        BlockReason.APP_SWITCH_OFF,
+                        channelInfo,
+                    )
+                    return@launch
+                }
+
+                val active = safeActiveNotifications()
+                if (active == null) {
+                    // Binder/OEM failures should not silently swallow a real
+                    // notification. Fall back to the original posted object.
+                    processNotification(sbn)
+                    return@launch
+                }
+
+                val current = active.firstOrNull { it.key == key }
+                if (current == null) {
+                    logNotification(
+                        sbn.packageName,
+                        LogStatus.BLOCKED,
+                        BlockReason.NOTIFICATION_DISMISSED,
+                        channelInfo,
+                    )
+                    return@launch
+                }
+
+                // A notification may have been updated while the grace period
+                // was running. Process the latest StatusBarNotification.
+                processNotification(current, checkAppSwitch = false)
+            } finally {
+                if (pendingNotificationJobs[key] === coroutineContext[Job]) {
+                    pendingNotificationJobs.remove(key)
+                }
+            }
+        }
+
+        // Re-posts for the same notification key replace the older pending
+        // check so one logical notification can wake/log at most once.
+        pendingNotificationJobs.put(key, job)?.cancel()
+    }
+
+    private fun processNotification(
+        sbn: StatusBarNotification,
+        checkAppSwitch: Boolean = true,
+    ) {
         val channelInfo = channelInfoOf(sbn)
 
         // A new message restarts the reminder streak whatever the outcome
@@ -86,7 +165,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         ReminderEngine.onNotificationPosted(applicationContext, sbn)
 
         //Pre check for better performance
-        if (ConditionState.BLOCK == preCheckStatusOpen()) {
+        if (checkAppSwitch && ConditionState.BLOCK == preCheckStatusOpen()) {
             logNotification(
                 sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, channelInfo
             )

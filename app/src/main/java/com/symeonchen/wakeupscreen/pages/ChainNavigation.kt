@@ -17,6 +17,7 @@ object ChainNavigation {
 
     fun isNavigable(key: String): Boolean = when (key) {
         BlockChain.KEY_NOTIFICATION_ACCESS -> true
+        BlockReason.NOTIFICATION_DISMISSED,
         BlockReason.POCKET_MODE,
         BlockReason.LOW_IMPORTANCE,
         BlockReason.ONGOING,
@@ -45,6 +46,7 @@ object ChainNavigation {
                 PermissionState.openReadNotificationSetting(context)
 
             BlockReason.POCKET_MODE,
+            BlockReason.NOTIFICATION_DISMISSED,
             BlockReason.LOW_IMPORTANCE,
             BlockReason.ONGOING,
             BlockReason.SLEEP_MODE,

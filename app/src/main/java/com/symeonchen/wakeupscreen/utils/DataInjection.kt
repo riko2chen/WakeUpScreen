@@ -26,6 +26,7 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_BATTERY_SAVER
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_CHARGING_ONLY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DND_DETECT_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_IGNORE_SILENT_NOTIFICATION_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_NOTIFICATION_GRACE_PERIOD_MS
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_DARK_MODE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_LAST_IN_APP_REVIEW_TIMESTAMP
@@ -53,6 +54,8 @@ import com.symeonchen.wakeupscreen.data.ScConstant.FACE_DOWN_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_NIGHT_GLOW_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.NIGHT_GLOW_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.IGNORE_SILENT_NOTIFICATION_SWITCH
+import com.symeonchen.wakeupscreen.data.ScConstant.NOTIFICATION_GRACE_PERIOD_MS
+import com.symeonchen.wakeupscreen.data.ScConstant.NOTIFICATION_GRACE_PERIOD_OPTIONS_MS
 import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
@@ -533,6 +536,29 @@ object DataInjection {
         }
         set(value) {
             ScStore.putBoolean(IGNORE_SILENT_NOTIFICATION_SWITCH, value)
+        }
+
+    /**
+     * How long a posted notification must still be active before it is allowed
+     * to continue through the wake-up decision chain.
+     */
+    var notificationGracePeriodMs: Long
+        get() {
+            val stored = ScStore.getLong(
+                NOTIFICATION_GRACE_PERIOD_MS,
+                DEFAULT_NOTIFICATION_GRACE_PERIOD_MS
+            )
+            return if (stored in NOTIFICATION_GRACE_PERIOD_OPTIONS_MS) {
+                stored
+            } else {
+                DEFAULT_NOTIFICATION_GRACE_PERIOD_MS
+            }
+        }
+        set(value) {
+            if (value !in NOTIFICATION_GRACE_PERIOD_OPTIONS_MS) {
+                return
+            }
+            ScStore.putLong(NOTIFICATION_GRACE_PERIOD_MS, value)
         }
 
 }
