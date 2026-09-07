@@ -113,6 +113,7 @@ dependencies {
     implementation project(':uicomponent')
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1'
     // Real org.json for local unit tests; the android.jar copy is a stub that
     // throws "not mocked" from every method.
     testImplementation 'org.json:json:20231013'

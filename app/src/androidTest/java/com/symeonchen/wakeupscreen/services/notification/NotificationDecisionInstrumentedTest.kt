@@ -6,6 +6,10 @@ import android.os.Process
 import android.service.notification.StatusBarNotification
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.symeonchen.wakeupscreen.data.BackupEnvelope
+import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.data.SettingsBackup
+import org.json.JSONObject
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.services.notification.conditions.ImportanceCondition
 import com.symeonchen.wakeupscreen.services.notification.conditions.OnGoingNotificationCondition
@@ -188,6 +192,26 @@ class NotificationDecisionInstrumentedTest {
 
         DataInjection.notificationGracePeriodMs = 1234L
         assertEquals(500L, DataInjection.notificationGracePeriodMs)
+    }
+
+    @Test
+    fun notificationGracePeriodSurvivesSettingsBackupRoundTrip() {
+        DataInjection.notificationGracePeriodMs = 2000L
+        val exported = SettingsBackup.export()
+        val settings = JSONObject(exported).getJSONObject("settings")
+        assertEquals(2000L, settings.getLong(ScConstant.NOTIFICATION_GRACE_PERIOD_MS))
+
+        // Isolate the new setting so importing cannot touch other preferences.
+        val backup = BackupEnvelope.wrap(
+            JSONObject().put(
+                ScConstant.NOTIFICATION_GRACE_PERIOD_MS,
+                settings.getLong(ScConstant.NOTIFICATION_GRACE_PERIOD_MS),
+            ),
+            0L,
+        ).toString()
+        DataInjection.notificationGracePeriodMs = 0L
+        assertEquals(SettingsBackup.ImportResult.Success(1), SettingsBackup.import(backup))
+        assertEquals(2000L, DataInjection.notificationGracePeriodMs)
     }
 
     // endregion

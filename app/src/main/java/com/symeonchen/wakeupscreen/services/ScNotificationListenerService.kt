@@ -6,6 +6,7 @@ import android.os.PowerManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.NotificationListenerService.Ranking
 import android.service.notification.StatusBarNotification
+import com.symeonchen.wakeupscreen.services.notification.NotificationGraceQueue
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
 import com.symeonchen.wakeupscreen.services.notification.ListenerManager
@@ -33,7 +34,16 @@ class ScNotificationListenerService : NotificationListenerService() {
     }
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private val pendingNotificationJobs = mutableMapOf<String, Job>()
+    private data class PendingNotification(
+        val sbn: StatusBarNotification,
+        val channelInfo: ChannelLogInfo,
+    )
+
+    // All queue operations, including expiry, run on Main (also on API 23).
+    private val pendingNotifications = NotificationGraceQueue<PendingNotification>(
+        serviceScope,
+        ::processAfterGracePeriod,
+    )
 
     override fun onCreate() {
         super.onCreate()
@@ -45,7 +55,7 @@ class ScNotificationListenerService : NotificationListenerService() {
 
     override fun onDestroy() {
         serviceScope.cancel()
-        pendingNotificationJobs.clear()
+        pendingNotifications.clear()
         super.onDestroy()
         instance = null
         AttentionTracker.unregister(applicationContext)
@@ -60,11 +70,17 @@ class ScNotificationListenerService : NotificationListenerService() {
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {
         super.onNotificationRemoved(sbn)
-        ReminderEngine.onNotificationRemoved(applicationContext, safeActiveNotifications())
+        serviceScope.launch {
+            sbn?.let { removed ->
+                pendingNotifications.remove(removed.key)?.let(::logDismissedNotification)
+            }
+            ReminderEngine.onNotificationRemoved(applicationContext, safeActiveNotifications())
+        }
     }
 
     override fun onListenerDisconnected() {
         super.onListenerDisconnected()
+        serviceScope.launch { pendingNotifications.clear() }
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 requestRebind(
@@ -82,75 +98,69 @@ class ScNotificationListenerService : NotificationListenerService() {
         super.onNotificationPosted(sbn)
         sbn ?: return
 
+        serviceScope.launch { handleNotificationPosted(sbn) }
+    }
+
+    private fun handleNotificationPosted(sbn: StatusBarNotification) {
         val gracePeriodMs = DataInjection.notificationGracePeriodMs
         if (gracePeriodMs <= 0L) {
-            // Keep the historical path byte-for-byte in spirit: no coroutine,
-            // no activeNotifications query, and no added latency.
+            // No wait or active-list query. Cancel an older check if the user
+            // disabled the grace period before this update arrived.
+            pendingNotifications.remove(sbn.key)
             processNotification(sbn)
             return
         }
 
         val channelInfo = channelInfoOf(sbn)
-
-        // The master switch stays the first gate. There is no reason to keep a
-        // delayed job alive when the app is disabled already.
         if (ConditionState.BLOCK == preCheckStatusOpen()) {
+            pendingNotifications.remove(sbn.key)
             logNotification(
                 sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, channelInfo
             )
             return
         }
 
-        val key = sbn.key
-        val job = serviceScope.launch {
-            try {
-                delay(gracePeriodMs)
+        // Updates replace the payload only; the first post owns the deadline.
+        // Once processed or removed, the same key can start a fresh wait.
+        pendingNotifications.post(
+            sbn.key, PendingNotification(sbn, channelInfo), gracePeriodMs
+        )
+    }
 
-                // Re-check at execution time as well. The user may have
-                // disabled the app while this notification was waiting, and
-                // the master switch must remain the first gate in the chain.
-                if (ConditionState.BLOCK == preCheckStatusOpen()) {
-                    logNotification(
-                        sbn.packageName,
-                        LogStatus.BLOCKED,
-                        BlockReason.APP_SWITCH_OFF,
-                        channelInfo,
-                    )
-                    return@launch
-                }
-
-                val active = safeActiveNotifications()
-                if (active == null) {
-                    // Binder/OEM failures should not silently swallow a real
-                    // notification. Fall back to the original posted object.
-                    processNotification(sbn)
-                    return@launch
-                }
-
-                val current = active.firstOrNull { it.key == key }
-                if (current == null) {
-                    logNotification(
-                        sbn.packageName,
-                        LogStatus.BLOCKED,
-                        BlockReason.NOTIFICATION_DISMISSED,
-                        channelInfo,
-                    )
-                    return@launch
-                }
-
-                // A notification may have been updated while the grace period
-                // was running. Process the latest StatusBarNotification.
-                processNotification(current, checkAppSwitch = false)
-            } finally {
-                if (pendingNotificationJobs[key] === coroutineContext[Job]) {
-                    pendingNotificationJobs.remove(key)
-                }
-            }
+    private fun processAfterGracePeriod(pending: PendingNotification) {
+        val sbn = pending.sbn
+        if (ConditionState.BLOCK == preCheckStatusOpen()) {
+            logNotification(
+                sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, pending.channelInfo
+            )
+            return
         }
 
-        // Re-posts for the same notification key replace the older pending
-        // check so one logical notification can wake/log at most once.
-        pendingNotificationJobs.put(key, job)?.cancel()
+        val active = safeActiveNotifications()
+        if (active == null) {
+            // Preserve fail-open behaviour, using the latest delivered update.
+            processNotification(sbn)
+            return
+        }
+
+        val current = active.firstOrNull { it.key == sbn.key }
+        if (current == null) {
+            logDismissedNotification(pending)
+            return
+        }
+        processNotification(current, checkAppSwitch = false)
+    }
+
+    private fun logDismissedNotification(pending: PendingNotification) {
+        // Keep the master switch first even if it changed during the wait.
+        val reason = if (ConditionState.BLOCK == preCheckStatusOpen()) {
+            BlockReason.APP_SWITCH_OFF
+        } else {
+            BlockReason.NOTIFICATION_DISMISSED
+        }
+        logNotification(
+            pending.sbn.packageName, LogStatus.BLOCKED, reason, pending.channelInfo
+        )
     }
 
     private fun processNotification(
