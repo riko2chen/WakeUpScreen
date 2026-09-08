@@ -38,6 +38,7 @@ class BlockChainTest {
                 BlockReason.FILTER_LIST,
                 BlockReason.LOW_IMPORTANCE,
                 BlockReason.ONGOING,
+                BlockReason.BLUETOOTH,
                 BlockReason.SLEEP_MODE,
                 BlockReason.DND,
                 BlockReason.CHARGING,

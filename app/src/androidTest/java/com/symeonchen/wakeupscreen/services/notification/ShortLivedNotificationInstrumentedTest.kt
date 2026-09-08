@@ -58,6 +58,7 @@ class ShortLivedNotificationInstrumentedTest {
             "sleep" to DataInjection.sleepModeBoolean,
             "dnd" to DataInjection.dndDetectSwitch,
             "charging" to DataInjection.chargingOnlySwitch,
+            "bluetooth" to DataInjection.bluetoothWakeSwitch,
             "mode" to DataInjection.modeOfCurrent,
             "faceDown" to DataInjection.switchOfFaceDown,
             "battery" to DataInjection.batteryLevelSwitch,
@@ -78,6 +79,7 @@ class ShortLivedNotificationInstrumentedTest {
         DataInjection.sleepModeBoolean = false
         DataInjection.dndDetectSwitch = false
         DataInjection.chargingOnlySwitch = false
+        DataInjection.bluetoothWakeSwitch = false
         DataInjection.modeOfCurrent = CurrentMode.MODE_ALL_NOTIFY
         NotificationLogStore.clearLogs()
         manager.createNotificationChannel(
@@ -111,6 +113,7 @@ class ShortLivedNotificationInstrumentedTest {
         DataInjection.sleepModeBoolean = saved["sleep"] as Boolean
         DataInjection.dndDetectSwitch = saved["dnd"] as Boolean
         DataInjection.chargingOnlySwitch = saved["charging"] as Boolean
+        DataInjection.bluetoothWakeSwitch = saved["bluetooth"] as Boolean
         DataInjection.modeOfCurrent = saved["mode"] as CurrentMode
     }
 
@@ -255,13 +258,21 @@ class ShortLivedNotificationInstrumentedTest {
 
     @Test
     fun shortNotificationKeepsScreenOffAndSurvivingNotificationWakesIt() {
-        assertNotNull(await { ScNotificationListenerService.instance })
+        val service = await { ScNotificationListenerService.instance }
+        assertNotNull(service)
         val power = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         shell("input keyevent 223")
         assertNotNull("screen did not turn off", await { if (!power.isInteractive) true else null })
 
         postNotification("short while screen off")
-        Thread.sleep(200L)
+        // Cancellation before Android enqueues the post produces no listener event.
+        // Start the short-lived interval only once the notification is visible.
+        assertNotNull("short notification was never delivered", await {
+            service!!.activeNotifications?.firstOrNull {
+                it.packageName == context.packageName && it.id == NOTIFICATION_ID
+            }
+        })
+        Thread.sleep(CANCEL_AFTER_ACTIVE_MS)
         manager.cancel(NOTIFICATION_ID)
         assertNotNull(await { ownLogs().firstOrNull() })
         assertEquals(BlockReason.NOTIFICATION_DISMISSED, ownLogs().first().blockReason)

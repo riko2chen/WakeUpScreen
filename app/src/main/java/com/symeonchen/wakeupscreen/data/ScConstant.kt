@@ -4,6 +4,10 @@ package com.symeonchen.wakeupscreen.data
  * Created by SymeonChen on 2019-10-27.
  */
 object ScConstant {
+    const val REMINDER_CUSTOM_APPS = "reminder_custom_apps"
+    const val REMINDER_APP_PACKAGES = "reminder_app_packages"
+    const val BLUETOOTH_WAKE_SWITCH = "bluetooth_wake_switch"
+    const val BLUETOOTH_WAKE_DEVICES = "bluetooth_wake_devices"
     const val CUSTOM_STATUS = "custom_status"
     const val WAKE_SCREEN_SECOND = "wake_screen_second"
     const val PROXIMITY_STATUS = "proximity_status"
@@ -29,9 +33,12 @@ object ScConstant {
     const val DND_DETECT_SWITCH = "dnd_detect_switch"
     const val LAST_IN_APP_REVIEW_TIMESTAMP = "last_in_app_review_timestamp"
     const val CHARGING_ONLY_SWITCH = "charging_only_switch"
+    const val REPEAT_REMINDER_VIBRATION = "repeat_reminder_vibration"
+    const val DEFAULT_REPEAT_REMINDER_VIBRATION = false
     const val REPEAT_REMINDER_SWITCH = "repeat_reminder_switch"
     const val REPEAT_REMINDER_INTERVAL_MINUTES = "repeat_reminder_interval_minutes"
     const val REPEAT_REMINDER_MAX_ROUNDS = "repeat_reminder_max_rounds"
+    const val REPEAT_REMINDER_SCREEN_ON_SECONDS = "repeat_reminder_screen_on_seconds"
     const val REPEAT_REMINDER_ROUND_COUNT = "repeat_reminder_round_count"
     const val PRECISE_SCREEN_ON_SWITCH = "precise_screen_on_switch"
     const val IGNORE_SILENT_NOTIFICATION_SWITCH = "ignore_silent_notification_switch"
@@ -180,15 +187,7 @@ object ScConstant {
      */
     const val SCREEN_OFF_ACTIVITY_SAFETY_TIMEOUT_MS: Long = 10000
 
-    /**
-     * Selectable intervals for the repeat reminder, in minutes.
-     *
-     * Capped at one hour on purpose: a reminder that only fires once every few
-     * hours is indistinguishable from no reminder at all. The lower bound is
-     * kept at 5 minutes even though Doze usually stretches anything under ~15
-     * minutes, because the delay is explained in the UI rather than hidden by
-     * removing the option.
-     */
+    /** Presets; custom intervals use the bounds in [ReminderIntervalPolicy]. */
     val REPEAT_REMINDER_INTERVAL_OPTIONS = listOf(5, 10, 15, 20, 30, 45, 60)
 
     /** Selectable reminder-count caps. [REPEAT_REMINDER_ROUNDS_UNLIMITED] means "never stop". */

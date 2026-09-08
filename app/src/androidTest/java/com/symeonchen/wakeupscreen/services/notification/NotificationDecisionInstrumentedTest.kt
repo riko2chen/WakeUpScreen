@@ -58,6 +58,7 @@ class NotificationDecisionInstrumentedTest {
             "sleep" to DataInjection.sleepModeBoolean,
             "dnd" to DataInjection.dndDetectSwitch,
             "charging" to DataInjection.chargingOnlySwitch,
+            "bluetooth" to DataInjection.bluetoothWakeSwitch,
             "mode" to DataInjection.modeOfCurrent,
         )
 
@@ -67,6 +68,7 @@ class NotificationDecisionInstrumentedTest {
         DataInjection.sleepModeBoolean = false
         DataInjection.dndDetectSwitch = false
         DataInjection.chargingOnlySwitch = false
+        DataInjection.bluetoothWakeSwitch = false
         DataInjection.modeOfCurrent = CurrentMode.MODE_ALL_NOTIFY
         DataInjection.ongoingOptimize = true
         DataInjection.radicalOngoingOptimize = true
@@ -84,6 +86,7 @@ class NotificationDecisionInstrumentedTest {
         DataInjection.sleepModeBoolean = saved["sleep"] as Boolean
         DataInjection.dndDetectSwitch = saved["dnd"] as Boolean
         DataInjection.chargingOnlySwitch = saved["charging"] as Boolean
+        DataInjection.bluetoothWakeSwitch = saved["bluetooth"] as Boolean
         DataInjection.modeOfCurrent = saved["mode"] as CurrentMode
     }
 

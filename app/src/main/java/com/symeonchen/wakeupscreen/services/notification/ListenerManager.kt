@@ -47,6 +47,8 @@ object ListenerManager {
         // the individual message.
         ImportanceCondition(),
         OnGoingNotificationCondition(),
+        // Global gate also applies to repeat reminders and Night Glow.
+        com.symeonchen.wakeupscreen.services.notification.conditions.BluetoothCondition(),
         SleepModeCondition(),
         DndCondition(),
         ChargingCondition(),

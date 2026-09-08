@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.pages
 
+import com.symeonchen.wakeupscreen.services.reminder.ReminderAppSelectionController
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -123,6 +124,7 @@ class FilterListActivity : ScBaseActivity() {
 
         binding.tvSave.setOnClickListener {
             viewModel?.saveList()
+            ReminderAppSelectionController.onChanged(this)
             ToastUtils.showLong(resources.getString(R.string.saved_successfully))
             finish()
         }

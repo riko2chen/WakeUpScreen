@@ -8,7 +8,7 @@ import com.symeonchen.wakeupscreen.data.LogStatus
 import com.symeonchen.wakeupscreen.data.LogTrigger
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
 import com.symeonchen.wakeupscreen.data.NotificationLogStore
-import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor
 import com.symeonchen.wakeupscreen.services.ScNotificationListenerService
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
@@ -25,11 +25,18 @@ import com.symeonchen.wakeupscreen.utils.UnreadNotificationUtils
  */
 object ReminderEngine {
 
+    /** Claim and evaluate under the same lock as notification and settings callbacks. */
+    @Synchronized
+    fun onScheduledAlarm(context: Context) {
+        if (ReminderScheduler.claimDue(context)) onAlarm(context)
+    }
+
     /**
      * One reminder round. Runs the same condition chain as a freshly posted
      * notification, so pocket mode, sleep mode, Do Not Disturb, charging-only
      * and "screen already on" all outrank the reminder.
      */
+    @Synchronized
     fun onAlarm(context: Context) {
         val appContext = context.applicationContext
 
@@ -59,30 +66,41 @@ object ReminderEngine {
             return
         }
 
-        val snapshot = UnreadNotificationUtils.snapshot(active)
-        val representative = snapshot.representative
-        if (representative == null) {
+        val unread = active.filter { UnreadNotificationUtils.isUnread(it) }.sortedByDescending { it.postTime }
+        if (unread.isEmpty()) {
             endStreak(BlockReason.REMINDER_ALL_READ, packageName = "", unreadCount = 0, context = appContext)
+            return
+        }
+        if (!ReminderPolicy.hasRoundsRemaining(DataInjection.repeatReminderRoundCount, DataInjection.repeatReminderMaxRounds)) {
+            ReminderScheduler.cancelAlarm(appContext)
             return
         }
 
         val powerManager = appContext.getSystemService(Context.POWER_SERVICE) as? PowerManager
-        val channelInfo = service.channelInfoOf(representative)
-        val result = ListenerManager.provideState(
-            ConditionParam(
-                representative,
-                powerManager,
-                appContext as? Application,
-                channelInfo,
+        val decision = ReminderPolicy.evaluate(unread, check = { notification ->
+            val channel = service.channelInfoOf(notification)
+            channel to ListenerManager.provideState(
+                ConditionParam(notification, powerManager, appContext as? Application, channel)
             )
-        )
+        }, reason = { (_, result) -> result.blockingCondition }) ?: return
+        val representative = decision.first
+        val (channelInfo, result) = decision.second
 
         if (result.state == ConditionState.BLOCK) {
             val reason = result.blockingCondition ?: ""
-            // The streak is deliberately kept alive here. Every one of these
-            // conditions is temporary — the phone comes out of the pocket, the
-            // sleep window ends — and stopping on the first block would mean
-            // the user is never reminded again.
+            if (reason == BlockReason.BLUETOOTH) {
+                val startupDelay = BluetoothConnectionMonitor.startupRetryDelayMillis(appContext)
+                if (startupDelay > 0L) {
+                    // Initial profile discovery is not a disconnected-device verdict.
+                    // Retry once near its bounded deadline, without consuming a round.
+                    // The next alarm rechecks unread notifications and the entire chain.
+                    ReminderScheduler.scheduleRetry(appContext, startupDelay)
+                    return
+                }
+            }
+            // Keep the batch alive without consuming a round. Global gates may
+            // clear later, and notification/channel eligibility can change too.
+            // Retry once after the interval, never once per blocked candidate.
             log(
                 status = if (reason == BlockReason.INTERACTIVE) {
                     LogStatus.SCREEN_ALREADY_ON
@@ -92,14 +110,15 @@ object ReminderEngine {
                 reason = reason,
                 packageName = representative.packageName,
                 round = DataInjection.repeatReminderRoundCount + 1,
-                unreadCount = snapshot.count,
+                unreadCount = unread.size,
                 channelInfo = channelInfo,
             )
             ReminderScheduler.scheduleNext(appContext)
             return
         }
 
-        ScreenWakeUtils.wakeUpScreen(appContext, powerManager)
+        ScreenWakeUtils.wakeUpScreenForReminder(appContext, powerManager)
+        ReminderVibration.vibrateIfAllowed(appContext)
 
         val round = DataInjection.repeatReminderRoundCount + 1
         DataInjection.repeatReminderRoundCount = round
@@ -108,16 +127,16 @@ object ReminderEngine {
             reason = "",
             packageName = representative.packageName,
             round = round,
-            unreadCount = snapshot.count,
+            unreadCount = unread.size,
             channelInfo = channelInfo,
         )
 
         val maxRounds = DataInjection.repeatReminderMaxRounds
-        if (maxRounds != ScConstant.REPEAT_REMINDER_ROUNDS_UNLIMITED && round >= maxRounds) {
+        if (!ReminderPolicy.hasRoundsRemaining(round, maxRounds)) {
             endStreak(
                 BlockReason.REMINDER_MAX_ROUNDS,
                 packageName = representative.packageName,
-                unreadCount = snapshot.count,
+                unreadCount = unread.size,
                 context = appContext,
             )
             return
@@ -125,70 +144,60 @@ object ReminderEngine {
         ReminderScheduler.scheduleNext(appContext)
     }
 
-    /**
-     * A newly posted notification restarts the streak, so the reminder count
-     * starts over and the next reminder is a full interval away.
-     *
-     * Notifications that do not count as unread — ongoing ones especially — are
-     * ignored on purpose: a media player refreshing its notification every few
-     * seconds would otherwise push the next reminder back forever.
-     */
+    /** New posts and updates join the existing batch without changing its count or deadline. */
+    @Synchronized
     fun onNotificationPosted(context: Context, sbn: StatusBarNotification?) {
-        sbn ?: return
         if (!DataInjection.repeatReminderSwitch || !DataInjection.switchOfApp) {
+            ReminderScheduler.cancel(context)
             return
         }
-        if (!UnreadNotificationUtils.isUnread(sbn)) {
-            return
-        }
-        ReminderScheduler.restartStreak(context.applicationContext)
-    }
-
-    /** Stops reminding as soon as the last unread notification is dismissed. */
-    fun onNotificationRemoved(context: Context, active: Array<StatusBarNotification>?) {
-        val appContext = context.applicationContext
-        if (!DataInjection.repeatReminderSwitch) {
-            return
-        }
-        if (!ReminderScheduler.isScheduled(appContext)) {
-            return
-        }
-        if (UnreadNotificationUtils.hasUnread(active)) {
-            return
-        }
-        endStreak(BlockReason.REMINDER_ALL_READ, packageName = "", unreadCount = 0, context = appContext)
-    }
-
-    /**
-     * Re-arms the alarm when the listener (re)connects. This is what restores
-     * reminders after a reboot, which is why the app needs no boot receiver and
-     * no `RECEIVE_BOOT_COMPLETED` permission.
-     */
-    fun onListenerConnected(context: Context, active: Array<StatusBarNotification>?) {
-        if (!DataInjection.repeatReminderSwitch || !DataInjection.switchOfApp) {
-            return
-        }
-        if (UnreadNotificationUtils.hasUnread(active)) {
+        if (sbn != null && UnreadNotificationUtils.isUnread(sbn)) {
             ReminderScheduler.ensureScheduled(context.applicationContext)
+        } else {
+            // An update can turn the last relevant notification into an ongoing one.
+            onSettingsChanged(context)
+        }
+    }
+
+    /** Null means the listener could not provide a snapshot, not that the shade is empty. */
+    @Synchronized
+    fun onNotificationRemoved(context: Context, active: Array<StatusBarNotification>?) {
+        reconcile(context.applicationContext, active)
+    }
+
+    /** Restore the same batch and deadline after reconnect, including a reboot. */
+    @Synchronized
+    fun onListenerConnected(context: Context, active: Array<StatusBarNotification>?) {
+        reconcile(context.applicationContext, active, restore = true)
+    }
+
+    /** Call after persisting settings that change which apps participate or the master switch. */
+    @Synchronized
+    fun onSettingsChanged(context: Context) {
+        val active = try {
+            ScNotificationListenerService.instance?.activeNotifications
+        } catch (_: Exception) { null }
+        reconcile(context.applicationContext, active)
+    }
+
+    private fun reconcile(context: Context, active: Array<StatusBarNotification>?, restore: Boolean = false) {
+        if (!DataInjection.repeatReminderSwitch || !DataInjection.switchOfApp) {
+            ReminderScheduler.cancel(context)
+        } else if (active != null) {
+            if (UnreadNotificationUtils.hasUnread(active)) {
+                ReminderScheduler.ensureScheduled(context, restore)
+            } else {
+                endStreak(BlockReason.REMINDER_ALL_READ, "", 0, context)
+            }
         }
     }
 
     /** Called when the user flips the reminder switch in settings. */
+    @Synchronized
     fun onSwitchChanged(context: Context, enabled: Boolean) {
-        val appContext = context.applicationContext
-        if (!enabled) {
-            ReminderScheduler.cancel(appContext)
-            return
-        }
-        val active = try {
-            ScNotificationListenerService.instance?.activeNotifications
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-        if (UnreadNotificationUtils.hasUnread(active)) {
-            ReminderScheduler.restartStreak(appContext)
-        }
+        // Make persistence-before-scheduling explicit, independent of the UI binding.
+        DataInjection.repeatReminderSwitch = enabled
+        onSettingsChanged(context)
     }
 
     /**
@@ -196,7 +205,9 @@ object ReminderEngine {
      * nothing when no reminder is pending, so changing the setting never starts
      * a streak on its own.
      */
-    fun onIntervalChanged(context: Context) {
+    @Synchronized
+    fun onIntervalChanged(context: Context, minutes: Int = DataInjection.repeatReminderIntervalMinutes) {
+        DataInjection.repeatReminderIntervalMinutes = minutes
         val appContext = context.applicationContext
         if (!DataInjection.repeatReminderSwitch || !DataInjection.switchOfApp) {
             return
@@ -205,6 +216,16 @@ object ReminderEngine {
             return
         }
         ReminderScheduler.scheduleNext(appContext)
+    }
+
+    @Synchronized
+    fun onMaxRoundsChanged(context: Context, rounds: Int) {
+        DataInjection.repeatReminderMaxRounds = rounds
+        if (!ReminderPolicy.hasRoundsRemaining(DataInjection.repeatReminderRoundCount, DataInjection.repeatReminderMaxRounds)) {
+            ReminderScheduler.cancelAlarm(context)
+        } else {
+            onSettingsChanged(context)
+        }
     }
 
     private fun endStreak(
@@ -226,7 +247,11 @@ object ReminderEngine {
                 channelInfo = ChannelLogInfo(),
             )
         }
-        ReminderScheduler.cancel(context)
+        if (reason == BlockReason.REMINDER_MAX_ROUNDS || reason == BlockReason.REMINDER_SERVICE_UNAVAILABLE) {
+            ReminderScheduler.cancelAlarm(context)
+        } else {
+            ReminderScheduler.cancel(context)
+        }
     }
 
     private fun log(

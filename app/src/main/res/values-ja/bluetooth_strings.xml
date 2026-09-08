@@ -1,0 +1,22 @@
+<resources>
+    <string name="bluetooth_wake_title">Bluetoothの点灯条件</string>
+    <string name="bluetooth_wake_desc">選択したペア設定済みデバイスのいずれかが接続中の場合のみ点灯します。通知、繰り返しリマインダー、ナイトグローに適用されます。</string>
+    <string name="bluetooth_wake_off">オフ · Bluetoothによる点灯制限なし</string>
+    <string name="bluetooth_wake_unavailable">Bluetoothを利用できません · 点灯をブロック</string>
+    <string name="bluetooth_wake_permission">付近のデバイスの権限がないか取り消されています · 点灯をブロック。アプリ設定で許可するか、このルールをオフにしてください。</string>
+    <string name="bluetooth_wake_disabled">Bluetoothがオフです · 点灯をブロック</string>
+    <string name="bluetooth_wake_empty">デバイス未選択 · 点灯をブロック</string>
+    <string name="bluetooth_wake_ready">選択したデバイスが接続中 · Bluetooth条件を満たしています</string>
+    <string name="bluetooth_wake_blocked">選択したペア設定済みデバイスの接続を検出できません · 点灯をブロック</string>
+    <string name="bluetooth_wake_permission_settings">アプリの権限設定</string>
+    <string name="bluetooth_wake_system_settings">Bluetooth設定</string>
+    <string name="bluetooth_wake_scope">監視開始時に接続済みのオーディオデバイスとBLE接続を確認します。その他のデバイスは、このルールをオンにしてから再接続しないと検出されない場合があります。Androidではすべての接続を取得できず、未検出の場合は点灯をブロックします。Bluetooth設定でペア設定してください。バックアップから復元した選択も、この端末でのペア設定が必要です。</string>
+    <string name="bluetooth_wake_devices">選択したデバイス（いずれか1台で可）</string>
+    <string name="bluetooth_wake_no_paired">ペア設定済みデバイスがありません。Bluetooth設定で追加してください。</string>
+    <string name="bluetooth_wake_connected">接続中</string>
+    <string name="bluetooth_wake_not_detected">接続未検出</string>
+    <string name="bluetooth_wake_unpaired">ペア設定解除済み · 点灯は許可されません</string>
+    <string name="bluetooth_wake_unknown">ペア設定と接続を確認できません</string>
+    <string name="bluetooth_wake_clear">選択を解除</string>
+    <string name="bluetooth_wake_initializing">既存のBluetooth接続を確認中…</string>
+</resources>

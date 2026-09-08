@@ -203,7 +203,7 @@
     <string name="reminder_interval_title">Reminder interval</string>
     <string name="reminder_interval_minutes_value">%1$d min</string>
     <string name="reminder_interval_hours_value">%1$d hour</string>
-    <string name="reminder_delay_notice">A reminder may arrive a little later than the interval you set.</string>
+    <string name="reminder_delay_notice">Timing is approximate. Android battery restrictions may delay reminders.</string>
     <string name="reminder_delay_help_title">Why can a reminder be late?</string>
     <string name="reminder_delay_help_body">Android has a battery-saving mode called Doze. When the phone has been sitting still with the screen off for a while, the system holds background work back and runs it in batches to save power.\n\nSo a reminder can arrive a few minutes later than the interval you picked, and the shorter the interval, the more noticeable this is. Every app is affected and none can opt out.\n\nKeeping the phone on a charger, or excluding this app from battery optimisation in system settings, makes reminders more punctual.</string>
     <string name="reminder_max_rounds_title">Maximum reminders</string>
@@ -394,4 +394,26 @@
     <string name="accessibility_disclosure_purpose">On Android 9 and later, only the accessibility \"lock screen\" action can turn the screen off on time.</string>
     <string name="accessibility_disclosure_data">It reads no screen content and collects nothing, and you can turn it off at any time.</string>
     <string name="accessibility_disclosure_agree">Agree and open settings</string>
+
+    <string name="reminder_apps_title">Reminder apps</string>
+    <string name="reminder_apps_inherit">Use initial wake app filter</string>
+    <string name="reminder_apps_description">Turn this off to choose a smaller set of apps for repeat reminders. The initial wake whitelist or blacklist always applies.</string>
+    <string name="reminder_apps_empty">No apps selected: repeat reminders are paused.</string>
+    <string name="reminder_apps_saved">Changes save automatically.</string>
+    <string name="reminder_apps_search">Search apps</string>
+    <string name="reminder_apps_no_results">No matching apps</string>
+    <string name="reminder_apps_unavailable">Not installed or unavailable; selection kept for reinstall.</string>
+    <string name="reminder_apps_blocked">Blocked by the initial wake app filter.</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">Reminder screen-on duration</string>
+    <string name="reminder_duration_description">Choose how long repeat reminders keep the screen on. A custom duration works independently of the initial notification setting.</string>
+    <string name="reminder_duration_inherit">Same as initial notification</string>
+    <string name="reminder_duration_custom">Custom duration</string>
+    <string name="reminder_duration_permission_notice">Custom reminder duration needs accessibility access. Until access is enabled and connected, reminders use the system screen timeout.</string>
+    <string name="reminder_interval_custom">Custom</string>
+    <string name="reminder_interval_custom_title">Custom reminder interval</string>
+    <string name="reminder_interval_minutes_label">Minutes</string>
+    <string name="reminder_interval_custom_range">Enter a whole number from 5 to 1440 minutes (24 hours).</string>
+    <string name="reminder_vibration_title">Vibrate on reminder</string>
+    <string name="reminder_vibration_desc">One short vibration when a reminder wakes the screen. Respects Do Not Disturb and silent mode.</string>
 </resources>

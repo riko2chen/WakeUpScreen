@@ -20,6 +20,7 @@ object BlockReason {
     const val ONGOING = "ongoing"
     const val SLEEP_MODE = "sleep_mode"
     const val DND = "dnd"
+    const val BLUETOOTH = "bluetooth"
     const val CHARGING = "charging"
     const val BATTERY_LEVEL = "battery_level"
 

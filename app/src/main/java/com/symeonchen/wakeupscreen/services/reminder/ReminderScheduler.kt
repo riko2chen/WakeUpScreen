@@ -16,29 +16,40 @@ import java.util.concurrent.TimeUnit
  * every round gives a natural place to ask "are there still unread
  * notifications?" and simply stop when the answer is no.
  *
- * [AlarmManager.setAndAllowWhileIdle] is used instead of the exact variant on
- * purpose. The exact one needs `SCHEDULE_EXACT_ALARM` on Android 12+, which
- * Play only grants to alarm-clock style apps, and this app's whole pitch is
- * that it asks for nothing but notification access. The cost is that Doze may
- * hold a reminder back by a few minutes, which the settings screen explains.
+ * [AlarmManager.setAndAllowWhileIdle] avoids optional exact-alarm special access.
+ * Android may delay delivery, which the reminder settings explain.
  */
 object ReminderScheduler {
 
     private const val REQUEST_CODE = 20260806
 
+    private fun preferences(context: Context) =
+        context.applicationContext.getSharedPreferences("reminder_scheduler", Context.MODE_PRIVATE)
+
+    internal fun deadline(context: Context): Long = preferences(context).getLong("deadline", 0L)
+
     /** Arms the next reminder, replacing any alarm already pending. */
+    @Synchronized
     fun scheduleNext(context: Context) {
+        val intervalMillis = TimeUnit.MINUTES.toMillis(DataInjection.repeatReminderIntervalMinutes.toLong())
+        arm(context, System.currentTimeMillis() + intervalMillis)
+    }
+
+    /** Retry discovery without resetting the batch count; persist its replacement deadline. */
+    @Synchronized
+    fun scheduleRetry(context: Context, delayMillis: Long) {
+        arm(context, System.currentTimeMillis() + delayMillis.coerceIn(1L, 1500L))
+    }
+
+    private fun arm(context: Context, triggerAt: Long) {
         val alarmManager = context.alarmManager() ?: return
-        val intervalMillis = TimeUnit.MINUTES.toMillis(
-            DataInjection.repeatReminderIntervalMinutes.toLong()
-        )
-        val triggerAt = System.currentTimeMillis() + intervalMillis
         try {
             alarmManager.setAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
                 triggerAt,
                 pendingIntent(context, create = true) ?: return,
             )
+            preferences(context).edit().putLong("deadline", triggerAt).commit()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -49,31 +60,43 @@ object ReminderScheduler {
      * burst of notifications does not keep pushing the next reminder further
      * away.
      */
-    fun ensureScheduled(context: Context) {
+    @Synchronized
+    fun ensureScheduled(context: Context, restore: Boolean = false) {
         if (!DataInjection.repeatReminderSwitch || !DataInjection.switchOfApp) {
             return
         }
-        if (isScheduled(context)) {
-            return
-        }
-        scheduleNext(context)
+        if (!ReminderPolicy.hasRoundsRemaining(
+                DataInjection.repeatReminderRoundCount, DataInjection.repeatReminderMaxRounds
+            )) return
+        if (!restore && isScheduled(context)) return
+        // A PendingIntent can survive a delivered alarm, and an alarm can be lost
+        // at reboot. Re-arm the stored deadline instead of treating its token as proof.
+        arm(context, ReminderPolicy.nextDeadline(
+            deadline(context), System.currentTimeMillis(),
+            TimeUnit.MINUTES.toMillis(DataInjection.repeatReminderIntervalMinutes.toLong()),
+        ))
     }
 
-    /**
-     * Starts a fresh streak: a new notification means the user is being told
-     * about something new, so the reminder count starts over.
-     */
-    fun restartStreak(context: Context) {
-        if (!DataInjection.repeatReminderSwitch || !DataInjection.switchOfApp) {
-            return
-        }
-        DataInjection.repeatReminderRoundCount = 0
-        scheduleNext(context)
+    /** Reject stale/duplicate deliveries after a cycle was cancelled or re-armed. */
+    @Synchronized
+    fun claimDue(context: Context): Boolean {
+        val due = deadline(context)
+        if (due == 0L || due > System.currentTimeMillis()) return false
+        cancelAlarm(context)
+        return true
     }
 
     /** Cancels any pending reminder and resets the streak counter. */
+    @Synchronized
     fun cancel(context: Context) {
         DataInjection.repeatReminderRoundCount = 0
+        cancelAlarm(context)
+    }
+
+    /** Keep the count when the batch reaches its limit, until its notifications are gone. */
+    @Synchronized
+    fun cancelAlarm(context: Context) {
+        preferences(context).edit().remove("deadline").commit()
         val alarmManager = context.alarmManager() ?: return
         val pendingIntent = pendingIntent(context, create = false) ?: return
         try {
@@ -84,7 +107,7 @@ object ReminderScheduler {
         }
     }
 
-    fun isScheduled(context: Context): Boolean = pendingIntent(context, create = false) != null
+    fun isScheduled(context: Context): Boolean = deadline(context) > 0L
 
     private fun pendingIntent(context: Context, create: Boolean): PendingIntent? {
         val intent = Intent(context.applicationContext, ReminderAlarmReceiver::class.java).apply {
