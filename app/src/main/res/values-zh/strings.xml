@@ -392,4 +392,10 @@
     <string name="reminder_apps_no_results">没有匹配的应用</string>
     <string name="reminder_apps_unavailable">未安装或不可用；保留选择以便重新安装。</string>
     <string name="reminder_apps_blocked">已被首次亮屏的应用过滤规则拦截。</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">重复提醒亮屏时长</string>
+    <string name="reminder_duration_description">选择重复提醒保持屏幕亮起的时间。自定义时长独立于首次通知的设置。</string>
+    <string name="reminder_duration_inherit">与首次通知相同</string>
+    <string name="reminder_duration_custom">自定义时长</string>
+    <string name="reminder_duration_permission_notice">自定义提醒时长需要无障碍权限。在服务启用并连接之前，重复提醒将使用系统的屏幕超时时间。</string>
 </resources>

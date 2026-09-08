@@ -404,4 +404,10 @@
     <string name="reminder_apps_no_results">Nessuna app corrispondente</string>
     <string name="reminder_apps_unavailable">Non installata o non disponibile; selezione conservata per la reinstallazione.</string>
     <string name="reminder_apps_blocked">Bloccata dal filtro del risveglio iniziale.</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">Durata dello schermo acceso per i promemoria</string>
+    <string name="reminder_duration_description">Scegli per quanto tempo i promemoria ripetuti mantengono acceso lo schermo. La durata personalizzata è indipendente dalla notifica iniziale.</string>
+    <string name="reminder_duration_inherit">Come la notifica iniziale</string>
+    <string name="reminder_duration_custom">Durata personalizzata</string>
+    <string name="reminder_duration_permission_notice">La durata personalizzata dei promemoria richiede l’accesso di accessibilità. Finché il servizio non è abilitato e connesso, i promemoria usano il timeout dello schermo di sistema.</string>
 </resources>

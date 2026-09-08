@@ -390,4 +390,10 @@
     <string name="reminder_apps_no_results">일치하는 앱 없음</string>
     <string name="reminder_apps_unavailable">설치되지 않았거나 사용할 수 없음. 재설치를 위해 선택을 유지합니다.</string>
     <string name="reminder_apps_blocked">최초 화면 켜기 앱 필터에 의해 차단됨.</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">리마인더 화면 켜짐 시간</string>
+    <string name="reminder_duration_description">반복 리마인더가 화면을 켜 두는 시간을 선택하세요. 사용자 지정 시간은 최초 알림 설정과 별도로 작동합니다.</string>
+    <string name="reminder_duration_inherit">최초 알림과 동일</string>
+    <string name="reminder_duration_custom">사용자 지정 시간</string>
+    <string name="reminder_duration_permission_notice">리마인더 시간을 직접 설정하려면 접근성 권한이 필요합니다. 서비스가 활성화되고 연결될 때까지 리마인더는 시스템 화면 꺼짐 시간을 사용합니다.</string>
 </resources>

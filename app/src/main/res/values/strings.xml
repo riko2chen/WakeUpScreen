@@ -404,4 +404,10 @@
     <string name="reminder_apps_no_results">No matching apps</string>
     <string name="reminder_apps_unavailable">Not installed or unavailable; selection kept for reinstall.</string>
     <string name="reminder_apps_blocked">Blocked by the initial wake app filter.</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">Reminder screen-on duration</string>
+    <string name="reminder_duration_description">Choose how long repeat reminders keep the screen on. A custom duration works independently of the initial notification setting.</string>
+    <string name="reminder_duration_inherit">Same as initial notification</string>
+    <string name="reminder_duration_custom">Custom duration</string>
+    <string name="reminder_duration_permission_notice">Custom reminder duration needs accessibility access. Until access is enabled and connected, reminders use the system screen timeout.</string>
 </resources>

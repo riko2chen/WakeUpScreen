@@ -390,4 +390,10 @@
     <string name="reminder_apps_no_results">ไม่พบแอปที่ตรงกัน</string>
     <string name="reminder_apps_unavailable">ไม่ได้ติดตั้งหรือไม่พร้อมใช้งาน เก็บการเลือกไว้สำหรับการติดตั้งใหม่</string>
     <string name="reminder_apps_blocked">ถูกบล็อกโดยตัวกรองแอปปลุกหน้าจอครั้งแรก</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">ระยะเวลาเปิดหน้าจอของการเตือนซ้ำ</string>
+    <string name="reminder_duration_description">เลือกระยะเวลาที่การเตือนซ้ำจะเปิดหน้าจอ ระยะเวลาที่กำหนดเองทำงานแยกจากการตั้งค่าการแจ้งเตือนครั้งแรก</string>
+    <string name="reminder_duration_inherit">เหมือนการแจ้งเตือนครั้งแรก</string>
+    <string name="reminder_duration_custom">กำหนดระยะเวลาเอง</string>
+    <string name="reminder_duration_permission_notice">ระยะเวลาการเตือนซ้ำที่กำหนดเองต้องใช้สิทธิ์การช่วยเหลือพิเศษ จนกว่าจะเปิดใช้งานและเชื่อมต่อบริการ การเตือนซ้ำจะใช้ระยะหมดเวลาหน้าจอของระบบ</string>
 </resources>

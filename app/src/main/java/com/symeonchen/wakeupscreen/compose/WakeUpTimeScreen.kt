@@ -245,7 +245,7 @@ fun WakeUpTimeScreen(
  * settings behind an explicit "agree".
  */
 @Composable
-private fun AccessibilityDisclosureDialog(
+internal fun AccessibilityDisclosureDialog(
     onAgree: () -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -347,7 +347,7 @@ private fun DurationCard(
  * gave users a way to pick the broken one.
  */
 @Composable
-private fun ScreenOffMethodCard(
+internal fun ScreenOffMethodCard(
     accessibilitySupported: Boolean,
     accessibilityGranted: Boolean,
     onGrantAccessibilityClick: () -> Unit,

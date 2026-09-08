@@ -129,7 +129,16 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.repeatReminderMaxRounds)
         }
 
+    var repeatReminderScreenOnSeconds: ScLiveData<Long> = ScLiveData<Long>().apply {
+        setValue(DataInjection.repeatReminderScreenOnSeconds)
+    }
+
     init {
+        repeatReminderScreenOnSeconds.listener = object : ScLiveData.OnLiveDataValueInput<Long> {
+            override fun onValueInput(value: Long) {
+                DataInjection.repeatReminderScreenOnSeconds = value
+            }
+        }
 
         switchOfApp.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
             override fun onValueInput(value: Boolean) {

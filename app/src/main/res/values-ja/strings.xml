@@ -390,4 +390,10 @@
     <string name="reminder_apps_no_results">該当するアプリはありません</string>
     <string name="reminder_apps_unavailable">未インストールまたは利用不可。再インストール用に選択を保持します。</string>
     <string name="reminder_apps_blocked">初回点灯のアプリフィルターでブロックされています。</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">リマインダーの画面点灯時間</string>
+    <string name="reminder_duration_description">繰り返しリマインダーで画面を点灯する時間を選択します。カスタム時間は最初の通知の設定とは独立して動作します。</string>
+    <string name="reminder_duration_inherit">最初の通知と同じ</string>
+    <string name="reminder_duration_custom">カスタム時間</string>
+    <string name="reminder_duration_permission_notice">リマインダーのカスタム点灯時間にはユーザー補助へのアクセスが必要です。サービスが有効になり接続されるまでは、システムの画面消灯時間が使われます。</string>
 </resources>
