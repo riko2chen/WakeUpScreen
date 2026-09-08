@@ -60,7 +60,7 @@ class ReminderSettingActivity : ScBaseActivity() {
                         }
                     },
                     reminderScreenOnSeconds = duration,
-                    onReminderDurationChange = { settingModel.repeatReminderScreenOnSeconds.value = it },
+                    onReminderDurationChange = { settingModel.repeatReminderScreenOnSeconds.setValue(it) },
                     accessibilitySupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P,
                     accessibilityGranted = accessibilityGranted.value,
                     onGrantAccessibilityClick = { openAccessibilitySettings() },
