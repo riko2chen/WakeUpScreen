@@ -32,7 +32,7 @@ class ReminderSchedulerInstrumentedTest {
         ReminderScheduler.cancel(context)
         DataInjection.switchOfApp = true
         DataInjection.repeatReminderSwitch = true
-        DataInjection.repeatReminderIntervalMinutes = 1
+        DataInjection.repeatReminderIntervalMinutes = 5
         DataInjection.repeatReminderMaxRounds = 3
     }
 
@@ -57,6 +57,22 @@ class ReminderSchedulerInstrumentedTest {
         repeat(10) { ReminderScheduler.ensureScheduled(context) }
         ReminderScheduler.ensureScheduled(context, restore = true)
         assertEquals(due, preferences.getLong("deadline", 0))
+        assertEquals(2, DataInjection.repeatReminderRoundCount)
+    }
+
+    @Test fun bluetoothDiscoveryRetryReplacesDeadlineWithoutConsumingRound() {
+        ReminderScheduler.ensureScheduled(context)
+        val originalDeadline = ReminderScheduler.deadline(context)
+        DataInjection.repeatReminderRoundCount = 2
+        val before = System.currentTimeMillis()
+        ReminderScheduler.scheduleRetry(context, 1500)
+        val retryDeadline = ReminderScheduler.deadline(context)
+        assertTrue(retryDeadline >= before + 1500)
+        assertTrue(retryDeadline <= System.currentTimeMillis() + 1500)
+        assertTrue(retryDeadline < originalDeadline)
+        assertEquals(2, DataInjection.repeatReminderRoundCount)
+        ReminderScheduler.ensureScheduled(context, restore = true)
+        assertEquals(retryDeadline, ReminderScheduler.deadline(context))
         assertEquals(2, DataInjection.repeatReminderRoundCount)
     }
 
