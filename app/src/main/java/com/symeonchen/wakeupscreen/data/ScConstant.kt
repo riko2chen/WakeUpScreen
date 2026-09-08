@@ -4,6 +4,8 @@ package com.symeonchen.wakeupscreen.data
  * Created by SymeonChen on 2019-10-27.
  */
 object ScConstant {
+    const val REMINDER_CUSTOM_APPS = "reminder_custom_apps"
+    const val REMINDER_APP_PACKAGES = "reminder_app_packages"
     const val CUSTOM_STATUS = "custom_status"
     const val WAKE_SCREEN_SECOND = "wake_screen_second"
     const val PROXIMITY_STATUS = "proximity_status"

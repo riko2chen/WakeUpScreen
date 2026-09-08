@@ -394,4 +394,14 @@
     <string name="accessibility_disclosure_purpose">Da Android 9 in poi solo l\'azione di accessibilità \"blocca schermo\" spegne il display in tempo.</string>
     <string name="accessibility_disclosure_data">Non legge il contenuto dello schermo, non raccoglie nulla e puoi disattivarla quando vuoi.</string>
     <string name="accessibility_disclosure_agree">Accetto, apri le impostazioni</string>
+
+    <string name="reminder_apps_title">App dei promemoria</string>
+    <string name="reminder_apps_inherit">Usa il filtro del risveglio iniziale</string>
+    <string name="reminder_apps_description">Disattiva per scegliere meno app per i promemoria ripetuti. La lista bianca o nera del risveglio iniziale si applica sempre.</string>
+    <string name="reminder_apps_empty">Nessuna app selezionata: promemoria ripetuti in pausa.</string>
+    <string name="reminder_apps_saved">Le modifiche vengono salvate automaticamente.</string>
+    <string name="reminder_apps_search">Cerca app</string>
+    <string name="reminder_apps_no_results">Nessuna app corrispondente</string>
+    <string name="reminder_apps_unavailable">Non installata o non disponibile; selezione conservata per la reinstallazione.</string>
+    <string name="reminder_apps_blocked">Bloccata dal filtro del risveglio iniziale.</string>
 </resources>

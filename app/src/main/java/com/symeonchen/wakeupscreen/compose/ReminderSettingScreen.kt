@@ -33,6 +33,7 @@ fun ReminderSettingScreen(
     maxRoundsOptions: List<Int>,
     unlimitedRoundsValue: Int,
     onMaxRoundsChange: (Int) -> Unit,
+    onAppsClick: () -> Unit = {},
 ) {
     var showDozeHelp by remember { mutableStateOf(false) }
 
@@ -66,6 +67,10 @@ fun ReminderSettingScreen(
 
             Spacer(Modifier.height(20.dp))
 
+            OutlinedButton(onClick = onAppsClick, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.reminder_apps_title))
+            }
+            Spacer(Modifier.height(20.dp))
             PriorityCard()
         }
     }
@@ -178,6 +183,7 @@ private fun MaxRoundsCard(
     maxRoundsOptions: List<Int>,
     unlimitedRoundsValue: Int,
     onMaxRoundsChange: (Int) -> Unit,
+    onAppsClick: () -> Unit = {},
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),

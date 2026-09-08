@@ -382,4 +382,14 @@
     <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有无障碍服务的「锁定屏幕」动作能让屏幕准时熄灭。</string>
     <string name="accessibility_disclosure_data">它不读取屏幕内容，不收集任何信息，随时可以关闭。</string>
     <string name="accessibility_disclosure_agree">同意并前往设置</string>
+
+    <string name="reminder_apps_title">重复提醒应用</string>
+    <string name="reminder_apps_inherit">沿用首次亮屏的应用过滤规则</string>
+    <string name="reminder_apps_description">关闭后可缩小重复提醒的应用范围。首次亮屏的白名单或黑名单始终生效。</string>
+    <string name="reminder_apps_empty">未选择应用：重复提醒已暂停。</string>
+    <string name="reminder_apps_saved">更改会自动保存。</string>
+    <string name="reminder_apps_search">搜索应用</string>
+    <string name="reminder_apps_no_results">没有匹配的应用</string>
+    <string name="reminder_apps_unavailable">未安装或不可用；保留选择以便重新安装。</string>
+    <string name="reminder_apps_blocked">已被首次亮屏的应用过滤规则拦截。</string>
 </resources>

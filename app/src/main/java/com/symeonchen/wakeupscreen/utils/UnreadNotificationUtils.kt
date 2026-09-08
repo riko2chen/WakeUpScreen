@@ -2,6 +2,7 @@ package com.symeonchen.wakeupscreen.utils
 
 import android.app.Notification
 import android.service.notification.StatusBarNotification
+import com.symeonchen.wakeupscreen.data.ReminderAppSelection
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.conditions.FilterListCondition
 
@@ -53,6 +54,9 @@ object UnreadNotificationUtils {
         if (sbn.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0) {
             return false
         }
-        return FilterListCondition().provideResult(sbn) == ConditionState.SUCCESS
+        return ReminderAppSelection.load().allows(
+            sbn.packageName,
+            FilterListCondition().provideResult(sbn) == ConditionState.SUCCESS,
+        )
     }
 }

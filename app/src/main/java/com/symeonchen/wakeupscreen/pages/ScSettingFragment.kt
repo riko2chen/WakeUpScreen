@@ -83,6 +83,7 @@ class ScSettingFragment : ScBaseFragment() {
             is SettingsBackup.ImportResult.Success -> {
                 // Language and dark mode are the two settings whose effect is
                 // not read lazily; everything else applies on next read.
+                com.symeonchen.wakeupscreen.services.reminder.ReminderAppSelectionController.onChanged(requireContext())
                 DataInjection.languageSelected.applyLanguage()
                 DataInjection.darkModeSelected.applyDarkMode()
                 ToastUtils.showShort(getString(R.string.backup_import_success, result.applied))

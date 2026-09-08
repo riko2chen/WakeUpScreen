@@ -33,6 +33,7 @@ class ReminderSettingActivity : ScBaseActivity() {
 
                 ReminderSettingScreen(
                     onBack = { finish() },
+                    onAppsClick = { startActivity(android.content.Intent(this, ReminderAppsActivity::class.java)) },
                     intervalMinutes = interval,
                     intervalOptions = ScConstant.REPEAT_REMINDER_INTERVAL_OPTIONS,
                     onIntervalChange = { minutes ->
