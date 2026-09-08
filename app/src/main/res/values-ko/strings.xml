@@ -400,4 +400,6 @@
     <string name="reminder_interval_custom_title">알림 간격 직접 설정</string>
     <string name="reminder_interval_minutes_label">분</string>
     <string name="reminder_interval_custom_range">5~1440분(24시간) 사이의 정수를 입력하세요.</string>
+    <string name="reminder_vibration_title">알림 반복 시 진동</string>
+    <string name="reminder_vibration_desc">반복 알림으로 화면이 켜질 때 짧게 한 번 진동합니다. 방해 금지 및 무음 모드를 따릅니다.</string>
 </resources>

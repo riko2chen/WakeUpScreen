@@ -107,6 +107,7 @@ object ReminderEngine {
         }
 
         ScreenWakeUtils.wakeUpScreenForReminder(appContext, powerManager)
+        ReminderVibration.vibrateIfAllowed(appContext)
 
         val round = DataInjection.repeatReminderRoundCount + 1
         DataInjection.repeatReminderRoundCount = round

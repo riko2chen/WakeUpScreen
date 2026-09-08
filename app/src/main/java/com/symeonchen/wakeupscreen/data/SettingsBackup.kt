@@ -115,6 +115,7 @@ object SettingsBackup {
         CatalogEntry(ScConstant.CHARGING_ONLY_SWITCH, SettingType.BOOL),
         CatalogEntry(ScConstant.REMINDER_CUSTOM_APPS, SettingType.BOOL),
         CatalogEntry(ScConstant.REMINDER_APP_PACKAGES, SettingType.STRING),
+        CatalogEntry(ScConstant.REPEAT_REMINDER_VIBRATION, SettingType.BOOL),
         CatalogEntry(ScConstant.REPEAT_REMINDER_SWITCH, SettingType.BOOL),
         CatalogEntry(ScConstant.REPEAT_REMINDER_INTERVAL_MINUTES, SettingType.INT),
         CatalogEntry(ScConstant.REPEAT_REMINDER_MAX_ROUNDS, SettingType.INT),

@@ -400,4 +400,6 @@
     <string name="reminder_interval_custom_title">自訂提醒間隔</string>
     <string name="reminder_interval_minutes_label">分鐘</string>
     <string name="reminder_interval_custom_range">請輸入 5 至 1440 分鐘（24 小時）之間的整數。</string>
+    <string name="reminder_vibration_title">提醒時震動</string>
+    <string name="reminder_vibration_desc">提醒喚醒螢幕時短暫震動一次。遵循系統勿擾和靜音模式。</string>
 </resources>

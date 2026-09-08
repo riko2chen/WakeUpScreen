@@ -114,6 +114,10 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.batteryLevelThreshold)
         }
 
+    var repeatReminderVibration: ScLiveData<Boolean> = ScLiveData<Boolean>().apply {
+        setValue(DataInjection.repeatReminderVibration)
+    }
+
     var repeatReminderSwitch: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.repeatReminderSwitch)
@@ -248,6 +252,12 @@ class SettingViewModel : ViewModel() {
         batteryLevelThreshold.listener = object : ScLiveData.OnLiveDataValueInput<Int> {
             override fun onValueInput(value: Int) {
                 DataInjection.batteryLevelThreshold = value
+            }
+        }
+
+        repeatReminderVibration.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.repeatReminderVibration = value
             }
         }
 

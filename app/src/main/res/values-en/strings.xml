@@ -414,4 +414,6 @@
     <string name="reminder_interval_custom_title">Custom reminder interval</string>
     <string name="reminder_interval_minutes_label">Minutes</string>
     <string name="reminder_interval_custom_range">Enter a whole number from 5 to 1440 minutes (24 hours).</string>
+    <string name="reminder_vibration_title">Vibrate on reminder</string>
+    <string name="reminder_vibration_desc">One short vibration when a reminder wakes the screen. Respects Do Not Disturb and silent mode.</string>
 </resources>

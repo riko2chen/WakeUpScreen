@@ -42,8 +42,11 @@ class ReminderSettingActivity : ScBaseActivity() {
                 )
 
                 val duration by settingModel.repeatReminderScreenOnSeconds.observeAsState(ReminderDurationPolicy.INHERIT)
+                val vibration by settingModel.repeatReminderVibration.observeAsState(false)
 
                 ReminderSettingScreen(
+                    vibrationEnabled = vibration,
+                    onVibrationChange = { settingModel.repeatReminderVibration.postValue(it) },
                     onBack = { finish() },
                     onAppsClick = { startActivity(android.content.Intent(this, ReminderAppsActivity::class.java)) },
                     intervalMinutes = interval,

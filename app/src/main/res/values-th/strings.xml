@@ -400,4 +400,6 @@
     <string name="reminder_interval_custom_title">กำหนดช่วงเวลาการเตือน</string>
     <string name="reminder_interval_minutes_label">นาที</string>
     <string name="reminder_interval_custom_range">ป้อนจำนวนเต็มตั้งแต่ 5 ถึง 1440 นาที (24 ชั่วโมง)</string>
+    <string name="reminder_vibration_title">สั่นเมื่อเตือนซ้ำ</string>
+    <string name="reminder_vibration_desc">สั่นสั้น ๆ หนึ่งครั้งเมื่อการเตือนซ้ำเปิดหน้าจอ โดยเคารพโหมดห้ามรบกวนและโหมดเงียบ</string>
 </resources>

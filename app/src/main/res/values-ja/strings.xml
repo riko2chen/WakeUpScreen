@@ -400,4 +400,6 @@
     <string name="reminder_interval_custom_title">リマインダーの間隔を指定</string>
     <string name="reminder_interval_minutes_label">分</string>
     <string name="reminder_interval_custom_range">5～1440分（24時間）の整数を入力してください。</string>
+    <string name="reminder_vibration_title">リマインダー時に振動</string>
+    <string name="reminder_vibration_desc">リマインダーで画面が点灯するときに短く1回振動します。サイレントモードと通知の鳴動制限に従います。</string>
 </resources>
