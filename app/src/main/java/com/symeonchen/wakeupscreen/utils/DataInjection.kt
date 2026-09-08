@@ -7,7 +7,6 @@ import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.SleepSchedule
 import com.symeonchen.wakeupscreen.data.SleepSegment
-import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_BLACK_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_LEVEL_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_LEVEL_THRESHOLD
