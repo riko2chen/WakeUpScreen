@@ -394,4 +394,6 @@
     <string name="accessibility_disclosure_purpose">On Android 9 and later, only the accessibility \"lock screen\" action can turn the screen off on time.</string>
     <string name="accessibility_disclosure_data">It reads no screen content and collects nothing, and you can turn it off at any time.</string>
     <string name="accessibility_disclosure_agree">Agree and open settings</string>
+    <string name="reminder_vibration_title">Vibrate on reminder</string>
+    <string name="reminder_vibration_desc">One short vibration when a reminder wakes the screen. Respects Do Not Disturb and silent mode.</string>
 </resources>

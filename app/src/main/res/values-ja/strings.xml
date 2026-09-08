@@ -380,4 +380,6 @@
     <string name="accessibility_disclosure_purpose">Android 9 以降では、ユーザー補助の「画面ロック」操作だけが画面を時間どおりに消せます。</string>
     <string name="accessibility_disclosure_data">画面の内容は読み取らず、情報も一切収集しません。いつでもオフにできます。</string>
     <string name="accessibility_disclosure_agree">同意して設定を開く</string>
+    <string name="reminder_vibration_title">リマインダー時に振動</string>
+    <string name="reminder_vibration_desc">リマインダーで画面が点灯するときに短く1回振動します。サイレントモードと通知の鳴動制限に従います。</string>
 </resources>

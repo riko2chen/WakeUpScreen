@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,6 +28,8 @@ import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 @Composable
 fun ReminderSettingScreen(
     onBack: () -> Unit,
+    vibrationEnabled: Boolean,
+    onVibrationChange: (Boolean) -> Unit,
     intervalMinutes: Int,
     intervalOptions: List<Int>,
     onIntervalChange: (Int) -> Unit,
@@ -64,6 +68,29 @@ fun ReminderSettingScreen(
                 onMaxRoundsChange = onMaxRoundsChange,
             )
 
+            Spacer(Modifier.height(20.dp))
+
+            Surface(
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Row(
+                    modifier = Modifier.toggleable(
+                        value = vibrationEnabled,
+                        role = Role.Switch,
+                        onValueChange = onVibrationChange,
+                    ).padding(20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Column(Modifier.weight(1f).padding(end = 16.dp)) {
+                        Text(stringResource(R.string.reminder_vibration_title), style = MaterialTheme.typography.titleMedium)
+                        Text(stringResource(R.string.reminder_vibration_desc), style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    Switch(checked = vibrationEnabled, onCheckedChange = null)
+                }
+            }
             Spacer(Modifier.height(20.dp))
 
             PriorityCard()

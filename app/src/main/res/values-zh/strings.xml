@@ -382,4 +382,6 @@
     <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有无障碍服务的「锁定屏幕」动作能让屏幕准时熄灭。</string>
     <string name="accessibility_disclosure_data">它不读取屏幕内容，不收集任何信息，随时可以关闭。</string>
     <string name="accessibility_disclosure_agree">同意并前往设置</string>
+    <string name="reminder_vibration_title">提醒时振动</string>
+    <string name="reminder_vibration_desc">提醒唤醒屏幕时短暂振动一次。遵循系统勿扰和静音模式。</string>
 </resources>

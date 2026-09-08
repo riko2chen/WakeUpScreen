@@ -380,4 +380,6 @@
     <string name="accessibility_disclosure_purpose">บน Android 9 ขึ้นไป มีเพียงการทำงาน \"ล็อกหน้าจอ\" ของการช่วยเหลือพิเศษที่ปิดหน้าจอได้ตรงเวลา</string>
     <string name="accessibility_disclosure_data">ไม่อ่านเนื้อหาบนหน้าจอ ไม่เก็บข้อมูลใด ๆ และปิดได้ทุกเมื่อ</string>
     <string name="accessibility_disclosure_agree">ยอมรับและไปที่การตั้งค่า</string>
+    <string name="reminder_vibration_title">สั่นเมื่อเตือนซ้ำ</string>
+    <string name="reminder_vibration_desc">สั่นสั้น ๆ หนึ่งครั้งเมื่อการเตือนซ้ำเปิดหน้าจอ โดยเคารพโหมดห้ามรบกวนและโหมดเงียบ</string>
 </resources>

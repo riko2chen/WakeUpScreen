@@ -5,6 +5,7 @@ import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
 import com.symeonchen.wakeupscreen.data.SleepSchedule
 import com.symeonchen.wakeupscreen.data.SleepSegment
+import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.data.ScConstant.APP_FILTER_BLACK_LIST_STRING
 import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_LEVEL_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.BATTERY_LEVEL_THRESHOLD
@@ -367,6 +368,10 @@ object DataInjection {
         set(value) {
             ScStore.putBoolean(CHARGING_ONLY_SWITCH, value)
         }
+
+    var repeatReminderVibration: Boolean
+        get() = ScStore.getBoolean(ScConstant.REPEAT_REMINDER_VIBRATION, ScConstant.DEFAULT_REPEAT_REMINDER_VIBRATION)
+        set(value) { ScStore.putBoolean(ScConstant.REPEAT_REMINDER_VIBRATION, value) }
 
     var repeatReminderSwitch: Boolean
         get() {

@@ -394,4 +394,6 @@
     <string name="accessibility_disclosure_purpose">Da Android 9 in poi solo l\'azione di accessibilità \"blocca schermo\" spegne il display in tempo.</string>
     <string name="accessibility_disclosure_data">Non legge il contenuto dello schermo, non raccoglie nulla e puoi disattivarla quando vuoi.</string>
     <string name="accessibility_disclosure_agree">Accetto, apri le impostazioni</string>
+    <string name="reminder_vibration_title">Vibrazione promemoria</string>
+    <string name="reminder_vibration_desc">Una breve vibrazione quando il promemoria accende lo schermo. Rispetta Non disturbare e la modalità silenziosa.</string>
 </resources>

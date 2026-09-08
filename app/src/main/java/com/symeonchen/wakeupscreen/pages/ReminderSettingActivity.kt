@@ -31,7 +31,11 @@ class ReminderSettingActivity : ScBaseActivity() {
                     ScConstant.DEFAULT_REPEAT_REMINDER_MAX_ROUNDS
                 )
 
+                val vibration by settingModel.repeatReminderVibration.observeAsState(false)
+
                 ReminderSettingScreen(
+                    vibrationEnabled = vibration,
+                    onVibrationChange = { settingModel.repeatReminderVibration.postValue(it) },
                     onBack = { finish() },
                     intervalMinutes = interval,
                     intervalOptions = ScConstant.REPEAT_REMINDER_INTERVAL_OPTIONS,

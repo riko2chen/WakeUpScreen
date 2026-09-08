@@ -380,4 +380,6 @@
     <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有無障礙服務的「鎖定螢幕」動作能讓螢幕準時關閉。</string>
     <string name="accessibility_disclosure_data">它不讀取螢幕內容，不收集任何資訊，隨時可以關閉。</string>
     <string name="accessibility_disclosure_agree">同意並前往設定</string>
+    <string name="reminder_vibration_title">提醒時震動</string>
+    <string name="reminder_vibration_desc">提醒喚醒螢幕時短暫震動一次。遵循系統勿擾和靜音模式。</string>
 </resources>

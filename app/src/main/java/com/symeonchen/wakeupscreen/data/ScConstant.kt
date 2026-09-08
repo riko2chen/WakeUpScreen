@@ -29,6 +29,8 @@ object ScConstant {
     const val DND_DETECT_SWITCH = "dnd_detect_switch"
     const val LAST_IN_APP_REVIEW_TIMESTAMP = "last_in_app_review_timestamp"
     const val CHARGING_ONLY_SWITCH = "charging_only_switch"
+    const val REPEAT_REMINDER_VIBRATION = "repeat_reminder_vibration"
+    const val DEFAULT_REPEAT_REMINDER_VIBRATION = false
     const val REPEAT_REMINDER_SWITCH = "repeat_reminder_switch"
     const val REPEAT_REMINDER_INTERVAL_MINUTES = "repeat_reminder_interval_minutes"
     const val REPEAT_REMINDER_MAX_ROUNDS = "repeat_reminder_max_rounds"
