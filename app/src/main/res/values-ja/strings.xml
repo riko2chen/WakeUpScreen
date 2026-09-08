@@ -189,7 +189,7 @@
     <string name="reminder_interval_title">通知の間隔</string>
     <string name="reminder_interval_minutes_value">%1$d 分</string>
     <string name="reminder_interval_hours_value">%1$d 時間</string>
-    <string name="reminder_delay_notice">設定した間隔より少し遅れて通知されることがあります。</string>
+    <string name="reminder_delay_notice">時刻は目安です。Androidのバッテリー制限により、リマインダーが遅れる場合があります。</string>
     <string name="reminder_delay_help_title">通知が遅れるのはなぜ？</string>
     <string name="reminder_delay_help_body">Android には Doze（休止状態）という省電力機能があります。端末をしばらく操作せず画面が消えたままだと、システムはバックグラウンドの処理をためてまとめて実行し、電力を節約します。\n\nそのため、設定した間隔より数分遅れて通知が届くことがあり、間隔が短いほど目立ちます。これはすべてのアプリに共通する制限で、回避できるアプリはありません。\n\n端末を充電器につないでおくか、システム設定でこのアプリを電池の最適化から除外すると、通知がより正確な時刻に届きます。</string>
     <string name="reminder_max_rounds_title">最大通知回数</string>
@@ -380,4 +380,8 @@
     <string name="accessibility_disclosure_purpose">Android 9 以降では、ユーザー補助の「画面ロック」操作だけが画面を時間どおりに消せます。</string>
     <string name="accessibility_disclosure_data">画面の内容は読み取らず、情報も一切収集しません。いつでもオフにできます。</string>
     <string name="accessibility_disclosure_agree">同意して設定を開く</string>
+    <string name="reminder_interval_custom">カスタム</string>
+    <string name="reminder_interval_custom_title">リマインダーの間隔を指定</string>
+    <string name="reminder_interval_minutes_label">分</string>
+    <string name="reminder_interval_custom_range">5～1440分（24時間）の整数を入力してください。</string>
 </resources>

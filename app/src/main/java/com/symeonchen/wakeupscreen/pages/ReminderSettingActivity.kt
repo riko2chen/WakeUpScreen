@@ -37,7 +37,7 @@ class ReminderSettingActivity : ScBaseActivity() {
                     intervalOptions = ScConstant.REPEAT_REMINDER_INTERVAL_OPTIONS,
                     onIntervalChange = { minutes ->
                         if (minutes != interval) {
-                            settingModel.repeatReminderIntervalMinutes.postValue(minutes)
+                            settingModel.repeatReminderIntervalMinutes.setValue(minutes)
                             // Re-arm so the change takes effect now rather than
                             // after the reminder already in flight has fired.
                             ReminderEngine.onIntervalChanged(applicationContext)

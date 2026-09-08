@@ -189,7 +189,7 @@
     <string name="reminder_interval_title">提醒間隔</string>
     <string name="reminder_interval_minutes_value">%1$d 分鐘</string>
     <string name="reminder_interval_hours_value">%1$d 小時</string>
-    <string name="reminder_delay_notice">提醒可能比設定的間隔稍晚一點抵達。</string>
+    <string name="reminder_delay_notice">提醒時間為大約時間。Android 的電池限制可能導致提醒延遲。</string>
     <string name="reminder_delay_help_title">為什麼提醒會遲到？</string>
     <string name="reminder_delay_help_body">Android 有一個叫 Doze（休眠）的省電機制。當手機長時間沒人動、螢幕一直關著時，系統會把背景工作累積起來集中執行，藉此節省電量。\n\n所以提醒可能比你設定的間隔晚幾分鐘才到，間隔越短越明顯。這是系統對所有應用程式的統一限制，誰都繞不開。\n\n把手機接上充電器，或在系統設定中將本應用程式排除於電池最佳化之外，可以讓提醒更準時。</string>
     <string name="reminder_max_rounds_title">最多提醒次數</string>
@@ -380,4 +380,8 @@
     <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有無障礙服務的「鎖定螢幕」動作能讓螢幕準時關閉。</string>
     <string name="accessibility_disclosure_data">它不讀取螢幕內容，不收集任何資訊，隨時可以關閉。</string>
     <string name="accessibility_disclosure_agree">同意並前往設定</string>
+    <string name="reminder_interval_custom">自訂</string>
+    <string name="reminder_interval_custom_title">自訂提醒間隔</string>
+    <string name="reminder_interval_minutes_label">分鐘</string>
+    <string name="reminder_interval_custom_range">請輸入 5 至 1440 分鐘（24 小時）之間的整數。</string>
 </resources>

@@ -180,15 +180,7 @@ object ScConstant {
      */
     const val SCREEN_OFF_ACTIVITY_SAFETY_TIMEOUT_MS: Long = 10000
 
-    /**
-     * Selectable intervals for the repeat reminder, in minutes.
-     *
-     * Capped at one hour on purpose: a reminder that only fires once every few
-     * hours is indistinguishable from no reminder at all. The lower bound is
-     * kept at 5 minutes even though Doze usually stretches anything under ~15
-     * minutes, because the delay is explained in the UI rather than hidden by
-     * removing the option.
-     */
+    /** Presets; custom intervals use the bounds in [ReminderIntervalPolicy]. */
     val REPEAT_REMINDER_INTERVAL_OPTIONS = listOf(5, 10, 15, 20, 30, 45, 60)
 
     /** Selectable reminder-count caps. [REPEAT_REMINDER_ROUNDS_UNLIMITED] means "never stop". */

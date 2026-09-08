@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.utils
 
+import com.symeonchen.wakeupscreen.data.ReminderIntervalPolicy
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
@@ -381,15 +382,13 @@ object DataInjection {
 
     var repeatReminderIntervalMinutes: Int
         get() {
-            return ScStore.getInt(
+            return ReminderIntervalPolicy.normalize(ScStore.getInt(
                 REPEAT_REMINDER_INTERVAL_MINUTES,
                 DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
-            )
+            ))
         }
         set(value) {
-            if (value <= 0) {
-                return
-            }
+            if (!ReminderIntervalPolicy.isValid(value)) return
             ScStore.putInt(REPEAT_REMINDER_INTERVAL_MINUTES, value)
         }
 
