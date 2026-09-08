@@ -1,0 +1,21 @@
+<resources>
+    <string name="bluetooth_wake_title">Bluetooth wake condition</string>
+    <string name="bluetooth_wake_desc">Wake only while any selected paired device is connected. Applies to notifications, repeat reminders, and Night Glow.</string>
+    <string name="bluetooth_wake_off">Off · Bluetooth does not restrict wakes.</string>
+    <string name="bluetooth_wake_unavailable">Bluetooth unavailable · wakes blocked.</string>
+    <string name="bluetooth_wake_permission">Nearby devices permission is missing or revoked · wakes blocked. Allow it in app settings or turn this rule off.</string>
+    <string name="bluetooth_wake_disabled">Bluetooth is off · wakes blocked.</string>
+    <string name="bluetooth_wake_empty">No devices selected · wakes blocked.</string>
+    <string name="bluetooth_wake_ready">Selected device connected · Bluetooth allows wakes.</string>
+    <string name="bluetooth_wake_blocked">No selected paired connection detected · wakes blocked.</string>
+    <string name="bluetooth_wake_permission_settings">App permission settings</string>
+    <string name="bluetooth_wake_system_settings">Bluetooth settings</string>
+    <string name="bluetooth_wake_scope">Already-connected audio devices and BLE connections are checked when monitoring starts. Other device types may only be detected after reconnecting while this rule is on. Android cannot expose every connection; undetected devices block wakes. Pair devices in Bluetooth settings. Selections restored from a backup must still be paired here.</string>
+    <string name="bluetooth_wake_devices">Selected devices (any one is enough)</string>
+    <string name="bluetooth_wake_no_paired">No paired devices. Pair a device in Bluetooth settings.</string>
+    <string name="bluetooth_wake_connected">Connected</string>
+    <string name="bluetooth_wake_not_detected">Connection not detected</string>
+    <string name="bluetooth_wake_unpaired">No longer paired · does not allow wakes</string>
+    <string name="bluetooth_wake_unknown">Pairing and connection unavailable</string>
+    <string name="bluetooth_wake_clear">Clear selection</string>
+</resources>

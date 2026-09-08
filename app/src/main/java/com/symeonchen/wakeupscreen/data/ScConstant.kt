@@ -6,6 +6,8 @@ package com.symeonchen.wakeupscreen.data
 object ScConstant {
     const val REMINDER_CUSTOM_APPS = "reminder_custom_apps"
     const val REMINDER_APP_PACKAGES = "reminder_app_packages"
+    const val BLUETOOTH_WAKE_SWITCH = "bluetooth_wake_switch"
+    const val BLUETOOTH_WAKE_DEVICES = "bluetooth_wake_devices"
     const val CUSTOM_STATUS = "custom_status"
     const val WAKE_SCREEN_SECOND = "wake_screen_second"
     const val PROXIMITY_STATUS = "proximity_status"

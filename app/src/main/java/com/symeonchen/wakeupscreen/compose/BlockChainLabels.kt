@@ -30,6 +30,7 @@ fun chainNodeTitle(key: String): String = when (key) {
     BlockReason.ONGOING -> stringResource(R.string.chain_node_ongoing)
     BlockReason.SLEEP_MODE -> stringResource(R.string.chain_node_sleep_mode)
     BlockReason.DND -> stringResource(R.string.chain_node_dnd)
+    BlockReason.BLUETOOTH -> stringResource(R.string.bluetooth_wake_title)
     BlockReason.CHARGING -> stringResource(R.string.chain_node_charging)
     BlockReason.BATTERY_LEVEL -> stringResource(R.string.chain_node_battery_level)
     BlockChain.KEY_WAKE_UP -> stringResource(R.string.chain_node_wake_up)
@@ -115,6 +116,7 @@ fun chainConfigSummary(key: String, hasNotificationAccess: Boolean): String? {
             onOff(false)
         }
         BlockReason.DND -> onOff(DataInjection.dndDetectSwitch)
+        BlockReason.BLUETOOTH -> onOff(DataInjection.bluetoothWakeSwitch)
         BlockReason.CHARGING -> onOff(DataInjection.chargingOnlySwitch)
         BlockReason.BATTERY_LEVEL -> if (DataInjection.batteryLevelSwitch) {
             stringResource(R.string.chain_config_battery_threshold, DataInjection.batteryLevelThreshold)

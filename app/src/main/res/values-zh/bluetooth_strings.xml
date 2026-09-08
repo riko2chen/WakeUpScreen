@@ -1,0 +1,21 @@
+<resources>
+    <string name="bluetooth_wake_title">蓝牙唤醒条件</string>
+    <string name="bluetooth_wake_desc">仅在任一选中的已配对设备连接时唤醒。适用于通知、重复提醒和夜间微光。</string>
+    <string name="bluetooth_wake_off">已关闭 · 蓝牙不限制唤醒。</string>
+    <string name="bluetooth_wake_unavailable">蓝牙不可用 · 已阻止唤醒。</string>
+    <string name="bluetooth_wake_permission">缺少附近设备权限或权限已撤销 · 已阻止唤醒。请在应用设置中授权或关闭此规则。</string>
+    <string name="bluetooth_wake_disabled">蓝牙已关闭 · 已阻止唤醒。</string>
+    <string name="bluetooth_wake_empty">未选择设备 · 已阻止唤醒。</string>
+    <string name="bluetooth_wake_ready">选中的设备已连接 · 蓝牙条件允许唤醒。</string>
+    <string name="bluetooth_wake_blocked">未检测到选中的已配对设备连接 · 已阻止唤醒。</string>
+    <string name="bluetooth_wake_permission_settings">应用权限设置</string>
+    <string name="bluetooth_wake_system_settings">蓝牙设置</string>
+    <string name="bluetooth_wake_scope">开始监测时会检查已连接的音频设备和 BLE 连接。其他类型的设备可能需要在此规则开启后重新连接才能被检测到。Android 无法提供所有连接信息；未检测到连接时会阻止唤醒。请在蓝牙设置中配对设备。从备份恢复的选择也必须在本机完成配对。</string>
+    <string name="bluetooth_wake_devices">选择设备（任意一台即可）</string>
+    <string name="bluetooth_wake_no_paired">没有已配对设备。请在蓝牙设置中配对。</string>
+    <string name="bluetooth_wake_connected">已连接</string>
+    <string name="bluetooth_wake_not_detected">未检测到连接</string>
+    <string name="bluetooth_wake_unpaired">已取消配对 · 不允许唤醒</string>
+    <string name="bluetooth_wake_unknown">无法确认配对和连接状态</string>
+    <string name="bluetooth_wake_clear">清空选择</string>
+</resources>
