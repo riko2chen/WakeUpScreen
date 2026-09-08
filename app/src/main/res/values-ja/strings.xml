@@ -380,4 +380,11 @@
     <string name="accessibility_disclosure_purpose">Android 9 以降では、ユーザー補助の「画面ロック」操作だけが画面を時間どおりに消せます。</string>
     <string name="accessibility_disclosure_data">画面の内容は読み取らず、情報も一切収集しません。いつでもオフにできます。</string>
     <string name="accessibility_disclosure_agree">同意して設定を開く</string>
+
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">リマインダーの画面点灯時間</string>
+    <string name="reminder_duration_description">繰り返しリマインダーで画面を点灯する時間を選択します。カスタム時間は最初の通知の設定とは独立して動作します。</string>
+    <string name="reminder_duration_inherit">最初の通知と同じ</string>
+    <string name="reminder_duration_custom">カスタム時間</string>
+    <string name="reminder_duration_permission_notice">リマインダーのカスタム点灯時間にはユーザー補助へのアクセスが必要です。サービスが有効になり接続されるまでは、システムの画面消灯時間が使われます。</string>
 </resources>

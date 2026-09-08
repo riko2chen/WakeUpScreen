@@ -99,7 +99,7 @@ object ReminderEngine {
             return
         }
 
-        ScreenWakeUtils.wakeUpScreen(appContext, powerManager)
+        ScreenWakeUtils.wakeUpScreenForReminder(appContext, powerManager)
 
         val round = DataInjection.repeatReminderRoundCount + 1
         DataInjection.repeatReminderRoundCount = round

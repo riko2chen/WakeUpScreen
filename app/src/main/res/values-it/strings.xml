@@ -394,4 +394,11 @@
     <string name="accessibility_disclosure_purpose">Da Android 9 in poi solo l\'azione di accessibilità \"blocca schermo\" spegne il display in tempo.</string>
     <string name="accessibility_disclosure_data">Non legge il contenuto dello schermo, non raccoglie nulla e puoi disattivarla quando vuoi.</string>
     <string name="accessibility_disclosure_agree">Accetto, apri le impostazioni</string>
+
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">Durata dello schermo acceso per i promemoria</string>
+    <string name="reminder_duration_description">Scegli per quanto tempo i promemoria ripetuti mantengono acceso lo schermo. La durata personalizzata è indipendente dalla notifica iniziale.</string>
+    <string name="reminder_duration_inherit">Come la notifica iniziale</string>
+    <string name="reminder_duration_custom">Durata personalizzata</string>
+    <string name="reminder_duration_permission_notice">La durata personalizzata dei promemoria richiede l’accesso di accessibilità. Finché il servizio non è abilitato e connesso, i promemoria usano il timeout dello schermo di sistema.</string>
 </resources>

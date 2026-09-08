@@ -380,4 +380,11 @@
     <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有無障礙服務的「鎖定螢幕」動作能讓螢幕準時關閉。</string>
     <string name="accessibility_disclosure_data">它不讀取螢幕內容，不收集任何資訊，隨時可以關閉。</string>
     <string name="accessibility_disclosure_agree">同意並前往設定</string>
+
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">重複提醒亮屏時間</string>
+    <string name="reminder_duration_description">選擇重複提醒保持螢幕亮起的時間。自訂時間獨立於首次通知的設定。</string>
+    <string name="reminder_duration_inherit">與首次通知相同</string>
+    <string name="reminder_duration_custom">自訂時間</string>
+    <string name="reminder_duration_permission_notice">自訂提醒時間需要無障礙權限。在服務啟用並連線之前，重複提醒將使用系統的螢幕逾時時間。</string>
 </resources>

@@ -116,6 +116,7 @@ object SettingsBackup {
         CatalogEntry(ScConstant.REPEAT_REMINDER_SWITCH, SettingType.BOOL),
         CatalogEntry(ScConstant.REPEAT_REMINDER_INTERVAL_MINUTES, SettingType.INT),
         CatalogEntry(ScConstant.REPEAT_REMINDER_MAX_ROUNDS, SettingType.INT),
+        CatalogEntry(ScConstant.REPEAT_REMINDER_SCREEN_ON_SECONDS, SettingType.LONG),
         CatalogEntry(ScConstant.PRECISE_SCREEN_ON_SWITCH, SettingType.BOOL),
         CatalogEntry(ScConstant.IGNORE_SILENT_NOTIFICATION_SWITCH, SettingType.BOOL),
         CatalogEntry(ScConstant.NOTIFICATION_GRACE_PERIOD_MS, SettingType.LONG),

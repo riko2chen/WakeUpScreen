@@ -382,4 +382,11 @@
     <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有无障碍服务的「锁定屏幕」动作能让屏幕准时熄灭。</string>
     <string name="accessibility_disclosure_data">它不读取屏幕内容，不收集任何信息，随时可以关闭。</string>
     <string name="accessibility_disclosure_agree">同意并前往设置</string>
+
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">重复提醒亮屏时长</string>
+    <string name="reminder_duration_description">选择重复提醒保持屏幕亮起的时间。自定义时长独立于首次通知的设置。</string>
+    <string name="reminder_duration_inherit">与首次通知相同</string>
+    <string name="reminder_duration_custom">自定义时长</string>
+    <string name="reminder_duration_permission_notice">自定义提醒时长需要无障碍权限。在服务启用并连接之前，重复提醒将使用系统的屏幕超时时间。</string>
 </resources>

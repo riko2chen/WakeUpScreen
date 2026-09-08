@@ -1,5 +1,8 @@
 package com.symeonchen.wakeupscreen.compose
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.runtime.saveable.rememberSaveable
+import com.symeonchen.wakeupscreen.utils.ReminderDurationPolicy
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -33,13 +36,26 @@ fun ReminderSettingScreen(
     maxRoundsOptions: List<Int>,
     unlimitedRoundsValue: Int,
     onMaxRoundsChange: (Int) -> Unit,
+    reminderScreenOnSeconds: Long,
+    onReminderDurationChange: (Long) -> Unit,
+    accessibilitySupported: Boolean,
+    accessibilityGranted: Boolean,
+    onGrantAccessibilityClick: () -> Unit,
 ) {
     var showDozeHelp by remember { mutableStateOf(false) }
+    var showAccessibilityWarning by rememberSaveable { mutableStateOf(false) }
+    var showDisclosure by rememberSaveable { mutableStateOf(false) }
+    val leave = {
+        if (ReminderDurationPolicy.needsPermissionWarning(
+            reminderScreenOnSeconds, accessibilitySupported, accessibilityGranted,
+        )) showAccessibilityWarning = true else onBack()
+    }
+    BackHandler(onBack = leave)
 
     Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         ComposeToolbar(
             title = stringResource(R.string.repeat_reminder),
-            onBack = onBack,
+            onBack = leave,
         )
 
         Column(
@@ -66,8 +82,47 @@ fun ReminderSettingScreen(
 
             Spacer(Modifier.height(20.dp))
 
+            ReminderDurationCard(
+                seconds = reminderScreenOnSeconds,
+                onDurationChange = onReminderDurationChange,
+                accessibilitySupported = accessibilitySupported,
+                accessibilityGranted = accessibilityGranted,
+                onGrantAccessibilityClick = { showDisclosure = true },
+            )
+
+            Spacer(Modifier.height(20.dp))
+
             PriorityCard()
         }
+    }
+
+    if (showAccessibilityWarning) {
+        AlertDialog(
+            onDismissRequest = { showAccessibilityWarning = false },
+            title = { Text(stringResource(R.string.accessibility_not_enabled_title)) },
+            text = { Text(stringResource(R.string.reminder_duration_permission_notice)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showAccessibilityWarning = false
+                    showDisclosure = true
+                }) { Text(stringResource(R.string.accessibility_dialog_grant)) }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showAccessibilityWarning = false
+                    onBack()
+                }) { Text(stringResource(R.string.accessibility_dialog_leave_anyway)) }
+            },
+        )
+    }
+    if (showDisclosure) {
+        AccessibilityDisclosureDialog(
+            onAgree = {
+                showDisclosure = false
+                onGrantAccessibilityClick()
+            },
+            onDismiss = { showDisclosure = false },
+        )
     }
 
     if (showDozeHelp) {

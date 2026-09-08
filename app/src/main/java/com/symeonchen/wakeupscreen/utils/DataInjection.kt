@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.utils
 
+import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
@@ -406,6 +407,19 @@ object DataInjection {
                 return
             }
             ScStore.putInt(REPEAT_REMINDER_MAX_ROUNDS, value)
+        }
+
+    /** Zero inherits the initial notification; custom reminder windows are 5–30 seconds. */
+    var repeatReminderScreenOnSeconds: Long
+        get() = ReminderDurationPolicy.normalize(ScStore.getLong(
+            ScConstant.REPEAT_REMINDER_SCREEN_ON_SECONDS,
+            ReminderDurationPolicy.INHERIT,
+        ))
+        set(value) {
+            ScStore.putLong(
+                ScConstant.REPEAT_REMINDER_SCREEN_ON_SECONDS,
+                ReminderDurationPolicy.normalize(value),
+            )
         }
 
     /**

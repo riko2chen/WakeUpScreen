@@ -32,6 +32,7 @@ object ScConstant {
     const val REPEAT_REMINDER_SWITCH = "repeat_reminder_switch"
     const val REPEAT_REMINDER_INTERVAL_MINUTES = "repeat_reminder_interval_minutes"
     const val REPEAT_REMINDER_MAX_ROUNDS = "repeat_reminder_max_rounds"
+    const val REPEAT_REMINDER_SCREEN_ON_SECONDS = "repeat_reminder_screen_on_seconds"
     const val REPEAT_REMINDER_ROUND_COUNT = "repeat_reminder_round_count"
     const val PRECISE_SCREEN_ON_SWITCH = "precise_screen_on_switch"
     const val IGNORE_SILENT_NOTIFICATION_SWITCH = "ignore_silent_notification_switch"

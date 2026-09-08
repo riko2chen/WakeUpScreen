@@ -380,4 +380,11 @@
     <string name="accessibility_disclosure_purpose">บน Android 9 ขึ้นไป มีเพียงการทำงาน \"ล็อกหน้าจอ\" ของการช่วยเหลือพิเศษที่ปิดหน้าจอได้ตรงเวลา</string>
     <string name="accessibility_disclosure_data">ไม่อ่านเนื้อหาบนหน้าจอ ไม่เก็บข้อมูลใด ๆ และปิดได้ทุกเมื่อ</string>
     <string name="accessibility_disclosure_agree">ยอมรับและไปที่การตั้งค่า</string>
+
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">ระยะเวลาเปิดหน้าจอของการเตือนซ้ำ</string>
+    <string name="reminder_duration_description">เลือกระยะเวลาที่การเตือนซ้ำจะเปิดหน้าจอ ระยะเวลาที่กำหนดเองทำงานแยกจากการตั้งค่าการแจ้งเตือนครั้งแรก</string>
+    <string name="reminder_duration_inherit">เหมือนการแจ้งเตือนครั้งแรก</string>
+    <string name="reminder_duration_custom">กำหนดระยะเวลาเอง</string>
+    <string name="reminder_duration_permission_notice">ระยะเวลาการเตือนซ้ำที่กำหนดเองต้องใช้สิทธิ์การช่วยเหลือพิเศษ จนกว่าจะเปิดใช้งานและเชื่อมต่อบริการ การเตือนซ้ำจะใช้ระยะหมดเวลาหน้าจอของระบบ</string>
 </resources>
