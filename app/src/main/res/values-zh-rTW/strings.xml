@@ -380,4 +380,14 @@
     <string name="accessibility_disclosure_purpose">在 Android 9 及以上，只有無障礙服務的「鎖定螢幕」動作能讓螢幕準時關閉。</string>
     <string name="accessibility_disclosure_data">它不讀取螢幕內容，不收集任何資訊，隨時可以關閉。</string>
     <string name="accessibility_disclosure_agree">同意並前往設定</string>
+
+    <string name="reminder_apps_title">重複提醒應用程式</string>
+    <string name="reminder_apps_inherit">沿用首次亮屏的應用程式過濾規則</string>
+    <string name="reminder_apps_description">關閉後可縮小重複提醒的應用程式範圍。首次亮屏的白名單或黑名單始終生效。</string>
+    <string name="reminder_apps_empty">未選擇應用程式：重複提醒已暫停。</string>
+    <string name="reminder_apps_saved">變更會自動儲存。</string>
+    <string name="reminder_apps_search">搜尋應用程式</string>
+    <string name="reminder_apps_no_results">沒有符合的應用程式</string>
+    <string name="reminder_apps_unavailable">未安裝或無法使用；保留選擇以便重新安裝。</string>
+    <string name="reminder_apps_blocked">已被首次亮屏的應用程式過濾規則攔截。</string>
 </resources>

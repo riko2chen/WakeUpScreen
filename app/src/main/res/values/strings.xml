@@ -394,4 +394,14 @@
     <string name="accessibility_disclosure_purpose">On Android 9 and later, only the accessibility \"lock screen\" action can turn the screen off on time.</string>
     <string name="accessibility_disclosure_data">It reads no screen content and collects nothing, and you can turn it off at any time.</string>
     <string name="accessibility_disclosure_agree">Agree and open settings</string>
+
+    <string name="reminder_apps_title">Reminder apps</string>
+    <string name="reminder_apps_inherit">Use initial wake app filter</string>
+    <string name="reminder_apps_description">Turn this off to choose a smaller set of apps for repeat reminders. The initial wake whitelist or blacklist always applies.</string>
+    <string name="reminder_apps_empty">No apps selected: repeat reminders are paused.</string>
+    <string name="reminder_apps_saved">Changes save automatically.</string>
+    <string name="reminder_apps_search">Search apps</string>
+    <string name="reminder_apps_no_results">No matching apps</string>
+    <string name="reminder_apps_unavailable">Not installed or unavailable; selection kept for reinstall.</string>
+    <string name="reminder_apps_blocked">Blocked by the initial wake app filter.</string>
 </resources>

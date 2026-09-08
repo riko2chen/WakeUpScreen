@@ -380,4 +380,14 @@
     <string name="accessibility_disclosure_purpose">Android 9 以降では、ユーザー補助の「画面ロック」操作だけが画面を時間どおりに消せます。</string>
     <string name="accessibility_disclosure_data">画面の内容は読み取らず、情報も一切収集しません。いつでもオフにできます。</string>
     <string name="accessibility_disclosure_agree">同意して設定を開く</string>
+
+    <string name="reminder_apps_title">リマインダーのアプリ</string>
+    <string name="reminder_apps_inherit">初回点灯のアプリフィルターを使用</string>
+    <string name="reminder_apps_description">オフにすると、繰り返し通知の対象アプリを絞り込めます。初回点灯のホワイトリストまたはブラックリストは常に適用されます。</string>
+    <string name="reminder_apps_empty">アプリ未選択：繰り返し通知は停止中です。</string>
+    <string name="reminder_apps_saved">変更は自動保存されます。</string>
+    <string name="reminder_apps_search">アプリを検索</string>
+    <string name="reminder_apps_no_results">該当するアプリはありません</string>
+    <string name="reminder_apps_unavailable">未インストールまたは利用不可。再インストール用に選択を保持します。</string>
+    <string name="reminder_apps_blocked">初回点灯のアプリフィルターでブロックされています。</string>
 </resources>

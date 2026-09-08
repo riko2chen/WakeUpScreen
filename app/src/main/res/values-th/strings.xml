@@ -380,4 +380,14 @@
     <string name="accessibility_disclosure_purpose">บน Android 9 ขึ้นไป มีเพียงการทำงาน \"ล็อกหน้าจอ\" ของการช่วยเหลือพิเศษที่ปิดหน้าจอได้ตรงเวลา</string>
     <string name="accessibility_disclosure_data">ไม่อ่านเนื้อหาบนหน้าจอ ไม่เก็บข้อมูลใด ๆ และปิดได้ทุกเมื่อ</string>
     <string name="accessibility_disclosure_agree">ยอมรับและไปที่การตั้งค่า</string>
+
+    <string name="reminder_apps_title">แอปแจ้งเตือนซ้ำ</string>
+    <string name="reminder_apps_inherit">ใช้ตัวกรองแอปปลุกหน้าจอครั้งแรก</string>
+    <string name="reminder_apps_description">ปิดเพื่อเลือกแอปสำหรับการแจ้งเตือนซ้ำให้น้อยลง รายการอนุญาตหรือรายการบล็อกสำหรับการปลุกครั้งแรกยังมีผลเสมอ</string>
+    <string name="reminder_apps_empty">ไม่ได้เลือกแอป: หยุดการแจ้งเตือนซ้ำชั่วคราว</string>
+    <string name="reminder_apps_saved">บันทึกการเปลี่ยนแปลงโดยอัตโนมัติ</string>
+    <string name="reminder_apps_search">ค้นหาแอป</string>
+    <string name="reminder_apps_no_results">ไม่พบแอปที่ตรงกัน</string>
+    <string name="reminder_apps_unavailable">ไม่ได้ติดตั้งหรือไม่พร้อมใช้งาน เก็บการเลือกไว้สำหรับการติดตั้งใหม่</string>
+    <string name="reminder_apps_blocked">ถูกบล็อกโดยตัวกรองแอปปลุกหน้าจอครั้งแรก</string>
 </resources>

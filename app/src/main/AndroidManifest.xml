@@ -5,6 +5,13 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <application
         android:name=".ScApplication"
         android:allowBackup="false"
@@ -27,6 +34,7 @@
         <activity android:name=".pages.SleepTimeSettingActivity" />
         <activity android:name=".pages.WakeUptimeSettingActivity" />
         <activity android:name=".pages.ReminderSettingActivity" />
+        <activity android:name=".pages.ReminderAppsActivity" android:exported="false" />
 
         <!--
             Ends a precise screen-on window on devices where no lock permission
