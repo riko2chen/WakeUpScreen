@@ -152,6 +152,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     onNotificationGracePeriodClick = { showNotificationGraceDialog = true },
                     dndChecked = dnd,
                     onDndToggle = { settingModel.dndDetectBoolean.postValue(!dnd) },
+                    onBluetoothClick = { quickStartActivity<BluetoothSettingActivity>() },
                     chargingOnlyChecked = chargingOnly,
                     chargingOnlySubtitle = statusText(chargingOnly),
                     onChargingOnlyToggle = { settingModel.chargingOnlySwitch.postValue(!chargingOnly) },

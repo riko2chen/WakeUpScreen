@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.utils
 
+import com.symeonchen.wakeupscreen.data.ScConstant
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
@@ -356,6 +357,16 @@ object DataInjection {
         set(value) {
             ScStore.putString(LAST_IN_APP_REVIEW_TIMESTAMP, value)
         }
+
+    var bluetoothWakeSwitch: Boolean
+        get() = ScStore.getBoolean(ScConstant.BLUETOOTH_WAKE_SWITCH, false)
+        set(value) { ScStore.putBoolean(ScConstant.BLUETOOTH_WAKE_SWITCH, value) }
+
+    var bluetoothWakeDevices: Set<String>
+        get() = (ScStore.getString(ScConstant.BLUETOOTH_WAKE_DEVICES, "") ?: "")
+            .split(",").filter { it.matches(Regex("[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){5}")) }
+            .map { it.uppercase(java.util.Locale.ROOT) }.toSet()
+        set(value) { ScStore.putString(ScConstant.BLUETOOTH_WAKE_DEVICES, value.sorted().joinToString(",")) }
 
     var chargingOnlySwitch: Boolean
         get() {

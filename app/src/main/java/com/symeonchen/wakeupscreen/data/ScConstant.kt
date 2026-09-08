@@ -4,6 +4,8 @@ package com.symeonchen.wakeupscreen.data
  * Created by SymeonChen on 2019-10-27.
  */
 object ScConstant {
+    const val BLUETOOTH_WAKE_SWITCH = "bluetooth_wake_switch"
+    const val BLUETOOTH_WAKE_DEVICES = "bluetooth_wake_devices"
     const val CUSTOM_STATUS = "custom_status"
     const val WAKE_SCREEN_SECOND = "wake_screen_second"
     const val PROXIMITY_STATUS = "proximity_status"

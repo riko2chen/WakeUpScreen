@@ -81,8 +81,9 @@ class ScSettingFragment : ScBaseFragment() {
         }
         when (val result = SettingsBackup.import(raw)) {
             is SettingsBackup.ImportResult.Success -> {
-                // Language and dark mode are the two settings whose effect is
-                // not read lazily; everything else applies on next read.
+                // Reconcile active Bluetooth monitoring without requesting permission.
+                com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor
+                    .settingsChanged(requireContext().applicationContext)
                 DataInjection.languageSelected.applyLanguage()
                 DataInjection.darkModeSelected.applyDarkMode()
                 ToastUtils.showShort(getString(R.string.backup_import_success, result.applied))

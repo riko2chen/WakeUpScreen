@@ -1,0 +1,21 @@
+<resources>
+    <string name="bluetooth_wake_title">Condizione Bluetooth</string>
+    <string name="bluetooth_wake_desc">Attiva lo schermo solo se almeno un dispositivo associato selezionato è connesso. Vale per notifiche, promemoria e Bagliore notturno.</string>
+    <string name="bluetooth_wake_off">Disattivata · il Bluetooth non limita le attivazioni.</string>
+    <string name="bluetooth_wake_unavailable">Bluetooth non disponibile · attivazioni bloccate.</string>
+    <string name="bluetooth_wake_permission">Autorizzazione Dispositivi nelle vicinanze assente o revocata · attivazioni bloccate. Concedila nelle impostazioni o disattiva questa regola.</string>
+    <string name="bluetooth_wake_disabled">Bluetooth spento · attivazioni bloccate.</string>
+    <string name="bluetooth_wake_empty">Nessun dispositivo selezionato · attivazioni bloccate.</string>
+    <string name="bluetooth_wake_ready">Dispositivo selezionato connesso · il Bluetooth consente le attivazioni.</string>
+    <string name="bluetooth_wake_blocked">Nessuna connessione selezionata rilevata · attivazioni bloccate.</string>
+    <string name="bluetooth_wake_permission_settings">Autorizzazioni app</string>
+    <string name="bluetooth_wake_system_settings">Impostazioni Bluetooth</string>
+    <string name="bluetooth_wake_scope">All’avvio vengono controllate le connessioni audio e BLE già attive. Altri dispositivi possono richiedere una riconnessione con questa regola attiva. Android non espone tutte le connessioni: quelle non rilevate bloccano le attivazioni. Associa i dispositivi nelle impostazioni Bluetooth. Le selezioni ripristinate devono essere associate anche qui.</string>
+    <string name="bluetooth_wake_devices">Dispositivi selezionati (ne basta uno)</string>
+    <string name="bluetooth_wake_no_paired">Nessun dispositivo associato. Associane uno nelle impostazioni Bluetooth.</string>
+    <string name="bluetooth_wake_connected">Connesso</string>
+    <string name="bluetooth_wake_not_detected">Connessione non rilevata</string>
+    <string name="bluetooth_wake_unpaired">Non più associato · attivazioni bloccate</string>
+    <string name="bluetooth_wake_unknown">Associazione e connessione non disponibili</string>
+    <string name="bluetooth_wake_clear">Cancella selezione</string>
+</resources>

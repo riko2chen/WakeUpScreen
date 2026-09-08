@@ -113,6 +113,8 @@ object SettingsBackup {
         CatalogEntry(ScConstant.SLEEP_MODE_SEGMENTS, SettingType.STRING),
         CatalogEntry(ScConstant.DND_DETECT_SWITCH, SettingType.BOOL),
         CatalogEntry(ScConstant.CHARGING_ONLY_SWITCH, SettingType.BOOL),
+        CatalogEntry(ScConstant.BLUETOOTH_WAKE_SWITCH, SettingType.BOOL),
+        CatalogEntry(ScConstant.BLUETOOTH_WAKE_DEVICES, SettingType.STRING),
         CatalogEntry(ScConstant.REPEAT_REMINDER_SWITCH, SettingType.BOOL),
         CatalogEntry(ScConstant.REPEAT_REMINDER_INTERVAL_MINUTES, SettingType.INT),
         CatalogEntry(ScConstant.REPEAT_REMINDER_MAX_ROUNDS, SettingType.INT),

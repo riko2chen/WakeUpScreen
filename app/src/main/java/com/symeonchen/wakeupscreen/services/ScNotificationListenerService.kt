@@ -48,12 +48,14 @@ class ScNotificationListenerService : NotificationListenerService() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.acquire(applicationContext, this)
         // The attention statistic needs the unlock broadcast in the same
         // process that records the wakes; this service is that process.
         AttentionTracker.register(applicationContext)
     }
 
     override fun onDestroy() {
+        com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.release(this)
         serviceScope.cancel()
         pendingNotifications.clear()
         super.onDestroy()
@@ -63,6 +65,7 @@ class ScNotificationListenerService : NotificationListenerService() {
 
     override fun onListenerConnected() {
         super.onListenerConnected()
+        com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.acquire(applicationContext, this)
         // Also covers the post-reboot case: the system rebinds the listener and
         // any reminder alarm that was lost with the restart is re-armed here.
         ReminderEngine.onListenerConnected(applicationContext, safeActiveNotifications())
@@ -80,6 +83,7 @@ class ScNotificationListenerService : NotificationListenerService() {
 
     override fun onListenerDisconnected() {
         super.onListenerDisconnected()
+        com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.release(this)
         serviceScope.launch { pendingNotifications.clear() }
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
