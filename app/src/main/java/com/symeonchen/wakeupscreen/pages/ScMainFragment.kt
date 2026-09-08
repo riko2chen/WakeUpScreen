@@ -33,6 +33,7 @@ import com.symeonchen.wakeupscreen.states.NotificationState.Companion.openNotifi
 import com.symeonchen.wakeupscreen.states.PermissionState
 import com.symeonchen.wakeupscreen.states.FaceDownSensorState
 import com.symeonchen.wakeupscreen.states.ProximitySensorState
+import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
 import com.symeonchen.wakeupscreen.utils.ElapsedTimeBucket
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.coroutines.launch
@@ -163,6 +164,7 @@ class ScMainFragment : ScBaseFragment() {
     private fun handleToggle() {
         val status = settingModel.switchOfApp.value ?: false
         settingModel.switchOfApp.postValue(!status)
+        ReminderEngine.onSettingsChanged(requireContext())
         if (status) {
             closeNotificationService(context)
             statusModel.statusOfService.postValue(false)

@@ -169,9 +169,7 @@ class ScNotificationListenerService : NotificationListenerService() {
     ) {
         val channelInfo = channelInfoOf(sbn)
 
-        // A new message restarts the reminder streak whatever the outcome
-        // below: if the screen does not light up now, the reminder is the only
-        // thing that will bring it up later.
+        // Join the shared reminder batch without postponing its pending deadline.
         ReminderEngine.onNotificationPosted(applicationContext, sbn)
 
         //Pre check for better performance

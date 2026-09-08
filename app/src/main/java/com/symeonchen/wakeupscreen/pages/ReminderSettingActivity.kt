@@ -41,7 +41,7 @@ class ReminderSettingActivity : ScBaseActivity() {
                             settingModel.repeatReminderIntervalMinutes.postValue(minutes)
                             // Re-arm so the change takes effect now rather than
                             // after the reminder already in flight has fired.
-                            ReminderEngine.onIntervalChanged(applicationContext)
+                            ReminderEngine.onIntervalChanged(applicationContext, minutes)
                         }
                     },
                     maxRounds = maxRounds,
@@ -49,6 +49,7 @@ class ReminderSettingActivity : ScBaseActivity() {
                     unlimitedRoundsValue = ScConstant.REPEAT_REMINDER_ROUNDS_UNLIMITED,
                     onMaxRoundsChange = { rounds ->
                         settingModel.repeatReminderMaxRounds.postValue(rounds)
+                        ReminderEngine.onMaxRoundsChanged(applicationContext, rounds)
                     },
                 )
             }
