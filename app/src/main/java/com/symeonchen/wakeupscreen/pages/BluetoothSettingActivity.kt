@@ -72,6 +72,7 @@ class BluetoothSettingActivity : ScBaseActivity() {
                             !snapshot.powered -> R.string.bluetooth_wake_disabled
                             selected.isEmpty() -> R.string.bluetooth_wake_empty
                             snapshot.allows(true, selected) -> R.string.bluetooth_wake_ready
+                            snapshot.needsStartupWait(true, selected) -> R.string.bluetooth_wake_initializing
                             else -> R.string.bluetooth_wake_blocked
                         }), modifier = Modifier.padding(vertical = 12.dp))
                         if (enabled && !snapshot.permitted) {

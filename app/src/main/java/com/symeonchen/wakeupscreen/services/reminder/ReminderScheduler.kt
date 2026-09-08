@@ -28,11 +28,19 @@ object ReminderScheduler {
 
     /** Arms the next reminder, replacing any alarm already pending. */
     fun scheduleNext(context: Context) {
-        val alarmManager = context.alarmManager() ?: return
         val intervalMillis = TimeUnit.MINUTES.toMillis(
             DataInjection.repeatReminderIntervalMinutes.toLong()
         )
-        val triggerAt = System.currentTimeMillis() + intervalMillis
+        scheduleAt(context, System.currentTimeMillis() + intervalMillis)
+    }
+
+    /** Short retry for an initializing wake rule; preserves the current reminder round. */
+    fun scheduleRetry(context: Context, delayMillis: Long) {
+        scheduleAt(context, System.currentTimeMillis() + delayMillis.coerceAtLeast(1L))
+    }
+
+    private fun scheduleAt(context: Context, triggerAt: Long) {
+        val alarmManager = context.alarmManager() ?: return
         try {
             alarmManager.setAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,

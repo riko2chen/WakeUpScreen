@@ -18,4 +18,5 @@
     <string name="bluetooth_wake_unpaired">Non più associato · attivazioni bloccate</string>
     <string name="bluetooth_wake_unknown">Associazione e connessione non disponibili</string>
     <string name="bluetooth_wake_clear">Cancella selezione</string>
+    <string name="bluetooth_wake_initializing">Verifica delle connessioni Bluetooth esistenti…</string>
 </resources>

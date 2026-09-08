@@ -9,6 +9,7 @@ import com.symeonchen.wakeupscreen.data.LogTrigger
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
 import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor
 import com.symeonchen.wakeupscreen.services.ScNotificationListenerService
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
@@ -79,6 +80,16 @@ object ReminderEngine {
 
         if (result.state == ConditionState.BLOCK) {
             val reason = result.blockingCondition ?: ""
+            if (reason == BlockReason.BLUETOOTH) {
+                val startupDelay = BluetoothConnectionMonitor.startupRetryDelayMillis(appContext)
+                if (startupDelay > 0L) {
+                    // Initial profile discovery is not a disconnected-device verdict.
+                    // Retry once near its bounded deadline, without consuming a round.
+                    // The next alarm rechecks unread notifications and the entire chain.
+                    ReminderScheduler.scheduleRetry(appContext, startupDelay)
+                    return
+                }
+            }
             // The streak is deliberately kept alive here. Every one of these
             // conditions is temporary — the phone comes out of the pocket, the
             // sleep window ends — and stopping on the first block would mean

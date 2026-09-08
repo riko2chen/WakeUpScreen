@@ -18,4 +18,5 @@
     <string name="bluetooth_wake_unpaired">已取消配對 · 不允許喚醒</string>
     <string name="bluetooth_wake_unknown">無法確認配對和連線狀態</string>
     <string name="bluetooth_wake_clear">清除選取</string>
+    <string name="bluetooth_wake_initializing">正在檢查現有藍牙連線…</string>
 </resources>

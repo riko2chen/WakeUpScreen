@@ -18,4 +18,5 @@
     <string name="bluetooth_wake_unpaired">เลิกจับคู่แล้ว · ไม่อนุญาตให้ปลุก</string>
     <string name="bluetooth_wake_unknown">ไม่สามารถตรวจการจับคู่และการเชื่อมต่อได้</string>
     <string name="bluetooth_wake_clear">ล้างการเลือก</string>
+    <string name="bluetooth_wake_initializing">กำลังตรวจสอบการเชื่อมต่อ Bluetooth ที่มีอยู่…</string>
 </resources>

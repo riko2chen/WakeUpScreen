@@ -18,4 +18,5 @@
     <string name="bluetooth_wake_unpaired">페어링 해제됨 · 화면 켜짐 허용 안 함</string>
     <string name="bluetooth_wake_unknown">페어링 및 연결 확인 불가</string>
     <string name="bluetooth_wake_clear">선택 지우기</string>
+    <string name="bluetooth_wake_initializing">기존 Bluetooth 연결 확인 중…</string>
 </resources>

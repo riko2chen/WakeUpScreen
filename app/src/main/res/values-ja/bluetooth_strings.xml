@@ -18,4 +18,5 @@
     <string name="bluetooth_wake_unpaired">ペア設定解除済み · 点灯は許可されません</string>
     <string name="bluetooth_wake_unknown">ペア設定と接続を確認できません</string>
     <string name="bluetooth_wake_clear">選択を解除</string>
+    <string name="bluetooth_wake_initializing">既存のBluetooth接続を確認中…</string>
 </resources>
