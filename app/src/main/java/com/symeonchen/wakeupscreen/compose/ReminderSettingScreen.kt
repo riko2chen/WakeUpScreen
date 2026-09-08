@@ -151,88 +151,6 @@ fun ReminderSettingScreen(
 }
 
 @Composable
-private fun IntervalCard(
-    intervalMinutes: Int,
-    intervalOptions: List<Int>,
-    onIntervalChange: (Int) -> Unit,
-    onHelpClick: () -> Unit,
-) {
-    Surface(
-        shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        tonalElevation = 0.dp,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Text(
-                text = stringResource(R.string.reminder_interval_title),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-            Spacer(Modifier.height(12.dp))
-            Text(
-                text = intervalText(intervalMinutes),
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-            )
-
-            // A plain 5..60 slider would put most of its travel in values no
-            // one picks, so it steps through the preset list instead.
-            val selectedIndex = intervalOptions.indexOf(intervalMinutes)
-                .takeIf { it >= 0 } ?: 0
-            Slider(
-                value = selectedIndex.toFloat(),
-                onValueChange = { raw ->
-                    val index = raw.toInt().coerceIn(0, intervalOptions.lastIndex)
-                    onIntervalChange(intervalOptions[index])
-                },
-                valueRange = 0f..intervalOptions.lastIndex.toFloat(),
-                steps = (intervalOptions.size - 2).coerceAtLeast(0),
-                colors = SliderDefaults.colors(
-                    thumbColor = MaterialTheme.colorScheme.primary,
-                    activeTrackColor = MaterialTheme.colorScheme.primary,
-                ),
-                modifier = Modifier.padding(top = 8.dp),
-            )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(
-                    text = intervalText(intervalOptions.first()),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Text(
-                    text = intervalText(intervalOptions.last()),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-
-            Spacer(Modifier.height(16.dp))
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = stringResource(R.string.reminder_delay_notice),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    lineHeight = 18.sp,
-                    modifier = Modifier.weight(1f),
-                )
-                HelpButton(
-                    onClick = onHelpClick,
-                    onClickLabel = stringResource(R.string.reminder_delay_help_title),
-                    modifier = Modifier.padding(start = 8.dp),
-                )
-            }
-        }
-    }
-}
-
-@Composable
 private fun MaxRoundsCard(
     maxRounds: Int,
     maxRoundsOptions: List<Int>,
@@ -351,7 +269,7 @@ private fun PriorityCard() {
 }
 
 @Composable
-private fun intervalText(minutes: Int): String =
+internal fun intervalText(minutes: Int): String =
     if (minutes >= 60 && minutes % 60 == 0) {
         stringResource(R.string.reminder_interval_hours_value, minutes / 60)
     } else {

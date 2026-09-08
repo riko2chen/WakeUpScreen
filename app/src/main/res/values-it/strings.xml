@@ -203,7 +203,7 @@
     <string name="reminder_interval_title">Intervallo del promemoria</string>
     <string name="reminder_interval_minutes_value">%1$d min</string>
     <string name="reminder_interval_hours_value">%1$d ora</string>
-    <string name="reminder_delay_notice">Il promemoria può arrivare un po\' più tardi dell\'intervallo impostato.</string>
+    <string name="reminder_delay_notice">La tempistica è approssimativa. Le restrizioni della batteria di Android possono ritardare i promemoria.</string>
     <string name="reminder_delay_help_title">Perché il promemoria può arrivare in ritardo?</string>
     <string name="reminder_delay_help_body">Android ha una modalità di risparmio energetico chiamata Doze. Quando il telefono resta fermo con lo schermo spento per un po\', il sistema trattiene le attività in background e le esegue a gruppi per risparmiare batteria.\n\nPer questo un promemoria può arrivare qualche minuto dopo l\'intervallo scelto, e più l\'intervallo è breve più la cosa si nota. Riguarda tutte le app e nessuna può sottrarsi.\n\nTenere il telefono in carica, o escludere questa app dall\'ottimizzazione della batteria nelle impostazioni di sistema, rende i promemoria più puntuali.</string>
     <string name="reminder_max_rounds_title">Numero massimo di promemoria</string>
@@ -410,4 +410,8 @@
     <string name="reminder_duration_inherit">Come la notifica iniziale</string>
     <string name="reminder_duration_custom">Durata personalizzata</string>
     <string name="reminder_duration_permission_notice">La durata personalizzata dei promemoria richiede l’accesso di accessibilità. Finché il servizio non è abilitato e connesso, i promemoria usano il timeout dello schermo di sistema.</string>
+    <string name="reminder_interval_custom">Personalizzato</string>
+    <string name="reminder_interval_custom_title">Intervallo personalizzato</string>
+    <string name="reminder_interval_minutes_label">Minuti</string>
+    <string name="reminder_interval_custom_range">Inserisci un numero intero da 5 a 1440 minuti (24 ore).</string>
 </resources>

@@ -189,7 +189,7 @@
     <string name="reminder_interval_title">알림 간격</string>
     <string name="reminder_interval_minutes_value">%1$d분</string>
     <string name="reminder_interval_hours_value">%1$d시간</string>
-    <string name="reminder_delay_notice">설정한 간격보다 조금 늦게 알림이 올 수 있습니다.</string>
+    <string name="reminder_delay_notice">알림 시간은 대략적인 시간입니다. Android 배터리 제한으로 알림이 지연될 수 있습니다.</string>
     <string name="reminder_delay_help_title">알림이 늦어지는 이유는?</string>
     <string name="reminder_delay_help_body">Android에는 Doze(절전 대기)라는 배터리 절약 기능이 있습니다. 기기를 한동안 사용하지 않고 화면이 꺼져 있으면, 시스템은 백그라운드 작업을 모아 두었다가 한꺼번에 실행해 전력을 아낍니다.\n\n그래서 설정한 간격보다 몇 분 늦게 알림이 올 수 있으며, 간격이 짧을수록 더 눈에 띕니다. 모든 앱에 똑같이 적용되며 예외는 없습니다.\n\n기기를 충전기에 연결해 두거나, 시스템 설정에서 이 앱을 배터리 최적화 대상에서 제외하면 알림이 더 정확한 시간에 도착합니다.</string>
     <string name="reminder_max_rounds_title">최대 알림 횟수</string>
@@ -396,4 +396,8 @@
     <string name="reminder_duration_inherit">최초 알림과 동일</string>
     <string name="reminder_duration_custom">사용자 지정 시간</string>
     <string name="reminder_duration_permission_notice">리마인더 시간을 직접 설정하려면 접근성 권한이 필요합니다. 서비스가 활성화되고 연결될 때까지 리마인더는 시스템 화면 꺼짐 시간을 사용합니다.</string>
+    <string name="reminder_interval_custom">직접 설정</string>
+    <string name="reminder_interval_custom_title">알림 간격 직접 설정</string>
+    <string name="reminder_interval_minutes_label">분</string>
+    <string name="reminder_interval_custom_range">5~1440분(24시간) 사이의 정수를 입력하세요.</string>
 </resources>
