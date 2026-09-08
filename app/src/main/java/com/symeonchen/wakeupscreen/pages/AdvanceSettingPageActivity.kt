@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.pages
 
+import com.symeonchen.wakeupscreen.services.reminder.ReminderAppSelectionController
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.getValue
@@ -253,9 +254,10 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                         confirmText = stringResource(R.string.ok),
                         onSelect = { idx ->
                             showModeDialog = false
-                            settingModel.modeOfCurrent.postValue(
+                            settingModel.modeOfCurrent.setValue(
                                 CurrentMode.getModeFromValue(idx)
                             )
+                            ReminderAppSelectionController.onChanged(applicationContext)
                         },
                         onDismiss = { showModeDialog = false },
                     )
