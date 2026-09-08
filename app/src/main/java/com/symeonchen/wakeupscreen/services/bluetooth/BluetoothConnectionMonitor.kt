@@ -117,7 +117,7 @@ object BluetoothConnectionMonitor {
                 }
             }
             val profiles = mutableListOf(BluetoothProfile.A2DP, BluetoothProfile.HEADSET)
-            if (Build.VERSION.SDK_INT >= 28) profiles.add(BluetoothProfile.HEARING_AID)
+            if (Build.VERSION.SDK_INT >= 29) profiles.add(BluetoothProfile.HEARING_AID)
             if (Build.VERSION.SDK_INT >= 33) profiles.add(BluetoothProfile.LE_AUDIO)
             discovery.begin(profiles)
             for (profile in profiles) {
