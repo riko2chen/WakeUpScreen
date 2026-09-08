@@ -18,4 +18,5 @@
     <string name="bluetooth_wake_unpaired">No longer paired · does not allow wakes</string>
     <string name="bluetooth_wake_unknown">Pairing and connection unavailable</string>
     <string name="bluetooth_wake_clear">Clear selection</string>
+    <string name="bluetooth_wake_initializing">Checking existing Bluetooth connections…</string>
 </resources>

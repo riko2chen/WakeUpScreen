@@ -35,6 +35,12 @@ object ReminderScheduler {
         arm(context, System.currentTimeMillis() + intervalMillis)
     }
 
+    /** Retry discovery without resetting the batch count; persist its replacement deadline. */
+    @Synchronized
+    fun scheduleRetry(context: Context, delayMillis: Long) {
+        arm(context, System.currentTimeMillis() + delayMillis.coerceIn(1L, 1500L))
+    }
+
     private fun arm(context: Context, triggerAt: Long) {
         val alarmManager = context.alarmManager() ?: return
         try {

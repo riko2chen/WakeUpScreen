@@ -27,3 +27,13 @@ Physical hardware checks still required:
 - During a sleep window with Night Glow enabled, confirm a blocked Bluetooth condition suppresses notifications and repeat reminders.
 - Repeat on API 23–30 (legacy Bluetooth permission) and API 31+ (Nearby devices runtime permission).
 - Inspect an unsupported-profile device already connected before monitoring: the UI must report undetected rather than imply all paired devices are connected.
+
+## Bounded startup discovery
+
+Profile proxies load asynchronously. Pending initialization now has a fixed 1.5-second deadline and is distinct from a known disconnected state. A selected paired device can finish this wait as soon as its connection is detected, without waiting for unrelated profile callbacks. Failed requests, radio/permission loss, empty selections, and unpaired selections do not cause a wait.
+
+Notifications arriving during initialization are retained in one short-lived batch. Updates replace their payload without extending the wait. On completion or timeout, the listener fetches active notifications again, drops dismissed notifications, reevaluates all rules, and produces at most one wake or Night Glow. A timeout never allows a wake by itself, and a later connection does not replay the old batch. Listener disconnect/destruction cancels the batch.
+
+A repeat reminder blocked solely by pending Bluetooth discovery schedules a short retry near that deadline without consuming a round, rather than waiting the full configured interval. The next alarm checks active notifications and every wake rule again. This uses `ReminderScheduler.scheduleRetry(context, delayMillis)`; integration with the reliability branch must use its persisted deadline and normal alarm replacement logic. Android may still defer an inexact alarm during Doze.
+
+Added deterministic discovery/queue tests cover async readiness, fixed timeout under updates, canceled work, denied/unpaired/empty states, fresh payloads, dismissal, changed rules, and one-wake batch coalescing. These tests await the parent task’s coordinated build.

@@ -8,6 +8,7 @@ import com.symeonchen.wakeupscreen.data.LogStatus
 import com.symeonchen.wakeupscreen.data.LogTrigger
 import com.symeonchen.wakeupscreen.data.NotificationLogEntry
 import com.symeonchen.wakeupscreen.data.NotificationLogStore
+import com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor
 import com.symeonchen.wakeupscreen.services.ScNotificationListenerService
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
@@ -87,6 +88,16 @@ object ReminderEngine {
 
         if (result.state == ConditionState.BLOCK) {
             val reason = result.blockingCondition ?: ""
+            if (reason == BlockReason.BLUETOOTH) {
+                val startupDelay = BluetoothConnectionMonitor.startupRetryDelayMillis(appContext)
+                if (startupDelay > 0L) {
+                    // Initial profile discovery is not a disconnected-device verdict.
+                    // Retry once near its bounded deadline, without consuming a round.
+                    // The next alarm rechecks unread notifications and the entire chain.
+                    ReminderScheduler.scheduleRetry(appContext, startupDelay)
+                    return
+                }
+            }
             // Keep the batch alive without consuming a round. Global gates may
             // clear later, and notification/channel eligibility can change too.
             // Retry once after the interval, never once per blocked candidate.
