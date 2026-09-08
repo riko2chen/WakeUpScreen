@@ -410,8 +410,9 @@ object DataInjection {
 
     /**
      * How many reminders the current unread streak has already fired. Runtime
-     * state rather than a user setting; reset whenever the streak ends or a new
-     * notification arrives.
+     * state rather than a user setting; retained at the round limit until all
+     * relevant notifications are dismissed or reminders are disabled. Posts and
+     * updates join the current batch without resetting it.
      */
     var repeatReminderRoundCount: Int
         get() {
