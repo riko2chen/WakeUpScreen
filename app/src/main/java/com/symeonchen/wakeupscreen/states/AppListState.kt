@@ -35,7 +35,6 @@ class AppListState {
                     }
                     appInfo.simpleName = _app.loadLabel(appContext.packageManager).toString()
                     appInfo.packageName = _app.packageName
-                    appInfo.iconDrawable = _app.loadIcon(appContext.packageManager)
                     appList.add(appInfo)
                 }
             } catch (e: Exception) {

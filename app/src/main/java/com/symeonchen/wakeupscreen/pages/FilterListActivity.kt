@@ -17,7 +17,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
-import com.bumptech.glide.Glide
+import androidx.lifecycle.lifecycleScope
+import com.symeonchen.wakeupscreen.utils.AppIconLoader
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.ScBaseActivity
 import com.symeonchen.wakeupscreen.data.AppInfo
@@ -89,7 +95,7 @@ class FilterListActivity : ScBaseActivity() {
             resources.getString(R.string.white_list)
         }
 
-        adapter = WhiteListViewAdapter(binding.rvAppList, mutableListOf())
+        adapter = WhiteListViewAdapter(this, lifecycleScope)
         binding.rvAppList.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.rvAppList.adapter = adapter
 
@@ -100,6 +106,7 @@ class FilterListActivity : ScBaseActivity() {
         }
         binding.tvLogHeadHint.text = hints
 
+        applyLightStatusBarIcons(false) // The header gradient is dark in both themes.
         applyWindowInsets()
     }
 
@@ -110,11 +117,17 @@ class FilterListActivity : ScBaseActivity() {
     private fun applyWindowInsets() {
         val baseHeaderHeight = binding.llHeader.layoutParams.height
         val baseListPaddingBottom = binding.rvAppList.paddingBottom
+        val baseLeft = binding.root.paddingLeft
+        val baseRight = binding.root.paddingRight
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
-            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+            binding.root.updatePadding(left = baseLeft + bars.left, right = baseRight + bars.right)
             binding.llHeader.updateLayoutParams { height = baseHeaderHeight + bars.top }
             binding.llHeader.updatePadding(top = bars.top)
-            binding.rvAppList.updatePadding(bottom = baseListPaddingBottom + bars.bottom)
+            binding.rvAppList.updatePadding(bottom = baseListPaddingBottom + maxOf(bars.bottom, ime.bottom))
             insets
         }
     }
@@ -139,12 +152,8 @@ class FilterListActivity : ScBaseActivity() {
 
     private fun setViewModelListener() {
         viewModel?.visibleList?.observe(this, Observer {
-            if (it.size > 0) {
-                UiTools.instance.hideLoading()
-                adapter?.dataList?.clear()
-                adapter?.dataList?.addAll(it)
-                adapter?.notifyDataSetChanged()
-            }
+            UiTools.instance.hideLoading()
+            adapter?.submitList(it)
         })
     }
 
@@ -154,6 +163,8 @@ class FilterListActivity : ScBaseActivity() {
     }
 
     override fun onDestroy() {
+        adapter?.close()
+        binding.rvAppList.adapter = null
         try {
             binding.etSearchFilter.removeTextChangedListener(textWatcher)
         } catch (e: Exception) {
@@ -162,50 +173,66 @@ class FilterListActivity : ScBaseActivity() {
         super.onDestroy()
     }
 
-    class WhiteListViewAdapter(recyclerView: RecyclerView, dataList: List<AppInfo>?) :
+    class WhiteListViewAdapter(context: Context, parentScope: CoroutineScope) :
         RecyclerView.Adapter<WhiteListViewAdapter.WhiteListHolder>() {
 
-        private var mContext: Context? = null
-        var dataList: MutableList<AppInfo> = arrayListOf()
+        private val dataList = mutableListOf<AppInfo>()
+        private val iconLoader = AppIconLoader(context)
+        private val iconScope = CoroutineScope(
+            parentScope.coroutineContext + SupervisorJob(parentScope.coroutineContext[Job])
+        )
 
-        init {
-            mContext = recyclerView.context
-            this.dataList.clear()
-            this.dataList.addAll(dataList ?: arrayListOf())
+        fun submitList(items: List<AppInfo>) {
+            dataList.clear()
+            dataList.addAll(items)
+            notifyDataSetChanged()
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WhiteListHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WhiteListHolder =
+            WhiteListHolder(ItemWhiteListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-            val v = LayoutInflater.from(mContext).inflate(R.layout.item_white_list, parent, false)
-            return WhiteListHolder(ItemWhiteListBinding.bind(v))
-        }
-
-        override fun getItemCount(): Int {
-            return this.dataList.size
-        }
+        override fun getItemCount(): Int = dataList.size
 
         override fun onBindViewHolder(holder: WhiteListHolder, position: Int) {
-            holder.binding.tvAppSimpleName.text = this.dataList[position].simpleName
-            holder.binding.tvAppPackageName.text = this.dataList[position].packageName
-            holder.binding.cbAppSelect.isChecked = this.dataList[position].selected
-            try {
-                Glide.with(mContext!!)
-                    .load(dataList[position].iconDrawable)
-                    .into(holder.binding.ivAppIcon)
-            } catch (e: Exception) {
-                e.printStackTrace()
+            val item = dataList[position]
+            holder.binding.tvAppSimpleName.text = item.simpleName
+            holder.binding.tvAppPackageName.text = item.packageName
+            holder.binding.cbAppSelect.isChecked = item.selected
+            holder.iconJob?.cancel()
+            holder.binding.ivAppIcon.setImageDrawable(null)
+            // The XML defines the actual display size, including device density.
+            val sizePx = holder.binding.ivAppIcon.layoutParams.width.coerceAtLeast(1)
+            holder.iconJob = iconScope.launch {
+                val bitmap = iconLoader.load(item.packageName, sizePx)
+                holder.binding.ivAppIcon.setImageBitmap(bitmap)
             }
-            holder.itemView.setOnClickListener {
-                this.dataList[position].selected = !this.dataList[position].selected
-                notifyItemChanged(position, this.dataList[position])
+            val toggle = {
+                val currentPosition = holder.bindingAdapterPosition
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    val currentItem = dataList[currentPosition]
+                    currentItem.selected = !currentItem.selected
+                    holder.binding.cbAppSelect.isChecked = currentItem.selected
+                }
             }
-            holder.binding.cbAppSelect.setOnClickListener {
-                this.dataList[position].selected = !this.dataList[position].selected
-                notifyItemChanged(position, this.dataList[position])
-            }
+            holder.itemView.setOnClickListener { toggle() }
+            holder.binding.cbAppSelect.setOnClickListener { toggle() }
         }
 
-        class WhiteListHolder(var binding: ItemWhiteListBinding) : RecyclerView.ViewHolder(binding.root)
+        override fun onViewRecycled(holder: WhiteListHolder) {
+            holder.iconJob?.cancel()
+            holder.iconJob = null
+            holder.binding.ivAppIcon.setImageDrawable(null)
+            super.onViewRecycled(holder)
+        }
 
+        fun close() {
+            iconScope.cancel()
+            iconLoader.close()
+            dataList.clear()
+        }
+
+        class WhiteListHolder(val binding: ItemWhiteListBinding) : RecyclerView.ViewHolder(binding.root) {
+            var iconJob: Job? = null
+        }
     }
 }

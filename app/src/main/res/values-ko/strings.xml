@@ -402,4 +402,14 @@
     <string name="reminder_interval_custom_range">5~1440분(24시간) 사이의 정수를 입력하세요.</string>
     <string name="reminder_vibration_title">알림 반복 시 진동</string>
     <string name="reminder_vibration_desc">반복 알림으로 화면이 켜질 때 짧게 한 번 진동합니다. 방해 금지 및 무음 모드를 따릅니다.</string>
+    <string name="changelog_v43000_1">시스템 표시줄, 카메라 홀, 키보드에 콘텐츠가 가려지지 않도록 전체 화면 레이아웃 개선</string>
+    <string name="changelog_v43000_2">앱 목록의 아이콘을 필요할 때 불러와 메모리 사용량 절감</string>
+    <string name="changelog_v43000_3">앱 정보 화면에서 적응형 아이콘을 불러올 때 발생하는 종료 문제 수정</string>
+    <string name="changelog_v43000_4">반복 알림을 받을 앱을 별도로 선택할 수 있습니다. 최초 화면 켜기의 앱 필터는 계속 적용되며, 선택한 앱이 없으면 반복 알림이 중지됩니다</string>
+    <string name="changelog_v43000_5">반복 알림 간격을 5~1440분(24시간)으로 직접 설정할 수 있습니다. Android 절전 기능으로 실제 실행이 지연될 수 있습니다</string>
+    <string name="changelog_v43000_6">반복 알림의 화면 켜짐 시간을 5~30초로 별도 설정하거나 최초 알림 설정을 사용할 수 있습니다. Android 9 이상에서는 별도 시간 설정에 접근성 서비스가 필요하며, 사용할 수 없으면 시스템 화면 꺼짐 시간을 따릅니다</string>
+    <string name="changelog_v43000_7">반복 알림에 짧은 진동을 추가할 수 있습니다. 기본값은 꺼짐이며 방해 금지 및 무음 모드를 따릅니다</string>
+    <string name="changelog_v43000_8">Bluetooth 화면 켜기 조건 추가: 선택한 페어링 기기 중 하나 이상이 연결된 경우에만 최초 알림과 반복 알림으로 화면을 켭니다. 기본값은 꺼짐이며, 활성화 후 권한이 없거나 연결을 감지하지 못하면 화면 켜기를 차단합니다</string>
+    <string name="changelog_v43000_9">공유 반복 알림 주기의 안정성 개선: 알림 업데이트로 반복 알림이 계속 미뤄지거나 필터링된 알림이 같은 묶음의 유효한 알림을 가리는 문제를 수정했습니다</string>
+    <string name="changelog_v43000_10">진동 및 Bluetooth 권한 추가. Android 12 이상에서는 Bluetooth 기능을 활성화할 때 근처 기기 권한을 요청하며, 위치 또는 Bluetooth 검색 권한은 추가하지 않습니다</string>
 </resources>

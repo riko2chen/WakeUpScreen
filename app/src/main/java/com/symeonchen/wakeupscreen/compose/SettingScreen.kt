@@ -3,7 +3,6 @@ package com.symeonchen.wakeupscreen.compose
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
@@ -19,12 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.symeonchen.wakeupscreen.compose.components.ApplicationIcon
 import com.symeonchen.wakeupscreen.R
 import com.symeonchen.wakeupscreen.compose.components.SectionLabel
 import com.symeonchen.wakeupscreen.compose.components.SettingRow
@@ -130,6 +128,7 @@ fun SettingScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
             .verticalScroll(rememberScrollState())
     ) {
         // Header
@@ -139,7 +138,7 @@ fun SettingScreen(
                 .background(MaterialTheme.colorScheme.surfaceContainer)
                 // Bleeds under the status bar; the title sits in a 64dp band
                 // below it (so the total header isn't over-inflated).
-                .statusBarsPadding()
+                .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
                 .height(64.dp),
             contentAlignment = Alignment.BottomCenter,
         ) {
@@ -301,21 +300,7 @@ fun SettingScreen(
                             .padding(horizontal = 20.dp, vertical = 12.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        val context = LocalContext.current
-                        val iconBitmap = remember {
-                            val drawable = context.packageManager.getApplicationIcon(context.packageName)
-                            val size = (72 * context.resources.displayMetrics.density).toInt()
-                            val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
-                            val canvas = android.graphics.Canvas(bitmap)
-                            drawable.setBounds(0, 0, size, size)
-                            drawable.draw(canvas)
-                            bitmap.asImageBitmap()
-                        }
-                        Image(
-                            bitmap = iconBitmap,
-                            contentDescription = stringResource(R.string.app_name),
-                            modifier = Modifier.size(72.dp),
-                        )
+                        ApplicationIcon(size = 72.dp)
                         Spacer(Modifier.height(12.dp))
                         Text(
                             text = stringResource(R.string.app_intro_full),

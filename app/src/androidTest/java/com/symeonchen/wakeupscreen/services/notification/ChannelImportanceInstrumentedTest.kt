@@ -166,6 +166,8 @@ class ChannelImportanceInstrumentedTest {
                 service.activeNotifications?.firstOrNull {
                     it.packageName == context.packageName && it.id == id
                 }?.takeIf {
+                    // The system can expose an active notification before the
+                    // listener's asynchronous RankingMap update arrives.
                     service.channelInfoOf(it).importance != NotificationManager.IMPORTANCE_UNSPECIFIED
                 }
             } catch (_: Exception) {

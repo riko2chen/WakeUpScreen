@@ -404,4 +404,14 @@
     <string name="reminder_interval_custom_range">请输入 5 至 1440 分钟（24 小时）之间的整数。</string>
     <string name="reminder_vibration_title">提醒时振动</string>
     <string name="reminder_vibration_desc">提醒唤醒屏幕时短暂振动一次。遵循系统勿扰和静音模式。</string>
+    <string name="changelog_v43000_1">完善无边框布局，避免系统栏、屏幕挖孔和键盘遮挡内容</string>
+    <string name="changelog_v43000_2">应用列表按需加载图标，减少内存占用</string>
+    <string name="changelog_v43000_3">修复应用介绍页加载自适应图标时的闪退问题</string>
+    <string name="changelog_v43000_4">重复提醒可单独选择应用子集，仍受首次亮屏的应用过滤规则限制；未选择任何应用时暂停提醒</string>
+    <string name="changelog_v43000_5">重复提醒支持自定义 5–1440 分钟（24 小时）间隔；系统省电机制可能延迟实际触发</string>
+    <string name="changelog_v43000_6">重复提醒可独立设置 5–30 秒亮屏时长，也可沿用首次通知设置；Android 9 及以上自定义时长需要无障碍服务，否则按系统超时熄屏</string>
+    <string name="changelog_v43000_7">重复提醒可附带短振动，默认关闭，并遵守系统勿扰和静音模式</string>
+    <string name="changelog_v43000_8">新增蓝牙亮屏条件：所选已配对设备中任意一台连接时，才允许首次通知和重复提醒亮屏。默认关闭；启用后缺少权限或未检测到连接时阻止亮屏</string>
+    <string name="changelog_v43000_9">完善共享提醒周期：通知更新不再不断推迟提醒，同批次中被过滤的通知不再遮蔽其他符合条件的通知</string>
+    <string name="changelog_v43000_10">新增振动和蓝牙权限；Android 12 及以上在启用蓝牙功能时申请附近设备权限，不新增定位或蓝牙扫描权限</string>
 </resources>

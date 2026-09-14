@@ -4,6 +4,24 @@ Tutte le modifiche rilevanti di WakeUpScreen sono documentate qui, organizzate p
 
 ---
 
+## [4.3.0]
+
+- Layout da bordo a bordo migliorato per barre di sistema, fori della fotocamera e tastiera
+- Le icone degli elenchi di app vengono caricate solo quando servono, riducendo la memoria utilizzata
+- Risolto un arresto anomalo nella pagina delle informazioni durante il caricamento delle icone adattive
+- I promemoria ripetuti possono usare un sottoinsieme di app; il filtro del risveglio iniziale resta valido. Una selezione vuota sospende i promemoria
+- Intervalli personalizzati da 5 a 1440 minuti (24 ore); il risparmio energetico di Android può ritardare i promemoria
+- Durata dello schermo acceso indipendente per i promemoria, da 5 a 30 secondi, oppure uguale alla notifica iniziale. Da Android 9, la durata personalizzata richiede il servizio di accessibilità; altrimenti si usa il timeout di sistema
+- Breve vibrazione facoltativa per i promemoria, disattivata per impostazione predefinita e conforme alle modalità Non disturbare e silenziosa
+- Condizione Bluetooth facoltativa: almeno un dispositivo associato selezionato deve essere connesso per consentire il risveglio con notifiche iniziali e promemoria. Disattivata per impostazione predefinita; se attiva, permessi mancanti o connessioni non rilevate bloccano il risveglio
+- Cicli condivisi dei promemoria più affidabili: gli aggiornamenti delle notifiche non rinviano più continuamente i promemoria e una notifica filtrata non nasconde più le altre notifiche idonee del gruppo
+- Aggiunti permessi per vibrazione e Bluetooth. Da Android 12, il permesso Dispositivi nelle vicinanze viene richiesto quando si attiva la funzione Bluetooth; nessun nuovo permesso di posizione o scansione Bluetooth
+- Le nuove impostazioni dei promemoria e del Bluetooth sono incluse nel backup e nel ripristino. App e durata dei promemoria ereditano le impostazioni esistenti per impostazione predefinita
+- Corretti i risultati obsoleti nelle ricerche senza corrispondenze e mantenute le selezioni durante il filtraggio
+- Rimossi Glide e kapt, aggiornati Core, Activity e Material e aggiunte verifiche di rilascio per ottimizzazione R8 e riduzione delle risorse
+
+---
+
 ## [4.1.1]
 
 ### Correzioni

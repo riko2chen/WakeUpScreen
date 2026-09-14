@@ -29,7 +29,7 @@ fun ComposeToolbar(
             // Let the bar bleed under the status bar, but keep the back button
             // and title below it so they aren't hidden by the camera cutout /
             // unreachable behind the status bar (edge-to-edge).
-            .statusBarsPadding()
+            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
             .height(56.dp),
     ) {
         // Back button

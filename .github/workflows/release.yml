@@ -70,7 +70,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease bundleRelease
+        run: ./gradlew assembleRelease :app:verifyReleaseOptimization
 
       - name: Rename APK and AAB
         run: |

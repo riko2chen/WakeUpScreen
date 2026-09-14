@@ -22,7 +22,9 @@ fun CheckUpdateScreen(
     onFDroidClick: () -> Unit,
     onGitHubClick: () -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
+    Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(
+        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+    )) {
         ComposeToolbar(
             title = stringResource(R.string.check_update),
             onBack = onBack,

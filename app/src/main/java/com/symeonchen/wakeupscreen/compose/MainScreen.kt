@@ -58,6 +58,7 @@ fun MainScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
             .verticalScroll(rememberScrollState())
     ) {
         // Hero

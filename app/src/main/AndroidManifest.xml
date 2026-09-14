@@ -35,7 +35,7 @@
         <activity android:name=".pages.BlockChainPageActivity" />
         <activity android:name=".pages.CheckUpdatePageActivity" />
         <activity android:name=".pages.AboutThisPageActivity" />
-        <activity android:name=".pages.FilterListActivity" />
+        <activity android:name=".pages.FilterListActivity" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".pages.AppInfoPageActivity" />
         <activity android:name=".pages.SleepTimeSettingActivity" />
         <activity android:name=".pages.WakeUptimeSettingActivity" />

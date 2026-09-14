@@ -1,6 +1,7 @@
 package com.symeonchen.wakeupscreen.pages
 
-import android.app.Activity
+import androidx.activity.ComponentActivity
+import com.symeonchen.wakeupscreen.utils.enableBlackoutWindow
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -29,7 +30,7 @@ import com.symeonchen.wakeupscreen.utils.ScLog
  * [ScreenOffController] to put the display back out the same way the precise
  * screen-on window does.
  */
-class NightGlowActivity : Activity() {
+class NightGlowActivity : ComponentActivity() {
 
     companion object {
         private const val MODULE = "NightGlow"
@@ -64,6 +65,7 @@ class NightGlowActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableBlackoutWindow()
 
         showOverKeyguardAndTurnScreenOn()
 

@@ -77,7 +77,9 @@ fun WakeUpTimeScreen(
     }
     BackHandler(enabled = true, onBack = leave)
 
-    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
+    Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(
+        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+    )) {
         ComposeToolbar(
             title = stringResource(R.string.time_of_wake_up_screen),
             onBack = leave,

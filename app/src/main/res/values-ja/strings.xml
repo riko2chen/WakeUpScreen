@@ -402,4 +402,14 @@
     <string name="reminder_interval_custom_range">5～1440分（24時間）の整数を入力してください。</string>
     <string name="reminder_vibration_title">リマインダー時に振動</string>
     <string name="reminder_vibration_desc">リマインダーで画面が点灯するときに短く1回振動します。サイレントモードと通知の鳴動制限に従います。</string>
+    <string name="changelog_v43000_1">システムバー、カメラの切り欠き、キーボードに合わせて画面端のレイアウトを改善</string>
+    <string name="changelog_v43000_2">アプリ一覧のアイコンを必要なときに読み込み、メモリ使用量を削減</string>
+    <string name="changelog_v43000_3">アプリ情報画面でアダプティブアイコンを読み込む際のクラッシュを修正</string>
+    <string name="changelog_v43000_4">繰り返しリマインダーの対象アプリを個別に選択可能。初回点灯のアプリフィルターは引き続き適用され、選択が空の場合はリマインダーを停止</string>
+    <string name="changelog_v43000_5">リマインダー間隔を5～1440分（24時間）で指定可能。Androidの省電力機能により実行が遅れる場合があります</string>
+    <string name="changelog_v43000_6">リマインダーの点灯時間を5～30秒で個別に設定、または初回通知の設定を継承可能。Android 9以降では個別設定にユーザー補助サービスが必要で、利用できない場合はシステムの消灯時間を使用</string>
+    <string name="changelog_v43000_7">リマインダーに短い振動を追加可能。初期設定はオフで、サイレントモードと通知の鳴動制限に従います</string>
+    <string name="changelog_v43000_8">Bluetooth点灯条件を追加。選択したペア設定済みデバイスのいずれかが接続中の場合のみ、初回通知とリマインダーによる点灯を許可。初期設定はオフで、有効時に権限がない場合や接続を検出できない場合は点灯を抑止</string>
+    <string name="changelog_v43000_9">共有リマインダー周期の信頼性を改善。通知の更新でリマインダーが繰り返し延期される問題と、除外された通知が同じグループ内の有効な通知を妨げる問題を修正</string>
+    <string name="changelog_v43000_10">振動とBluetoothの権限を追加。Android 12以降ではBluetooth機能を有効にする際に付近のデバイスへのアクセスを要求。位置情報やBluetoothスキャンの権限は追加しません</string>
 </resources>

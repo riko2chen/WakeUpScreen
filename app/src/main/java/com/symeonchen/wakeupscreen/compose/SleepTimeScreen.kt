@@ -43,7 +43,9 @@ fun SleepTimeScreen(
 ) {
     var showAddDialog by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
+    Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(
+        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+    )) {
         ComposeToolbar(
             title = stringResource(R.string.sleep_time),
             onBack = onBack,

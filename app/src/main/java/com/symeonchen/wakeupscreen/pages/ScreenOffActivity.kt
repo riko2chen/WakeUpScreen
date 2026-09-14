@@ -1,6 +1,7 @@
 package com.symeonchen.wakeupscreen.pages
 
-import android.app.Activity
+import androidx.activity.ComponentActivity
+import com.symeonchen.wakeupscreen.utils.enableBlackoutWindow
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -27,7 +28,7 @@ import com.symeonchen.wakeupscreen.utils.ScLog
  * screen only goes black and waits out the normal system timeout. That is the
  * reason the accessibility method exists.
  */
-class ScreenOffActivity : Activity() {
+class ScreenOffActivity : ComponentActivity() {
 
     companion object {
         private const val MODULE = "ScreenOffActivity"
@@ -57,6 +58,7 @@ class ScreenOffActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableBlackoutWindow()
 
         showOverKeyguard()
 
