@@ -233,6 +233,24 @@ class NotificationDecisionInstrumentedTest {
         assertFalse(ongoing.isArmed())
     }
 
+    @Test
+    fun aTransportNotificationIsBlockedEvenWithoutTheOngoingFlag() {
+        DataInjection.ongoingOptimize = true
+        DataInjection.radicalOngoingOptimize = false
+        val notification = Notification.Builder(context)
+            .setSmallIcon(android.R.drawable.ic_media_play)
+            .setContentTitle("Now playing")
+            .setCategory(Notification.CATEGORY_TRANSPORT)
+            .build()
+        val sbn = wrap(notification)
+        assertFalse(sbn.isOngoing)
+        assertTrue(sbn.isClearable)
+        assertEquals(ConditionState.BLOCK, ongoing.provideResult(sbn))
+
+        DataInjection.ongoingOptimize = false
+        assertEquals(ConditionState.SUCCESS, ongoing.provideResult(sbn))
+    }
+
     // endregion
 
     // region helpers

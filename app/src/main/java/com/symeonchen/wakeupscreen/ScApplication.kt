@@ -3,6 +3,7 @@ package com.symeonchen.wakeupscreen
 import android.app.Application
 import com.blankj.utilcode.util.LogUtils
 import com.symeonchen.wakeupscreen.data.ScStore
+import com.symeonchen.wakeupscreen.states.PostureSensorCoordinator
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 /**
@@ -15,6 +16,10 @@ class ScApplication : Application() {
         super.onCreate()
         ScStore.init(this)
         DataInjection.darkModeSelected.applyDarkMode()
+        // Pocket mode has to outlive the UI: the listener service is what
+        // actually decides wakes, and it often comes back in a process that
+        // never opened the home fragment.
+        PostureSensorCoordinator.sync(this)
         filterLog()
     }
 

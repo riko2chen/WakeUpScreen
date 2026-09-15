@@ -3,6 +3,7 @@ package com.symeonchen.wakeupscreen.utils
 import android.app.Notification
 import android.service.notification.StatusBarNotification
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
+import com.symeonchen.wakeupscreen.services.notification.PlaybackNotification
 import com.symeonchen.wakeupscreen.services.notification.conditions.FilterListCondition
 
 /**
@@ -47,6 +48,12 @@ object UnreadNotificationUtils {
     fun isUnread(sbn: StatusBarNotification): Boolean {
         // isClearable already covers both FLAG_ONGOING_EVENT and FLAG_NO_CLEAR.
         if (!sbn.isClearable) {
+            return false
+        }
+        // A now-playing card that happens to be swipeable is still not a
+        // message waiting to be read: counting it would let a long listening
+        // session fire the reminder forever.
+        if (PlaybackNotification.isPlayback(sbn.notification)) {
             return false
         }
         // Group summaries duplicate the children they stand for.

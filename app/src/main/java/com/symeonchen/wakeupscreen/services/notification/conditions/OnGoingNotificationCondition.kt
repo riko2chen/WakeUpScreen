@@ -4,6 +4,8 @@ import android.service.notification.StatusBarNotification
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
+import com.symeonchen.wakeupscreen.services.notification.OngoingNotificationPolicy
+import com.symeonchen.wakeupscreen.services.notification.PlaybackNotification
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 
@@ -15,22 +17,20 @@ class OnGoingNotificationCondition : LimitedCondition.AbstractSbnCondition() {
     override val key = BlockReason.ONGOING
 
     override fun provideResult(sbn: StatusBarNotification?): ConditionState {
-        if (DataInjection.radicalOngoingOptimize) {
-            if (sbn != null && !sbn.isClearable) {
-                return ConditionState.BLOCK
-            }
-        }
-        if (DataInjection.ongoingOptimize) {
-            if (sbn != null && sbn.isOngoing) {
-                return ConditionState.BLOCK
-            }
-        }
-        return ConditionState.SUCCESS
+        val notification = sbn?.notification
+        val blocked = OngoingNotificationPolicy.shouldBlock(
+            isOngoing = sbn?.isOngoing == true,
+            isClearable = sbn?.isClearable != false,
+            isPlayback = PlaybackNotification.isPlayback(notification),
+            blockOngoing = DataInjection.ongoingOptimize,
+            blockNonClearable = DataInjection.radicalOngoingOptimize,
+        )
+        return if (blocked) ConditionState.BLOCK else ConditionState.SUCCESS
     }
 
     override fun isArmed(): Boolean =
         DataInjection.ongoingOptimize || DataInjection.radicalOngoingOptimize
 
     // wouldBlockNow stays null: the verdict depends on the notification's own
-    // ongoing / clearable flags.
+    // ongoing / clearable flags and whether it is a now-playing card.
 }

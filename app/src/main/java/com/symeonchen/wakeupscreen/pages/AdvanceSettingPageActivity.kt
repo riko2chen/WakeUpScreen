@@ -21,8 +21,7 @@ import com.symeonchen.wakeupscreen.data.SleepSegment
 import com.symeonchen.wakeupscreen.model.SettingViewModel
 import com.symeonchen.wakeupscreen.model.ViewModelInjection
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
-import com.symeonchen.wakeupscreen.states.FaceDownSensorState
-import com.symeonchen.wakeupscreen.states.ProximitySensorState
+import com.symeonchen.wakeupscreen.states.PostureSensorCoordinator
 import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.TimeOfDayFormatter
 import com.symeonchen.wakeupscreen.utils.WhatsNewTracker
@@ -120,11 +119,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                     proximitySubtitle = statusText(proximity),
                     onProximityToggle = {
                         settingModel.switchOfProximity.postValue(!proximity)
-                        if (!proximity) {
-                            if (!ProximitySensorState.isRegistered()) ProximitySensorState.registerListener(this)
-                        } else {
-                            if (ProximitySensorState.isRegistered()) ProximitySensorState.unRegisterListener(this)
-                        }
+                        PostureSensorCoordinator.sync(this)
                     },
                     faceDownChecked = faceDown,
                     onFaceDownToggle = {
@@ -132,11 +127,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                         faceDownBadge = false
                         val enabled = !faceDown
                         settingModel.switchOfFaceDown.postValue(enabled)
-                        if (enabled) {
-                            if (!FaceDownSensorState.isRegistered()) FaceDownSensorState.registerListener(this)
-                        } else {
-                            if (FaceDownSensorState.isRegistered()) FaceDownSensorState.unRegisterListener(this)
-                        }
+                        PostureSensorCoordinator.sync(this)
                     },
                     ongoingChecked = ongoing,
                     ongoingSubtitle = statusText(ongoing),

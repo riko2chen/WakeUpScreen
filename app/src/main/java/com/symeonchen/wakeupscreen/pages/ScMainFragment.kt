@@ -31,8 +31,7 @@ import com.symeonchen.wakeupscreen.states.NotificationState
 import com.symeonchen.wakeupscreen.states.NotificationState.Companion.closeNotificationService
 import com.symeonchen.wakeupscreen.states.NotificationState.Companion.openNotificationService
 import com.symeonchen.wakeupscreen.states.PermissionState
-import com.symeonchen.wakeupscreen.states.FaceDownSensorState
-import com.symeonchen.wakeupscreen.states.ProximitySensorState
+import com.symeonchen.wakeupscreen.states.PostureSensorCoordinator
 import com.symeonchen.wakeupscreen.utils.ElapsedTimeBucket
 import com.symeonchen.wakeupscreen.utils.quickStartActivity
 import kotlinx.coroutines.launch
@@ -239,8 +238,7 @@ class ScMainFragment : ScBaseFragment() {
         checkPermission()
         checkStatus()
         checkBatteryOptimization()
-        registerProximitySensor()
-        registerFaceDownSensor()
+        PostureSensorCoordinator.sync(context)
         checkNotificationPermission()
         lastWakeTimestamp.value = NotificationLogStore.lastWakeTimestamp()
     }
@@ -281,17 +279,5 @@ class ScMainFragment : ScBaseFragment() {
         settingModel.permissionOfSendNotification.postValue(v)
         LogUtils.d("isNotificationPermissionOpen is $v")
         return v
-    }
-
-    private fun registerProximitySensor() {
-        if (settingModel.switchOfProximity.value == true && !ProximitySensorState.isRegistered()) {
-            ProximitySensorState.registerListener(context)
-        }
-    }
-
-    private fun registerFaceDownSensor() {
-        if (settingModel.switchOfFaceDown.value == true && !FaceDownSensorState.isRegistered()) {
-            FaceDownSensorState.registerListener(context)
-        }
     }
 }

@@ -6,13 +6,14 @@ import android.hardware.SensorManager
 import com.symeonchen.wakeupscreen.services.ScProximitySensor
 
 /**
- * Created by SymeonChen on 2019-10-27.
+ * Registration bookkeeping for the pocket-mode proximity listener.
  */
 class ProximitySensorState {
     companion object {
         private var proximityListener = ScProximitySensor()
         private var proximitySensor: Sensor? = null
         private var sensorManager: SensorManager? = null
+
         fun registerListener(context: Context?) {
             if (context == null) {
                 return
@@ -25,11 +26,14 @@ class ProximitySensorState {
             if (isRegistered()) {
                 sensorManager?.unregisterListener(proximityListener)
             }
-            proximitySensor = sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-            sensorManager?.registerListener(
+            proximityListener.reset()
+            val sensor = wakeupProximity() ?: return
+            val registered = sensorManager?.registerListener(
                 proximityListener,
-                proximitySensor, SensorManager.SENSOR_DELAY_NORMAL
-            )
+                sensor,
+                SensorManager.SENSOR_DELAY_NORMAL
+            ) == true
+            proximitySensor = if (registered) sensor else null
         }
 
         fun unRegisterListener(context: Context?) {
@@ -41,12 +45,26 @@ class ProximitySensorState {
                     context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
             }
             sensorManager?.unregisterListener(proximityListener)
+            proximityListener.reset()
             proximitySensor = null
         }
 
         fun isRegistered(): Boolean {
             return proximitySensor != null
         }
-    }
 
+        /** False until the wakeup sensor has delivered at least one reading. */
+        fun hasReading(): Boolean = proximityListener.hasReading
+
+        /**
+         * Prefer the wake-up proximity sensor so covering is delivered while
+         * the SoC is asleep. The non-wake-up copy is what used to freeze the
+         * last "far" value for hours in a pocket.
+         */
+        private fun wakeupProximity(): Sensor? {
+            val manager = sensorManager ?: return null
+            return manager.getDefaultSensor(Sensor.TYPE_PROXIMITY, true)
+                ?: manager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+        }
+    }
 }

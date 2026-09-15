@@ -16,6 +16,7 @@ import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.pages.NightGlowActivity
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
+import com.symeonchen.wakeupscreen.states.PostureSensorCoordinator
 import com.symeonchen.wakeupscreen.utils.ChannelLogInfo
 import com.symeonchen.wakeupscreen.utils.ScreenWakeUtils
 import com.symeonchen.wakeupscreen.utils.DataInjection
@@ -51,6 +52,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         // The attention statistic needs the unlock broadcast in the same
         // process that records the wakes; this service is that process.
         AttentionTracker.register(applicationContext)
+        PostureSensorCoordinator.sync(this)
     }
 
     override fun onDestroy() {
@@ -65,6 +67,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         super.onListenerConnected()
         // Also covers the post-reboot case: the system rebinds the listener and
         // any reminder alarm that was lost with the restart is re-armed here.
+        PostureSensorCoordinator.sync(this)
         ReminderEngine.onListenerConnected(applicationContext, safeActiveNotifications())
     }
 
