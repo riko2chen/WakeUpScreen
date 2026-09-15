@@ -1,10 +1,15 @@
 package com.symeonchen.wakeupscreen.compose
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.runtime.saveable.rememberSaveable
+import com.symeonchen.wakeupscreen.utils.ReminderDurationPolicy
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,6 +31,8 @@ import com.symeonchen.wakeupscreen.compose.theme.WakeUpTheme
 @Composable
 fun ReminderSettingScreen(
     onBack: () -> Unit,
+    vibrationEnabled: Boolean,
+    onVibrationChange: (Boolean) -> Unit,
     intervalMinutes: Int,
     intervalOptions: List<Int>,
     onIntervalChange: (Int) -> Unit,
@@ -33,13 +40,29 @@ fun ReminderSettingScreen(
     maxRoundsOptions: List<Int>,
     unlimitedRoundsValue: Int,
     onMaxRoundsChange: (Int) -> Unit,
+    onAppsClick: () -> Unit = {},
+    reminderScreenOnSeconds: Long,
+    onReminderDurationChange: (Long) -> Unit,
+    accessibilitySupported: Boolean,
+    accessibilityGranted: Boolean,
+    onGrantAccessibilityClick: () -> Unit,
 ) {
     var showDozeHelp by remember { mutableStateOf(false) }
+    var showAccessibilityWarning by rememberSaveable { mutableStateOf(false) }
+    var showDisclosure by rememberSaveable { mutableStateOf(false) }
+    val leave = {
+        if (ReminderDurationPolicy.needsPermissionWarning(
+            reminderScreenOnSeconds, accessibilitySupported, accessibilityGranted,
+        )) showAccessibilityWarning = true else onBack()
+    }
+    BackHandler(onBack = leave)
 
-    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
+    Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(
+        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+    )) {
         ComposeToolbar(
             title = stringResource(R.string.repeat_reminder),
-            onBack = onBack,
+            onBack = leave,
         )
 
         Column(
@@ -66,8 +89,73 @@ fun ReminderSettingScreen(
 
             Spacer(Modifier.height(20.dp))
 
+            OutlinedButton(onClick = onAppsClick, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.reminder_apps_title))
+            }
+            Spacer(Modifier.height(20.dp))
+            ReminderDurationCard(
+                seconds = reminderScreenOnSeconds,
+                onDurationChange = onReminderDurationChange,
+                accessibilitySupported = accessibilitySupported,
+                accessibilityGranted = accessibilityGranted,
+                onGrantAccessibilityClick = { showDisclosure = true },
+            )
+
+            Spacer(Modifier.height(20.dp))
+            Surface(
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Row(
+                    modifier = Modifier.toggleable(
+                        value = vibrationEnabled,
+                        role = Role.Switch,
+                        onValueChange = onVibrationChange,
+                    ).padding(20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Column(Modifier.weight(1f).padding(end = 16.dp)) {
+                        Text(stringResource(R.string.reminder_vibration_title), style = MaterialTheme.typography.titleMedium)
+                        Text(stringResource(R.string.reminder_vibration_desc), style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    Switch(checked = vibrationEnabled, onCheckedChange = null)
+                }
+            }
+            Spacer(Modifier.height(20.dp))
+
             PriorityCard()
         }
+    }
+
+    if (showAccessibilityWarning) {
+        AlertDialog(
+            onDismissRequest = { showAccessibilityWarning = false },
+            title = { Text(stringResource(R.string.accessibility_not_enabled_title)) },
+            text = { Text(stringResource(R.string.reminder_duration_permission_notice)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showAccessibilityWarning = false
+                    showDisclosure = true
+                }) { Text(stringResource(R.string.accessibility_dialog_grant)) }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showAccessibilityWarning = false
+                    onBack()
+                }) { Text(stringResource(R.string.accessibility_dialog_leave_anyway)) }
+            },
+        )
+    }
+    if (showDisclosure) {
+        AccessibilityDisclosureDialog(
+            onAgree = {
+                showDisclosure = false
+                onGrantAccessibilityClick()
+            },
+            onDismiss = { showDisclosure = false },
+        )
     }
 
     if (showDozeHelp) {
@@ -91,93 +179,12 @@ fun ReminderSettingScreen(
 }
 
 @Composable
-private fun IntervalCard(
-    intervalMinutes: Int,
-    intervalOptions: List<Int>,
-    onIntervalChange: (Int) -> Unit,
-    onHelpClick: () -> Unit,
-) {
-    Surface(
-        shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        tonalElevation = 0.dp,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Text(
-                text = stringResource(R.string.reminder_interval_title),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-            Spacer(Modifier.height(12.dp))
-            Text(
-                text = intervalText(intervalMinutes),
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-            )
-
-            // A plain 5..60 slider would put most of its travel in values no
-            // one picks, so it steps through the preset list instead.
-            val selectedIndex = intervalOptions.indexOf(intervalMinutes)
-                .takeIf { it >= 0 } ?: 0
-            Slider(
-                value = selectedIndex.toFloat(),
-                onValueChange = { raw ->
-                    val index = raw.toInt().coerceIn(0, intervalOptions.lastIndex)
-                    onIntervalChange(intervalOptions[index])
-                },
-                valueRange = 0f..intervalOptions.lastIndex.toFloat(),
-                steps = (intervalOptions.size - 2).coerceAtLeast(0),
-                colors = SliderDefaults.colors(
-                    thumbColor = MaterialTheme.colorScheme.primary,
-                    activeTrackColor = MaterialTheme.colorScheme.primary,
-                ),
-                modifier = Modifier.padding(top = 8.dp),
-            )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(
-                    text = intervalText(intervalOptions.first()),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Text(
-                    text = intervalText(intervalOptions.last()),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-
-            Spacer(Modifier.height(16.dp))
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = stringResource(R.string.reminder_delay_notice),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    lineHeight = 18.sp,
-                    modifier = Modifier.weight(1f),
-                )
-                HelpButton(
-                    onClick = onHelpClick,
-                    onClickLabel = stringResource(R.string.reminder_delay_help_title),
-                    modifier = Modifier.padding(start = 8.dp),
-                )
-            }
-        }
-    }
-}
-
-@Composable
 private fun MaxRoundsCard(
     maxRounds: Int,
     maxRoundsOptions: List<Int>,
     unlimitedRoundsValue: Int,
     onMaxRoundsChange: (Int) -> Unit,
+    onAppsClick: () -> Unit = {},
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
@@ -290,7 +297,7 @@ private fun PriorityCard() {
 }
 
 @Composable
-private fun intervalText(minutes: Int): String =
+internal fun intervalText(minutes: Int): String =
     if (minutes >= 60 && minutes % 60 == 0) {
         stringResource(R.string.reminder_interval_hours_value, minutes / 60)
     } else {

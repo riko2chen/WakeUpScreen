@@ -41,7 +41,9 @@ fun NotificationLogScreen(
 ) {
     var selectedEntry by remember { mutableStateOf<NotificationLogEntry?>(null) }
 
-    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
+    Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(
+        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+    )) {
         ComposeToolbar(
             title = stringResource(R.string.view_logs),
             onBack = onBack,
@@ -403,6 +405,7 @@ private fun blockReasonToString(reason: String): String {
         BlockReason.ONGOING -> stringResource(R.string.log_reason_ongoing)
         BlockReason.SLEEP_MODE -> stringResource(R.string.log_reason_sleep_mode)
         BlockReason.DND -> stringResource(R.string.log_reason_dnd)
+        BlockReason.BLUETOOTH -> stringResource(R.string.bluetooth_wake_blocked)
         BlockReason.CHARGING -> stringResource(R.string.log_reason_charging)
         BlockReason.BATTERY_LEVEL -> stringResource(R.string.log_reason_battery_level)
         BlockReason.INTERACTIVE -> stringResource(R.string.log_status_already_on_desc)

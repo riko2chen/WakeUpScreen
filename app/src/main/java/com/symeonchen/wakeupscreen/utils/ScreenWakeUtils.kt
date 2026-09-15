@@ -1,7 +1,9 @@
 package com.symeonchen.wakeupscreen.utils
 
 import android.content.Context
+import android.os.Build
 import android.os.PowerManager
+import com.symeonchen.wakeupscreen.services.screen.ScreenOffController
 import com.symeonchen.wakeupscreen.services.screen.PreciseScreenOnManager
 
 /**
@@ -21,7 +23,7 @@ object ScreenWakeUtils {
     private const val LEGACY_WAKE_TIMEOUT_MS = 2000L
 
     /**
-     * Lights the display for a new notification or a repeat reminder.
+     * Lights the display for a new notification or a reminder inheriting its duration.
      *
      * Which of the two paths runs is decided entirely by the precise screen-on
      * switch, and the switch defaults to off, so the behaviour an existing
@@ -34,6 +36,23 @@ object ScreenWakeUtils {
             return
         }
         PreciseScreenOnManager.startWindow(context, DataInjection.preciseScreenOnSecond)
+    }
+
+    /** Custom reminder windows are independent of the initial-notification switch. */
+    fun wakeUpScreenForReminder(context: Context, pm: PowerManager?) {
+        pm ?: return
+        when (val wake = ReminderDurationPolicy.resolve(
+            DataInjection.repeatReminderScreenOnSeconds,
+            accessibilityRequired = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P,
+            accessibilityAvailable = ScreenOffController.isAccessibilityAvailable(),
+        )) {
+            ReminderDurationPolicy.Wake.Inherit -> wakeUpScreen(context, pm)
+            ReminderDurationPolicy.Wake.SystemTimeout -> {
+                ScLog.w(MODULE, "reminder duration unavailable: accessibility is not connected; using system timeout")
+                legacyWakeUpScreen(pm)
+            }
+            is ReminderDurationPolicy.Wake.Precise -> PreciseScreenOnManager.startWindow(context, wake.seconds)
+        }
     }
 
     /**

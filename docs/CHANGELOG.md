@@ -4,6 +4,24 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [4.3.0]
+
+- Improved edge-to-edge layouts around system bars, camera cutouts and the keyboard
+- App lists load icons on demand to reduce memory use
+- Fixed the app information page failing to display adaptive icons
+- Repeat reminders can use a selected subset of apps; the initial wake app filter still applies. An empty selection pauses reminders
+- Custom reminder intervals from 5 to 1440 minutes (24 hours); Android power saving may delay delivery
+- Independent reminder screen-on duration from 5 to 30 seconds, or inherit the initial notification setting. On Android 9 and later, a custom duration needs the accessibility service; otherwise the system screen timeout applies
+- Optional short vibration on repeat reminders, off by default and respecting Do Not Disturb and silent mode
+- Optional Bluetooth wake condition: any one selected paired device must be connected for initial notifications and repeat reminders to wake the screen. Off by default; missing permission or an undetected connection blocks wakes when enabled
+- More reliable shared reminder cycles: notification updates no longer keep postponing reminders, and a filtered notification no longer hides other eligible notifications in the same batch
+- Added vibration and Bluetooth permissions. On Android 12 and later, Nearby devices access is requested when enabling the Bluetooth feature; no location or Bluetooth scanning permission is added
+- New reminder and Bluetooth settings are included in settings backup and restore. Reminder app selection and duration inherit existing settings by default
+- Fixed stale app-list entries after a search returns no results and preserved selections when filtering
+- Removed Glide and kapt, updated Core, Activity and Material, and added release checks for R8 optimization and resource shrinking
+
+---
+
 ## [4.1.1]
 
 ### Fixes

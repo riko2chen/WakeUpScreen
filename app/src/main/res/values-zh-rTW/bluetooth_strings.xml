@@ -1,0 +1,22 @@
+<resources>
+    <string name="bluetooth_wake_title">藍牙喚醒條件</string>
+    <string name="bluetooth_wake_desc">僅在任一選取的已配對裝置連線時喚醒。適用於通知、重複提醒和夜間微光。</string>
+    <string name="bluetooth_wake_off">已關閉 · 藍牙不限制喚醒。</string>
+    <string name="bluetooth_wake_unavailable">藍牙無法使用 · 已阻止喚醒。</string>
+    <string name="bluetooth_wake_permission">缺少附近裝置權限或權限已撤銷 · 已阻止喚醒。請在應用程式設定中授權或關閉此規則。</string>
+    <string name="bluetooth_wake_disabled">藍牙已關閉 · 已阻止喚醒。</string>
+    <string name="bluetooth_wake_empty">未選取裝置 · 已阻止喚醒。</string>
+    <string name="bluetooth_wake_ready">選取的裝置已連線 · 藍牙條件允許喚醒。</string>
+    <string name="bluetooth_wake_blocked">未偵測到選取的已配對裝置連線 · 已阻止喚醒。</string>
+    <string name="bluetooth_wake_permission_settings">應用程式權限設定</string>
+    <string name="bluetooth_wake_system_settings">藍牙設定</string>
+    <string name="bluetooth_wake_scope">開始監測時會檢查已連線的音訊裝置和 BLE 連線。其他類型的裝置可能需要在此規則開啟後重新連線才能被偵測到。Android 無法提供所有連線資訊；未偵測到連線時會阻止喚醒。請在藍牙設定中配對裝置。從備份還原的選擇也必須在本機完成配對。</string>
+    <string name="bluetooth_wake_devices">選取裝置（任意一台即可）</string>
+    <string name="bluetooth_wake_no_paired">沒有已配對裝置。請在藍牙設定中配對。</string>
+    <string name="bluetooth_wake_connected">已連線</string>
+    <string name="bluetooth_wake_not_detected">未偵測到連線</string>
+    <string name="bluetooth_wake_unpaired">已取消配對 · 不允許喚醒</string>
+    <string name="bluetooth_wake_unknown">無法確認配對和連線狀態</string>
+    <string name="bluetooth_wake_clear">清除選取</string>
+    <string name="bluetooth_wake_initializing">正在檢查現有藍牙連線…</string>
+</resources>

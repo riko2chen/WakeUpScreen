@@ -6,6 +6,9 @@ import android.os.PowerManager
 import android.service.notification.NotificationListenerService
 import android.service.notification.NotificationListenerService.Ranking
 import android.service.notification.StatusBarNotification
+import com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor
+import com.symeonchen.wakeupscreen.services.bluetooth.BluetoothStartupBatch
+import com.symeonchen.wakeupscreen.services.bluetooth.BluetoothStartupQueue
 import com.symeonchen.wakeupscreen.services.notification.NotificationGraceQueue
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionParam
@@ -16,6 +19,8 @@ import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.pages.NightGlowActivity
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
+import com.symeonchen.wakeupscreen.states.FaceDownSensorState
+import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.ChannelLogInfo
 import com.symeonchen.wakeupscreen.utils.ScreenWakeUtils
 import com.symeonchen.wakeupscreen.utils.DataInjection
@@ -45,15 +50,27 @@ class ScNotificationListenerService : NotificationListenerService() {
         ::processAfterGracePeriod,
     )
 
+    private val bluetoothStartupQueue = BluetoothStartupQueue<PendingNotification>(
+        serviceScope,
+        { BluetoothConnectionMonitor.startupRetryDelayMillis(applicationContext) > 0L },
+        ::processAfterBluetoothStartup,
+    )
+
     override fun onCreate() {
         super.onCreate()
         instance = this
+        com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.acquire(applicationContext, this)
         // The attention statistic needs the unlock broadcast in the same
         // process that records the wakes; this service is that process.
         AttentionTracker.register(applicationContext)
+        syncPostureSensors()
     }
 
     override fun onDestroy() {
+        ProximitySensorState.unRegisterListener(applicationContext)
+        FaceDownSensorState.unRegisterListener(applicationContext)
+        com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.release(this)
+        bluetoothStartupQueue.clear()
         serviceScope.cancel()
         pendingNotifications.clear()
         super.onDestroy()
@@ -63,9 +80,27 @@ class ScNotificationListenerService : NotificationListenerService() {
 
     override fun onListenerConnected() {
         super.onListenerConnected()
+        // The system can recreate and rebind this service without opening an
+        // activity. Restore both posture guards before accepting notifications.
+        syncPostureSensors()
+        com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.acquire(applicationContext, this)
         // Also covers the post-reboot case: the system rebinds the listener and
         // any reminder alarm that was lost with the restart is re-armed here.
         ReminderEngine.onListenerConnected(applicationContext, safeActiveNotifications())
+    }
+
+    private fun syncPostureSensors() {
+        if (DataInjection.switchOfProximity) {
+            ProximitySensorState.registerListener(applicationContext)
+        } else if (ProximitySensorState.isRegistered()) {
+            ProximitySensorState.unRegisterListener(applicationContext)
+        }
+
+        if (DataInjection.switchOfFaceDown) {
+            FaceDownSensorState.registerListener(applicationContext)
+        } else if (FaceDownSensorState.isRegistered()) {
+            FaceDownSensorState.unRegisterListener(applicationContext)
+        }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {
@@ -73,6 +108,7 @@ class ScNotificationListenerService : NotificationListenerService() {
         serviceScope.launch {
             sbn?.let { removed ->
                 pendingNotifications.remove(removed.key)?.let(::logDismissedNotification)
+                bluetoothStartupQueue.remove(removed.key)?.let(::logDismissedNotification)
             }
             ReminderEngine.onNotificationRemoved(applicationContext, safeActiveNotifications())
         }
@@ -80,7 +116,11 @@ class ScNotificationListenerService : NotificationListenerService() {
 
     override fun onListenerDisconnected() {
         super.onListenerDisconnected()
-        serviceScope.launch { pendingNotifications.clear() }
+        com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.release(this)
+        serviceScope.launch {
+            pendingNotifications.clear()
+            bluetoothStartupQueue.clear()
+        }
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 requestRebind(
@@ -163,15 +203,46 @@ class ScNotificationListenerService : NotificationListenerService() {
         )
     }
 
+    private fun processAfterBluetoothStartup(pending: List<PendingNotification>) {
+        // The wait is not permission to wake. A dismissed notification, unavailable
+        // listener, changed setting, or timed-out discovery must still fail closed.
+        val active = safeActiveNotifications()
+        if (active == null) {
+            pending.forEach {
+                logNotification(it.sbn.packageName, LogStatus.BLOCKED,
+                    if (DataInjection.switchOfApp) BlockReason.BLUETOOTH else BlockReason.APP_SWITCH_OFF,
+                    it.channelInfo)
+            }
+            return
+        }
+        // A startup burst produces at most one wake/glow. Older still-active
+        // notifications remain available to the regular reminder policy.
+        BluetoothStartupBatch.recheck(
+            pending,
+            current = { item -> active.firstOrNull { it.key == item.sbn.key }?.let { item.copy(sbn = it) } },
+            dismissed = ::logDismissedNotification,
+            tryWake = { processNotification(it.sbn, allowBluetoothWait = false) },
+        )
+    }
+
     private fun processNotification(
         sbn: StatusBarNotification,
         checkAppSwitch: Boolean = true,
-    ) {
+        allowBluetoothWait: Boolean = true,
+    ): Boolean {
         val channelInfo = channelInfoOf(sbn)
+        if (allowBluetoothWait) {
+            if (DataInjection.switchOfApp &&
+                (bluetoothStartupQueue.hasPending ||
+                    BluetoothConnectionMonitor.startupRetryDelayMillis(applicationContext) > 0L)) {
+                bluetoothStartupQueue.post(sbn.key, PendingNotification(sbn, channelInfo))
+                return false
+            }
+            // A fresh update may arrive between profile discovery and the queue tick.
+            bluetoothStartupQueue.remove(sbn.key)
+        }
 
-        // A new message restarts the reminder streak whatever the outcome
-        // below: if the screen does not light up now, the reminder is the only
-        // thing that will bring it up later.
+        // Join the shared reminder batch without postponing its pending deadline.
         ReminderEngine.onNotificationPosted(applicationContext, sbn)
 
         //Pre check for better performance
@@ -179,7 +250,7 @@ class ScNotificationListenerService : NotificationListenerService() {
             logNotification(
                 sbn.packageName, LogStatus.BLOCKED, BlockReason.APP_SWITCH_OFF, channelInfo
             )
-            return
+            return false
         }
 
         val pm = getSystemService(POWER_SERVICE) as PowerManager
@@ -199,16 +270,18 @@ class ScNotificationListenerService : NotificationListenerService() {
                 // the dim red pulse, logged under its own status.
                 NightGlowActivity.start(applicationContext)
                 logNotification(sbn.packageName, LogStatus.NIGHT_GLOW, conditionName, channelInfo)
+                return true
             } else {
                 logNotification(sbn.packageName, LogStatus.BLOCKED, conditionName, channelInfo)
             }
-            return
+            return false
         }
 
         ScreenWakeUtils.wakeUpScreen(applicationContext, pm)
 
         logNotification(sbn.packageName, LogStatus.WAKED_UP, "", channelInfo)
         AttentionTracker.onScreenWoken(sbn.packageName)
+        return true
     }
 
     private fun safeActiveNotifications(): Array<StatusBarNotification>? {

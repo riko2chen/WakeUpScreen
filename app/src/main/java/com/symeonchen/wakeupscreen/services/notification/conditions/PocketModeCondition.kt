@@ -1,9 +1,11 @@
 package com.symeonchen.wakeupscreen.services.notification.conditions
 
 import android.app.Application
+import com.symeonchen.wakeupscreen.services.PocketModePolicy
 import com.symeonchen.wakeupscreen.services.notification.BlockReason
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.LimitedCondition
+import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.DataInjection
 
 
@@ -28,9 +30,12 @@ class PocketModeCondition : LimitedCondition.NoParamCondition() {
 
     override fun wouldBlockNow(application: Application?): Boolean = isCovered()
 
-    /** Armed and the proximity sensor currently reads "covered". */
+    /** Armed and covered, or still waiting for the first safe sensor reading. */
     private fun isCovered(): Boolean =
-        DataInjection.switchOfProximity && DataInjection.statueOfProximity == 0
+        PocketModePolicy.shouldBlock(
+            DataInjection.switchOfProximity,
+            ProximitySensorState.currentReading(),
+        )
 
 
 }

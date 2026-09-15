@@ -19,8 +19,8 @@ import com.symeonchen.wakeupscreen.utils.ScreenOnWindowCalculator
 /**
  * Keeps the display on for an exact number of seconds and then turns it off.
  *
- * Only reached when the precise screen-on switch is enabled; with the switch off
- * nothing in this file runs and the app wakes the screen the way it always did.
+ * Used by initial notifications with precise screen-on enabled, and by repeat
+ * reminders with a custom duration. Both share the same window and safety checks.
  *
  * The window is anchored to an absolute deadline on [SystemClock.uptimeMillis],
  * a clock that neither the user nor the network can move, and the wake lock is

@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.plugin.compose'
-    id 'kotlin-kapt'
 }
 
 android {
@@ -82,22 +81,18 @@ dependencies {
     //androidx-related
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.7'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     implementation 'androidx.collection:collection-ktx:1.4.4'
     implementation 'androidx.fragment:fragment-ktx:1.8.5'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.google.android.material:material:1.13.0'
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
 
     //useful-library
     implementation 'com.blankj:utilcodex:1.31.1'
-
-    //glide-related
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
-    kapt 'com.github.bumptech.glide:compiler:4.16.0'
 
     //compose
     def composeBom = platform('androidx.compose:compose-bom:2024.12.01')
@@ -107,7 +102,7 @@ dependencies {
     implementation 'androidx.compose.material3:material3'
     implementation 'androidx.compose.runtime:runtime-livedata'
     implementation 'androidx.compose.foundation:foundation'
-    implementation 'androidx.activity:activity-compose:1.9.3'
+    implementation 'androidx.activity:activity-compose:1.10.1'
     debugImplementation 'androidx.compose.ui:ui-tooling'
 
     implementation project(':uicomponent')
@@ -118,5 +113,33 @@ dependencies {
     // throws "not mocked" from every method.
     testImplementation 'org.json:json:20231013'
     androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+}
+
+// Validate the actual distributable, so a future build change cannot silently
+// ship a release without R8 or resource shrinking.
+tasks.register('verifyReleaseOptimization') {
+    dependsOn 'bundleRelease'
+    doLast {
+        if (!android.buildTypes.release.minifyEnabled || !android.buildTypes.release.shrinkResources) {
+            throw new GradleException('Release code and resource optimization must stay enabled.')
+        }
+        def configuration = file('build/outputs/mapping/release/configuration.txt')
+        if (!configuration.exists() || configuration.readLines().any {
+            it ==~ /^-(dontoptimize|dontshrink|dontobfuscate)(\s.*)?$/
+        }) {
+            throw new GradleException('Missing R8 configuration or global optimization disabled.')
+        }
+        new java.util.zip.ZipFile(file('build/outputs/bundle/release/app-release.aab')).withCloseable { bundle ->
+            def mapping = bundle.getEntry('BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map')
+            if (mapping == null) throw new GradleException('Release AAB has no R8 mapping.')
+            bundle.getInputStream(mapping).withReader('UTF-8') { reader ->
+                if (reader.readLine() != '# compiler: R8') {
+                    throw new GradleException('Release AAB was not optimized with R8.')
+                }
+            }
+        }
+        logger.lifecycle('Release AAB verified: R8 enabled, mapping embedded, resource shrinking enabled.')
+    }
 }

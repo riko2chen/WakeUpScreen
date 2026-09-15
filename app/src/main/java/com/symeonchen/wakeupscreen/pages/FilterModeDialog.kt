@@ -1,5 +1,6 @@
 package com.symeonchen.wakeupscreen.pages
 
+import com.symeonchen.wakeupscreen.services.reminder.ReminderAppSelectionController
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -41,6 +42,7 @@ fun FilterModeDialog(onDismiss: () -> Unit) {
             // The settings view model's listener does exactly this and nothing
             // more, so there is no behaviour to route through it.
             DataInjection.modeOfCurrent = selected
+            ReminderAppSelectionController.onChanged(context)
             onDismiss()
             if (selected != CurrentMode.MODE_ALL_NOTIFY) {
                 FilterListActivity.actionStartWithMode(context, selected)

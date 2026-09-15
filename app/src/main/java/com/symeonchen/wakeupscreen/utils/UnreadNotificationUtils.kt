@@ -2,6 +2,7 @@ package com.symeonchen.wakeupscreen.utils
 
 import android.app.Notification
 import android.service.notification.StatusBarNotification
+import com.symeonchen.wakeupscreen.data.ReminderAppSelection
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.services.notification.conditions.FilterListCondition
 
@@ -36,23 +37,26 @@ object UnreadNotificationUtils {
         active?.any { isUnread(it) } == true
 
     /**
-     * Ongoing and non-clearable notifications are excluded unconditionally,
+     * Ongoing, non-clearable and media notifications are excluded unconditionally,
      * regardless of the ongoing-detection switches in advanced settings. Those
      * switches only decide whether a *newly posted* notification wakes the
      * screen once; here the stakes are different — a media player or navigation
-     * notification never goes away, so honouring the switch would let the
-     * reminder wake the screen forever with no way for the user to stop it
-     * short of clearing a notification they cannot clear.
+     * notification can remain for hours and update repeatedly. Treating one
+     * transient clearable media snapshot as unread could therefore keep the
+     * reminder waking the screen long after the track change that created it.
      */
     fun isUnread(sbn: StatusBarNotification): Boolean {
         // isClearable already covers both FLAG_ONGOING_EVENT and FLAG_NO_CLEAR.
-        if (!sbn.isClearable) {
+        if (!sbn.isClearable || sbn.notification.hasMediaContent()) {
             return false
         }
         // Group summaries duplicate the children they stand for.
         if (sbn.notification.flags and Notification.FLAG_GROUP_SUMMARY != 0) {
             return false
         }
-        return FilterListCondition().provideResult(sbn) == ConditionState.SUCCESS
+        return ReminderAppSelection.load().allows(
+            sbn.packageName,
+            FilterListCondition().provideResult(sbn) == ConditionState.SUCCESS,
+        )
     }
 }

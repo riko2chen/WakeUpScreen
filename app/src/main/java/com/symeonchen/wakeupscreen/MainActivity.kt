@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
+import androidx.core.view.ViewGroupCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
@@ -38,6 +39,9 @@ class MainActivity : ScBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        // On API 29 and earlier, a Compose child consuming insets must not
+        // prevent its sibling bottom navigation from receiving them.
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
         setContentView(binding.root)
         initView()
         maybeShowWhatsNew()
@@ -87,11 +91,20 @@ class MainActivity : ScBaseActivity() {
     }
 
     private fun initView() {
-        // Edge-to-edge is enforced on Android 15+, so keep the bottom nav above
-        // the gesture / navigation bar instead of being hidden behind it.
+        // This listener owns the bottom navigation insets; Compose pages own
+        // their top and horizontal safe areas inside the pager.
+        val baseLeft = binding.bnvMain.paddingLeft
+        val baseRight = binding.bnvMain.paddingRight
+        val baseBottom = binding.bnvMain.paddingBottom
         ViewCompat.setOnApplyWindowInsetsListener(binding.bnvMain) { view, insets ->
-            val bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
-            view.updatePadding(bottom = bottom)
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            view.updatePadding(
+                left = baseLeft + bars.left,
+                right = baseRight + bars.right,
+                bottom = baseBottom + bars.bottom,
+            )
             insets
         }
 
@@ -115,15 +128,14 @@ class MainActivity : ScBaseActivity() {
     }
 
     /**
-     * The home hero is a deep gradient in both modes, so the bar above it takes
-     * the gradient's first stop and keeps light glyphs. The settings header is
-     * surfaceContainer and follows the theme.
+     * Page backgrounds draw behind the transparent status bar. Match its
+     * glyphs to the home gradient or the settings surface.
      */
     private fun applyStatusBarForPage(position: Int) {
         if (position == HOME_PAGE) {
-            applyStatusBar(R.color.gradient_start, light = false)
+            applyLightStatusBarIcons(false)
         } else {
-            applyStatusBar(R.color.surface_container, light = !isNightMode())
+            applyLightStatusBarIcons(!isNightMode())
         }
     }
 

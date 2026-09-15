@@ -203,7 +203,7 @@
     <string name="reminder_interval_title">Intervallo del promemoria</string>
     <string name="reminder_interval_minutes_value">%1$d min</string>
     <string name="reminder_interval_hours_value">%1$d ora</string>
-    <string name="reminder_delay_notice">Il promemoria può arrivare un po\' più tardi dell\'intervallo impostato.</string>
+    <string name="reminder_delay_notice">La tempistica è approssimativa. Le restrizioni della batteria di Android possono ritardare i promemoria.</string>
     <string name="reminder_delay_help_title">Perché il promemoria può arrivare in ritardo?</string>
     <string name="reminder_delay_help_body">Android ha una modalità di risparmio energetico chiamata Doze. Quando il telefono resta fermo con lo schermo spento per un po\', il sistema trattiene le attività in background e le esegue a gruppi per risparmiare batteria.\n\nPer questo un promemoria può arrivare qualche minuto dopo l\'intervallo scelto, e più l\'intervallo è breve più la cosa si nota. Riguarda tutte le app e nessuna può sottrarsi.\n\nTenere il telefono in carica, o escludere questa app dall\'ottimizzazione della batteria nelle impostazioni di sistema, rende i promemoria più puntuali.</string>
     <string name="reminder_max_rounds_title">Numero massimo di promemoria</string>
@@ -394,4 +394,36 @@
     <string name="accessibility_disclosure_purpose">Da Android 9 in poi solo l\'azione di accessibilità \"blocca schermo\" spegne il display in tempo.</string>
     <string name="accessibility_disclosure_data">Non legge il contenuto dello schermo, non raccoglie nulla e puoi disattivarla quando vuoi.</string>
     <string name="accessibility_disclosure_agree">Accetto, apri le impostazioni</string>
+
+    <string name="reminder_apps_title">App dei promemoria</string>
+    <string name="reminder_apps_inherit">Usa il filtro del risveglio iniziale</string>
+    <string name="reminder_apps_description">Disattiva per scegliere meno app per i promemoria ripetuti. La lista bianca o nera del risveglio iniziale si applica sempre.</string>
+    <string name="reminder_apps_empty">Nessuna app selezionata: promemoria ripetuti in pausa.</string>
+    <string name="reminder_apps_saved">Le modifiche vengono salvate automaticamente.</string>
+    <string name="reminder_apps_search">Cerca app</string>
+    <string name="reminder_apps_no_results">Nessuna app corrispondente</string>
+    <string name="reminder_apps_unavailable">Non installata o non disponibile; selezione conservata per la reinstallazione.</string>
+    <string name="reminder_apps_blocked">Bloccata dal filtro del risveglio iniziale.</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">Durata dello schermo acceso per i promemoria</string>
+    <string name="reminder_duration_description">Scegli per quanto tempo i promemoria ripetuti mantengono acceso lo schermo. La durata personalizzata è indipendente dalla notifica iniziale.</string>
+    <string name="reminder_duration_inherit">Come la notifica iniziale</string>
+    <string name="reminder_duration_custom">Durata personalizzata</string>
+    <string name="reminder_duration_permission_notice">La durata personalizzata dei promemoria richiede l’accesso di accessibilità. Finché il servizio non è abilitato e connesso, i promemoria usano il timeout dello schermo di sistema.</string>
+    <string name="reminder_interval_custom">Personalizzato</string>
+    <string name="reminder_interval_custom_title">Intervallo personalizzato</string>
+    <string name="reminder_interval_minutes_label">Minuti</string>
+    <string name="reminder_interval_custom_range">Inserisci un numero intero da 5 a 1440 minuti (24 ore).</string>
+    <string name="reminder_vibration_title">Vibrazione promemoria</string>
+    <string name="reminder_vibration_desc">Una breve vibrazione quando il promemoria accende lo schermo. Rispetta Non disturbare e la modalità silenziosa.</string>
+    <string name="changelog_v43000_1">Layout da bordo a bordo migliorato per barre di sistema, fori della fotocamera e tastiera</string>
+    <string name="changelog_v43000_2">Le icone degli elenchi di app vengono caricate solo quando servono, riducendo la memoria utilizzata</string>
+    <string name="changelog_v43000_3">Risolto un arresto anomalo nella pagina delle informazioni durante il caricamento delle icone adattive</string>
+    <string name="changelog_v43000_4">I promemoria ripetuti possono usare un sottoinsieme di app; il filtro del risveglio iniziale resta valido. Una selezione vuota sospende i promemoria</string>
+    <string name="changelog_v43000_5">Intervalli personalizzati da 5 a 1440 minuti (24 ore); il risparmio energetico di Android può ritardare i promemoria</string>
+    <string name="changelog_v43000_6">Durata dello schermo acceso indipendente per i promemoria, da 5 a 30 secondi, oppure uguale alla notifica iniziale. Da Android 9, la durata personalizzata richiede il servizio di accessibilità; altrimenti si usa il timeout di sistema</string>
+    <string name="changelog_v43000_7">Breve vibrazione facoltativa per i promemoria, disattivata per impostazione predefinita e conforme alle modalità Non disturbare e silenziosa</string>
+    <string name="changelog_v43000_8">Condizione Bluetooth facoltativa: almeno un dispositivo associato selezionato deve essere connesso per consentire il risveglio con notifiche iniziali e promemoria. Disattivata per impostazione predefinita; se attiva, permessi mancanti o connessioni non rilevate bloccano il risveglio</string>
+    <string name="changelog_v43000_9">Cicli condivisi dei promemoria più affidabili: gli aggiornamenti delle notifiche non rinviano più continuamente i promemoria e una notifica filtrata non nasconde più le altre notifiche idonee del gruppo</string>
+    <string name="changelog_v43000_10">Aggiunti permessi per vibrazione e Bluetooth. Da Android 12, il permesso Dispositivi nelle vicinanze viene richiesto quando si attiva la funzione Bluetooth; nessun nuovo permesso di posizione o scansione Bluetooth</string>
 </resources>

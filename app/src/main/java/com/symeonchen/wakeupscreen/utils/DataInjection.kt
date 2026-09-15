@@ -1,5 +1,7 @@
 package com.symeonchen.wakeupscreen.utils
 
+import com.symeonchen.wakeupscreen.data.ScConstant
+import com.symeonchen.wakeupscreen.data.ReminderIntervalPolicy
 import com.symeonchen.wakeupscreen.data.CurrentMode
 import com.symeonchen.wakeupscreen.data.DarkModeInfo
 import com.symeonchen.wakeupscreen.data.LanguageInfo
@@ -45,7 +47,6 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_APP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_DEBUG_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
-import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_VALUE_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_STATUS_OF_FACE_DOWN
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_FACE_DOWN
 import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
@@ -60,7 +61,6 @@ import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.PRECISE_SCREEN_ON_SWITCH
-import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_INTERVAL_MINUTES
@@ -122,15 +122,6 @@ object DataInjection {
             }
             ScStore.putLong(WAKE_SCREEN_SECOND, millisSec)
         }
-
-    var statueOfProximity: Int
-        get() {
-            return ScStore.getInt(PROXIMITY_STATUS, DEFAULT_VALUE_OF_PROXIMITY)
-        }
-        set(state) {
-            ScStore.putInt(PROXIMITY_STATUS, state)
-        }
-
 
     var switchOfProximity: Boolean
         get() {
@@ -357,6 +348,16 @@ object DataInjection {
             ScStore.putString(LAST_IN_APP_REVIEW_TIMESTAMP, value)
         }
 
+    var bluetoothWakeSwitch: Boolean
+        get() = ScStore.getBoolean(ScConstant.BLUETOOTH_WAKE_SWITCH, false)
+        set(value) { ScStore.putBoolean(ScConstant.BLUETOOTH_WAKE_SWITCH, value) }
+
+    var bluetoothWakeDevices: Set<String>
+        get() = (ScStore.getString(ScConstant.BLUETOOTH_WAKE_DEVICES, "") ?: "")
+            .split(",").filter { it.matches(Regex("[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){5}")) }
+            .map { it.uppercase(java.util.Locale.ROOT) }.toSet()
+        set(value) { ScStore.putString(ScConstant.BLUETOOTH_WAKE_DEVICES, value.sorted().joinToString(",")) }
+
     var chargingOnlySwitch: Boolean
         get() {
             return ScStore.getBoolean(
@@ -367,6 +368,10 @@ object DataInjection {
         set(value) {
             ScStore.putBoolean(CHARGING_ONLY_SWITCH, value)
         }
+
+    var repeatReminderVibration: Boolean
+        get() = ScStore.getBoolean(ScConstant.REPEAT_REMINDER_VIBRATION, ScConstant.DEFAULT_REPEAT_REMINDER_VIBRATION)
+        set(value) { ScStore.putBoolean(ScConstant.REPEAT_REMINDER_VIBRATION, value) }
 
     var repeatReminderSwitch: Boolean
         get() {
@@ -381,15 +386,13 @@ object DataInjection {
 
     var repeatReminderIntervalMinutes: Int
         get() {
-            return ScStore.getInt(
+            return ReminderIntervalPolicy.normalize(ScStore.getInt(
                 REPEAT_REMINDER_INTERVAL_MINUTES,
                 DEFAULT_REPEAT_REMINDER_INTERVAL_MINUTES
-            )
+            ))
         }
         set(value) {
-            if (value <= 0) {
-                return
-            }
+            if (!ReminderIntervalPolicy.isValid(value)) return
             ScStore.putInt(REPEAT_REMINDER_INTERVAL_MINUTES, value)
         }
 
@@ -408,10 +411,24 @@ object DataInjection {
             ScStore.putInt(REPEAT_REMINDER_MAX_ROUNDS, value)
         }
 
+    /** Zero inherits the initial notification; custom reminder windows are 5–30 seconds. */
+    var repeatReminderScreenOnSeconds: Long
+        get() = ReminderDurationPolicy.normalize(ScStore.getLong(
+            ScConstant.REPEAT_REMINDER_SCREEN_ON_SECONDS,
+            ReminderDurationPolicy.INHERIT,
+        ))
+        set(value) {
+            ScStore.putLong(
+                ScConstant.REPEAT_REMINDER_SCREEN_ON_SECONDS,
+                ReminderDurationPolicy.normalize(value),
+            )
+        }
+
     /**
      * How many reminders the current unread streak has already fired. Runtime
-     * state rather than a user setting; reset whenever the streak ends or a new
-     * notification arrives.
+     * state rather than a user setting; retained at the round limit until all
+     * relevant notifications are dismissed or reminders are disabled. Posts and
+     * updates join the current batch without resetting it.
      */
     var repeatReminderRoundCount: Int
         get() {

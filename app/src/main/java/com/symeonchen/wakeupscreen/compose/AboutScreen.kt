@@ -17,7 +17,9 @@ fun AboutScreen(
     onBack: () -> Unit,
     onAppIntroduceClick: () -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
+    Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(
+        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+    )) {
         ComposeToolbar(
             title = stringResource(R.string.about),
             onBack = onBack,

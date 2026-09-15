@@ -77,7 +77,9 @@ fun WakeUpTimeScreen(
     }
     BackHandler(enabled = true, onBack = leave)
 
-    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
+    Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(
+        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+    )) {
         ComposeToolbar(
             title = stringResource(R.string.time_of_wake_up_screen),
             onBack = leave,
@@ -245,7 +247,7 @@ fun WakeUpTimeScreen(
  * settings behind an explicit "agree".
  */
 @Composable
-private fun AccessibilityDisclosureDialog(
+internal fun AccessibilityDisclosureDialog(
     onAgree: () -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -347,7 +349,7 @@ private fun DurationCard(
  * gave users a way to pick the broken one.
  */
 @Composable
-private fun ScreenOffMethodCard(
+internal fun ScreenOffMethodCard(
     accessibilitySupported: Boolean,
     accessibilityGranted: Boolean,
     onGrantAccessibilityClick: () -> Unit,

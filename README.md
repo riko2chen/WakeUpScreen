@@ -27,7 +27,7 @@ Maintained since 2019, with more than 10,000 users across 119 countries and regi
 |---|---|
 | **Instant Wake** | The screen lights up the moment a notification arrives. |
 | **Pocket Mode** | Detects when the phone is in a pocket or bag and leaves the screen off. |
-| **Repeat Reminder** | Wakes again every 5–60 minutes while notifications sit unread. |
+| **Repeat Reminder** | Wakes again every 5–1440 minutes while notifications sit unread. |
 | **Custom Screen-On Duration** | Holds the screen on for 5 to 30 seconds instead of the system timeout. |
 | **App Filtering** | Choose exactly which apps can wake your screen. |
 | **Attention Statistics** | Shows which apps wake the screen and never get looked at, counted on-device over 30 days. |
@@ -50,16 +50,17 @@ Maintained since 2019, with more than 10,000 users across 119 countries and regi
       stays dark in your pocket. Simple as that.
 ```
 
-> **On permissions.** Notification access is the only one the app needs to do its job, and it
-> requests no internet permission at all. Custom Screen-On Duration is the single exception: turning
-> the screen off early is something only an accessibility service can do on Android 9+, so that one
-> feature asks for an accessibility grant. It is off by default, the service reads no screen content,
-> and everything else works without it.
+> **On permissions.** Core notification waking needs notification access and no internet permission.
+> Optional custom screen-on duration uses accessibility access on Android 9+. The optional Bluetooth
+> condition asks for Nearby devices access on Android 12+. Reminder vibration uses the normal vibration
+> permission. These features are off or inherit existing behavior by default; no screen content is read.
 
 ## More Features
 
 All of these can be turned on or off:
 
+- **Reminder Controls** — choose a subset of apps, a custom 5–1440 minute interval, an independent screen-on duration and optional vibration; Android may delay reminders
+- **Bluetooth Condition** — allow wakes only while a selected paired device is detected as connected
 - **Sleep Mode** — several quiet windows a day, set to the minute, optionally limited to chosen weekdays
 - **Night Glow** — during a sleep window, show a dim red glow for a moment instead of full darkness
 - **Low Battery Silence** — below a chosen battery level and not charging, stop waking the screen

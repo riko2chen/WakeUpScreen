@@ -1,0 +1,22 @@
+<resources>
+    <string name="bluetooth_wake_title">เงื่อนไขการปลุกด้วย Bluetooth</string>
+    <string name="bluetooth_wake_desc">ปลุกหน้าจอเมื่ออุปกรณ์ที่จับคู่และเลือกไว้อย่างน้อยหนึ่งเครื่องเชื่อมต่ออยู่ ใช้กับการแจ้งเตือน การเตือนซ้ำ และแสงกลางคืน</string>
+    <string name="bluetooth_wake_off">ปิด · Bluetooth ไม่จำกัดการปลุกหน้าจอ</string>
+    <string name="bluetooth_wake_unavailable">ไม่มี Bluetooth · บล็อกการปลุกหน้าจอ</string>
+    <string name="bluetooth_wake_permission">ไม่ได้รับสิทธิ์อุปกรณ์ใกล้เคียงหรือสิทธิ์ถูกเพิกถอน · บล็อกการปลุก อนุญาตในการตั้งค่าแอปหรือปิดกฎนี้</string>
+    <string name="bluetooth_wake_disabled">Bluetooth ปิดอยู่ · บล็อกการปลุกหน้าจอ</string>
+    <string name="bluetooth_wake_empty">ไม่ได้เลือกอุปกรณ์ · บล็อกการปลุกหน้าจอ</string>
+    <string name="bluetooth_wake_ready">อุปกรณ์ที่เลือกเชื่อมต่ออยู่ · ผ่านเงื่อนไข Bluetooth</string>
+    <string name="bluetooth_wake_blocked">ไม่พบการเชื่อมต่อของอุปกรณ์ที่เลือกและจับคู่ · บล็อกการปลุกหน้าจอ</string>
+    <string name="bluetooth_wake_permission_settings">การตั้งค่าสิทธิ์แอป</string>
+    <string name="bluetooth_wake_system_settings">การตั้งค่า Bluetooth</string>
+    <string name="bluetooth_wake_scope">เมื่อเริ่มตรวจสอบ จะตรวจการเชื่อมต่ออุปกรณ์เสียงและ BLE ที่มีอยู่แล้ว อุปกรณ์ประเภทอื่นอาจต้องเชื่อมต่อใหม่ขณะเปิดกฎนี้ Android ไม่สามารถแสดงทุกการเชื่อมต่อได้ หากตรวจไม่พบจะบล็อกการปลุก จับคู่อุปกรณ์ในการตั้งค่า Bluetooth อุปกรณ์ที่เลือกและกู้คืนจากข้อมูลสำรองต้องจับคู่กับเครื่องนี้ด้วย</string>
+    <string name="bluetooth_wake_devices">อุปกรณ์ที่เลือก (เพียงหนึ่งเครื่องก็พอ)</string>
+    <string name="bluetooth_wake_no_paired">ไม่มีอุปกรณ์ที่จับคู่ โปรดจับคู่ในการตั้งค่า Bluetooth</string>
+    <string name="bluetooth_wake_connected">เชื่อมต่อแล้ว</string>
+    <string name="bluetooth_wake_not_detected">ไม่พบการเชื่อมต่อ</string>
+    <string name="bluetooth_wake_unpaired">เลิกจับคู่แล้ว · ไม่อนุญาตให้ปลุก</string>
+    <string name="bluetooth_wake_unknown">ไม่สามารถตรวจการจับคู่และการเชื่อมต่อได้</string>
+    <string name="bluetooth_wake_clear">ล้างการเลือก</string>
+    <string name="bluetooth_wake_initializing">กำลังตรวจสอบการเชื่อมต่อ Bluetooth ที่มีอยู่…</string>
+</resources>

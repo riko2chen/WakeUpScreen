@@ -147,8 +147,8 @@ class ChannelImportanceInstrumentedTest {
     ) = ConditionParam(sbn = sbn, channelInfo = service.channelInfoOf(sbn))
 
     /**
-     * Posts on [channelId] and waits for the listener to see it, returning the
-     * delivered notification.
+     * Active notifications can become visible before the ranking callback arrives.
+     * Wait for a ranked notification before asserting the system's importance.
      */
     private fun post(
         service: ScNotificationListenerService,
@@ -165,6 +165,10 @@ class ChannelImportanceInstrumentedTest {
             try {
                 service.activeNotifications?.firstOrNull {
                     it.packageName == context.packageName && it.id == id
+                }?.takeIf {
+                    // The system can expose an active notification before the
+                    // listener's asynchronous RankingMap update arrives.
+                    service.channelInfoOf(it).importance != NotificationManager.IMPORTANCE_UNSPECIFIED
                 }
             } catch (_: Exception) {
                 null

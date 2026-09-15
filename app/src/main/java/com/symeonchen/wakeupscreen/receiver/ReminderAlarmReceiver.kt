@@ -21,6 +21,6 @@ class ReminderAlarmReceiver : BroadcastReceiver() {
         if (intent?.action != ACTION_REMINDER_ALARM) {
             return
         }
-        ReminderEngine.onAlarm(context)
+        ReminderEngine.onScheduledAlarm(context)
     }
 }

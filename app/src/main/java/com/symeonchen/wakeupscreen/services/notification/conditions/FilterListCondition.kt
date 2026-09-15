@@ -18,18 +18,22 @@ class FilterListCondition : LimitedCondition.AbstractSbnCondition() {
 
     override fun provideResult(sbn: StatusBarNotification?): ConditionState {
         sbn ?: return ConditionState.BLOCK
+        return resultForPackage(sbn.packageName)
+    }
+
+    fun resultForPackage(packageName: String): ConditionState {
         val map: HashMap<String, Int>
         when (DataInjection.modeOfCurrent) {
             CurrentMode.MODE_ALL_NOTIFY -> return ConditionState.SUCCESS
             CurrentMode.MODE_WHITE_LIST -> {
                 map = FilterListUtils.getMapFromString(DataInjection.appWhiteListStringOfNotify)
-                if (!map.containsKey(sbn.packageName)) {
+                if (!map.containsKey(packageName)) {
                     return ConditionState.BLOCK
                 }
             }
             CurrentMode.MODE_BLACK_LIST -> {
                 map = FilterListUtils.getMapFromString(DataInjection.appBlackListStringOfNotify)
-                if (map.containsKey(sbn.packageName)) {
+                if (map.containsKey(packageName)) {
                     return ConditionState.BLOCK
                 }
             }

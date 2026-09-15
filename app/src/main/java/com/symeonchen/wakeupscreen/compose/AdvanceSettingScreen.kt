@@ -56,6 +56,7 @@ fun AdvanceSettingScreen(
     onNotificationGracePeriodClick: () -> Unit,
     dndChecked: Boolean,
     onDndToggle: () -> Unit,
+    onBluetoothClick: () -> Unit,
     chargingOnlyChecked: Boolean,
     chargingOnlySubtitle: String,
     onChargingOnlyToggle: () -> Unit,
@@ -95,7 +96,9 @@ fun AdvanceSettingScreen(
         )
     }
 
-    Column(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
+    Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(
+        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+    )) {
         ComposeToolbar(
             title = stringResource(R.string.advanced_setting),
             onBack = onBack,
@@ -211,6 +214,12 @@ fun AdvanceSettingScreen(
                     subtitle = stringResource(R.string.dnd_detect_desc),
                     checked = dndChecked,
                     onCheckedChange = onDndToggle,
+                )
+                FlatDivider()
+                SettingRow(
+                    title = stringResource(R.string.bluetooth_wake_title),
+                    subtitle = stringResource(R.string.bluetooth_wake_desc),
+                    onClick = onBluetoothClick,
                 )
                 FlatDivider()
                 SettingSwitchRow(

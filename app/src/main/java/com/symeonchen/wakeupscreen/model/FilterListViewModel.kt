@@ -13,6 +13,7 @@ import com.symeonchen.wakeupscreen.utils.DataInjection
 import com.symeonchen.wakeupscreen.utils.FilterListUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.properties.Delegates
 
 
@@ -52,9 +53,12 @@ class FilterListViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun readAllApp() {
-        viewModelScope.launch(Dispatchers.IO) {
-            appList =
-                AppListState.getInstalledAppList(viewModelApplication.applicationContext, true)
+        viewModelScope.launch {
+            if (appList == null) {
+                appList = withContext(Dispatchers.IO) {
+                    AppListState.getInstalledAppList(viewModelApplication.applicationContext, true)
+                }.onEach { it.selected = map?.containsKey(it.packageName) == true }
+            }
             calculateFilter()
         }
     }
@@ -91,7 +95,10 @@ class FilterListViewModel(application: Application) : AndroidViewModel(applicati
                 }
             }
             ?: mutableListOf()
-        visibleList.postValue(FilterListUtils.splitWithSelected(result, map))
+        // Selection belongs to the live items, not the originally saved map.
+        visibleList.value = result.sortedWith(
+            compareByDescending<AppInfo> { it.selected }.thenBy { it.simpleName }
+        ).toMutableList()
     }
 
 }

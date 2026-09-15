@@ -27,7 +27,7 @@ Mantenuta dal 2019, con oltre 10.000 utenti in 119 paesi e regioni.
 |---|---|
 | **Attivazione Istantanea** | Lo schermo si illumina nel momento in cui arriva una notifica. |
 | **Modalità Tasca** | Rileva quando il telefono è in tasca o in borsa e lascia lo schermo spento. |
-| **Promemoria Ripetuto** | Si riaccende ogni 5–60 minuti finché le notifiche restano non lette. |
+| **Promemoria Ripetuto** | Si riaccende ogni 5–1440 minuti finché le notifiche restano non lette. |
 | **Durata Schermo Personalizzata** | Tiene lo schermo acceso da 5 a 30 secondi invece di affidarsi al timeout di sistema. |
 | **Filtro App** | Scegli esattamente quali app possono attivare lo schermo. |
 | **Statistiche di Attenzione** | Mostra quali app accendono lo schermo senza mai essere guardate, contate sul dispositivo negli ultimi 30 giorni. |
@@ -52,16 +52,17 @@ Mantenuta dal 2019, con oltre 10.000 utenti in 119 paesi e regioni.
       lo schermo si accende. Quando il telefono è in tasca, resta spento. Semplice.
 ```
 
-> **Sui permessi.** L'accesso alle notifiche è l'unico permesso necessario al funzionamento, e l'app
-> non richiede alcun permesso di rete. L'unica eccezione è la Durata Schermo Personalizzata: su
-> Android 9 e successivi solo un servizio di accessibilità può spegnere lo schermo in anticipo, quindi
-> quella singola funzione chiede l'accesso all'accessibilità. È disattivata per impostazione
-> predefinita, il servizio non legge alcun contenuto dello schermo e tutto il resto funziona senza.
+> **Sui permessi.** Il risveglio tramite notifiche richiede l’accesso alle notifiche, senza permessi Internet.
+> La durata personalizzata opzionale usa l’accessibilità su Android 9+; la condizione Bluetooth opzionale
+> richiede l’accesso ai dispositivi nelle vicinanze su Android 12+. La vibrazione usa il normale permesso
+> di vibrazione. Le nuove opzioni sono disattivate o ereditano le impostazioni esistenti; il contenuto dello schermo non viene letto.
 
 ## Altre Funzionalità
 
 Tutte attivabili e disattivabili a piacere:
 
+- **Controlli dei Promemoria** — scegli le app, un intervallo di 5–1440 minuti, una durata dello schermo indipendente e la vibrazione opzionale; Android può ritardare i promemoria
+- **Condizione Bluetooth** — consenti il risveglio solo quando un dispositivo associato selezionato risulta connesso
 - **Modalità Sonno** — più finestre silenziose al giorno, precise al minuto, eventualmente limitate a certi giorni della settimana
 - **Bagliore Notturno** — durante una finestra di sonno, un breve bagliore rosso tenue al posto del buio totale
 - **Silenzio con Batteria Scarica** — sotto una soglia di batteria scelta e senza ricarica, lo schermo non si accende

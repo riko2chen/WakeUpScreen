@@ -189,7 +189,7 @@
     <string name="reminder_interval_title">通知の間隔</string>
     <string name="reminder_interval_minutes_value">%1$d 分</string>
     <string name="reminder_interval_hours_value">%1$d 時間</string>
-    <string name="reminder_delay_notice">設定した間隔より少し遅れて通知されることがあります。</string>
+    <string name="reminder_delay_notice">時刻は目安です。Androidのバッテリー制限により、リマインダーが遅れる場合があります。</string>
     <string name="reminder_delay_help_title">通知が遅れるのはなぜ？</string>
     <string name="reminder_delay_help_body">Android には Doze（休止状態）という省電力機能があります。端末をしばらく操作せず画面が消えたままだと、システムはバックグラウンドの処理をためてまとめて実行し、電力を節約します。\n\nそのため、設定した間隔より数分遅れて通知が届くことがあり、間隔が短いほど目立ちます。これはすべてのアプリに共通する制限で、回避できるアプリはありません。\n\n端末を充電器につないでおくか、システム設定でこのアプリを電池の最適化から除外すると、通知がより正確な時刻に届きます。</string>
     <string name="reminder_max_rounds_title">最大通知回数</string>
@@ -380,4 +380,36 @@
     <string name="accessibility_disclosure_purpose">Android 9 以降では、ユーザー補助の「画面ロック」操作だけが画面を時間どおりに消せます。</string>
     <string name="accessibility_disclosure_data">画面の内容は読み取らず、情報も一切収集しません。いつでもオフにできます。</string>
     <string name="accessibility_disclosure_agree">同意して設定を開く</string>
+
+    <string name="reminder_apps_title">リマインダーのアプリ</string>
+    <string name="reminder_apps_inherit">初回点灯のアプリフィルターを使用</string>
+    <string name="reminder_apps_description">オフにすると、繰り返し通知の対象アプリを絞り込めます。初回点灯のホワイトリストまたはブラックリストは常に適用されます。</string>
+    <string name="reminder_apps_empty">アプリ未選択：繰り返し通知は停止中です。</string>
+    <string name="reminder_apps_saved">変更は自動保存されます。</string>
+    <string name="reminder_apps_search">アプリを検索</string>
+    <string name="reminder_apps_no_results">該当するアプリはありません</string>
+    <string name="reminder_apps_unavailable">未インストールまたは利用不可。再インストール用に選択を保持します。</string>
+    <string name="reminder_apps_blocked">初回点灯のアプリフィルターでブロックされています。</string>
+    <!-- Independent repeat-reminder screen-on duration -->
+    <string name="reminder_duration_title">リマインダーの画面点灯時間</string>
+    <string name="reminder_duration_description">繰り返しリマインダーで画面を点灯する時間を選択します。カスタム時間は最初の通知の設定とは独立して動作します。</string>
+    <string name="reminder_duration_inherit">最初の通知と同じ</string>
+    <string name="reminder_duration_custom">カスタム時間</string>
+    <string name="reminder_duration_permission_notice">リマインダーのカスタム点灯時間にはユーザー補助へのアクセスが必要です。サービスが有効になり接続されるまでは、システムの画面消灯時間が使われます。</string>
+    <string name="reminder_interval_custom">カスタム</string>
+    <string name="reminder_interval_custom_title">リマインダーの間隔を指定</string>
+    <string name="reminder_interval_minutes_label">分</string>
+    <string name="reminder_interval_custom_range">5～1440分（24時間）の整数を入力してください。</string>
+    <string name="reminder_vibration_title">リマインダー時に振動</string>
+    <string name="reminder_vibration_desc">リマインダーで画面が点灯するときに短く1回振動します。サイレントモードと通知の鳴動制限に従います。</string>
+    <string name="changelog_v43000_1">システムバー、カメラの切り欠き、キーボードに合わせて画面端のレイアウトを改善</string>
+    <string name="changelog_v43000_2">アプリ一覧のアイコンを必要なときに読み込み、メモリ使用量を削減</string>
+    <string name="changelog_v43000_3">アプリ情報画面でアダプティブアイコンを読み込む際のクラッシュを修正</string>
+    <string name="changelog_v43000_4">繰り返しリマインダーの対象アプリを個別に選択可能。初回点灯のアプリフィルターは引き続き適用され、選択が空の場合はリマインダーを停止</string>
+    <string name="changelog_v43000_5">リマインダー間隔を5～1440分（24時間）で指定可能。Androidの省電力機能により実行が遅れる場合があります</string>
+    <string name="changelog_v43000_6">リマインダーの点灯時間を5～30秒で個別に設定、または初回通知の設定を継承可能。Android 9以降では個別設定にユーザー補助サービスが必要で、利用できない場合はシステムの消灯時間を使用</string>
+    <string name="changelog_v43000_7">リマインダーに短い振動を追加可能。初期設定はオフで、サイレントモードと通知の鳴動制限に従います</string>
+    <string name="changelog_v43000_8">Bluetooth点灯条件を追加。選択したペア設定済みデバイスのいずれかが接続中の場合のみ、初回通知とリマインダーによる点灯を許可。初期設定はオフで、有効時に権限がない場合や接続を検出できない場合は点灯を抑止</string>
+    <string name="changelog_v43000_9">共有リマインダー周期の信頼性を改善。通知の更新でリマインダーが繰り返し延期される問題と、除外された通知が同じグループ内の有効な通知を妨げる問題を修正</string>
+    <string name="changelog_v43000_10">振動とBluetoothの権限を追加。Android 12以降ではBluetooth機能を有効にする際に付近のデバイスへのアクセスを要求。位置情報やBluetoothスキャンの権限は追加しません</string>
 </resources>

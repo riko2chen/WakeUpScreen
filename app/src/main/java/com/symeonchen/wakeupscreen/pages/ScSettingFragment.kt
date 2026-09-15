@@ -1,5 +1,7 @@
 package com.symeonchen.wakeupscreen.pages
 
+import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
+import com.symeonchen.wakeupscreen.services.reminder.ReminderAppSelectionController
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -79,10 +81,25 @@ class ScSettingFragment : ScBaseFragment() {
             ToastUtils.showShort(R.string.backup_import_failed_corrupt)
             return
         }
+        val previousInterval = DataInjection.repeatReminderIntervalMinutes
+        val previousMaxRounds = DataInjection.repeatReminderMaxRounds
         when (val result = SettingsBackup.import(raw)) {
             is SettingsBackup.ImportResult.Success -> {
-                // Language and dark mode are the two settings whose effect is
-                // not read lazily; everything else applies on next read.
+                // Apply restored eligibility and scheduling to the current batch.
+                ReminderAppSelectionController.onChanged(requireContext())
+                if (previousMaxRounds != DataInjection.repeatReminderMaxRounds) {
+                    ReminderEngine.onMaxRoundsChanged(
+                        requireContext(), DataInjection.repeatReminderMaxRounds,
+                    )
+                }
+                if (previousInterval != DataInjection.repeatReminderIntervalMinutes) {
+                    ReminderEngine.onIntervalChanged(
+                        requireContext(), DataInjection.repeatReminderIntervalMinutes,
+                    )
+                }
+                // Reconcile active Bluetooth monitoring without requesting permission.
+                com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor
+                    .settingsChanged(requireContext().applicationContext)
                 DataInjection.languageSelected.applyLanguage()
                 DataInjection.darkModeSelected.applyDarkMode()
                 ToastUtils.showShort(getString(R.string.backup_import_success, result.applied))
