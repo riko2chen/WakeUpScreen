@@ -81,6 +81,12 @@ class ReminderAppSelectionInstrumentedTest {
         assertFalse(UnreadNotificationUtils.isUnread(notification("a", Notification.FLAG_ONGOING_EVENT)))
         assertFalse(UnreadNotificationUtils.isUnread(notification("a", Notification.FLAG_GROUP_SUMMARY)))
         assertFalse(UnreadNotificationUtils.isUnread(notification("a", Notification.FLAG_NO_CLEAR)))
+        val transientMedia = notification("a").apply {
+            notification.category = Notification.CATEGORY_TRANSPORT
+        }
+        assertTrue(transientMedia.isClearable)
+        assertFalse(transientMedia.isOngoing)
+        assertFalse(UnreadNotificationUtils.isUnread(transientMedia))
     }
 
     private fun notification(packageName: String, flags: Int = 0) = StatusBarNotification(

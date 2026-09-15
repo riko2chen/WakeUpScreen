@@ -16,24 +16,42 @@ class FaceDownSensorState {
         private var accelerometer: Sensor? = null
         private var sensorManager: SensorManager? = null
 
-        fun registerListener(context: Context?) {
+        @Synchronized
+        fun registerListener(context: Context?): Boolean {
             if (context == null) {
-                return
+                DataInjection.statusOfFaceDown = false
+                return false
             }
             if (sensorManager == null) {
                 sensorManager =
                     context.applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
             }
             if (isRegistered()) {
-                sensorManager?.unregisterListener(faceDownListener)
+                return true
             }
-            accelerometer = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-            sensorManager?.registerListener(
+            val sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+            if (sensor == null) {
+                DataInjection.statusOfFaceDown = false
+                return false
+            }
+            // Reset both halves of the cached state for this registration.
+            // Otherwise toggling the feature off and back on while still face
+            // down can suppress the first identical accelerometer verdict.
+            DataInjection.statusOfFaceDown = false
+            faceDownListener = ScFaceDownSensor()
+            val registered = sensorManager?.registerListener(
                 faceDownListener,
-                accelerometer, SensorManager.SENSOR_DELAY_NORMAL
-            )
+                sensor, SensorManager.SENSOR_DELAY_NORMAL
+            ) == true
+            if (!registered) {
+                DataInjection.statusOfFaceDown = false
+                return false
+            }
+            accelerometer = sensor
+            return true
         }
 
+        @Synchronized
         fun unRegisterListener(context: Context?) {
             if (context == null) {
                 return
@@ -50,8 +68,7 @@ class FaceDownSensorState {
             DataInjection.statusOfFaceDown = false
         }
 
-        fun isRegistered(): Boolean {
-            return accelerometer != null
-        }
+        @Synchronized
+        fun isRegistered(): Boolean = accelerometer != null
     }
 }

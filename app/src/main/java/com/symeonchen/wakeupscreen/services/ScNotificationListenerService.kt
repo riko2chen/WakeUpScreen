@@ -19,6 +19,8 @@ import com.symeonchen.wakeupscreen.data.NotificationLogStore
 import com.symeonchen.wakeupscreen.services.notification.ConditionState
 import com.symeonchen.wakeupscreen.pages.NightGlowActivity
 import com.symeonchen.wakeupscreen.services.reminder.ReminderEngine
+import com.symeonchen.wakeupscreen.states.FaceDownSensorState
+import com.symeonchen.wakeupscreen.states.ProximitySensorState
 import com.symeonchen.wakeupscreen.utils.ChannelLogInfo
 import com.symeonchen.wakeupscreen.utils.ScreenWakeUtils
 import com.symeonchen.wakeupscreen.utils.DataInjection
@@ -61,9 +63,12 @@ class ScNotificationListenerService : NotificationListenerService() {
         // The attention statistic needs the unlock broadcast in the same
         // process that records the wakes; this service is that process.
         AttentionTracker.register(applicationContext)
+        syncPostureSensors()
     }
 
     override fun onDestroy() {
+        ProximitySensorState.unRegisterListener(applicationContext)
+        FaceDownSensorState.unRegisterListener(applicationContext)
         com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.release(this)
         bluetoothStartupQueue.clear()
         serviceScope.cancel()
@@ -75,10 +80,27 @@ class ScNotificationListenerService : NotificationListenerService() {
 
     override fun onListenerConnected() {
         super.onListenerConnected()
+        // The system can recreate and rebind this service without opening an
+        // activity. Restore both posture guards before accepting notifications.
+        syncPostureSensors()
         com.symeonchen.wakeupscreen.services.bluetooth.BluetoothConnectionMonitor.acquire(applicationContext, this)
         // Also covers the post-reboot case: the system rebinds the listener and
         // any reminder alarm that was lost with the restart is re-armed here.
         ReminderEngine.onListenerConnected(applicationContext, safeActiveNotifications())
+    }
+
+    private fun syncPostureSensors() {
+        if (DataInjection.switchOfProximity) {
+            ProximitySensorState.registerListener(applicationContext)
+        } else if (ProximitySensorState.isRegistered()) {
+            ProximitySensorState.unRegisterListener(applicationContext)
+        }
+
+        if (DataInjection.switchOfFaceDown) {
+            FaceDownSensorState.registerListener(applicationContext)
+        } else if (FaceDownSensorState.isRegistered()) {
+            FaceDownSensorState.unRegisterListener(applicationContext)
+        }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {

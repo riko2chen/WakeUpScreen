@@ -47,7 +47,6 @@ import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_APP
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_DEBUG_MODE
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS
-import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_VALUE_OF_PROXIMITY
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_STATUS_OF_FACE_DOWN
 import com.symeonchen.wakeupscreen.data.ScConstant.DEFAULT_SWITCH_OF_FACE_DOWN
 import com.symeonchen.wakeupscreen.data.ScConstant.DND_DETECT_SWITCH
@@ -62,7 +61,6 @@ import com.symeonchen.wakeupscreen.data.ScConstant.LANGUAGE_SELECTED
 import com.symeonchen.wakeupscreen.data.ScConstant.LAST_IN_APP_REVIEW_TIMESTAMP
 import com.symeonchen.wakeupscreen.data.ScConstant.ONGOING_STATUS_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.PRECISE_SCREEN_ON_SWITCH
-import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_STATUS
 import com.symeonchen.wakeupscreen.data.ScConstant.PROXIMITY_SWITCH
 import com.symeonchen.wakeupscreen.data.ScConstant.RADICAL_ONGOING_DETECT
 import com.symeonchen.wakeupscreen.data.ScConstant.REPEAT_REMINDER_INTERVAL_MINUTES
@@ -124,15 +122,6 @@ object DataInjection {
             }
             ScStore.putLong(WAKE_SCREEN_SECOND, millisSec)
         }
-
-    var statueOfProximity: Int
-        get() {
-            return ScStore.getInt(PROXIMITY_STATUS, DEFAULT_VALUE_OF_PROXIMITY)
-        }
-        set(state) {
-            ScStore.putInt(PROXIMITY_STATUS, state)
-        }
-
 
     var switchOfProximity: Boolean
         get() {

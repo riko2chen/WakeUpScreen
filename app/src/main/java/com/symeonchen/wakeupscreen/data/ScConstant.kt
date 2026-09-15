@@ -10,6 +10,7 @@ object ScConstant {
     const val BLUETOOTH_WAKE_DEVICES = "bluetooth_wake_devices"
     const val CUSTOM_STATUS = "custom_status"
     const val WAKE_SCREEN_SECOND = "wake_screen_second"
+    /** Legacy runtime key retained only so pre-4.1 MMKV data can be migrated safely. */
     const val PROXIMITY_STATUS = "proximity_status"
     const val PROXIMITY_SWITCH = "proximity_switch"
     const val FACE_DOWN_STATUS = "face_down_status"
@@ -59,7 +60,6 @@ object ScConstant {
     const val DEFAULT_SWITCH_OF_FACE_DOWN: Boolean = false
     const val DEFAULT_STATUS_OF_FACE_DOWN: Boolean = false
     const val DEFAULT_TIME_OF_WAKE_UP_SCREEN_MILLISECONDS: Long = 2000
-    const val DEFAULT_VALUE_OF_PROXIMITY: Int = 1
     const val DEFAULT_BATTERY_SAVER: Boolean = false
     const val DEFAULT_PERMISSION_OF_SEND_NOTIFICATION: Boolean = false
     const val DEFAULT_SWITCH_OF_DEBUG_MODE: Boolean = false

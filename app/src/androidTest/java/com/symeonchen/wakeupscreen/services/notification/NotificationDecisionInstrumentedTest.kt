@@ -236,6 +236,23 @@ class NotificationDecisionInstrumentedTest {
         assertFalse(ongoing.isArmed())
     }
 
+    @Test
+    fun aMediaUpdateIsFilteredEvenWhenItIsClearableAndNotOngoing() {
+        val media = wrap(
+            Notification.Builder(context)
+                .setSmallIcon(android.R.drawable.ic_media_play)
+                .setContentTitle("Next track")
+                .setCategory(Notification.CATEGORY_TRANSPORT)
+                .build()
+        )
+        assertFalse(media.isOngoing)
+        assertTrue(media.isClearable)
+        assertEquals(ConditionState.BLOCK, ongoing.provideResult(media))
+
+        DataInjection.ongoingOptimize = false
+        assertEquals(ConditionState.SUCCESS, ongoing.provideResult(media))
+    }
+
     // endregion
 
     // region helpers
