@@ -6,41 +6,74 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ProximityDetectorTest {
-
     @Test
-    fun `zero is near for a binary sensor`() {
+    fun `legacy threshold blocks zero and allows every positive distance`() {
         assertEquals(ProximityReading.NEAR, ProximityDetector.classify(0f, 5f))
+        for (distance in listOf(0.1f, 1f, 4.9f, 5f, 8f)) {
+            assertEquals(ProximityReading.FAR, ProximityDetector.classify(distance, 5f))
+        }
     }
 
     @Test
-    fun `non-zero values below maximum range are also near`() {
-        assertEquals(ProximityReading.NEAR, ProximityDetector.classify(1f, 5f))
-        assertEquals(ProximityReading.NEAR, ProximityDetector.classify(4.9f, 5f))
+    fun `legacy detection does not depend on maximum range metadata`() {
+        for (range in listOf(0f, -1f, Float.NaN, Float.POSITIVE_INFINITY)) {
+            assertEquals(ProximityReading.NEAR, ProximityDetector.classify(0f, range))
+            assertEquals(ProximityReading.FAR, ProximityDetector.classify(1f, range))
+        }
     }
 
     @Test
-    fun `maximum range and values above it are far`() {
-        assertEquals(ProximityReading.FAR, ProximityDetector.classify(5f, 5f))
-        assertEquals(ProximityReading.FAR, ProximityDetector.classify(8f, 5f))
+    fun `experimental detection recognizes non-zero near readings`() {
+        for (distance in listOf(0f, 0.1f, 1f, 4.9f)) {
+            assertEquals(ProximityReading.NEAR, ProximityDetector.classify(distance, 5f, true))
+        }
+        for (distance in listOf(5f, 8f)) {
+            assertEquals(ProximityReading.FAR, ProximityDetector.classify(distance, 5f, true))
+        }
     }
 
     @Test
-    fun `invalid readings stay unknown`() {
-        assertEquals(ProximityReading.UNKNOWN, ProximityDetector.classify(Float.NaN, 5f))
-        assertEquals(ProximityReading.UNKNOWN, ProximityDetector.classify(0f, 0f))
-        assertEquals(ProximityReading.UNKNOWN, ProximityDetector.classify(-1f, 5f))
+    fun `invalid distances allow wake in both modes`() {
+        for (experimental in listOf(false, true)) {
+            for (distance in listOf(Float.NaN, -1f, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY)) {
+                val reading = ProximityDetector.classify(distance, 5f, experimental)
+                assertEquals(ProximityReading.UNKNOWN, reading)
+                assertFalse(PocketModePolicy.shouldBlock(true, reading))
+            }
+        }
     }
 
     @Test
-    fun `enabled pocket mode fails safe until the first reading`() {
-        assertTrue(PocketModePolicy.shouldBlock(true, ProximityReading.UNKNOWN))
-        assertTrue(PocketModePolicy.shouldBlock(true, ProximityReading.NEAR))
-        assertFalse(PocketModePolicy.shouldBlock(true, ProximityReading.FAR))
+    fun `experimental detection allows wake when maximum range is invalid`() {
+        for (range in listOf(0f, -1f, Float.NaN, Float.POSITIVE_INFINITY)) {
+            for (distance in listOf(0f, 1f)) {
+                val reading = ProximityDetector.classify(distance, range, true)
+                assertEquals(ProximityReading.UNKNOWN, reading)
+                assertFalse(PocketModePolicy.shouldBlock(true, reading))
+            }
+        }
     }
 
     @Test
-    fun `a missing sensor and a disabled setting do not block`() {
+    fun `one sample can change policy without another sensor callback`() {
+        val readings = ProximityDetector.readings(1f, 5f)
+        assertFalse(PocketModePolicy.shouldBlock(true, readings.selected(false)))
+        assertTrue(PocketModePolicy.shouldBlock(true, readings.selected(true)))
+        assertFalse(PocketModePolicy.shouldBlock(true, readings.selected(false)))
+    }
+
+    @Test
+    fun `first reading missing or sensor unavailable allows wake`() {
+        for (experimental in listOf(false, true)) {
+            assertFalse(PocketModePolicy.shouldBlock(true, ProximityReadings().selected(experimental)))
+        }
         assertFalse(PocketModePolicy.shouldBlock(true, ProximityReading.UNAVAILABLE))
+        assertFalse(PocketModePolicy.shouldBlock(true, ProximityReading.FAR))
+        assertTrue(PocketModePolicy.shouldBlock(true, ProximityReading.NEAR))
+    }
+
+    @Test
+    fun `disabled pocket mode allows all readings`() {
         ProximityReading.values().forEach { reading ->
             assertFalse(PocketModePolicy.shouldBlock(false, reading))
         }

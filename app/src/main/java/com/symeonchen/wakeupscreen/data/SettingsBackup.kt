@@ -101,6 +101,7 @@ object SettingsBackup {
     private val catalog = listOf(
         CatalogEntry(ScConstant.CUSTOM_STATUS, SettingType.BOOL),
         CatalogEntry(ScConstant.PROXIMITY_SWITCH, SettingType.BOOL),
+        CatalogEntry(ScConstant.POCKET_MODE_TRY_NEW_VERSION, SettingType.BOOL),
         CatalogEntry(ScConstant.WAKE_SCREEN_SECOND, SettingType.LONG),
         CatalogEntry(ScConstant.APP_NOTIFY_MODE, SettingType.INT),
         CatalogEntry(ScConstant.APP_FILTER_WHITE_LIST_STRING, SettingType.STRING),

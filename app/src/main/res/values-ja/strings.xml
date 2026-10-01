@@ -412,4 +412,8 @@
     <string name="changelog_v43000_8">Bluetooth点灯条件を追加。選択したペア設定済みデバイスのいずれかが接続中の場合のみ、初回通知とリマインダーによる点灯を許可。初期設定はオフで、有効時に権限がない場合や接続を検出できない場合は点灯を抑止</string>
     <string name="changelog_v43000_9">共有リマインダー周期の信頼性を改善。通知の更新でリマインダーが繰り返し延期される問題と、除外された通知が同じグループ内の有効な通知を妨げる問題を修正</string>
     <string name="changelog_v43000_10">振動とBluetoothの権限を追加。Android 12以降ではBluetooth機能を有効にする際に付近のデバイスへのアクセスを要求。位置情報やBluetoothスキャンの権限は追加しません</string>
+    <string name="pocket_mode_try_new_version">新しいポケット検出を試す</string>
+    <string name="pocket_mode_try_new_version_desc">オフでは従来の距離ゼロの判定を使用します。オンではゼロ以外の近距離も検出します。測定値がない場合や無効な場合は画面点灯を許可します。点灯しない場合はオフにしてください。</string>
+    <string name="changelog_v43100_1">従来のポケット検出を復元し、一部の端末で通知による画面点灯ができない問題を修正</string>
+    <string name="changelog_v43100_2">新しいポケット検出を試すオプションを追加。初期設定はオフで、測定値がない場合や無効な場合は画面点灯を許可</string>
 </resources>

@@ -4,6 +4,13 @@ All notable changes to WakeUpScreen are documented here, organized by version.
 
 ---
 
+## [4.3.1]
+
+- Restored the original pocket detection to fix notification wakes failing on some devices
+- Added optional new pocket detection, off by default; missing or invalid sensor readings allow the screen to wake
+
+---
+
 ## [4.3.0]
 
 - Improved edge-to-edge layouts around system bars, camera cutouts and the keyboard

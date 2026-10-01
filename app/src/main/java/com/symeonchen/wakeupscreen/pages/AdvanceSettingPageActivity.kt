@@ -49,6 +49,7 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
             WakeUpScreenTheme {
                 val currentMode by settingModel.modeOfCurrent.observeAsState(CurrentMode.MODE_ALL_NOTIFY)
                 val proximity by settingModel.switchOfProximity.observeAsState(false)
+                val pocketModeTryNewVersion by settingModel.pocketModeTryNewVersion.observeAsState(false)
                 val faceDown by settingModel.switchOfFaceDown.observeAsState(false)
                 val ongoing by settingModel.ongoingOptimize.observeAsState(false)
                 val radicalOngoing by settingModel.radicalOngoingOptimize.observeAsState(false)
@@ -126,6 +127,10 @@ class AdvanceSettingPageActivity : ScBaseActivity() {
                         } else {
                             if (ProximitySensorState.isRegistered()) ProximitySensorState.unRegisterListener(this)
                         }
+                    },
+                    pocketModeTryNewVersionChecked = pocketModeTryNewVersion,
+                    onPocketModeTryNewVersionToggle = {
+                        settingModel.pocketModeTryNewVersion.setValue(!pocketModeTryNewVersion)
                     },
                     faceDownChecked = faceDown,
                     onFaceDownToggle = {
