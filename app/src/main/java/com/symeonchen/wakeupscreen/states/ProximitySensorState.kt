@@ -4,6 +4,7 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.symeonchen.wakeupscreen.services.ProximityReading
+import com.symeonchen.wakeupscreen.services.ProximityReadings
 import com.symeonchen.wakeupscreen.services.ScProximitySensor
 
 /**
@@ -12,7 +13,7 @@ import com.symeonchen.wakeupscreen.services.ScProximitySensor
 class ProximitySensorState {
     companion object {
         @Volatile
-        private var reading = ProximityReading.UNKNOWN
+        private var readings = ProximityReadings()
 
         private var proximityListener = newListener()
         private var proximitySensor: Sensor? = null
@@ -20,13 +21,12 @@ class ProximitySensorState {
 
         /**
          * Starts a fresh session. No value persisted by an older process is
-         * trusted: UNKNOWN blocks briefly until this listener receives the
-         * current reading.
+         * trusted. Until a current reading arrives, pocket mode allows wakes.
          */
         @Synchronized
         fun registerListener(context: Context?): Boolean {
             if (context == null) {
-                reading = ProximityReading.UNAVAILABLE
+                readings = ProximityReadings(ProximityReading.UNAVAILABLE, ProximityReading.UNAVAILABLE)
                 return false
             }
             if (sensorManager == null) {
@@ -40,11 +40,11 @@ class ProximitySensorState {
 
             val sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY)
             if (sensor == null) {
-                reading = ProximityReading.UNAVAILABLE
+                readings = ProximityReadings(ProximityReading.UNAVAILABLE, ProximityReading.UNAVAILABLE)
                 return false
             }
 
-            reading = ProximityReading.UNKNOWN
+            readings = ProximityReadings()
             // The listener suppresses duplicate readings. A new registration
             // therefore needs a new listener too, otherwise a FAR -> stop ->
             // FAR sequence would leave this session stuck at UNKNOWN.
@@ -54,7 +54,7 @@ class ProximitySensorState {
                 sensor, SensorManager.SENSOR_DELAY_NORMAL
             ) == true
             if (!registered) {
-                reading = ProximityReading.UNAVAILABLE
+                readings = ProximityReadings(ProximityReading.UNAVAILABLE, ProximityReading.UNAVAILABLE)
                 return false
             }
             proximitySensor = sensor
@@ -72,16 +72,17 @@ class ProximitySensorState {
             }
             sensorManager?.unregisterListener(proximityListener)
             proximitySensor = null
-            reading = ProximityReading.UNKNOWN
+            readings = ProximityReadings()
         }
 
         @Synchronized
         fun isRegistered(): Boolean = proximitySensor != null
 
-        fun currentReading(): ProximityReading = reading
+        fun currentReading(tryNewVersion: Boolean = false): ProximityReading =
+            readings.selected(tryNewVersion)
 
-        private fun newListener() = ScProximitySensor { newReading ->
-            reading = newReading
+        private fun newListener() = ScProximitySensor { newReadings ->
+            readings = newReadings
         }
     }
 

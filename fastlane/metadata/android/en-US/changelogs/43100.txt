@@ -1,0 +1,2 @@
+Restored the original pocket detection to fix notification wakes failing on some devices
+Added optional new pocket detection, off by default; missing or invalid sensor readings allow the screen to wake

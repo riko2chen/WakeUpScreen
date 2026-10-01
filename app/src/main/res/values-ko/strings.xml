@@ -412,4 +412,8 @@
     <string name="changelog_v43000_8">Bluetooth 화면 켜기 조건 추가: 선택한 페어링 기기 중 하나 이상이 연결된 경우에만 최초 알림과 반복 알림으로 화면을 켭니다. 기본값은 꺼짐이며, 활성화 후 권한이 없거나 연결을 감지하지 못하면 화면 켜기를 차단합니다</string>
     <string name="changelog_v43000_9">공유 반복 알림 주기의 안정성 개선: 알림 업데이트로 반복 알림이 계속 미뤄지거나 필터링된 알림이 같은 묶음의 유효한 알림을 가리는 문제를 수정했습니다</string>
     <string name="changelog_v43000_10">진동 및 Bluetooth 권한 추가. Android 12 이상에서는 Bluetooth 기능을 활성화할 때 근처 기기 권한을 요청하며, 위치 또는 Bluetooth 검색 권한은 추가하지 않습니다</string>
+    <string name="pocket_mode_try_new_version">새 주머니 감지 사용해 보기</string>
+    <string name="pocket_mode_try_new_version_desc">끄면 기존 근거리 감지를 사용합니다. 켜면 주머니 안으로 판단하는 거리 범위를 넓힙니다. 유효한 센서 값을 얻지 못하면 화면 켜기를 허용합니다. 화면이 켜지지 않으면 이 옵션을 끄세요.</string>
+    <string name="changelog_v43100_1">기존 주머니 감지를 복원하여 일부 기기에서 알림으로 화면이 켜지지 않는 문제를 수정했습니다</string>
+    <string name="changelog_v43100_2">새 주머니 감지 옵션을 추가했습니다. 기본값은 꺼짐이며, 센서 값이 없거나 유효하지 않으면 화면 켜기를 허용합니다</string>
 </resources>

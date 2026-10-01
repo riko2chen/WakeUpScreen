@@ -4,6 +4,13 @@ Tutte le modifiche rilevanti di WakeUpScreen sono documentate qui, organizzate p
 
 ---
 
+## [4.3.1]
+
+- Ripristinato il rilevamento originale in tasca per correggere la mancata accensione con le notifiche su alcuni dispositivi
+- Aggiunto un nuovo rilevamento in tasca opzionale, disattivato per impostazione predefinita; valori mancanti o non validi consentono di accendere lo schermo
+
+---
+
 ## [4.3.0]
 
 - Layout da bordo a bordo migliorato per barre di sistema, fori della fotocamera e tastiera

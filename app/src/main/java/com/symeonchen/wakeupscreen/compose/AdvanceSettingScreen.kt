@@ -42,6 +42,8 @@ fun AdvanceSettingScreen(
     proximityChecked: Boolean,
     proximitySubtitle: String,
     onProximityToggle: () -> Unit,
+    pocketModeTryNewVersionChecked: Boolean,
+    onPocketModeTryNewVersionToggle: () -> Unit,
     faceDownChecked: Boolean,
     onFaceDownToggle: () -> Unit,
     ongoingChecked: Boolean,
@@ -200,6 +202,15 @@ fun AdvanceSettingScreen(
                     checked = proximityChecked,
                     onCheckedChange = onProximityToggle,
                 )
+                if (proximityChecked) {
+                    FlatDivider()
+                    SettingSwitchRow(
+                        title = stringResource(R.string.pocket_mode_try_new_version),
+                        subtitle = stringResource(R.string.pocket_mode_try_new_version_desc),
+                        checked = pocketModeTryNewVersionChecked,
+                        onCheckedChange = onPocketModeTryNewVersionToggle,
+                    )
+                }
                 FlatDivider()
                 SettingSwitchRow(
                     title = stringResource(R.string.face_down_title),

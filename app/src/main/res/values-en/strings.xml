@@ -426,4 +426,8 @@
     <string name="changelog_v43000_8">Optional Bluetooth wake condition: any one selected paired device must be connected for initial notifications and repeat reminders to wake the screen. Off by default; missing permission or an undetected connection blocks wakes when enabled</string>
     <string name="changelog_v43000_9">More reliable shared reminder cycles: notification updates no longer keep postponing reminders, and a filtered notification no longer hides other eligible notifications in the same batch</string>
     <string name="changelog_v43000_10">Added vibration and Bluetooth permissions. On Android 12 and later, Nearby devices access is requested when enabling the Bluetooth feature; no location or Bluetooth scanning permission is added</string>
+    <string name="pocket_mode_try_new_version">Try new pocket detection</string>
+    <string name="pocket_mode_try_new_version_desc">Off uses the original close-range detection; on expands the range considered to be inside a pocket. Missing or invalid readings allow the screen to wake. Turn this off if waking fails.</string>
+    <string name="changelog_v43100_1">Restored the original pocket detection to fix notification wakes failing on some devices</string>
+    <string name="changelog_v43100_2">Added optional new pocket detection, off by default; missing or invalid sensor readings allow the screen to wake</string>
 </resources>

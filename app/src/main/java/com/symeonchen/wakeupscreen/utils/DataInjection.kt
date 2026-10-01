@@ -131,6 +131,11 @@ object DataInjection {
             ScStore.putBoolean(PROXIMITY_SWITCH, switch)
         }
 
+    /** Opt-in: existing installations retain the legacy zero-only threshold. */
+    var pocketModeTryNewVersion: Boolean
+        get() = ScStore.getBoolean(ScConstant.POCKET_MODE_TRY_NEW_VERSION, false)
+        set(value) { ScStore.putBoolean(ScConstant.POCKET_MODE_TRY_NEW_VERSION, value) }
+
     var switchOfFaceDown: Boolean
         get() {
             return ScStore.getBoolean(FACE_DOWN_SWITCH, DEFAULT_SWITCH_OF_FACE_DOWN)

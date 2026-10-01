@@ -23,6 +23,10 @@ class SettingViewModel : ViewModel() {
             setValue(DataInjection.switchOfProximity)
         }
 
+    var pocketModeTryNewVersion: ScLiveData<Boolean> = ScLiveData<Boolean>().apply {
+        setValue(DataInjection.pocketModeTryNewVersion)
+    }
+
     var switchOfFaceDown: ScLiveData<Boolean> = ScLiveData<Boolean>()
         .apply {
             setValue(DataInjection.switchOfFaceDown)
@@ -138,6 +142,12 @@ class SettingViewModel : ViewModel() {
     }
 
     init {
+        pocketModeTryNewVersion.listener = object : ScLiveData.OnLiveDataValueInput<Boolean> {
+            override fun onValueInput(value: Boolean) {
+                DataInjection.pocketModeTryNewVersion = value
+            }
+        }
+
         repeatReminderScreenOnSeconds.listener = object : ScLiveData.OnLiveDataValueInput<Long> {
             override fun onValueInput(value: Long) {
                 DataInjection.repeatReminderScreenOnSeconds = value

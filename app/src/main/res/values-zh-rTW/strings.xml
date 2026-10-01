@@ -412,4 +412,8 @@
     <string name="changelog_v43000_8">新增藍牙亮屏條件：所選已配對裝置中任一台連線時，才允許首次通知和重複提醒亮屏。預設關閉；啟用後缺少權限或未偵測到連線時阻止亮屏</string>
     <string name="changelog_v43000_9">改善共用提醒週期：通知更新不再不斷延後提醒，同批次中被篩除的通知不再遮蔽其他符合條件的通知</string>
     <string name="changelog_v43000_10">新增震動和藍牙權限；Android 12 及以上在啟用藍牙功能時申請附近裝置權限，不新增定位或藍牙掃描權限</string>
+    <string name="pocket_mode_try_new_version">嘗試新版口袋偵測</string>
+    <string name="pocket_mode_try_new_version_desc">關閉時使用原版近距離偵測；開啟後擴大口袋判定範圍。無法取得有效讀數時允許亮屏；若亮屏異常，請關閉此選項。</string>
+    <string name="changelog_v43100_1">恢復原版口袋偵測，修正部分裝置收到通知無法亮屏的問題</string>
+    <string name="changelog_v43100_2">新增預設關閉的新版口袋偵測試用選項；感測器讀數缺失或無效時允許亮屏</string>
 </resources>

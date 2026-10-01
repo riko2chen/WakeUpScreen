@@ -13,6 +13,7 @@ object ScConstant {
     /** Legacy runtime key retained only so pre-4.1 MMKV data can be migrated safely. */
     const val PROXIMITY_STATUS = "proximity_status"
     const val PROXIMITY_SWITCH = "proximity_switch"
+    const val POCKET_MODE_TRY_NEW_VERSION = "pocket_mode_try_new_version"
     const val FACE_DOWN_STATUS = "face_down_status"
     const val FACE_DOWN_SWITCH = "face_down_switch"
     const val BATTERY_SAVER_FAKE_SWITCH = "battery_saver_fake_switch"

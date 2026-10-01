@@ -30,11 +30,11 @@ class PocketModeCondition : LimitedCondition.NoParamCondition() {
 
     override fun wouldBlockNow(application: Application?): Boolean = isCovered()
 
-    /** Armed and covered, or still waiting for the first safe sensor reading. */
+    /** Both notification and reminder checks block only a known covered reading. */
     private fun isCovered(): Boolean =
         PocketModePolicy.shouldBlock(
             DataInjection.switchOfProximity,
-            ProximitySensorState.currentReading(),
+            ProximitySensorState.currentReading(DataInjection.pocketModeTryNewVersion),
         )
 
 

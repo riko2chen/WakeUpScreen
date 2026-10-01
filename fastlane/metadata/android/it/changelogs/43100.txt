@@ -1,0 +1,2 @@
+Ripristinato il rilevamento originale in tasca per correggere la mancata accensione con le notifiche su alcuni dispositivi
+Aggiunto un nuovo rilevamento in tasca opzionale, disattivato per impostazione predefinita; valori mancanti o non validi consentono di accendere lo schermo

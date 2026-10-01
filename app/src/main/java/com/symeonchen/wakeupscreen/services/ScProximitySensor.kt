@@ -4,13 +4,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 
-/**
- * The state of the proximity sensor in this process.
- *
- * UNKNOWN is deliberately distinct from FAR. A newly rebound notification
- * listener must not assume that the phone is outside a pocket while it is
- * still waiting for the sensor's first reading.
- */
+/** Runtime state only: missing readings must not prevent a notification wake. */
 enum class ProximityReading {
     UNKNOWN,
     NEAR,
@@ -18,63 +12,66 @@ enum class ProximityReading {
     UNAVAILABLE,
 }
 
+/** Keep both interpretations so changing the setting needs no new sensor event. */
+data class ProximityReadings(
+    val legacy: ProximityReading = ProximityReading.UNKNOWN,
+    val experimental: ProximityReading = ProximityReading.UNKNOWN,
+) {
+    fun selected(tryNewVersion: Boolean): ProximityReading =
+        if (tryNewVersion) experimental else legacy
+}
+
 /** Pure proximity arithmetic, kept outside Android callbacks for unit tests. */
 object ProximityDetector {
-
-    /**
-     * Android only promises that a near reading is less than maximumRange; it
-     * does not promise that near is exactly zero. That distinction matters for
-     * virtual and under-display proximity sensors used by newer phones.
-     */
-    fun classify(distance: Float, maximumRange: Float): ProximityReading {
-        if (!distance.isFinite() || !maximumRange.isFinite() ||
-            distance < 0f || maximumRange <= 0f) {
+    fun classify(
+        distance: Float,
+        maximumRange: Float,
+        tryNewVersion: Boolean = false,
+    ): ProximityReading {
+        if (!distance.isFinite() || distance < 0f) {
             return ProximityReading.UNKNOWN
         }
-        return if (distance < maximumRange) {
-            ProximityReading.NEAR
-        } else {
-            ProximityReading.FAR
+        // Restore the old zero-only threshold without persisting sensor state
+        // or truncating positive fractional distances to zero.
+        if (!tryNewVersion) {
+            return if (distance == 0f) ProximityReading.NEAR else ProximityReading.FAR
         }
+        if (!maximumRange.isFinite() || maximumRange <= 0f) {
+            return ProximityReading.UNKNOWN
+        }
+        return if (distance < maximumRange) ProximityReading.NEAR else ProximityReading.FAR
     }
+
+    fun readings(distance: Float, maximumRange: Float) = ProximityReadings(
+        legacy = classify(distance, maximumRange),
+        experimental = classify(distance, maximumRange, tryNewVersion = true),
+    )
 }
 
-/** The fail-safe rule applied while pocket mode is enabled. */
+/** Only a known near reading blocks, for both legacy and experimental detection. */
 object PocketModePolicy {
     fun shouldBlock(enabled: Boolean, reading: ProximityReading): Boolean =
-        enabled && when (reading) {
-            ProximityReading.NEAR,
-            ProximityReading.UNKNOWN -> true
-
-            ProximityReading.FAR,
-            ProximityReading.UNAVAILABLE -> false
-        }
+        enabled && reading == ProximityReading.NEAR
 }
 
-/**
- * Created by SymeonChen on 2019-10-27.
- */
 class ScProximitySensor(
-    private val onReadingChanged: (ProximityReading) -> Unit,
+    private val onReadingChanged: (ProximityReadings) -> Unit,
 ) : SensorEventListener {
 
-    private var lastReading = ProximityReading.UNKNOWN
+    private var lastReadings = ProximityReadings()
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-
-    }
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     override fun onSensorChanged(event: SensorEvent?) {
-        if (event?.sensor?.type != Sensor.TYPE_PROXIMITY || event.values.isEmpty()) {
-            return
-        }
-        val reading = ProximityDetector.classify(
-            distance = event.values[0],
+        if (event?.sensor?.type != Sensor.TYPE_PROXIMITY) return
+        // An empty event invalidates the last reading instead of leaving NEAR stuck.
+        val readings = ProximityDetector.readings(
+            distance = event.values.firstOrNull() ?: Float.NaN,
             maximumRange = event.sensor.maximumRange,
         )
-        if (reading != lastReading) {
-            lastReading = reading
-            onReadingChanged(reading)
+        if (readings != lastReadings) {
+            lastReadings = readings
+            onReadingChanged(readings)
         }
     }
 }

@@ -426,4 +426,8 @@
     <string name="changelog_v43000_8">Condizione Bluetooth facoltativa: almeno un dispositivo associato selezionato deve essere connesso per consentire il risveglio con notifiche iniziali e promemoria. Disattivata per impostazione predefinita; se attiva, permessi mancanti o connessioni non rilevate bloccano il risveglio</string>
     <string name="changelog_v43000_9">Cicli condivisi dei promemoria più affidabili: gli aggiornamenti delle notifiche non rinviano più continuamente i promemoria e una notifica filtrata non nasconde più le altre notifiche idonee del gruppo</string>
     <string name="changelog_v43000_10">Aggiunti permessi per vibrazione e Bluetooth. Da Android 12, il permesso Dispositivi nelle vicinanze viene richiesto quando si attiva la funzione Bluetooth; nessun nuovo permesso di posizione o scansione Bluetooth</string>
+    <string name="pocket_mode_try_new_version">Prova il nuovo rilevamento in tasca</string>
+    <string name="pocket_mode_try_new_version_desc">Se disattivato, usa il rilevamento originale a distanza ravvicinata. Se attivato, amplia la distanza entro cui il dispositivo è considerato in tasca. Valori mancanti o non validi consentono di accendere lo schermo. Disattiva questa opzione se lo schermo non si accende.</string>
+    <string name="changelog_v43100_1">Ripristinato il rilevamento originale in tasca per correggere la mancata accensione con le notifiche su alcuni dispositivi</string>
+    <string name="changelog_v43100_2">Aggiunto un nuovo rilevamento in tasca opzionale, disattivato per impostazione predefinita; valori mancanti o non validi consentono di accendere lo schermo</string>
 </resources>
